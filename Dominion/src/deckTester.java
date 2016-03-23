@@ -2,7 +2,7 @@
 public class deckTester {
 	public static void main(String[] args){
 		
-		deck d = new deck();
+		Deck d = new Deck();
 		d.generateStarterDeck();
 		System.out.println(d.showAmountOfCardsInDeck());
 		d.displayDeck();

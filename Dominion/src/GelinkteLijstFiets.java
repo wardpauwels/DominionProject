@@ -6,63 +6,49 @@
 
 
 /**
- *
  * @author Dirk.Vandycke
  */
-public class GelinkteLijstFiets
-{
+public class GelinkteLijstFiets {
     private Knoop huidige;
     private boolean vooruit;
-    
-    public GelinkteLijstFiets(Knoop huidige, boolean vooruit)
-    {
+
+    public GelinkteLijstFiets(Knoop huidige, boolean vooruit) {
         this.huidige = huidige;
         this.vooruit = vooruit;//false
     }
-    
-    public int geefData()
-    {
+
+    public int geefData() {
         return huidige.geefData();
     }
-    
-    public boolean heeftEenVolgende()
-    {
+
+    public boolean heeftEenVolgende() {
         if (vooruit)
             return huidige.geefVolgende() != null;
         else
-            return huidige.geefVorige()!= null;
+            return huidige.geefVorige() != null;
     }
-    
-    public void gaNaarVolgende()
-    {
-        if(vooruit)
-        {
-            if(heeftEenVolgende())
+
+    public void gaNaarVolgende() {
+        if (vooruit) {
+            if (heeftEenVolgende())
                 huidige = huidige.geefVolgende();
-        }
-        else
-            if(heeftEenVorige())
-                huidige = huidige.geefVorige();
+        } else if (heeftEenVorige())
+            huidige = huidige.geefVorige();
     }
-    
-    public boolean heeftEenVorige()
-    {
+
+    public boolean heeftEenVorige() {
         if (vooruit)
-            return huidige.geefVorige()!= null;
+            return huidige.geefVorige() != null;
         else
             return huidige.geefVolgende() != null;
     }
-    
-    public void gaNaarVorige()
-    {
-        if(vooruit)
-        {
-            if(heeftEenVorige())
+
+    public void gaNaarVorige() {
+        if (vooruit) {
+            if (heeftEenVorige())
                 huidige = huidige.geefVorige();
-        }
-        else
-            if(heeftEenVolgende())
-                huidige = huidige.geefVolgende();
+        } else if (heeftEenVolgende())
+            huidige = huidige.geefVolgende();
 
     }
 }

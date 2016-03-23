@@ -6,60 +6,51 @@
 
 
 /**
- *
  * @author Dirk.Vandycke
  */
-public class GelinkteLijst
-{
+public class GelinkteLijst {
     private Knoop eerste;
     private Knoop laatste;
-    
-    public boolean isLeeg()
-    {
+
+    public boolean isLeeg() {
         return eerste == null;
     }
-    
-    public void voegToe(int data)
-    {
+
+    public void voegToe(int data) {
         Knoop k = new Knoop(null, data, eerste);
-        if(isLeeg()) laatste = k;
+        if (isLeeg()) laatste = k;
         else eerste.zetVorige(k);
-        eerste =  k;
+        eerste = k;
     }
-    
-    public void voegAchteraanToe(int data)
-    {
-        if(isLeeg())
+
+    public void voegAchteraanToe(int data) {
+        if (isLeeg())
             voegToe(data);
-        else
-        {
+        else {
             Knoop k = new Knoop(laatste, data, null);
             laatste.zetVolgende(k);
             laatste = k;
         }
     }
-    
-    public String geefUzelfAlsString(boolean omgekeerd)
-    {
+
+    public String geefUzelfAlsString(boolean omgekeerd) {
         String res = "";
         GelinkteLijstFiets fiets;
         if (omgekeerd)
             fiets = new GelinkteLijstFiets(eerste, omgekeerd);
         else
             fiets = new GelinkteLijstFiets(laatste, omgekeerd);
-        while(fiets.heeftEenVolgende())
-        {
+        while (fiets.heeftEenVolgende()) {
             res += fiets.geefData() + " ";
             fiets.gaNaarVolgende();
         }
         res += fiets.geefData() + " ";
         return res;
     }
-  
-    public int geefNdeWaarde(int n)
-    {
+
+    public int geefNdeWaarde(int n) {
         GelinkteLijstFiets fiets = new GelinkteLijstFiets(eerste, true);
-        for (int i = 1; i <= n ; i++)
+        for (int i = 1; i <= n; i++)
             fiets.gaNaarVolgende();
         return fiets.geefData();
     }

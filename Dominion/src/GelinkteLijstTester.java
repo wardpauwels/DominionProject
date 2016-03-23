@@ -6,7 +6,6 @@
 
 
 /**
- *
  * @author Dirk.Vandycke
  */
 public class GelinkteLijstTester {
@@ -14,8 +13,7 @@ public class GelinkteLijstTester {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // TODO code application logic here
         //Knoop eenKnoop = new Knoop(13);
         GelinkteLijst gl = new GelinkteLijst();
@@ -28,5 +26,5 @@ public class GelinkteLijstTester {
         System.out.println(gl.geefUzelfAlsString(true));
         System.out.println(gl.geefNdeWaarde(7));
     }
-    
+
 }

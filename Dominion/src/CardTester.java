@@ -2,9 +2,8 @@
 
 public class CardTester {
 
-	public static void main(String[] args)
-    {
-		/*Card c = new Card();
+    public static void main(String[] args) {
+        /*Card c = new Card();
 		c.SetNumber(45);
 		System.out.println(c.getNumber());*/
 		
@@ -15,10 +14,10 @@ public class CardTester {
 		a.printActionCardTable();*/
 		/*VictoryCardTable v = new VictoryCardTable();
 		v.printVictoryCardTable();*/
-		TreasureCardTable t = new TreasureCardTable();
-		t.printTreasureCardTable();
-		
-		
+        TreasureCardTable t = new TreasureCardTable();
+        t.printTreasureCardTable();
+
+
     }
 }
 

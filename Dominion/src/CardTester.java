@@ -14,9 +14,12 @@ public class CardTester {
 		a.printActionCardTable();*/
 		/*VictoryCardTable v = new VictoryCardTable();
 		v.printVictoryCardTable();*/
-        TreasureCardTable t = new TreasureCardTable();
-        t.printTreasureCardTable();
-
+        /*TreasureCardTable t = new TreasureCardTable();
+        t.printTreasureCardTable();*/
+      Deck d = new Deck();
+        d.generateStarterDeck();
+        d.addToDeck("victory",2);
+        d.printCardsInDeck();
 
     }
 }

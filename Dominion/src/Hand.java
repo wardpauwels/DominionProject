@@ -2,29 +2,34 @@
 import java.util.*;
 
 
+
 public class Hand {
-    public ArrayList<Card> hand = new ArrayList<Card>();
+    private ArrayList<Card> hand = new ArrayList<Card>();
+    private Deck playersDeck = new Deck();
     
     
     public Hand(){
-        
+        generateHand();
     }
     
     
      private Card getCardFromDeck(){
-        Card cardFromDeck = new Card();
+         getRandom randomNumber = new getRandom();
+
+        Card cardFromDeck = playersDeck.getCardOnPos(randomNumber.getRandomNumber(0,playersDeck.showAmountOfCardsInDeck()));
         return cardFromDeck;
     }
     
-    private void fillHand(){
+    private void generateHand(){
         for(int i=0; i < 5; i++){
             Card newCard = getCardFromDeck();
             hand.add(newCard);
         }   
     }
      
-    public void addCardToHand(Card card){
-        hand.add(card);
+    public void addCardToHand(){
+
+        hand.add(getCardFromDeck());
     }
     private void clearHand(){
         int handSize = hand.size();

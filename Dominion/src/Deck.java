@@ -15,7 +15,7 @@ public class Deck {
     private Card[] victoryCards = allVictoryCards.victoryCardTable;
 
     public Deck(){
-
+generateStarterDeck();
     }
 
     public Card getVictoryCard(int victoryCardNumber){
@@ -79,5 +79,7 @@ public class Deck {
             System.out.println(getCardOnPos(i).getName());
         }
     }
+
+
 
 }

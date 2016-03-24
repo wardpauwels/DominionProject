@@ -16,10 +16,17 @@ public class main {
 		v.printVictoryCardTable();*/
         /*TreasureCardTable t = new TreasureCardTable();
         t.printTreasureCardTable();*/
-      Deck d = new Deck();
+      /*Deck d = new Deck();
         d.generateStarterDeck();
         d.addToDeck("victory",2);
-        d.printCardsInDeck();
+        d.printCardsInDeck();*/
+        Hand h = new Hand();
+        h.printHand();
+        h.addCardToHand();
+        System.out.println("-------------");
+        h.printHand();
+        System.out.println("-------------");
+
 
     }
 }

@@ -34,9 +34,9 @@ public class main {
         Game g = new Game();
         g.printDeck(g.playerOne);
         printLine();
-        g.printDeck(g.playerOne);
+        g.printDeck(g.playerTwo);
         printLine();
-        g.printHand(g.playerTwo);
+        g.printHand(g.playerOne);
         printLine();
         g.printHand(g.playerTwo);
         printLine();
@@ -50,6 +50,8 @@ public class main {
         g.printHand(g.playerOne);
         printLine();
         g.printDeck(g.playerOne);
+        printLine();
+
 
     }
     public static void printLine(){

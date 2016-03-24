@@ -79,8 +79,6 @@ public class Game {
             }
 
             actionCardsOnBoard[i] = generateActionCard(randomNumber);
-
-
         }
         fillUpArray();
 

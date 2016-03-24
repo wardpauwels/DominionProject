@@ -6,13 +6,16 @@ public class Player {
     private String name;
     private Deck playersDeck = new Deck();
     private Hand playersHand = new Hand(playersDeck);
-    private Deck discardDeck = new Deck();
+    private Deck discardPile = new Deck();
+
 
 
 
     public Player(){
         playersDeck.generateStarterDeck();
+        playersDeck.shuffleDeck();
         playersHand.generateHand(playersDeck);
+
     }
 
 
@@ -42,16 +45,21 @@ public class Player {
         for(int i = 0; i < handsize; i++){
             Card c = playersHand.getCardOnPos(i);
 
-            discardDeck.addToDeck(c.getType(), c.getNumber());
+            discardPile.addToDeck(c.getType(), c.getNumber());
         }
 
         playersHand.clearHand();
     }
 
-    public void printDiscardple(){
-        for(int i = 0; i < discardDeck.showAmountOfCardsInDeck(); i++){
-            System.out.println(discardDeck.getCardOnPos(i));
+    public void printDiscardDeck(){
+        for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
+            System.out.println(discardPile.getCardOnPos(i));
         }
+    }
+
+    public void resetDiscardDeck(){
+        playersDeck = discardPile;
+        discardPile.clearDeck();
     }
 
     // HAND

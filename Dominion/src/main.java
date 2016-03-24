@@ -3,6 +3,7 @@
 public class main {
 
     public static void main(String[] args) {
+
         /*Card c = new Card();
 		c.SetNumber(45);
 		System.out.println(c.getNumber());*/
@@ -25,10 +26,24 @@ public class main {
         h.addCardToHand();
         System.out.println("-------------");
         h.printHand();
-        System.out.println("-------------");*/
-        Player p = new Player();
+        /*System.out.println("-------------");*/
+        /*Player p = new Player();
         p.printDeck();
+        System.out.println("-------------");
+        p.printHand();*/
+        Game g = new Game();
+        g.printDeck(g.playerOne);
+        printLine();
+        g.printDeck(g.playerTwo);
+
 
     }
+    public static void printLine(){
+        System.out.println("------------------");
+    }
+
+
+
 }
+
 

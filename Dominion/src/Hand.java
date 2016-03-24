@@ -9,7 +9,7 @@ public class Hand {
     
     
     public Hand(Deck playersDeck){
-        generateHand(playersDeck);
+
     }
     
     

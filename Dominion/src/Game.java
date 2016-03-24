@@ -7,12 +7,19 @@ public class Game {
     private Card[] actionCardsOnBoard;
     private ActionCardTable allActionCards = new ActionCardTable();
     private Card[] actionCards = allActionCards.actionCardTable;
+    public Player playerOne = new Player();
+    public Player playerTwo = new Player();
 
     public Game() {
         actionCardsOnBoard = new Card[10];
         generateArray();
         generateBoard();
 
+    }
+    public void printDeck(Player whichPlayer){
+        whichPlayer.printDeck();
+        System.out.println("--------");
+        whichPlayer.printHand();
     }
 
     private void generateBoard() {

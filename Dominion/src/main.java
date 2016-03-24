@@ -20,13 +20,14 @@ public class main {
         d.generateStarterDeck();
         d.addToDeck("victory",2);
         d.printCardsInDeck();*/
-        Hand h = new Hand();
+        /*Hand h = new Hand();
         h.printHand();
         h.addCardToHand();
         System.out.println("-------------");
         h.printHand();
-        System.out.println("-------------");
-
+        System.out.println("-------------");*/
+        Player p = new Player();
+        p.printHand();
 
     }
 }

@@ -25,7 +25,7 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file:///production/DominionProject" />
+    <output url="file:///Applications/apache-tomcat-6.0.45" />
     <output-test url="file:///test/DominionProject" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">

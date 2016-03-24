@@ -35,6 +35,22 @@ public class main {
         g.printDeck(g.playerOne);
         printLine();
         g.printDeck(g.playerTwo);
+        printLine();
+        g.printHand(g.playerOne);
+        printLine();
+        g.printHand(g.playerTwo);
+        printLine();
+        g.setPlayername(g.playerOne, "Robert");
+        System.out.println(g.playerOne.getName());
+        printLine();
+        g.setPlayername(g.playerTwo, "Jens");
+        System.out.println(g.playerTwo.getName());
+        printLine();
+        g.addCardToHand(g.playerOne);
+        g.printHand(g.playerOne);
+        printLine();
+        g.printDeck(g.playerOne);
+        printLine();
 
 
     }

@@ -1,6 +1,6 @@
 
 
-public class CardTester {
+public class main {
 
     public static void main(String[] args) {
         /*Card c = new Card();

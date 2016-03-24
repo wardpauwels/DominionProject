@@ -51,12 +51,6 @@ public class Deck {
         return amount;
     }
 
-    public void displayDeck(){
-        for(int i = 0; i < deck.size(); i++){
-            System.out.println(getCardOnPos(i));
-        }
-    }
-
     public Card getCardOnPos(int i){
         return deck.get(i);
     }

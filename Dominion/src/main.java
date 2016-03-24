@@ -27,7 +27,7 @@ public class main {
         h.printHand();
         System.out.println("-------------");*/
         Player p = new Player();
-        p.printHand();
+        p.printDeck();
 
     }
 }

@@ -16,7 +16,7 @@ public class Hand {
      private Card getCardFromDeck(Deck playersDeck){
          getRandom randomNumber = new getRandom();
 
-        Card cardFromDeck = playersDeck.getCardOnPos(randomNumber.getRandomNumber(0,playersDeck.showAmountOfCardsInDeck()));
+        Card cardFromDeck = playersDeck.getCardOnPos(randomNumber.getRandomNumber(0,playersDeck.showAmountOfCardsInDeck()-1));
         return cardFromDeck;
     }
     

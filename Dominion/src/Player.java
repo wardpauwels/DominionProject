@@ -15,4 +15,8 @@ public class Player {
 
         playersHand.printHand();
     }
+    public void printDeck(){
+
+        playersDeck.printCardsInDeck();
+    }
 }

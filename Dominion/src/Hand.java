@@ -37,14 +37,11 @@ public class Hand {
     }
 
 
-    private void clearHand(){
-        int handSize = hand.size();
-        for(int i=0; i < handSize; i++){
-            hand.remove(i);
-        }
-        
-        
+    public void clearHand(){
+        hand.clear();
+
     }
+
     public Card getCardOnPos(int i){
         return hand.get(i);
     }    
@@ -58,5 +55,8 @@ public class Hand {
             System.out.println(getCardOnPos(i).getName());
             }
         }
-    
+    public int showAmountOfCardsInHand(){
+        int amount = hand.size();
+        return amount;
+    }
 }

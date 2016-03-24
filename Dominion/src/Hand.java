@@ -15,9 +15,13 @@ public class Hand {
     
      private Card getCardFromDeck(Deck playersDeck){
          getRandom randomNumber = new getRandom();
+         int cardFromDeckIndex = randomNumber.getRandomNumber(0,playersDeck.showAmountOfCardsInDeck()-1);
 
-        Card cardFromDeck = playersDeck.getCardOnPos(randomNumber.getRandomNumber(0,playersDeck.showAmountOfCardsInDeck()-1));
-        return cardFromDeck;
+         Card cardFromDeck = playersDeck.getCardOnPos(cardFromDeckIndex);
+
+         playersDeck.removeFromDeck(cardFromDeckIndex);
+
+         return cardFromDeck;
     }
     
     public void generateHand(Deck playersDeck){
@@ -31,6 +35,8 @@ public class Hand {
 
         hand.add(getCardFromDeck(playersDeck));
     }
+
+
     private void clearHand(){
         int handSize = hand.size();
         for(int i=0; i < handSize; i++){
@@ -43,7 +49,9 @@ public class Hand {
         return hand.get(i);
     }    
     
-
+    public void removeFromHand(int index){
+        hand.remove(index);
+    }
     
     public void printHand(){
         for (int i = 0; i < hand.size() ;i ++){

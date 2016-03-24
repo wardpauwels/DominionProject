@@ -74,12 +74,14 @@ public class Deck {
         deck.add(newCard);
     }
 
+    public void removeFromDeck(int index){
+        deck.remove(index);
+    }
+
     public void printCardsInDeck(){
         for (int i = 0; i < deck.size() ;i ++){
             System.out.println(getCardOnPos(i).getName());
         }
     }
-
-
 
 }

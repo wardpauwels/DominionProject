@@ -3,6 +3,8 @@ import java.util.Random;
 /**
  * @author Jens.Thiel
  */
+
+
 public class Game {
     private Card[] actionCardsOnBoard;
     private ActionCardTable allActionCards = new ActionCardTable();
@@ -14,13 +16,24 @@ public class Game {
         actionCardsOnBoard = new Card[10];
         generateArray();
         generateBoard();
-
     }
     public void printDeck(Player whichPlayer){
         whichPlayer.printDeck();
-        System.out.println("--------");
+
+    }
+    public void printHand(Player whichPlayer){
         whichPlayer.printHand();
     }
+
+
+    public void setPlayername(Player whichPlayer, String playername){
+        whichPlayer.setName(playername);
+    }
+
+    public void addCardToHand(Player whichPlayer){
+        whichPlayer.addCardFromDeckToHand();
+    }
+
 
     private void generateBoard() {
 

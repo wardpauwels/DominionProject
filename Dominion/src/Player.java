@@ -37,11 +37,22 @@ public class Player {
         playersDeck.removeFromDeck(index);
     }
 
-    public void addToDiscardDeck(Card c){
-        discardDeck.addToDeck();
+    public void addToDiscardpile(){
+        int handsize = playersHand.showAmountOfCardsInHand();
+        for(int i = 0; i < handsize; i++){
+            Card c = playersHand.getCardOnPos(i);
+
+            discardDeck.addToDeck(c.getType(), c.getNumber());
+        }
+
+        playersHand.clearHand();
     }
 
-
+    public void printDiscardple(){
+        for(int i = 0; i < discardDeck.showAmountOfCardsInDeck(); i++){
+            System.out.println(discardDeck.getCardOnPos(i));
+        }
+    }
 
     // HAND
     public void printHand(){

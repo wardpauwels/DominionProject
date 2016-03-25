@@ -9,6 +9,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
     <facet type="web" name="Web2">
@@ -19,6 +20,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/Web" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
     <facet type="web" name="Web3">
@@ -29,6 +31,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
   </component>

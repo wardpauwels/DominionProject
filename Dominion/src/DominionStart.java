@@ -15,14 +15,6 @@ public class DominionStart extends JFrame implements ActionListener {
         kader.setSize(BREEDTE, HOOGTE);
         kader.setDefaultCloseOperation(EXIT_ON_CLOSE);
         kader.setTitle("Dominion");
-
-        kader.setLayout(new BorderLayout());
-        kader.setContentPane(new JLabel(new ImageIcon("swingStuff/image.jpg")));
-        kader.setLayout(new FlowLayout());
-        l1=new JLabel("Here is a button");
-        b1=new JButton("I am a button");
-        kader.add(l1);
-        kader.add(b1);
         kader.inhoud();
         kader.setVisible(true);
     }

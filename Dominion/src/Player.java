@@ -10,7 +10,7 @@ public class Player {
 
 
 
-
+// speler aanmaken, starter deck maken, kaarten schudden, 5 kaarten trekken.
     public Player(){
         playersDeck.generateStarterDeck();
         playersDeck.shuffleDeck();
@@ -67,8 +67,25 @@ public class Player {
 
         playersHand.printHand();
     }
-
+//Om 1 kaart te trekken
     public void addCardFromDeckToHand(){
         playersHand.addCardToHand(playersDeck);
+    }
+// wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
+    // NIET GEBRUIKEN OM 1 KAART TE TREKKEN
+    public void generateNextHand(){
+        int restOfCardsInPlayersDeck = playersDeck.showAmountOfCardsInDeck();
+               if (restOfCardsInPlayersDeck<=5)
+               {
+                   for(int i=0;i<restOfCardsInPlayersDeck;i++){
+                       playersHand.addCardToHand(playersDeck);
+                   }
+                   playersDeck = discardPile;
+                   discardPile.clearDeck();
+                   playersDeck.shuffleDeck();
+               }
+               else{
+                    playersHand.generateHand(playersDeck);
+               }
     }
 }

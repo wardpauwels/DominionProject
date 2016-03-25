@@ -1,0 +1,23 @@
+#body h1 {
+    font-size: 3rem;
+    border-bottom: 2px solid #ffd5b2;
+    width: 564px;
+    padding: 75px 0 20px 0;
+    margin: 3px 0 20px 166px;
+}
+.rules {
+    font-size: 1.3rem;
+    width: 564px;
+    padding-top:100px;
+}
+div#body1 p {
+    padding-top: 53px;
+}
+div#containerdownloadbuttons {
+    position: relative;
+    height: 114px;
+    background-repeat: no-repeat;
+    left: 0px;
+    top: 0px;
+    margin-bottom: -240px;
+}

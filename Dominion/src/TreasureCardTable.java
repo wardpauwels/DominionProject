@@ -23,7 +23,7 @@ public class TreasureCardTable {
         newCard.setCost(cost);
         newCard.setName(name);
         newCard.setType("treasure");
-        newCard.SetNumber(number);
+        newCard.setNumber(number);
 
 
         return newCard;

@@ -11,7 +11,7 @@ public class Hand {
     public Hand(Deck playersDeck){
 
     }
-    
+    //bovenste kaart van het pakje nemen
     
      private Card getCardFromDeck(Deck playersDeck){
          Card cardFromDeck = playersDeck.getCardOnPos(0);
@@ -25,7 +25,7 @@ public class Hand {
             hand.add(newCard);
         }   
     }
-     
+     // 5 kaarten nemen
     public void addCardToHand(Deck playersDeck){
 
         hand.add(getCardFromDeck(playersDeck));
@@ -44,6 +44,8 @@ public class Hand {
     public void removeFromHand(int index){
         hand.remove(index);
     }
+
+    //testfunctie
     
     public void printHand(){
         for (int i = 0; i < hand.size() ;i ++){

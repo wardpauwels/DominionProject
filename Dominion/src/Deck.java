@@ -18,23 +18,22 @@ public class Deck {
         cardList = new ArrayList<Card>();
     }
 
-    public Card getVictoryCard(int victoryCardNumber){
+    private Card getVictoryCard(int victoryCardNumber){
         Card newCard = new Card();
         newCard = victoryCards[victoryCardNumber];
         return newCard;
     }
 
-    public Card getCoinCard(int coinNumber){
+    private Card getCoinCard(int coinNumber){
         Card newCard = new Card();
         newCard = treasureCards[coinNumber];
         return newCard;
 
     }
 
-    public void generateStarterDeck(){
+    private void generateStarterDeck(){
         int coinsInStarterDeck = 7;
         int estateInStarterDeck = 3;
-//        deck = new ArrayList<Card>();
 
         for (int i = 0; i < coinsInStarterDeck; i++){
             Card coinCard = getCoinCard(0);
@@ -46,12 +45,11 @@ public class Deck {
         }
     }
 
-    public int showAmountOfCardsInDeck(){
-        int amount = cardList.size();
-        return amount;
+    private int showAmountOfCardsInDeck(){
+        return cardList.size();
     }
 
-    public Card getCardOnPos(int i){
+    private Card getCardOnPos(int i){
         return cardList.get(i);
     }
 
@@ -72,26 +70,20 @@ public class Deck {
         cardList.add(newCard);
     }
 
-    public void addCardToDeck(Card c){
+    private void addCardToDeck(Card c){
         cardList.add(c);
     }
 
-    public void shuffleDeck(){
+    private void shuffleDeck(){
         Collections.shuffle(cardList);
     }
 
-    public void removeFromDeck(int index){
+    private void removeFromDeck(int index){
         cardList.remove(index);
     }
 
-    public void clearDeck(){
+    private void clearDeck(){
         cardList.clear();
-    }
-
-    public void printCardsInDeck(){
-        for (int i = 0; i < cardList.size() ;i ++){
-            System.out.println(getCardOnPos(i).getName());
-        }
     }
 
 }

@@ -31,25 +31,23 @@ public class Deck {
 
     }
 
-    private void generateStarterDeck(){
+    public void generateStarterDeck(){
         int coinsInStarterDeck = 7;
         int estateInStarterDeck = 3;
 
         for (int i = 0; i < coinsInStarterDeck; i++){
-            Card coinCard = getCoinCard(0);
-            cardList.add(coinCard);
+            addToDeck("treasure", 1);
         }
         for (int i = 0; i < estateInStarterDeck; i++){
-            Card estateCard = getVictoryCard(0);
-            cardList.add(estateCard);
+            addToDeck("victory", 1);
         }
     }
 
-    private int showAmountOfCardsInDeck(){
+    public int showAmountOfCardsInDeck(){
         return cardList.size();
     }
 
-    private Card getCardOnPos(int i){
+    public Card getCardOnPos(int i){
         return cardList.get(i);
     }
 
@@ -70,20 +68,27 @@ public class Deck {
         cardList.add(newCard);
     }
 
-    private void addCardToDeck(Card c){
+    public void addCardToDeck(Card c){
         cardList.add(c);
     }
 
-    private void shuffleDeck(){
+    public void shuffleDeck(){
         Collections.shuffle(cardList);
     }
 
-    private void removeFromDeck(int index){
+    public void removeFromDeck(int index){
         cardList.remove(index);
     }
 
-    private void clearDeck(){
+    public void clearDeck(){
         cardList.clear();
+    }
+
+    public void printDeck(){
+        int length = cardList.size();
+        for(int i = 0; i < length; i++){
+            System.out.println(getCardOnPos(i));
+        }
     }
 
 }

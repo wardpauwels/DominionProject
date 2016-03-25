@@ -3,17 +3,37 @@ import java.util.Random;
 /**
  * @author Jens.Thiel
  */
+
+
 public class Game {
     private Card[] actionCardsOnBoard;
     private ActionCardTable allActionCards = new ActionCardTable();
     private Card[] actionCards = allActionCards.actionCardTable;
+    public Player playerOne = new Player();
+    public Player playerTwo = new Player();
 
     public Game() {
         actionCardsOnBoard = new Card[10];
         generateArray();
         generateBoard();
+    }
+    public void printDeck(Player whichPlayer){
+        whichPlayer.printDeck();
 
     }
+    public void printHand(Player whichPlayer){
+        whichPlayer.printHand();
+    }
+
+
+    public void setPlayername(Player whichPlayer, String playername){
+        whichPlayer.setName(playername);
+    }
+
+    public void addCardToHand(Player whichPlayer){
+        whichPlayer.addCardFromDeckToHand();
+    }
+
 
     private void generateBoard() {
 
@@ -59,8 +79,6 @@ public class Game {
             }
 
             actionCardsOnBoard[i] = generateActionCard(randomNumber);
-
-
         }
         fillUpArray();
 

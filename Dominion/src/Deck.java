@@ -6,6 +6,7 @@ import java.util.*;
 */
 // controleer of alles nog nodig is hieronder.
 
+
 public class Deck {
     private ArrayList<Card> deck;
     private ActionCardTable allActionCards = new ActionCardTable();

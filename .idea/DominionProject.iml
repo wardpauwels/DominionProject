@@ -9,7 +9,6 @@
         <webroots>
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
-        <sourceRoots />
       </configuration>
     </facet>
     <facet type="web" name="Web2">
@@ -20,20 +19,9 @@
         <webroots>
           <root url="file://$MODULE_DIR$/Web" relative="/" />
         </webroots>
-        <sourceRoots />
       </configuration>
     </facet>
     <facet type="web" name="Web3">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/wtpwebapps/DominionProject/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/wtpwebapps/DominionProject" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web4">
       <configuration>
         <descriptors>
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/web.xml" />
@@ -43,100 +31,10 @@
         </webroots>
       </configuration>
     </facet>
-    <facet type="web" name="Web5">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/wtpwebapps/ROOT/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/wtpwebapps/ROOT" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web6">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/backup/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/backup" relative="/WEB-INF" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web7">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/docs/appdev/sample/web/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/docs/appdev/sample/web" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web8">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/examples/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/examples" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web9">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/docs/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/docs" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web10">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/host-manager/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/host-manager" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web11">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/ROOT/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/ROOT" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web12">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/manager/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/webapps/manager" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-    <facet type="web" name="Web13">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/conf/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/out/artifacts/DominionProject_war_exploded/WEB-INF/classes/conf" relative="/WEB-INF" />
-        </webroots>
-      </configuration>
-    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file:///Applications/apache-tomcat-6.0.45" />
-    <output-test url="file:///test/DominionProject" />
+    <output url="file://$USER_HOME$/Documents/production/Dominion" />
+    <output-test url="file://$USER_HOME$/Documents/test/Dominion" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/Dominion/src" isTestSource="false" />

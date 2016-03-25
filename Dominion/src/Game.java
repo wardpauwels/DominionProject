@@ -12,19 +12,21 @@ public class Game {
     public Player playerOne = new Player();
     public Player playerTwo = new Player();
 
+
+
     public Game() {
         actionCardsOnBoard = new Card[10];
         generateArray();
         generateBoard();
     }
+
     public void printDeck(Player whichPlayer){
         whichPlayer.printDeck();
-
     }
+
     public void printHand(Player whichPlayer){
         whichPlayer.printHand();
     }
-
 
     public void setPlayername(Player whichPlayer, String playername){
         whichPlayer.setName(playername);

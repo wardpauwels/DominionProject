@@ -42,17 +42,21 @@ public class Player {
 
     public void addToDiscardpile(){
         int handsize = playersHand.showAmountOfCardsInHand();
-        for(int i = 0; i < handsize; i++){
+        System.out.println(handsize);
+        for(int i = 0; i < handsize -1; i++){
             Card c = playersHand.getCardOnPos(i);
+            System.out.println(c.getName());
 
             discardPile.addToDeck(c.getType(), c.getNumber());
-        }
+            discardPile.printCardsInDeck();
 
+        }
         playersHand.clearHand();
     }
 
     public void printDiscardDeck(){
-        for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
+        int amountInDeck = discardPile.showAmountOfCardsInDeck() -1 ;
+        for(int i = 0; i < amountInDeck; i++){
             System.out.println(discardPile.getCardOnPos(i));
         }
     }
@@ -66,6 +70,9 @@ public class Player {
     public void printHand(){
 
         playersHand.printHand();
+    }
+    public void generateHand(){
+        playersHand.generateHand(playersDeck);
     }
 
     public void addCardFromDeckToHand(){

@@ -31,26 +31,41 @@ public class main {
         p.printDeck();
         System.out.println("-------------");
         p.printHand();*/
+
+        // start game test
+
         Game g = new Game();
+        /*System.out.println("DECK PLAYER 1");
         g.printDeck(g.playerOne);
         printLine();
         g.printDeck(g.playerTwo);
         printLine();
+        System.out.println("HAND PLAYER 1");
         g.printHand(g.playerOne);
         printLine();
         g.printHand(g.playerTwo);
         printLine();
+        */
+        // set name test
+        /*
         g.setPlayername(g.playerOne, "Robert");
         System.out.println(g.playerOne.getName());
         printLine();
         g.setPlayername(g.playerTwo, "Jens");
         System.out.println(g.playerTwo.getName());
         printLine();
-        g.addCardToHand(g.playerOne);
-        g.printHand(g.playerOne);
-        printLine();
-        g.printDeck(g.playerOne);
-        printLine();
+        */
+        // adding cards test
+
+        //g.playerOne.generateHand();
+        //g.printHand(g.playerOne);
+        //printLine();
+        //g.printDeck(g.playerOne);
+        //printLine();
+
+        g.playerOne.addToDiscardpile();
+        //.playerOne.printDiscardDeck();
+
 
 
     }

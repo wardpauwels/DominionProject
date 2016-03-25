@@ -48,8 +48,10 @@ public class Hand {
     public void printHand(){
         for (int i = 0; i < hand.size() ;i ++){
             System.out.println(getCardOnPos(i).getName());
-            }
         }
+    }
+
+
     public int showAmountOfCardsInHand(){
         int amount = hand.size();
         return amount;

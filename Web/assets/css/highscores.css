@@ -1,0 +1,21 @@
+#body h1 {
+    font-size: 3rem;
+    border-bottom: 2px solid #ffd5b2;
+    width: 564px;
+    padding: 75px 0 20px 0;
+    margin: 3px 0 20px 166px;
+}
+
+#body1 {
+    padding-bottom:62px;
+}
+
+#body1 {
+    background-image: url("../images/layout_tile.png");
+    height:326px;
+    width:1176px;
+    margin-left:auto;
+    margin-right:auto;
+    background-repeat: repeat-y;
+    margin-bottom:-176px;
+}

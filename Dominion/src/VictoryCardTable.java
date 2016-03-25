@@ -23,8 +23,8 @@ public class VictoryCardTable {
         newCard.setCost(cost);
         newCard.setName(name);
         newCard.setType("victory");
-        newCard.SetNumber(number);
-        newCard.SetPoints(points);
+        newCard.setNumber(number);
+        newCard.setPoints(points);
 
         return newCard;
     }

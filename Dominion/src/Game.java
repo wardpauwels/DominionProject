@@ -11,11 +11,28 @@ public class Game {
     private Card[] actionCards = allActionCards.actionCardTable;
     public Player playerOne = new Player();
     public Player playerTwo = new Player();
+    //een linked list van gespeelde kaarten (nog resetten bij iedere 'phase' en opvullen bij iedere 'phase')
+    private Deck playedCards = new Deck();
+    private int currentlyActiveAmountOfCoins;
 
     public Game() {
         actionCardsOnBoard = new Card[10];
         generateArray();
         generateBoard();
+    }
+    public void nextTurnFor (Player whichPlayer){
+        currentlyActiveAmountOfCoins = 0;
+        ExecuteDrawPhase(whichPlayer);
+        ExecuteBuyPhase(whichPlayer);
+
+    }
+
+    private void ExecuteDrawPhase(Player whichPlayer){
+        whichPlayer.generateNextHand();
+    }
+    public void ExecuteBuyPhase(Player whichPlayer){
+
+
     }
     public void printDeck(Player whichPlayer){
         whichPlayer.printDeck();
@@ -24,8 +41,34 @@ public class Game {
     public void printHand(Player whichPlayer){
         whichPlayer.printHand();
     }
+    //Switch voor card te analyseren
+    public void thisCardHasBeenUsed(Card usedCard) {
 
 
+        switch (usedCard.getType()) {
+
+            case "action":
+                executeSpecificAction();
+                break;
+            case "treasure":
+                calculateCoins(usedCard);
+                break;
+            case "victory":
+                //make alert that tells you its not possible to use victory cards.
+                break;
+
+        }
+    }
+
+    private void executeSpecificAction(){
+
+    }
+
+    private void calculateCoins(Card usedCard){
+        currentlyActiveAmountOfCoins = currentlyActiveAmountOfCoins + usedCard.getNumber() + 1;
+    }
+
+    //naam player veranderen
     public void setPlayername(Player whichPlayer, String playername){
         whichPlayer.setName(playername);
     }
@@ -36,11 +79,11 @@ public class Game {
 
 
     private void generateBoard() {
-
+        //maakt 10 action cards in begin van game
         generateActionBoard();
 
     }
-
+// vult de array met action cards op het board
     private void fillUpArray() {
         for (int i = 0; i < actionCardsOnBoard.length; i++) {
             int number = actionCardsOnBoard[i].getNumber();
@@ -56,7 +99,7 @@ public class Game {
     private Card generateActionCard(int number) {
 
         Card actionCard = new Card();
-        actionCard.SetNumber(number);
+        actionCard.setNumber(number);
 
 
         return actionCard;

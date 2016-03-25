@@ -16,7 +16,7 @@
 <div id="container">
     <div class="header">
         <div class="logo">
-            <a href="#" class="dominion_logo"></a>
+            <a href="../index.jsp" class="dominion_logo"></a>
         </div>
         <div class="play-button" title="Play">
             <a href="../assets/client/Dominionwebclient.jnlp" onclick="javascript: var that=this; ga('send', 'pageview', {'page': 'assets/client/Dominionclient.jnlp', 'title': 'Play'}); setTimeout(function(){location.href=that.href;},300); ga('send', 'event', 'play', 'stable'); return false;"></a></div>

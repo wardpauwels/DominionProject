@@ -9,7 +9,7 @@ public class Card {
     private String type;
     private int number;
     private int points;
-
+    private int amount;
 
     public Card() {
 
@@ -35,6 +35,9 @@ public class Card {
         return points;
     }
 
+    public int getAmount() {
+        return amount;
+    }
     public void setCost(int cost) {
         this.cost = cost;
 
@@ -48,13 +51,17 @@ public class Card {
         this.type = type;
     }
 
-    public void SetNumber(int number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
-    public void SetPoints(int points) {
+    public void setPoints(int points) {
         this.points = points;
     }
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
 
 }
 

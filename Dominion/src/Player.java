@@ -51,6 +51,9 @@ public class Player {
         playersHand.clearHand();
     }
 
+    public void addCardToDiscardPile(Card toBeAddedCard){
+        discardPile.addToDeck(toBeAddedCard.getType(),toBeAddedCard.getNumber());
+    }
     public void printDiscardDeck(){
         for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
             System.out.println(discardPile.getCardOnPos(i));
@@ -87,5 +90,10 @@ public class Player {
                else{
                     playersHand.generateHand(playersDeck);
                }
+    }
+
+    public int returnAmountOfCardsInDeck(){
+        return playersDeck.showAmountOfCardsInDeck();
+
     }
 }

@@ -7,30 +7,73 @@ import java.util.Random;
 
 public class Game {
     private Card[] actionCardsOnBoard;
+    private Card[] victoryCardsOnBoard;
+    private Card[] treasureCardsOnBoard;
+    private VictoryCardTable victoryCardTable = new VictoryCardTable();
+    private TreasureCardTable treasureCardTable = new TreasureCardTable();
     private ActionCardTable allActionCards = new ActionCardTable();
     private Card[] actionCards = allActionCards.actionCardTable;
     public Player playerOne = new Player();
     public Player playerTwo = new Player();
+
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'phase' en opvullen bij iedere 'phase')
     private Deck playedCards = new Deck();
     private int currentlyActiveAmountOfCoins;
+    private int remainingActionsInPhase;
 
     public Game() {
         actionCardsOnBoard = new Card[10];
         generateArray();
         generateBoard();
+        generateVictoryCardsOnBoard();
+        generateTreasureCardsOnBoard();
+    }
+
+    private void resetRemainingActions(){
+        remainingActionsInPhase = 1;
+    }
+    public void nextTurnPlayer(Player whichPlayer){
+
+    }
+
+    private void generateVictoryCardsOnBoard(){
+        victoryCardsOnBoard = victoryCardTable.victoryCardTable;
+    }
+    private void generateTreasureCardsOnBoard() {
+     treasureCardsOnBoard = treasureCardTable.treasureCardTable;
     }
     public void nextTurnFor (Player whichPlayer){
         currentlyActiveAmountOfCoins = 0;
-        ExecuteDrawPhase(whichPlayer);
-        ExecuteBuyPhase(whichPlayer);
+
 
     }
 
     private void ExecuteDrawPhase(Player whichPlayer){
         whichPlayer.generateNextHand();
     }
-    public void ExecuteBuyPhase(Player whichPlayer){
+
+
+
+
+
+    public void buyCard(int positionOnTheBoard, String type, Player whichPlayer){
+        Card boughtCard = new Card();
+        switch(type){
+            case "action":
+                boughtCard = actionCardsOnBoard[positionOnTheBoard-1];
+
+                break;
+            case "victory":
+                boughtCard = victoryCardsOnBoard[positionOnTheBoard-1];
+                break;
+            case "treasure":
+                boughtCard = treasureCardsOnBoard[positionOnTheBoard-1];
+                break;
+        }
+        boughtCard.setAmount(boughtCard.getAmount()-1);
+        whichPlayer.addCardToDiscardPile(boughtCard);
+        remainingActionsInPhase = remainingActionsInPhase - 1;
+
 
 
     }

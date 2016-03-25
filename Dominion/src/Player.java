@@ -1,5 +1,5 @@
 /**
- * Created by jensthiel on 24/03/16.
+ * Created by jens.thiel on 24/03/16.
  */
 
 public class Player {

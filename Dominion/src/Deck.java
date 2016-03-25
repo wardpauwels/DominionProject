@@ -6,7 +6,7 @@ import java.util.*;
 */
 
 public class Deck {
-    private ArrayList<Card> deck;
+    private ArrayList<Card> cardList;
     private ActionCardTable allActionCards = new ActionCardTable();
     private Card[] actionCards = allActionCards.actionCardTable;
     private TreasureCardTable allTreasureCards = new TreasureCardTable();
@@ -15,7 +15,7 @@ public class Deck {
     private Card[] victoryCards = allVictoryCards.victoryCardTable;
 
     public Deck(){
-
+        cardList = new ArrayList<Card>();
     }
 
     public Card getVictoryCard(int victoryCardNumber){
@@ -34,25 +34,25 @@ public class Deck {
     public void generateStarterDeck(){
         int coinsInStarterDeck = 7;
         int estateInStarterDeck = 3;
-        deck = new ArrayList<Card>();
+//        deck = new ArrayList<Card>();
 
         for (int i = 0; i < coinsInStarterDeck; i++){
             Card coinCard = getCoinCard(0);
-            deck.add(coinCard);
+            cardList.add(coinCard);
         }
         for (int i = 0; i < estateInStarterDeck; i++){
             Card estateCard = getVictoryCard(0);
-            deck.add(estateCard);
+            cardList.add(estateCard);
         }
     }
 
     public int showAmountOfCardsInDeck(){
-        int amount = deck.size();
+        int amount = cardList.size();
         return amount;
     }
 
     public Card getCardOnPos(int i){
-        return deck.get(i);
+        return cardList.get(i);
     }
 
     public void addToDeck(String typeOfCard, int numberOfCard){
@@ -68,26 +68,28 @@ public class Deck {
             case "victory":
                     newCard = victoryCards[numberOfCard - 1];
                     break;
-                  
-        
         }
-        deck.add(newCard);
+        cardList.add(newCard);
+    }
+
+    public void addCardToDeck(Card c){
+        cardList.add(c);
     }
 
     public void shuffleDeck(){
-        Collections.shuffle(deck);
+        Collections.shuffle(cardList);
     }
 
     public void removeFromDeck(int index){
-        deck.remove(index);
+        cardList.remove(index);
     }
 
     public void clearDeck(){
-        deck.clear();
+        cardList.clear();
     }
 
     public void printCardsInDeck(){
-        for (int i = 0; i < deck.size() ;i ++){
+        for (int i = 0; i < cardList.size() ;i ++){
             System.out.println(getCardOnPos(i).getName());
         }
     }

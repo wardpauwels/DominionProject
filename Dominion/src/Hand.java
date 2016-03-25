@@ -31,7 +31,6 @@ public class Hand {
         hand.add(getCardFromDeck(playersDeck));
     }
 
-
     public void clearHand(){
         hand.clear();
 
@@ -39,8 +38,14 @@ public class Hand {
 
     public Card getCardOnPos(int i){
         return hand.get(i);
-    }    
-    
+    }
+
+    public Card getFirstCard(){
+        return hand.get(0);
+    }
+
+
+
     public void removeFromHand(int index){
         hand.remove(index);
     }

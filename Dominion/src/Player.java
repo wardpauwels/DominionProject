@@ -40,24 +40,26 @@ public class Player {
         playersDeck.removeFromDeck(index);
     }
 
-    public void addToDiscardpile(){
+
+
+    public void discardHand(){
         int handsize = playersHand.showAmountOfCardsInHand();
-        System.out.println(handsize);
-        for(int i = 0; i < handsize -1; i++){
+        for(int i = 0; i < handsize; i++){
             Card c = playersHand.getCardOnPos(i);
-            System.out.println(c.getName());
-
-            discardPile.addToDeck(c.getType(), c.getNumber());
-            discardPile.printCardsInDeck();
-
+            discardPile.addCardToDeck(c);
         }
+
         playersHand.clearHand();
     }
 
+    public void printDiscardPile(){
+        discardPile.printCardsInDeck();
+    }
+
     public void printDiscardDeck(){
-        int amountInDeck = discardPile.showAmountOfCardsInDeck() -1 ;
+        int amountInDeck = discardPile.showAmountOfCardsInDeck();
         for(int i = 0; i < amountInDeck; i++){
-            System.out.println(discardPile.getCardOnPos(i));
+            System.out.println(discardPile.getCardOnPos(i).getName());
         }
     }
 

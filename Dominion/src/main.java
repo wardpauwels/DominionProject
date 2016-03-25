@@ -1,8 +1,9 @@
 
 
-public class main {
 
-    public static void main(String[] args) {
+public class Main {
+
+    public static void Main(String[] args) {
 
         /*Card c = new Card();
 		c.SetNumber(45);
@@ -35,7 +36,8 @@ public class main {
         // start game test
 
         Game g = new Game();
-        /*System.out.println("DECK PLAYER 1");
+        /*
+        System.out.println("DECK PLAYER 1");
         g.printDeck(g.playerOne);
         printLine();
         g.printDeck(g.playerTwo);
@@ -45,7 +47,7 @@ public class main {
         printLine();
         g.printHand(g.playerTwo);
         printLine();
-        */
+*/
         // set name test
         /*
         g.setPlayername(g.playerOne, "Robert");
@@ -57,14 +59,29 @@ public class main {
         */
         // adding cards test
 
-        //g.playerOne.generateHand();
-        //g.printHand(g.playerOne);
-        //printLine();
-        //g.printDeck(g.playerOne);
-        //printLine();
 
-        g.playerOne.addToDiscardpile();
-        //.playerOne.printDiscardDeck();
+        System.out.println("1e HAND");
+        printLine();
+        g.printHand(g.playerOne);
+        printLine();
+        System.out.println("DECK");
+        printLine();
+        g.printDeck(g.playerOne);
+        printLine();
+        System.out.println("DISCARDPILE");
+        printLine();
+        g.playerOne.discardHand();
+        g.playerOne.printDiscardDeck();
+        printLine();
+        System.out.println("NEW HAND");
+        printLine();
+        g.playerOne.generateHand();
+        g.playerOne.printHand();
+        printLine();
+        System.out.println("DISCARDPILE");
+        printLine();
+        g.playerOne.discardHand();
+        g.playerOne.printDiscardDeck();
 
 
 

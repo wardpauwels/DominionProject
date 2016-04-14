@@ -11,8 +11,8 @@ public class Hand {
     public Hand(Deck playersDeck){
 
     }
+
     //bovenste kaart van het pakje nemen
-    
      private Card getCardFromDeck(Deck playersDeck){
          Card cardFromDeck = playersDeck.getCardOnPos(0);
          playersDeck.removeFromDeck(0);
@@ -64,3 +64,4 @@ public class Hand {
         return amount;
     }
 }
+

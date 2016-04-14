@@ -11,8 +11,9 @@ public class Game {
     private Card[] treasureCardsOnBoard;
     private VictoryCardTable victoryCardTable = new VictoryCardTable();
     private TreasureCardTable treasureCardTable = new TreasureCardTable();
-    private ActionCardTable allActionCards = new ActionCardTable();
-    private Card[] actionCards = allActionCards.actionCardTable;
+    private ActionCardTable actionCardTable = new ActionCardTable();
+    private Card[] actionCards = actionCardTable.actionCardTable;
+    private Card[] victoryCards = victoryCardTable.victoryCardTable;
     public Player playerOne = new Player();
     public Player playerTwo = new Player();
 
@@ -42,10 +43,10 @@ public class Game {
     private void generateTreasureCardsOnBoard() {
      treasureCardsOnBoard = treasureCardTable.treasureCardTable;
     }
+
+
     public void nextTurnFor (Player whichPlayer){
         currentlyActiveAmountOfCoins = 0;
-
-
     }
 
     private void ExecuteDrawPhase(Player whichPlayer){
@@ -61,7 +62,6 @@ public class Game {
         switch(type){
             case "action":
                 boughtCard = actionCardsOnBoard[positionOnTheBoard-1];
-
                 break;
             case "victory":
                 boughtCard = victoryCardsOnBoard[positionOnTheBoard-1];
@@ -81,6 +81,7 @@ public class Game {
         whichPlayer.printDeck();
 
     }
+
     public void printHand(Player whichPlayer){
         whichPlayer.printHand();
     }
@@ -124,31 +125,16 @@ public class Game {
     private void generateBoard() {
         //maakt 10 action cards in begin van game
         generateActionBoard();
-
-    }
-// vult de array met action cards op het board
-    private void fillUpArray() {
-        for (int i = 0; i < actionCardsOnBoard.length; i++) {
-            int number = actionCardsOnBoard[i].getNumber();
-            actionCardsOnBoard[i].setName(actionCards[number - 1].getName());
-            actionCardsOnBoard[i].setCost(actionCards[number - 1].getCost());
-            actionCardsOnBoard[i].setType(actionCards[number - 1].getType());
-
-
-        }
-
+        generateVictoryCards();
     }
 
-    private Card generateActionCard(int number) {
+    private void generateVictoryCards() {
+        for(int i = 0; i < victoryCardsOnBoard.length; i++)
+            int number = victoryCardsOnBoard[i].getNumber();
 
-        Card actionCard = new Card();
-        actionCard.setNumber(number);
-
-
-        return actionCard;
-
-
+            victoryCardsOnBoard[i].setName(victoryCards[] );
     }
+
 
     private void generateArray() {
         for (int i = 0; i < actionCardsOnBoard.length; i++) {
@@ -166,17 +152,39 @@ public class Game {
 
             actionCardsOnBoard[i] = generateActionCard(randomNumber);
         }
-        fillUpArray();
+        fillUpActionCardArray();
 
+    }
+
+    private Card generateActionCard(int number) {
+        Card actionCard = new Card();
+        actionCard.setNumber(number);
+        return actionCard;
+
+    }
+
+    // vult de array met action cards op het board
+    private void fillUpActionCardArray() {
+        for (int i = 0; i < actionCardsOnBoard.length; i++) {
+            int number = actionCardsOnBoard[i].getNumber();
+
+            actionCardsOnBoard[i].setName(actionCards[number - 1].getName());
+            actionCardsOnBoard[i].setCost(actionCards[number - 1].getCost());
+            actionCardsOnBoard[i].setType(actionCards[number - 1].getType());
+            actionCardsOnBoard[i].setAmount(actionCards[number -1].getAmount());
+        }
+    }
+
+
+    private int getRandomNumber(int minValue, int maxValue) {
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(maxValue - minValue + 1) + minValue;
+        return randomNumber;
     }
 
     private boolean checkRandom(int randomNumber) {
         for (int i = 0; i < actionCardsOnBoard.length; i++) {
-
-
             int currentNumber = actionCardsOnBoard[i].getNumber();
-
-
             if (randomNumber == currentNumber) {
                 return false;
             }
@@ -184,22 +192,21 @@ public class Game {
         return true;
     }
 
-    private int getRandomNumber(int minValue, int maxValue) {
-        Random rand = new Random();
 
-        int randomNumber = rand.nextInt(maxValue - minValue + 1) + minValue;
 
-        return randomNumber;
-    }
 
-    public void printArray() {
+
+
+
+    public void printActionCards() {
         for (int i = 0; i < actionCardsOnBoard.length; i++) {
-
-            System.out.println(actionCardsOnBoard[i].getNumber() + ", " + actionCardsOnBoard[i].getName() + ", " + actionCardsOnBoard[i].getType() + ", " + actionCardsOnBoard[i].getCost());
+            System.out.println(actionCardsOnBoard[i].getName() +  ", Cost: " + actionCardsOnBoard[i].getCost() + ", Amount: " + actionCardsOnBoard[i].getAmount());
         }
     }
 
-
+    public void printDiscardPile(Player whichPlayer){
+        whichPlayer.printDiscardDeck();
+    }
 }
 
 

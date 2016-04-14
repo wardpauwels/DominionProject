@@ -48,15 +48,11 @@ public class ActionCardTable {
         newCard.setName(name);
         newCard.setType("action");
         newCard.setNumber(number);
-        newCard.setAmount(amount);
+         newCard.setAmount(amount);
 
         return newCard;
     }
 
-    public void printActionCardTable() {
-        for (int i = 0; i < actionCardTable.length; i++) {
-            System.out.println(actionCardTable[i].getNumber() + ", " + actionCardTable[i].getName() + ", " + actionCardTable[i].getType() + ", " + actionCardTable[i].getCost());
-        }
-    }
+
 
 }

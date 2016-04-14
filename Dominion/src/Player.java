@@ -34,7 +34,7 @@ public class Player {
 
     public void printDeck(){
 
-        playersDeck.printCardsInDeck();
+        playersDeck.printDeck();
     }
     public void cardsUsedInHand(int index){
         playersDeck.removeFromDeck(index);
@@ -56,7 +56,7 @@ public class Player {
     }
     public void printDiscardDeck(){
         for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
-            System.out.println(discardPile.getCardOnPos(i));
+            System.out.println(discardPile.getCardOnPos(i).getName());
         }
     }
 
@@ -70,11 +70,11 @@ public class Player {
 
         playersHand.printHand();
     }
-//Om 1 kaart te trekken
+    //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){
         playersHand.addCardToHand(playersDeck);
     }
-// wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
+    // wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
     // NIET GEBRUIKEN OM 1 KAART TE TREKKEN
     public void generateNextHand(){
         int restOfCardsInPlayersDeck = playersDeck.showAmountOfCardsInDeck();

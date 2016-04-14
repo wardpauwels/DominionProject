@@ -51,6 +51,16 @@ public class main {
         printLine();
         g.printDeck(g.playerOne);
         printLine();
+        g.printActionCards();
+        g.buyCard(2, "action", g.playerOne);
+        g.printDiscardPile(g.playerOne);
+        g.printActionCards();
+        g.buyCard(2, "action", g.playerOne);
+        g.printDiscardPile(g.playerOne);
+        g.printActionCards();
+
+
+
 
 
     }

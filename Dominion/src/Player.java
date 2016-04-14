@@ -7,6 +7,7 @@ public class Player {
     private Deck playersDeck = new Deck();
     private Hand playersHand = new Hand(playersDeck);
     private Deck discardPile = new Deck();
+    private int number;
 
 
 
@@ -27,9 +28,9 @@ public class Player {
         return name;
     }
 
+    public int getNumber(){return number;}
 
-
-
+    public void setNumber(int number){this.number=number;}
     // DECK
 
     public void printDeck(){
@@ -64,6 +65,7 @@ public class Player {
         playersHand.removeFromHand(toBeRemovedCard);
 
     }
+
 
     public void addXAmountOfCardsToHand(int amount){
         for (int i = 0; i < amount ; i++){

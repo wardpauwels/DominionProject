@@ -1,4 +1,5 @@
-import java.util.Random;
+import java.util.*;
+
 
 /**
  * @author Jens.Thiel
@@ -15,13 +16,14 @@ public class Game {
     private Card[] actionCards = allActionCards.actionCardTable;
     public Player playerOne = new Player();
     public Player playerTwo = new Player();
-
+    private ArrayList<Player> allPlayers;
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'phase' en opvullen bij iedere 'phase')
     private Deck playedCards = new Deck();
     private int currentlyActiveAmountOfCoins;
     private int remainingActionsInPhase;
 
-    public Game() {
+    public Game(int amountOfPlayers) {
+        addPlayersToArrayList(amountOfPlayers);
         actionCardsOnBoard = new Card[10];
         generateArray();
         generateBoard();
@@ -35,7 +37,13 @@ public class Game {
     public void nextTurnPlayer(Player whichPlayer){
 
     }
-
+    private void addPlayersToArrayList(int amount){
+        for(int i=0;i<amount;i++){
+            Player newPlayer = new Player();
+            newPlayer.setNumber(i);
+            allPlayers.add(newPlayer);
+        }
+    }
     private void generateVictoryCardsOnBoard(){
         victoryCardsOnBoard = victoryCardTable.victoryCardTable;
     }
@@ -223,28 +231,42 @@ public class Game {
 
     }
 */
-private void useVillage (Player whichPlayer) {
-    whichPlayer.addCardFromDeckToHand();
+private void useVillage (int numberOfThePlayer) {
+    allPlayers.get(numberOfThePlayer-1).addCardFromDeckToHand();
     remainingActionsInPhase = +2;
 
 
 }
-    private void useMilitia(Player whichPlayer){
-       whichPlayer.addXAmountOfCardsToHand(2);
+    private void useMilitia(int numberOfThePlayer){
+        allPlayers.get(numberOfThePlayer-1).addXAmountOfCardsToHand(2);
 /* nog 2de deel van discarden toevoegen */
 
     }
-    private void useMoneylender(Player whichPlayer){
+    private void useMoneylender(int numberOfThePlayer){
 
-       if(whichPlayer.scanHandForCard(treasureCardsOnBoard[0])) {
+       if(allPlayers.get(numberOfThePlayer-1).scanHandForCard(treasureCardsOnBoard[0])) {
 
-           int pickedCopper = whichPlayer.scanHandForCardandGetPositionInHand(treasureCardsOnBoard[0]);
-           whichPlayer.addCardFromHandToDiscardPile(treasureCardsOnBoard[0]);
+           int pickedCopper = allPlayers.get(numberOfThePlayer-1).scanHandForCardandGetPositionInHand(treasureCardsOnBoard[0]);
+           allPlayers.get(numberOfThePlayer-1).addCardFromHandToDiscardPile(treasureCardsOnBoard[0]);
            currentlyActiveAmountOfCoins=+3;
        }
        };
 
+    private void useSmithy(int numberOfThePlayer){
+        allPlayers.get(numberOfThePlayer-1).addXAmountOfCardsToHand(3);
     }
+    private void useWitch(int numberOfThePlayer){
+        allPlayers.get(numberOfThePlayer-1).addXAmountOfCardsToHand(2);
+        for (int i=0;i<allPlayers.size();i++){
+            if(i!=numberOfThePlayer-1){
+                allPlayers.get(i).addCardToDiscardPile(victoryCardsOnBoard[3]);
+            }
+
+        }
+
+    }
+    }
+
 
 
 

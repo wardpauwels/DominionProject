@@ -1,5 +1,5 @@
 /**
- * Created by jensthiel on 24/03/16.
+ * Created by jens.thiel on 24/03/16.
  */
 
 public class Player {
@@ -10,7 +10,7 @@ public class Player {
 
 
 
-
+// speler aanmaken, starter deck maken, kaarten schudden, 5 kaarten trekken.
     public Player(){
         playersDeck.generateStarterDeck();
         playersDeck.shuffleDeck();
@@ -32,29 +32,31 @@ public class Player {
 
     // DECK
 
+    public void printDeck(){
+
+        playersDeck.printCardsInDeck();
+    }
     public void cardsUsedInHand(int index){
         playersDeck.removeFromDeck(index);
     }
 
-
-
-    public void discardHand(){
+    public void addToDiscardpile(){
         int handsize = playersHand.showAmountOfCardsInHand();
         for(int i = 0; i < handsize; i++){
             Card c = playersHand.getCardOnPos(i);
-            discardPile.addCardToDeck(c);
+
+            discardPile.addToDeck(c.getType(), c.getNumber());
         }
+
         playersHand.clearHand();
     }
 
-    public void addToDiscardPile(Card toBeDiscardedCard){
-        discardPile.addToDeck(toBeDiscardedCard.getType(), toBeDiscardedCard.getNumber());
+    public void addCardToDiscardPile(Card toBeAddedCard){
+        discardPile.addToDeck(toBeAddedCard.getType(),toBeAddedCard.getNumber());
     }
-
     public void printDiscardDeck(){
-        int amountInDeck = discardPile.showAmountOfCardsInDeck();
-        for(int i = 0; i < amountInDeck; i++){
-            System.out.println(discardPile.getCardOnPos(i).getName());
+        for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
+            System.out.println(discardPile.getCardOnPos(i));
         }
     }
 
@@ -68,20 +70,30 @@ public class Player {
 
         playersHand.printHand();
     }
-
-    public void printDeck(){
-        playersDeck.printDeck();
-    }
-
-    public void generateHand(){
-        playersHand.generateHand(playersDeck);
-    }
-
+//Om 1 kaart te trekken
     public void addCardFromDeckToHand(){
         playersHand.addCardToHand(playersDeck);
     }
+// wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
+    // NIET GEBRUIKEN OM 1 KAART TE TREKKEN
+    public void generateNextHand(){
+        int restOfCardsInPlayersDeck = playersDeck.showAmountOfCardsInDeck();
+               if (restOfCardsInPlayersDeck<=5)
+               {
+                   for(int i=0;i<restOfCardsInPlayersDeck;i++){
+                       playersHand.addCardToHand(playersDeck);
+                   }
+                   playersDeck = discardPile;
+                   discardPile.clearDeck();
+                   playersDeck.shuffleDeck();
+               }
+               else{
+                    playersHand.generateHand(playersDeck);
+               }
+    }
 
-    public void removeCardFromHand(){
+    public int returnAmountOfCardsInDeck(){
+        return playersDeck.showAmountOfCardsInDeck();
 
     }
 }

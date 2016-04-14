@@ -32,10 +32,6 @@ public class Player {
 
     // DECK
 
-    public void printDeck(){
-
-        playersDeck.printCardsInDeck();
-    }
     public void cardsUsedInHand(int index){
         playersDeck.removeFromDeck(index);
     }
@@ -48,12 +44,11 @@ public class Player {
             Card c = playersHand.getCardOnPos(i);
             discardPile.addCardToDeck(c);
         }
-
         playersHand.clearHand();
     }
 
-    public void printDiscardPile(){
-        discardPile.printCardsInDeck();
+    public void addToDiscardPile(Card toBeDiscardedCard){
+        discardPile.addToDeck(toBeDiscardedCard.getType(), toBeDiscardedCard.getNumber());
     }
 
     public void printDiscardDeck(){
@@ -73,11 +68,20 @@ public class Player {
 
         playersHand.printHand();
     }
+
+    public void printDeck(){
+        playersDeck.printDeck();
+    }
+
     public void generateHand(){
         playersHand.generateHand(playersDeck);
     }
 
     public void addCardFromDeckToHand(){
         playersHand.addCardToHand(playersDeck);
+    }
+
+    public void removeCardFromHand(){
+
     }
 }

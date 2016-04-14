@@ -11,6 +11,7 @@ public class Game {
     private Card[] actionCards = allActionCards.actionCardTable;
     public Player playerOne = new Player();
     public Player playerTwo = new Player();
+    public Deck activeCardsOnBoard = new Deck();
 
 
 
@@ -18,14 +19,16 @@ public class Game {
         actionCardsOnBoard = new Card[10];
         generateArray();
         generateBoard();
+
+    }
+
+
+    public void printHand(Player whichPlayer){
+        whichPlayer.printHand();
     }
 
     public void printDeck(Player whichPlayer){
         whichPlayer.printDeck();
-    }
-
-    public void printHand(Player whichPlayer){
-        whichPlayer.printHand();
     }
 
     public void setPlayername(Player whichPlayer, String playername){

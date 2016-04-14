@@ -4,6 +4,8 @@ import java.util.*;
 *
 * @author Robert Plasschaert
 */
+// controleer of alles nog nodig is hieronder.
+
 
 public class Deck {
     private ArrayList<Card> cardList;
@@ -50,7 +52,7 @@ public class Deck {
     public Card getCardOnPos(int i){
         return cardList.get(i);
     }
-
+// om nieuwe kaarten toe te voegen aan deck
     public void addToDeck(String typeOfCard, int numberOfCard){
         Card newCard = new Card();
         switch (typeOfCard){
@@ -90,5 +92,6 @@ public class Deck {
             System.out.println(getCardOnPos(i));
         }
     }
+
 
 }

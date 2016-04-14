@@ -21,6 +21,7 @@ public class Game {
     private Deck playedCards = new Deck();
     private int currentlyActiveAmountOfCoins;
     private int remainingActionsInPhase;
+    private int amountOfActionsInNextPhase;
 
     public Game(int amountOfPlayers) {
         addPlayersToArrayList(amountOfPlayers);
@@ -78,6 +79,7 @@ public class Game {
                 boughtCard = treasureCardsOnBoard[positionOnTheBoard-1];
                 break;
         }
+        currentlyActiveAmountOfCoins -= boughtCard.getCost();
         boughtCard.setAmount(boughtCard.getAmount()-1);
         whichPlayer.addCardToDiscardPile(boughtCard);
         remainingActionsInPhase = remainingActionsInPhase - 1;
@@ -99,7 +101,7 @@ public class Game {
         switch (usedCard.getType()) {
 
             case "action":
-                executeSpecificAction();
+                executeSpecificAction(usedCard.getNumber());
                 break;
             case "treasure":
                 calculateCoins(usedCard);
@@ -111,7 +113,7 @@ public class Game {
         }
     }
 
-    private void executeSpecificAction(){
+    private void executeSpecificAction(int numberOfCard){
 
 
     }
@@ -265,6 +267,33 @@ private void useVillage (int numberOfThePlayer) {
         }
 
     }
+    private void useThroneRoom(int numberOfThePlayer,int positionOfCardThatsNeeded){
+        Card toBeUsedCard = allPlayers.get(numberOfThePlayer).getCardOnPosInHand(positionOfCardThatsNeeded);
+        for (int i=0;i<2;i++) {
+            executeSpecificAction(toBeUsedCard.getNumber());
+        }
+    }
+    private void useWoodCutter(int numberOfThePlayer){
+        currentlyActiveAmountOfCoins =+ 2;
+        amountOfActionsInNextPhase =+ 1;
+    }
+    private void useWorkshop(int numberOfThePlayer){
+        ArrayList<Card> availableCards = scanArrayForXCostCards(4,actionCardsOnBoard);
+
+
+
+    }
+    private ArrayList<Card> scanArrayForXCostCards(int cost,Card[] toBeScannedArray){
+        ArrayList<Card> scannedArray ;
+        scannedArray = new ArrayList<Card>();
+        for (int i=0; i<toBeScannedArray.length; i++){
+           if( toBeScannedArray[i].getCost()==cost){
+               scannedArray.add(toBeScannedArray[i]);
+           }
+        }
+        return scannedArray;
+    }
+
     }
 
 

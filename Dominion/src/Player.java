@@ -131,4 +131,8 @@ public class Player {
         return playersDeck.showAmountOfCardsInDeck();
 
     }
+
+    public Card getCardOnPosInHand(int position){
+        return playersHand.getCardOnPos(position);
+    }
 }

@@ -52,7 +52,23 @@ public class Player {
     }
 
     public void addCardToDiscardPile(Card toBeAddedCard){
+
         discardPile.addToDeck(toBeAddedCard.getType(),toBeAddedCard.getNumber());
+    }
+
+    public void removeCardFromHand(int spotInHand){
+        playersHand.removeFromHand(spotInHand);
+    }
+    public void addCardFromHandToDiscardPile(Card whichCard){
+        int toBeRemovedCard = scanHandForCardandGetPositionInHand(whichCard);
+        playersHand.removeFromHand(toBeRemovedCard);
+
+    }
+
+    public void addXAmountOfCardsToHand(int amount){
+        for (int i = 0; i < amount ; i++){
+            addCardFromDeckToHand();
+        }
     }
     public void printDiscardDeck(){
         for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
@@ -69,6 +85,23 @@ public class Player {
     public void printHand(){
 
         playersHand.printHand();
+    }
+
+    public boolean scanHandForCard(Card whichCard){
+        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
+            if (playersHand.getCardOnPos(i)==whichCard){
+                return true;
+            }
+        }
+        return false;
+    }
+    public int scanHandForCardandGetPositionInHand(Card whichCard){
+        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
+            if (playersHand.getCardOnPos(i)==whichCard){
+                return i;
+            }
+        }
+        return 0;
     }
 //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){

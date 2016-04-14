@@ -105,6 +105,7 @@ public class Game {
 
     private void executeSpecificAction(){
 
+
     }
 
     private void calculateCoins(Card usedCard){
@@ -199,7 +200,52 @@ public class Game {
         }
     }
 
+/*
+    private void useCellar(Player whichPlayer){
+        remainingActionsInPhase += 1;
+        while (keepDiscarding()){
+            whichPlayer.addCardToDiscardPile();
+        }
+
+    }
+    private boolean keepDiscarding(){
+
+        if (pressButton()) {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public boolean pressButton(){
+        return true;
+
+    }
+*/
+private void useVillage (Player whichPlayer) {
+    whichPlayer.addCardFromDeckToHand();
+    remainingActionsInPhase = +2;
+
 
 }
+    private void useMilitia(Player whichPlayer){
+       whichPlayer.addXAmountOfCardsToHand(2);
+/* nog 2de deel van discarden toevoegen */
+
+    }
+    private void useMoneylender(Player whichPlayer){
+
+       if(whichPlayer.scanHandForCard(treasureCardsOnBoard[0])) {
+
+           int pickedCopper = whichPlayer.scanHandForCardandGetPositionInHand(treasureCardsOnBoard[0]);
+           whichPlayer.addCardFromHandToDiscardPile(treasureCardsOnBoard[0]);
+           currentlyActiveAmountOfCoins=+3;
+       }
+       };
+
+    }
+
+
 
 

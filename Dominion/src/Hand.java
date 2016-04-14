@@ -18,14 +18,15 @@ public class Hand {
          playersDeck.removeFromDeck(0);
          return cardFromDeck;
     }
-    
+
+    // 5 kaarten nemen
     public void generateHand(Deck playersDeck){
         for(int i=0; i < 5; i++){
             Card newCard = getCardFromDeck(playersDeck);
             hand.add(newCard);
         }   
     }
-     // 5 kaarten nemen
+
     public void addCardToHand(Deck playersDeck){
 
         hand.add(getCardFromDeck(playersDeck));
@@ -53,6 +54,7 @@ public class Hand {
     //testfunctie
     
     public void printHand(){
+
         for (int i = 0; i < hand.size() ;i ++){
             System.out.println(getCardOnPos(i).getName());
         }

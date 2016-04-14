@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -14,20 +15,33 @@ public class Game {
     private ActionCardTable actionCardTable = new ActionCardTable();
     private Card[] actionCards = actionCardTable.actionCardTable;
     private Card[] victoryCards = victoryCardTable.victoryCardTable;
-    public Player playerOne = new Player();
-    public Player playerTwo = new Player();
+    private Card[] treasureCards = treasureCardTable.treasureCardTable;
+    public ArrayList<Player> allPlayers = new ArrayList<Player>();
 
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'phase' en opvullen bij iedere 'phase')
     private Deck playedCards = new Deck();
     private int currentlyActiveAmountOfCoins;
     private int remainingActionsInPhase;
 
-    public Game() {
+
+    public Game(int amountOfPlayers) {
+        addPlayersToArrayList(amountOfPlayers);
         actionCardsOnBoard = new Card[10];
+        victoryCardsOnBoard = new Card[4];
+        treasureCardsOnBoard = new Card[3];
+
         generateArray();
         generateBoard();
         generateVictoryCardsOnBoard();
         generateTreasureCardsOnBoard();
+    }
+
+    private void addPlayersToArrayList(int amount){
+        for(int i=0;i<amount;i++){
+            Player newPlayer = new Player();
+            newPlayer.setNumber(i);
+            allPlayers.add(newPlayer);
+        }
     }
 
     private void resetRemainingActions(){
@@ -41,7 +55,7 @@ public class Game {
         victoryCardsOnBoard = victoryCardTable.victoryCardTable;
     }
     private void generateTreasureCardsOnBoard() {
-     treasureCardsOnBoard = treasureCardTable.treasureCardTable;
+        treasureCardsOnBoard = treasureCardTable.treasureCardTable;
     }
 
 
@@ -74,20 +88,10 @@ public class Game {
         whichPlayer.addCardToDiscardPile(boughtCard);
         remainingActionsInPhase = remainingActionsInPhase - 1;
 
-
-
-    }
-    public void printDeck(Player whichPlayer){
-        whichPlayer.printDeck();
-
     }
 
-    public void printHand(Player whichPlayer){
-        whichPlayer.printHand();
-    }
     //Switch voor card te analyseren
     public void thisCardHasBeenUsed(Card usedCard) {
-
 
         switch (usedCard.getType()) {
 
@@ -95,12 +99,12 @@ public class Game {
                 executeSpecificAction();
                 break;
             case "treasure":
+                //
                 calculateCoins(usedCard);
                 break;
             case "victory":
                 //make alert that tells you its not possible to use victory cards.
                 break;
-
         }
     }
 
@@ -108,37 +112,58 @@ public class Game {
 
     }
 
-    private void calculateCoins(Card usedCard){
+    public void calculateCoins(Card usedCard){
+
         currentlyActiveAmountOfCoins = currentlyActiveAmountOfCoins + usedCard.getNumber() + 1;
     }
 
     //naam player veranderen
-    public void setPlayername(Player whichPlayer, String playername){
-        whichPlayer.setName(playername);
+    public void setPlayername(int whichPlayer, String playername){
+        allPlayers.get(whichPlayer).setName(playername);
     }
 
     public void addCardToHand(Player whichPlayer){
         whichPlayer.addCardFromDeckToHand();
     }
 
-
     private void generateBoard() {
         //maakt 10 action cards in begin van game
         generateActionBoard();
         generateVictoryCards();
+        generateTreasureCards();
     }
 
     private void generateVictoryCards() {
-        for(int i = 0; i < victoryCardsOnBoard.length; i++)
+        for(int i = 0; i < victoryCardsOnBoard.length; i++) {
             int number = victoryCardsOnBoard[i].getNumber();
 
-            victoryCardsOnBoard[i].setName(victoryCards[] );
+            victoryCardsOnBoard[i].setName(victoryCards[number].getName());
+            victoryCardsOnBoard[i].setCost(victoryCards[number].getCost());
+            victoryCardsOnBoard[i].setType(victoryCards[number].getType());
+            victoryCardsOnBoard[i].setAmount(victoryCards[number].getAmount());
+        }
     }
 
+    private void generateTreasureCards() {
+        for(int i = 0; i < treasureCardsOnBoard.length; i++) {
+            int number = treasureCardsOnBoard[i].getNumber();
+
+            treasureCardsOnBoard[i].setName(treasureCards[number].getName());
+            treasureCardsOnBoard[i].setCost(treasureCards[number].getCost());
+            treasureCardsOnBoard[i].setType(treasureCards[number].getType());
+            treasureCardsOnBoard[i].setAmount(treasureCards[number].getAmount());
+        }
+    }
 
     private void generateArray() {
         for (int i = 0; i < actionCardsOnBoard.length; i++) {
             actionCardsOnBoard[i] = new Card();
+        }
+        for (int i = 0; i < treasureCardsOnBoard.length; i++) {
+            treasureCardsOnBoard[i] = new Card();
+        }
+        for (int i = 0; i < victoryCardsOnBoard.length; i++) {
+            victoryCardsOnBoard[i] = new Card();
         }
     }
 
@@ -175,7 +200,6 @@ public class Game {
         }
     }
 
-
     private int getRandomNumber(int minValue, int maxValue) {
         Random rand = new Random();
         int randomNumber = rand.nextInt(maxValue - minValue + 1) + minValue;
@@ -194,18 +218,60 @@ public class Game {
 
 
 
+// ------------   Print Methods ----------- //
 
 
+    public void printBoard(){
+        printActionCards();
+        printVicotryCards();
+        printTreasureCards();
+    }
 
 
     public void printActionCards() {
+        System.out.println("---------------");
+        System.out.println("Action cards:");
+        System.out.println("---------------");
         for (int i = 0; i < actionCardsOnBoard.length; i++) {
-            System.out.println(actionCardsOnBoard[i].getName() +  ", Cost: " + actionCardsOnBoard[i].getCost() + ", Amount: " + actionCardsOnBoard[i].getAmount());
+            System.out.println(i +1 + ". " +  actionCardsOnBoard[i].getName() +  ", Cost: " + actionCardsOnBoard[i].getCost() + ", Amount: " + actionCardsOnBoard[i].getAmount());
+        }
+    }
+    public void printVicotryCards() {
+        System.out.println("---------------");
+        System.out.println("Victory cards:");
+        System.out.println("---------------");
+        for (int i = 0; i < victoryCardsOnBoard.length; i++) {
+            System.out.println(victoryCardsOnBoard[i].getName() +  ", Cost: " + victoryCardsOnBoard[i].getCost() + ", Amount: " + victoryCardsOnBoard[i].getAmount());
+        }
+    }
+    public void printTreasureCards() {
+        System.out.println("---------------");
+        System.out.println("Treasure cards:");
+        System.out.println("---------------");
+        for (int i = 0; i < treasureCardsOnBoard.length; i++) {
+            System.out.println(treasureCardsOnBoard[i].getName() +  ", Cost: " + treasureCardsOnBoard[i].getCost() + ", Amount: " + treasureCardsOnBoard[i].getAmount());
         }
     }
 
+
     public void printDiscardPile(Player whichPlayer){
         whichPlayer.printDiscardDeck();
+    }
+
+
+    public void printDeck(Player whichPlayer){
+        whichPlayer.printDeck();
+
+    }
+
+    public void printHand(Player whichPlayer){
+        whichPlayer.printHand();
+    }
+    public void printCoins(Player whichplayer) {
+        System.out.println("--------------------");
+        System.out.println("Amount of coins in current hand:");
+        System.out.println("--------------------");
+        System.out.println(whichplayer.getAmountOfCoinsInHand());
     }
 }
 

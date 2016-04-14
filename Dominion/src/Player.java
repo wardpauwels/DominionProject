@@ -7,6 +7,7 @@ public class Player {
     private Deck playersDeck = new Deck();
     private Hand playersHand = new Hand(playersDeck);
     private Deck discardPile = new Deck();
+    private int number;
 
 
 
@@ -27,7 +28,9 @@ public class Player {
         return name;
     }
 
+    public int getNumber(){return number;}
 
+    public void setNumber(int number){this.number=number;}
 
 
     // DECK
@@ -36,8 +39,37 @@ public class Player {
 
         playersDeck.printDeck();
     }
+
+
     public void cardsUsedInHand(int index){
         playersDeck.removeFromDeck(index);
+    }
+
+    public int getAmountOfCoinsInHand(){
+        int handsize = playersHand.showAmountOfCardsInHand();
+        int amountOfCoins = 0;
+        for (int i = 0; i < handsize; i++){
+            Card currentCard = playersHand.getCardOnPos(i);
+
+            if(currentCard.getType() == "treasure"){
+                name = currentCard.getName();
+                switch (name){
+                    case "Copper":
+                        amountOfCoins += 1;
+                        break;
+                    case "Silver":
+                        amountOfCoins += 2;
+                        break;
+                    case "Gold":
+                        amountOfCoins +=3;
+                        break;
+
+                }
+
+            }
+        }
+        return amountOfCoins;
+
     }
 
     public void addToDiscardpile(){
@@ -54,11 +86,7 @@ public class Player {
     public void addCardToDiscardPile(Card toBeAddedCard){
         discardPile.addToDeck(toBeAddedCard.getType(),toBeAddedCard.getNumber());
     }
-    public void printDiscardDeck(){
-        for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
-            System.out.println(discardPile.getCardOnPos(i).getName());
-        }
-    }
+
 
     public void resetDiscardDeck(){
         playersDeck = discardPile;
@@ -66,10 +94,7 @@ public class Player {
     }
 
     // HAND
-    public void printHand(){
 
-        playersHand.printHand();
-    }
     //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){
         playersHand.addCardToHand(playersDeck);
@@ -96,4 +121,27 @@ public class Player {
         return playersDeck.showAmountOfCardsInDeck();
 
     }
+
+
+
+    // --------------------   Print Methods -------------------//
+
+    public void printHand(){
+        System.out.println("---------------");
+        System.out.println("Hand:");
+        System.out.println("---------------");
+        playersHand.printHand();
+    }
+
+
+    public void printDiscardDeck(){
+        System.out.println("---------------");
+        System.out.println("Discard pile:");
+        System.out.println("---------------");
+        for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
+
+            System.out.println(discardPile.getCardOnPos(i).getName());
+        }
+    }
+
 }

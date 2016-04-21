@@ -7,6 +7,7 @@ public class Player {
     private Deck playersDeck = new Deck();
     private Hand playersHand = new Hand(playersDeck);
     private Deck discardPile = new Deck();
+    private int number;
 
 
 
@@ -27,9 +28,9 @@ public class Player {
         return name;
     }
 
+    public int getNumber(){return number;}
 
-
-
+    public void setNumber(int number){this.number=number;}
     // DECK
 
     public void printDeck(){
@@ -51,6 +52,26 @@ public class Player {
         playersHand.clearHand();
     }
 
+    public void addCardToDiscardPile(Card toBeAddedCard){
+
+        discardPile.addToDeck(toBeAddedCard.getType(),toBeAddedCard.getNumber());
+    }
+
+    public void removeCardFromHand(int spotInHand){
+        playersHand.removeFromHand(spotInHand);
+    }
+    public void addCardFromHandToDiscardPile(Card whichCard){
+        int toBeRemovedCard = scanHandForCardandGetPositionInHand(whichCard);
+        playersHand.removeFromHand(toBeRemovedCard);
+
+    }
+
+
+    public void addXAmountOfCardsToHand(int amount){
+        for (int i = 0; i < amount ; i++){
+            addCardFromDeckToHand();
+        }
+    }
     public void printDiscardDeck(){
         for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
             System.out.println(discardPile.getCardOnPos(i));
@@ -66,6 +87,23 @@ public class Player {
     public void printHand(){
 
         playersHand.printHand();
+    }
+
+    public boolean scanHandForCard(Card whichCard){
+        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
+            if (playersHand.getCardOnPos(i)==whichCard){
+                return true;
+            }
+        }
+        return false;
+    }
+    public int scanHandForCardandGetPositionInHand(Card whichCard){
+        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
+            if (playersHand.getCardOnPos(i)==whichCard){
+                return i;
+            }
+        }
+        return 0;
     }
 //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){
@@ -87,5 +125,14 @@ public class Player {
                else{
                     playersHand.generateHand(playersDeck);
                }
+    }
+
+    public int returnAmountOfCardsInDeck(){
+        return playersDeck.showAmountOfCardsInDeck();
+
+    }
+
+    public Card getCardOnPosInHand(int position){
+        return playersHand.getCardOnPos(position);
     }
 }

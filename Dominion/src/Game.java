@@ -1,4 +1,5 @@
-import java.util.Random;
+import java.util.*;
+
 
 /**
  * @author Jens.Thiel
@@ -7,30 +8,82 @@ import java.util.Random;
 
 public class Game {
     private Card[] actionCardsOnBoard;
+    private Card[] victoryCardsOnBoard;
+    private Card[] treasureCardsOnBoard;
+    private VictoryCardTable victoryCardTable = new VictoryCardTable();
+    private TreasureCardTable treasureCardTable = new TreasureCardTable();
     private ActionCardTable allActionCards = new ActionCardTable();
     private Card[] actionCards = allActionCards.actionCardTable;
     public Player playerOne = new Player();
     public Player playerTwo = new Player();
+    private ArrayList<Player> allPlayers;
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'phase' en opvullen bij iedere 'phase')
     private Deck playedCards = new Deck();
     private int currentlyActiveAmountOfCoins;
+    private int remainingActionsInPhase;
+    private int amountOfActionsInNextPhase;
 
-    public Game() {
+    public Game(int amountOfPlayers) {
+        addPlayersToArrayList(amountOfPlayers);
         actionCardsOnBoard = new Card[10];
         generateArray();
         generateBoard();
+        generateVictoryCardsOnBoard();
+        generateTreasureCardsOnBoard();
+    }
+
+    private void resetRemainingActions(){
+        remainingActionsInPhase = 1;
+    }
+    public void nextTurnPlayer(Player whichPlayer){
+
+    }
+    private void addPlayersToArrayList(int amount){
+        for(int i=0;i<amount;i++){
+            Player newPlayer = new Player();
+            newPlayer.setNumber(i);
+            allPlayers.add(newPlayer);
+        }
+    }
+    private void generateVictoryCardsOnBoard(){
+        victoryCardsOnBoard = victoryCardTable.victoryCardTable;
+    }
+    private void generateTreasureCardsOnBoard() {
+     treasureCardsOnBoard = treasureCardTable.treasureCardTable;
     }
     public void nextTurnFor (Player whichPlayer){
         currentlyActiveAmountOfCoins = 0;
-        ExecuteDrawPhase(whichPlayer);
-        ExecuteBuyPhase(whichPlayer);
+
 
     }
 
     private void ExecuteDrawPhase(Player whichPlayer){
         whichPlayer.generateNextHand();
     }
-    public void ExecuteBuyPhase(Player whichPlayer){
+
+
+
+
+
+    public void buyCard(int positionOnTheBoard, String type, Player whichPlayer){
+        Card boughtCard = new Card();
+        switch(type){
+            case "action":
+                boughtCard = actionCardsOnBoard[positionOnTheBoard-1];
+
+                break;
+            case "victory":
+                boughtCard = victoryCardsOnBoard[positionOnTheBoard-1];
+                break;
+            case "treasure":
+                boughtCard = treasureCardsOnBoard[positionOnTheBoard-1];
+                break;
+        }
+        currentlyActiveAmountOfCoins -= boughtCard.getCost();
+        boughtCard.setAmount(boughtCard.getAmount()-1);
+        whichPlayer.addCardToDiscardPile(boughtCard);
+        remainingActionsInPhase = remainingActionsInPhase - 1;
+
 
 
     }
@@ -48,7 +101,7 @@ public class Game {
         switch (usedCard.getType()) {
 
             case "action":
-                executeSpecificAction();
+                executeSpecificAction(usedCard.getNumber());
                 break;
             case "treasure":
                 calculateCoins(usedCard);
@@ -60,7 +113,8 @@ public class Game {
         }
     }
 
-    private void executeSpecificAction(){
+    private void executeSpecificAction(int numberOfCard){
+
 
     }
 
@@ -156,7 +210,93 @@ public class Game {
         }
     }
 
+/*
+    private void useCellar(Player whichPlayer){
+        remainingActionsInPhase += 1;
+        while (keepDiscarding()){
+            whichPlayer.addCardToDiscardPile();
+        }
+
+    }
+    private boolean keepDiscarding(){
+
+        if (pressButton()) {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public boolean pressButton(){
+        return true;
+
+    }
+*/
+private void useVillage (int numberOfThePlayer) {
+    allPlayers.get(numberOfThePlayer-1).addCardFromDeckToHand();
+    remainingActionsInPhase = +2;
+
 
 }
+    private void useMilitia(int numberOfThePlayer){
+        allPlayers.get(numberOfThePlayer-1).addXAmountOfCardsToHand(2);
+/* nog 2de deel van discarden toevoegen */
+
+    }
+    private void useMoneylender(int numberOfThePlayer){
+
+       if(allPlayers.get(numberOfThePlayer-1).scanHandForCard(treasureCardsOnBoard[0])) {
+
+           int pickedCopper = allPlayers.get(numberOfThePlayer-1).scanHandForCardandGetPositionInHand(treasureCardsOnBoard[0]);
+           allPlayers.get(numberOfThePlayer-1).addCardFromHandToDiscardPile(treasureCardsOnBoard[0]);
+           currentlyActiveAmountOfCoins=+3;
+       }
+       };
+
+    private void useSmithy(int numberOfThePlayer){
+        allPlayers.get(numberOfThePlayer-1).addXAmountOfCardsToHand(3);
+    }
+    private void useWitch(int numberOfThePlayer){
+        allPlayers.get(numberOfThePlayer-1).addXAmountOfCardsToHand(2);
+        for (int i=0;i<allPlayers.size();i++){
+            if(i!=numberOfThePlayer-1){
+                allPlayers.get(i).addCardToDiscardPile(victoryCardsOnBoard[3]);
+            }
+
+        }
+
+    }
+    private void useThroneRoom(int numberOfThePlayer,int positionOfCardThatsNeeded){
+        Card toBeUsedCard = allPlayers.get(numberOfThePlayer).getCardOnPosInHand(positionOfCardThatsNeeded);
+        for (int i=0;i<2;i++) {
+            executeSpecificAction(toBeUsedCard.getNumber());
+        }
+    }
+    private void useWoodCutter(int numberOfThePlayer){
+        currentlyActiveAmountOfCoins =+ 2;
+        amountOfActionsInNextPhase =+ 1;
+    }
+    private void useWorkshop(int numberOfThePlayer){
+        ArrayList<Card> availableCards = scanArrayForXCostCards(4,actionCardsOnBoard);
+
+
+
+    }
+    private ArrayList<Card> scanArrayForXCostCards(int cost,Card[] toBeScannedArray){
+        ArrayList<Card> scannedArray ;
+        scannedArray = new ArrayList<Card>();
+        for (int i=0; i<toBeScannedArray.length; i++){
+           if( toBeScannedArray[i].getCost()==cost){
+               scannedArray.add(toBeScannedArray[i]);
+           }
+        }
+        return scannedArray;
+    }
+
+    }
+
+
+
 
 

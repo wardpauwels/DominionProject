@@ -25,6 +25,10 @@ public class Hand {
             hand.add(newCard);
         }   
     }
+
+    public void addSpecificCard(Card toBeAddedCard){
+        hand.add(toBeAddedCard);
+    }
      // 5 kaarten nemen
     public void addCardToHand(Deck playersDeck){
 

@@ -65,6 +65,9 @@ public class Player {
         playersHand.removeFromHand(toBeRemovedCard);
 
     }
+    public Card getTopCardFromDeck(){
+        return playersDeck.getCardOnPos(0);
+    }
 
 
     public void addXAmountOfCardsToHand(int amount){
@@ -105,10 +108,15 @@ public class Player {
         }
         return 0;
     }
+
+    public void addSpecificCardToHand(Card toBeAddedCard){
+        playersHand.addSpecificCard(toBeAddedCard);
+    }
 //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){
         playersHand.addCardToHand(playersDeck);
     }
+
 // wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
     // NIET GEBRUIKEN OM 1 KAART TE TREKKEN
     public void generateNextHand(){

@@ -21,6 +21,10 @@ public class Deck {
 
     }
 
+    public void addCardToDeck(Card toBeAddedCard){
+        deck.add(toBeAddedCard);
+    }
+
     public Card getVictoryCard(int victoryCardNumber){
         Card newCard = new Card();
         newCard = victoryCards[victoryCardNumber];

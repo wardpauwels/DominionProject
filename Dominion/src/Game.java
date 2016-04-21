@@ -234,13 +234,13 @@ public class Game {
     }
 */
 private void useVillage (int numberOfThePlayer) {
-    allPlayers.get(numberOfThePlayer-1).addCardFromDeckToHand();
+    addXAmountOfCardsToHandOfPlayerWithNumberY(1, numberOfThePlayer);
     remainingActionsInPhase = +2;
 
 
 }
     private void useMilitia(int numberOfThePlayer){
-        allPlayers.get(numberOfThePlayer-1).addXAmountOfCardsToHand(2);
+        addXAmountOfCardsToHandOfPlayerWithNumberY(2, numberOfThePlayer);
 /* nog 2de deel van discarden toevoegen */
 
     }
@@ -258,7 +258,8 @@ private void useVillage (int numberOfThePlayer) {
         allPlayers.get(numberOfThePlayer-1).addXAmountOfCardsToHand(3);
     }
     private void useWitch(int numberOfThePlayer){
-        allPlayers.get(numberOfThePlayer-1).addXAmountOfCardsToHand(2);
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        activePlayer.addXAmountOfCardsToHand(2);
         for (int i=0;i<allPlayers.size();i++){
             if(i!=numberOfThePlayer-1){
                 allPlayers.get(i).addCardToDiscardPile(victoryCardsOnBoard[3]);
@@ -268,7 +269,8 @@ private void useVillage (int numberOfThePlayer) {
 
     }
     private void useThroneRoom(int numberOfThePlayer,int positionOfCardThatsNeeded){
-        Card toBeUsedCard = allPlayers.get(numberOfThePlayer).getCardOnPosInHand(positionOfCardThatsNeeded);
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        Card toBeUsedCard = activePlayer.getCardOnPosInHand(positionOfCardThatsNeeded);
         for (int i=0;i<2;i++) {
             executeSpecificAction(toBeUsedCard.getNumber());
         }
@@ -283,6 +285,67 @@ private void useVillage (int numberOfThePlayer) {
 
 
     }
+
+    private void useFestival(int numberOfThePlayer){
+        remainingActionsInPhase += 2;
+        amountOfActionsInNextPhase += 1;
+        currentlyActiveAmountOfCoins += 2;
+    }
+
+    private void useCouncilRoom(int numberOfThePlayer){
+        addXAmountOfCardsToHandOfPlayerWithNumberY(4,numberOfThePlayer);
+        amountOfActionsInNextPhase += 1;
+
+    }
+    private void useLaboratory(int numberOfThePlayer){
+        addXAmountOfCardsToHandOfPlayerWithNumberY(2,numberOfThePlayer);
+        remainingActionsInPhase += 1;
+
+    }
+    private void useMarket(int numberOfThePlayer){
+        addXAmountOfCardsToHandOfPlayerWithNumberY(1,numberOfThePlayer);
+        remainingActionsInPhase += 1;
+        amountOfActionsInNextPhase += 1;
+        currentlyActiveAmountOfCoins += 1;
+    }
+
+    private void useSpy(int numberOfThePlayer){
+        addXAmountOfCardsToHandOfPlayerWithNumberY(1,numberOfThePlayer);
+        remainingActionsInPhase+=1;
+        //laatste deeltje van spy maken (robert)
+    }
+
+    private void useAdventurer (int numberOfThePlayer){
+        int amountOfTreasureCardsFound = 0;
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        while (amountOfTreasureCardsFound!=2) {
+            Card topCard = activePlayer.getTopCardFromDeck();
+            if (topCard.getType().equals("treasure")) {
+                amountOfTreasureCardsFound += 1;
+                activePlayer.addSpecificCardToHand(topCard);
+            } else {
+                activePlayer.addCardToDiscardPile(topCard);
+            }
+        }
+
+    }
+    private void useThief(int numberOfThePlayer){
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        for (int i = 0; i < allPlayers.size(); i++){
+            Deck DeckOfPlayerX = returnXamountOfTopCardsOfPlayerY(2,i);
+
+        }
+
+    }
+
+    private Deck returnXamountOfTopCardsOfPlayerY(int amountOfCardsToBeReturned,int numberOfThePlayer){
+        Deck top2Cards = new Deck();
+        Player toBeScannedPlayer = getActivePlayer(numberOfThePlayer);
+        for (int i = 0;i<amountOfCardsToBeReturned;i++){
+            top2Cards.addCardToDeck(toBeScannedPlayer.getTopCardFromDeck());
+        }
+        return top2Cards;
+    }
     private ArrayList<Card> scanArrayForXCostCards(int cost,Card[] toBeScannedArray){
         ArrayList<Card> scannedArray ;
         scannedArray = new ArrayList<Card>();
@@ -292,6 +355,12 @@ private void useVillage (int numberOfThePlayer) {
            }
         }
         return scannedArray;
+    }
+    private void addXAmountOfCardsToHandOfPlayerWithNumberY(int amountOfCardsNeeded, int numberOfPLayer){
+        allPlayers.get(numberOfPLayer).addXAmountOfCardsToHand(amountOfCardsNeeded);
+    }
+    private Player getActivePlayer(int numberOfThePlayer){
+        return allPlayers.get(numberOfThePlayer);
     }
 
     }

@@ -58,6 +58,13 @@ public class Deck {
         return amount;
     }
 
+    public void addCardToSpecificPositionInDeck(int position, Card specificCard){
+        deck.add(position,specificCard);
+    }
+
+    public int getSize(){
+        return deck.size();
+    }
     public Card getCardOnPos(int i){
         return deck.get(i);
     }

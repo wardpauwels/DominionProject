@@ -241,15 +241,15 @@ private void useVillage (int numberOfThePlayer) {
 }
     private void useMilitia(int numberOfThePlayer){
         addXAmountOfCardsToHandOfPlayerWithNumberY(2, numberOfThePlayer);
-/* nog 2de deel van discarden toevoegen */
+/* TODO nog 2de deel van discarden toevoegen enemies tot 3 kaarten laaten discarden met while hand.size > 3*/
 
     }
     private void useMoneylender(int numberOfThePlayer){
 
-       if(allPlayers.get(numberOfThePlayer-1).scanHandForCard(treasureCardsOnBoard[0])) {
+       if(allPlayers.get(numberOfThePlayer).scanHandForCard(treasureCardsOnBoard[0])) {
 
-           int pickedCopper = allPlayers.get(numberOfThePlayer-1).scanHandForCardandGetPositionInHand(treasureCardsOnBoard[0]);
-           allPlayers.get(numberOfThePlayer-1).addCardFromHandToDiscardPile(treasureCardsOnBoard[0]);
+           int pickedCopper = allPlayers.get(numberOfThePlayer).scanHandForCardandGetPositionInHand(treasureCardsOnBoard[0]);
+           allPlayers.get(numberOfThePlayer).addCardFromHandToDiscardPile(treasureCardsOnBoard[0]);
            currentlyActiveAmountOfCoins=+3;
        }
        };
@@ -261,11 +261,24 @@ private void useVillage (int numberOfThePlayer) {
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addXAmountOfCardsToHand(2);
         for (int i=0;i<allPlayers.size();i++){
-            if(i!=numberOfThePlayer-1){
-                allPlayers.get(i).addCardToDiscardPile(victoryCardsOnBoard[3]);
+            if(i!=numberOfThePlayer){
+                if(!checkForCard(actionCards[15], getActivePlayer(i))) {
+
+
+                    getActivePlayer(i).addCardToDiscardPile(victoryCardsOnBoard[3]);
+                }
             }
 
         }
+
+    }
+    private boolean checkForCard(Card toFindCard, Player specificPlayer){
+       if (specificPlayer.scanHandForCard(toFindCard)) {
+           return true;
+       }
+        else{
+           return false;
+       }
 
     }
     private void useThroneRoom(int numberOfThePlayer,int positionOfCardThatsNeeded){
@@ -280,7 +293,9 @@ private void useVillage (int numberOfThePlayer) {
         amountOfActionsInNextPhase =+ 1;
     }
     private void useWorkshop(int numberOfThePlayer){
-        ArrayList<Card> availableCards = scanArrayForXCostCards(4,actionCardsOnBoard);
+        Deck availableCards = scanArrayForXCostCards(4,actionCardsOnBoard);
+
+        //todo speler optie geven om 1 vd kaarten met kost van 4 te kopen, zie deck hierboven
 
 
 
@@ -312,7 +327,7 @@ private void useVillage (int numberOfThePlayer) {
     private void useSpy(int numberOfThePlayer){
         addXAmountOfCardsToHandOfPlayerWithNumberY(1,numberOfThePlayer);
         remainingActionsInPhase+=1;
-        //laatste deeltje van spy maken (robert)
+        //TODO laatste deeltje van spy maken (robert)
     }
 
     private void useAdventurer (int numberOfThePlayer){
@@ -332,13 +347,50 @@ private void useVillage (int numberOfThePlayer) {
     private void useThief(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         for (int i = 0; i < allPlayers.size(); i++){
-            Deck DeckOfPlayerX = returnXamountOfTopCardsOfPlayerY(2,i);
-
+            Deck DeckOfPlayerX = returnXAmountOfTopCardsOfPlayerY(2,i);
+    //TODO nog toevoegen dat huidige speler kaart(en) moet selecteren (robert)
         }
 
     }
 
-    private Deck returnXamountOfTopCardsOfPlayerY(int amountOfCardsToBeReturned,int numberOfThePlayer){
+
+    private void useBureaucrat(int numberOfThePlayer)
+    {
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        activePlayer.addCardToPlaceInDeck(0,treasureCardsOnBoard[1]);
+        //TODO nog toevoegen dat andere spelers victory card moeten kiezen (robert)
+    }
+
+
+    private void useMoat(int numberOfThePlayer){
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        activePlayer.addXAmountOfCardsToHand(2);
+
+    }
+    private void useMine(int numberOfThePlayer){
+/// todo treasure cards in hand zoeken,
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+       Deck treasureCardsInHand = scanArrayForSpecificCard(treasureCardsOnBoard[0],activePlayer.returnHand());
+        // todo vraag welke kaart hij wil wegdoen;
+        // todo output van de vraag , de kost van de kaart nemen en speler de optie geven om een treasurekaart te kopen met de kost +3
+    }
+
+    private void useChancellor(int numberOfPlayer){
+        Player activePlayer = getActivePlayer(numberOfPlayer);
+
+        currentlyActiveAmountOfCoins+=2;
+        // TODO wil je complete deck op de stapel gooien
+        promptDeckOpStapel(activePlayer);
+
+    }
+
+    private void promptDeckOpStapel(Player activePlayer)
+    {
+        // if... TODO : vraag om alle kaarten op discardpile te leggen;
+        activePlayer.moveAllCardsFromDeckToDiscardPile();
+
+    }
+    private Deck returnXAmountOfTopCardsOfPlayerY(int amountOfCardsToBeReturned,int numberOfThePlayer){
         Deck top2Cards = new Deck();
         Player toBeScannedPlayer = getActivePlayer(numberOfThePlayer);
         for (int i = 0;i<amountOfCardsToBeReturned;i++){
@@ -346,13 +398,27 @@ private void useVillage (int numberOfThePlayer) {
         }
         return top2Cards;
     }
-    private ArrayList<Card> scanArrayForXCostCards(int cost,Card[] toBeScannedArray){
-        ArrayList<Card> scannedArray ;
-        scannedArray = new ArrayList<Card>();
+    private Deck scanArrayForXCostCards(int cost,Card[] toBeScannedArray){
+        Deck scannedArray = new Deck();
+
         for (int i=0; i<toBeScannedArray.length; i++){
+
+
            if( toBeScannedArray[i].getCost()==cost){
-               scannedArray.add(toBeScannedArray[i]);
+               scannedArray.addCardToDeck(toBeScannedArray[i]);
            }
+        }
+        return scannedArray;
+    }
+    private Deck scanArrayForSpecificCard(Card toBeFoundCard,Hand toBeScannedArray){
+        Deck scannedArray = new Deck();
+
+        for (int i=0; i<toBeScannedArray.showAmountOfCardsInHand(); i++){
+
+
+            if( toBeScannedArray.getCardOnPos(i).getType().equals(toBeFoundCard.getType())){
+                scannedArray.addCardToDeck(toBeScannedArray.getCardOnPos(i));
+            }
         }
         return scannedArray;
     }

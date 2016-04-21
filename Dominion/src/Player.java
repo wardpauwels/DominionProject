@@ -108,9 +108,26 @@ public class Player {
         }
         return 0;
     }
+    public Hand returnHand(){
+        return playersHand;
+    }
 
     public void addSpecificCardToHand(Card toBeAddedCard){
         playersHand.addSpecificCard(toBeAddedCard);
+    }
+
+    public void addCardToPlaceInDeck(int position,Card specificCard){
+        playersDeck.addCardToSpecificPositionInDeck(position, specificCard);
+    }
+
+    public void moveAllCardsFromDeckToDiscardPile(){
+
+     for(int i = 0;i<playersDeck.getSize();i++){
+         discardPile.addCardToDeck(playersDeck.getCardOnPos(0));
+         playersDeck.removeFromDeck(0);
+        }
+
+
     }
 //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){

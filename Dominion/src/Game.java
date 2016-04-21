@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @author Jens.Thiel
@@ -7,35 +6,24 @@ import java.util.Random;
 
 
 public class Game {
-    private Card[] actionCardsOnBoard;
-    private Card[] victoryCardsOnBoard;
-    private Card[] treasureCardsOnBoard;
-    private VictoryCardTable victoryCardTable = new VictoryCardTable();
-    private TreasureCardTable treasureCardTable = new TreasureCardTable();
-    private ActionCardTable actionCardTable = new ActionCardTable();
-    private Card[] actionCards = actionCardTable.actionCardTable;
-    private Card[] victoryCards = victoryCardTable.victoryCardTable;
-    private Card[] treasureCards = treasureCardTable.treasureCardTable;
-    public ArrayList<Player> allPlayers = new ArrayList<Player>();
+    private VictoryCardTable victoryCardTable;
+    private TreasureCardTable treasureCardTable;
+    private ActionCardTable actionCardTable;
+    public ArrayList<Player> allPlayers;
 
-    //een linked list van gespeelde kaarten (nog resetten bij iedere 'phase' en opvullen bij iedere 'phase')
+    //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
     private Deck playedCards = new Deck();
     private int currentlyActiveAmountOfCoins;
     private int remainingActionsInPhase;
 
 
-    public Game(int amountOfPlayers) {
-        addPlayersToArrayList(amountOfPlayers);
-        actionCardsOnBoard = new Card[10];
-        victoryCardsOnBoard = new Card[4];
-        treasureCardsOnBoard = new Card[3];
-
-        generateArray();
-        generateBoard();
-        generateVictoryCardsOnBoard();
-        generateTreasureCardsOnBoard();
+    public Game() {
+        victoryCardTable = new VictoryCardTable();
+        treasureCardTable = new TreasureCardTable();
+        actionCardTable = new ActionCardTable();
+        allPlayers = new ArrayList<Player>();
     }
-
+    // TODO: kijken of dit wel nodig is
     private void addPlayersToArrayList(int amount){
         for(int i=0;i<amount;i++){
             Player newPlayer = new Player();
@@ -50,14 +38,6 @@ public class Game {
     public void nextTurnPlayer(Player whichPlayer){
 
     }
-
-    private void generateVictoryCardsOnBoard(){
-        victoryCardsOnBoard = victoryCardTable.victoryCardTable;
-    }
-    private void generateTreasureCardsOnBoard() {
-        treasureCardsOnBoard = treasureCardTable.treasureCardTable;
-    }
-
 
     public void nextTurnFor (Player whichPlayer){
         currentlyActiveAmountOfCoins = 0;
@@ -75,13 +55,13 @@ public class Game {
         Card boughtCard = new Card();
         switch(type){
             case "action":
-                boughtCard = actionCardsOnBoard[positionOnTheBoard-1];
+                boughtCard = actionCardTable.getCardOnPos(positionOnTheBoard-1);
                 break;
             case "victory":
-                boughtCard = victoryCardsOnBoard[positionOnTheBoard-1];
+                boughtCard = victoryCardTable.getCardOnPos(positionOnTheBoard -1);
                 break;
             case "treasure":
-                boughtCard = treasureCardsOnBoard[positionOnTheBoard-1];
+                boughtCard = treasureCardTable.getCardOnPos(positionOnTheBoard-1);
                 break;
         }
         boughtCard.setAmount(boughtCard.getAmount()-1);
@@ -126,95 +106,6 @@ public class Game {
         whichPlayer.addCardFromDeckToHand();
     }
 
-    private void generateBoard() {
-        //maakt 10 action cards in begin van game
-        generateActionBoard();
-        generateVictoryCards();
-        generateTreasureCards();
-    }
-
-    private void generateVictoryCards() {
-        for(int i = 0; i < victoryCardsOnBoard.length; i++) {
-            int number = victoryCardsOnBoard[i].getNumber();
-
-            victoryCardsOnBoard[i].setName(victoryCards[number].getName());
-            victoryCardsOnBoard[i].setCost(victoryCards[number].getCost());
-            victoryCardsOnBoard[i].setType(victoryCards[number].getType());
-            victoryCardsOnBoard[i].setAmount(victoryCards[number].getAmount());
-        }
-    }
-
-    private void generateTreasureCards() {
-        for(int i = 0; i < treasureCardsOnBoard.length; i++) {
-            int number = treasureCardsOnBoard[i].getNumber();
-
-            treasureCardsOnBoard[i].setName(treasureCards[number].getName());
-            treasureCardsOnBoard[i].setCost(treasureCards[number].getCost());
-            treasureCardsOnBoard[i].setType(treasureCards[number].getType());
-            treasureCardsOnBoard[i].setAmount(treasureCards[number].getAmount());
-        }
-    }
-
-    private void generateArray() {
-        for (int i = 0; i < actionCardsOnBoard.length; i++) {
-            actionCardsOnBoard[i] = new Card();
-        }
-        for (int i = 0; i < treasureCardsOnBoard.length; i++) {
-            treasureCardsOnBoard[i] = new Card();
-        }
-        for (int i = 0; i < victoryCardsOnBoard.length; i++) {
-            victoryCardsOnBoard[i] = new Card();
-        }
-    }
-
-    private void generateActionBoard() {
-
-        for (int i = 0; i < 10; i++) {
-            int randomNumber = getRandomNumber(1, 25);
-            while (!checkRandom(randomNumber)) {
-                randomNumber = getRandomNumber(1, 25);
-            }
-
-            actionCardsOnBoard[i] = generateActionCard(randomNumber);
-        }
-        fillUpActionCardArray();
-
-    }
-
-    private Card generateActionCard(int number) {
-        Card actionCard = new Card();
-        actionCard.setNumber(number);
-        return actionCard;
-
-    }
-
-    // vult de array met action cards op het board
-    private void fillUpActionCardArray() {
-        for (int i = 0; i < actionCardsOnBoard.length; i++) {
-            int number = actionCardsOnBoard[i].getNumber();
-
-            actionCardsOnBoard[i].setName(actionCards[number - 1].getName());
-            actionCardsOnBoard[i].setCost(actionCards[number - 1].getCost());
-            actionCardsOnBoard[i].setType(actionCards[number - 1].getType());
-            actionCardsOnBoard[i].setAmount(actionCards[number -1].getAmount());
-        }
-    }
-
-    private int getRandomNumber(int minValue, int maxValue) {
-        Random rand = new Random();
-        int randomNumber = rand.nextInt(maxValue - minValue + 1) + minValue;
-        return randomNumber;
-    }
-
-    private boolean checkRandom(int randomNumber) {
-        for (int i = 0; i < actionCardsOnBoard.length; i++) {
-            int currentNumber = actionCardsOnBoard[i].getNumber();
-            if (randomNumber == currentNumber) {
-                return false;
-            }
-        }
-        return true;
-    }
 
 
 
@@ -232,24 +123,24 @@ public class Game {
         System.out.println("---------------");
         System.out.println("Action cards:");
         System.out.println("---------------");
-        for (int i = 0; i < actionCardsOnBoard.length; i++) {
-            System.out.println(i +1 + ". " +  actionCardsOnBoard[i].getName() +  ", Cost: " + actionCardsOnBoard[i].getCost() + ", Amount: " + actionCardsOnBoard[i].getAmount());
+        for (int i = 0; i < actionCardTable.getSize(); i++) {
+            System.out.println(i +1 + ". " +  actionCardTable.getCardOnPos(i).getName() +  ", Cost: " + actionCardTable.getCardOnPos(i).getCost() + ", Amount: " + actionCardTable.getCardOnPos(i).getAmount());
         }
     }
     public void printVicotryCards() {
         System.out.println("---------------");
         System.out.println("Victory cards:");
         System.out.println("---------------");
-        for (int i = 0; i < victoryCardsOnBoard.length; i++) {
-            System.out.println(victoryCardsOnBoard[i].getName() +  ", Cost: " + victoryCardsOnBoard[i].getCost() + ", Amount: " + victoryCardsOnBoard[i].getAmount());
+        for (int i = 0; i < victoryCardTable.getSize(); i++) {
+            System.out.println(victoryCardTable.getCardOnPos(i).getName() +  ", Cost: " + victoryCardTable.getCardOnPos(i).getCost() + ", Amount: " + victoryCardTable.getCardOnPos(i).getAmount());
         }
     }
     public void printTreasureCards() {
         System.out.println("---------------");
         System.out.println("Treasure cards:");
         System.out.println("---------------");
-        for (int i = 0; i < treasureCardsOnBoard.length; i++) {
-            System.out.println(treasureCardsOnBoard[i].getName() +  ", Cost: " + treasureCardsOnBoard[i].getCost() + ", Amount: " + treasureCardsOnBoard[i].getAmount());
+        for (int i = 0; i < treasureCardTable.getSize(); i++) {
+            System.out.println(treasureCardTable.getCardOnPos(i).getName() +  ", Cost: " + treasureCardTable.getCardOnPos(i).getCost() + ", Amount: " + treasureCardTable.getCardOnPos(i).getAmount());
         }
     }
 

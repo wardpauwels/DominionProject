@@ -1,19 +1,21 @@
+import java.util.ArrayList;
+
 /**
  * @author Jens.Thiel
  */
 public class TreasureCardTable {
-    public Card[] treasureCardTable;
+    public ArrayList<Card> treasureCardTable;
 
     public TreasureCardTable() {
-        treasureCardTable = new Card[3];
+        treasureCardTable = new ArrayList<Card>();
         GenerateVictoryCardTable();
 
     }
 
     public void GenerateVictoryCardTable() {
-        treasureCardTable[0] = GenerateSpecificTreasureCard(1, "Copper", 2, 60);
-        treasureCardTable[1] = GenerateSpecificTreasureCard(2, "Silver", 5, 40);
-        treasureCardTable[2] = GenerateSpecificTreasureCard(3, "Gold", 8, 30);
+        treasureCardTable.add(GenerateSpecificTreasureCard(1, "Copper", 2, 60));
+        treasureCardTable.add(GenerateSpecificTreasureCard(2, "Silver", 5, 40));
+        treasureCardTable.add(GenerateSpecificTreasureCard(3, "Gold", 8, 30));
 
 
     }
@@ -28,6 +30,14 @@ public class TreasureCardTable {
 
 
         return newCard;
+    }
+
+    public Card getCardOnPos(int numberOfCard){
+        return treasureCardTable.get(numberOfCard);
+    }
+
+    public int getSize(){
+        return treasureCardTable.size();
     }
 
 }

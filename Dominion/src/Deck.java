@@ -5,67 +5,58 @@ import java.util.*;
 *
 * @author Robert Plasschaert
 */
-// controleer of alles nog nodig is hieronder.
-
 
 public class Deck {
     private ArrayList<Card> cardList;
-    private ActionCardTable allActionCards = new ActionCardTable();
-    private Card[] actionCards = allActionCards.actionCardTable;
-    private TreasureCardTable allTreasureCards = new TreasureCardTable();
-    private Card[] treasureCards = allTreasureCards.treasureCardTable;
-    private VictoryCardTable allVictoryCards = new VictoryCardTable();
-    private Card[] victoryCards = allVictoryCards.victoryCardTable;
+    private ActionCardTable actionCards;
+    private VictoryCardTable victoryCards;
+    private TreasureCardTable treasureCards;
+
 
     public Deck(){
         cardList = new ArrayList<Card>();
-    }
-
-    private Card getVictoryCard(int victoryCardNumber){
-        Card newCard = new Card();
-        newCard = victoryCards[victoryCardNumber];
-        return newCard;
-    }
-
-    private Card getCoinCard(int coinNumber){
-        Card newCard = new Card();
-        newCard = treasureCards[coinNumber];
-        return newCard;
+        victoryCards = new VictoryCardTable();
+        actionCards = new ActionCardTable();
+        treasureCards = new TreasureCardTable();
 
     }
+
 
     public void generateStarterDeck(){
+        Card copperCard = treasureCards.getCardOnPos(0);
+        Card estateCard = victoryCards.getCardOnPos(0);
         int coinsInStarterDeck = 7;
         int estateInStarterDeck = 3;
 
         for (int i = 0; i < coinsInStarterDeck; i++){
-            addToDeck("treasure", 1);
+            addCardToDeck(copperCard);;
         }
         for (int i = 0; i < estateInStarterDeck; i++){
-            addToDeck("victory", 1);
+            addCardToDeck(estateCard);
         }
     }
 
-    public int showAmountOfCardsInDeck(){
+    public int getSize(){
         return cardList.size();
     }
 
     public Card getCardOnPos(int i){
         return cardList.get(i);
     }
-// om nieuwe kaarten toe te voegen aan deck
+    // om nieuwe kaarten toe te voegen aan deck
+
     public void addToDeck(String typeOfCard, int numberOfCard){
         Card newCard = new Card();
         switch (typeOfCard){
-           
+
             case "action": 
-                    newCard = actionCards[numberOfCard - 1];
+                    newCard = actionCards.getCardOnPos(numberOfCard -1);
                     break;
             case "treasure":
-                    newCard = treasureCards[numberOfCard - 1];
+                    newCard = treasureCards.getCardOnPos(numberOfCard - 1);
                     break;
             case "victory":
-                    newCard = victoryCards[numberOfCard - 1];
+                    newCard = victoryCards.getCardOnPos(numberOfCard -1);
                     break;
         }
         cardList.add(newCard);

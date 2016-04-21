@@ -65,23 +65,10 @@ public class main {
         g.printActionCards();
         g.printHand(g.playerOne);
         */
-        System.out.println("Geef aantal spelers");
-        i = in.nextInt();
-        Game g = new Game(i);
+        CliGame g = new CliGame();
 
-
-        System.out.println("Geef username player 1");
-        s = in.nextLine();
-        s = in.nextLine();
-        g.setPlayername(0, s);
-
-
-
-        System.out.println("Geef username player 2");
-        s = in.nextLine();
-        g.setPlayername(1, s);
-
-
+        g.newGame();
+/*
         System.out.println("Player 1: " + g.allPlayers.get(0).getName() + " Player 2: " + g.allPlayers.get(1).getName());
         g.printBoard();
         g.printHand(g.allPlayers.get(0));
@@ -89,7 +76,9 @@ public class main {
         printLine();
         System.out.println("Kies actie:");
         printLine();
-        System.out.println("1: Buy action card");
+        System.out.println("1: Buy victory card");
+        System.out.println("2: Buy treasure card");
+        System.out.println("3: Buy action card");
         printLine();
         i = in.nextInt();
         printLine();
@@ -101,13 +90,18 @@ public class main {
 
 
 
+*/
 
 
 
     }
-    public static void printLine(){
+    private static void printLine(){
         System.out.println("------------------");
     }
+
+
+
+
 
 
 

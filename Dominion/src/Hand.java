@@ -4,12 +4,12 @@ import java.util.*;
 
 
 public class Hand {
-    private ArrayList<Card> hand = new ArrayList<Card>();
+    private ArrayList<Card> hand;
 
     
     
     public Hand(Deck playersDeck){
-
+        hand = new ArrayList<>();
     }
 
     //bovenste kaart van het pakje nemen
@@ -51,7 +51,6 @@ public class Hand {
         hand.remove(index);
     }
 
-    //testfunctie
     
     public void printHand(){
 

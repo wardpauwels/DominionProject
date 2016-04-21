@@ -1,20 +1,21 @@
+import java.util.ArrayList;
+
 /**
  * @author Jens.Thiel
  */
 public class VictoryCardTable {
-    public Card[] victoryCardTable;
+    public ArrayList<Card> victoryCardTable;
 
     public VictoryCardTable() {
-        victoryCardTable = new Card[4];
+        victoryCardTable = new ArrayList<Card>();
         GenerateVictoryCardTable();
-
     }
 
     public void GenerateVictoryCardTable() {
-        victoryCardTable[0] = GenerateSpecificVictoryCard(1, "Estate", 2, 1, 24);
-        victoryCardTable[1] = GenerateSpecificVictoryCard(2, "Duchy", 5, 3, 12);
-        victoryCardTable[2] = GenerateSpecificVictoryCard(3, "Province", 8, 6, 12);
-        victoryCardTable[3] = GenerateSpecificVictoryCard(4, "Curse", 0, -1, 30);
+        victoryCardTable.add(GenerateSpecificVictoryCard(1, "Estate", 2, 1, 24));
+        victoryCardTable.add(GenerateSpecificVictoryCard(2, "Duchy", 5, 3, 12));
+        victoryCardTable.add(GenerateSpecificVictoryCard(3, "Province", 8, 6, 12));
+        victoryCardTable.add(GenerateSpecificVictoryCard(4, "Curse", 0, -1, 30));
 
     }
 
@@ -28,6 +29,14 @@ public class VictoryCardTable {
         newCard.setAmount(amount);
 
         return newCard;
+    }
+
+    public Card getCardOnPos(int numberOfCard){
+        return victoryCardTable.get(numberOfCard);
+    }
+
+    public int getSize(){
+        return victoryCardTable.size();
     }
 
 }

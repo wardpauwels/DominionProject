@@ -72,7 +72,7 @@ public class Player {
 
     }
 
-    public void addToDiscardpile(){
+    public void addToHandDiscardpile(){
         int handsize = playersHand.showAmountOfCardsInHand();
         for(int i = 0; i < handsize; i++){
             Card c = playersHand.getCardOnPos(i);
@@ -84,7 +84,7 @@ public class Player {
     }
 
     public void addCardToDiscardPile(Card toBeAddedCard){
-        discardPile.addToDeck(toBeAddedCard.getType(),toBeAddedCard.getNumber());
+        discardPile.addCardToDeck(toBeAddedCard);
     }
 
 
@@ -99,10 +99,11 @@ public class Player {
     public void addCardFromDeckToHand(){
         playersHand.addCardToHand(playersDeck);
     }
+
     // wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
     // NIET GEBRUIKEN OM 1 KAART TE TREKKEN
     public void generateNextHand(){
-        int restOfCardsInPlayersDeck = playersDeck.showAmountOfCardsInDeck();
+        int restOfCardsInPlayersDeck = playersDeck.getSize();
                if (restOfCardsInPlayersDeck<=5)
                {
                    for(int i=0;i<restOfCardsInPlayersDeck;i++){
@@ -118,7 +119,7 @@ public class Player {
     }
 
     public int returnAmountOfCardsInDeck(){
-        return playersDeck.showAmountOfCardsInDeck();
+        return playersDeck.getSize();
 
     }
 
@@ -138,7 +139,7 @@ public class Player {
         System.out.println("---------------");
         System.out.println("Discard pile:");
         System.out.println("---------------");
-        for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
+        for(int i = 0; i < discardPile.getSize(); i++){
 
             System.out.println(discardPile.getCardOnPos(i).getName());
         }

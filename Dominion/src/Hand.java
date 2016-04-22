@@ -51,6 +51,10 @@ public class Hand {
         hand.remove(index);
     }
 
+    public void addSpecificCard(Card toBeAddedCard){
+        hand.add(toBeAddedCard);
+    }
+
     
     public void printHand(){
 

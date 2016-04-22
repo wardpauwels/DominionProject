@@ -62,6 +62,10 @@ public class Deck {
         cardList.add(newCard);
     }
 
+    public void addCardToSpecificPositionInDeck(int position, Card specificCard){
+        cardList.add(position,specificCard);
+    }
+
     public void addCardToDeck(Card c){
         cardList.add(c);
     }

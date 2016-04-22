@@ -45,13 +45,14 @@ public class Player {
         playersDeck.removeFromDeck(index);
     }
 
-    public int getAmountOfCoinsInHand(){
+    public int getAmountOfCoinsInHand()// wordt atm alleen gebruikt om het aantal coins te printen. TODO: kan verwijderd worden?
+    {
         int handsize = playersHand.showAmountOfCardsInHand();
         int amountOfCoins = 0;
         for (int i = 0; i < handsize; i++){
             Card currentCard = playersHand.getCardOnPos(i);
 
-            if(currentCard.getType() == "treasure"){
+            if(currentCard.getType().equals("treasure")){
                 name = currentCard.getName();
                 switch (name){
                     case "Copper":
@@ -95,6 +96,38 @@ public class Player {
 
     // HAND
 
+    public void addXAmountOfCardsToHand(int amount){
+        for (int i = 0; i < amount ; i++){
+            addCardFromDeckToHand();
+        }
+    }
+
+    public boolean scanHandForCard(Card whichCard){
+        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
+            if (playersHand.getCardOnPos(i)==whichCard){
+                return true;
+            }
+        }
+        return false;
+    }
+    public int scanHandForCardandGetPositionInHand(Card whichCard){
+        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
+            if (playersHand.getCardOnPos(i)==whichCard){
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public void removeCardFromHand(int spotInHand){
+        playersHand.removeFromHand(spotInHand);
+    }
+    public void addCardFromHandToDiscardPile(Card whichCard){
+        int toBeRemovedCard = scanHandForCardandGetPositionInHand(whichCard);
+        playersHand.removeFromHand(toBeRemovedCard);
+
+    }
+
     //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){
         playersHand.addCardToHand(playersDeck);
@@ -122,6 +155,34 @@ public class Player {
         return playersDeck.getSize();
 
     }
+    public Card getTopCardFromDeck(){
+        return playersDeck.getCardOnPos(0);
+    }
+
+    public void addSpecificCardToHand(Card toBeAddedCard){
+        playersHand.addSpecificCard(toBeAddedCard);
+    }
+
+    public Card getCardOnPosInHand(int position){
+        return playersHand.getCardOnPos(position);
+    }
+    public void addCardToPlaceInDeck(int position,Card specificCard){
+        playersDeck.addCardToSpecificPositionInDeck(position, specificCard);
+    }
+    public Hand returnHand(){
+        return playersHand;
+    }
+
+    public void moveAllCardsFromDeckToDiscardPile(){
+
+        for(int i = 0;i<playersDeck.getSize();i++){
+            discardPile.addCardToDeck(playersDeck.getCardOnPos(0));
+            playersDeck.removeFromDeck(0);
+        }
+
+
+    }
+
 
 
 

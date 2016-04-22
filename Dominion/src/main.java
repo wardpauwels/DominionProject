@@ -2,11 +2,12 @@ import java.util.*;
 
 public class main {
 //testklasse
-    public static void main(String[] args) {
-        int i;
-        String s;
+    public static void main(String[] args) //TODO: eerder geschereven 'tests' verwijderen
+    {
+        //int i;
+        //String s;
 
-        Scanner in = new Scanner(System.in);
+        //Scanner in = new Scanner(System.in);
         /*Card c = new Card();
 		c.SetNumber(45);
 		System.out.println(c.getNumber());*/
@@ -65,10 +66,10 @@ public class main {
         g.printActionCards();
         g.printHand(g.playerOne);
         */
-        CliGame g = new CliGame();
 
-        g.newGame();
-/*
+
+        //g.newGame();
+        /*
         System.out.println("Player 1: " + g.allPlayers.get(0).getName() + " Player 2: " + g.allPlayers.get(1).getName());
         g.printBoard();
         g.printHand(g.allPlayers.get(0));
@@ -88,10 +89,8 @@ public class main {
         g.buyCard(i,"action", g.allPlayers.get(0));
         g.printActionCards();
 
-
-
-*/
-
+        */
+        CliGame g = new CliGame();
 
 
     }

@@ -61,6 +61,87 @@ public class Game {
     private void ExecuteDrawPhase(Player whichPlayer){
         whichPlayer.generateNextHand();
     }
+    private void useActionCard(String nameOfActionCard,int numberOfThePlayer){
+
+        switch(nameOfActionCard){
+            case "Cellar":
+                //TODO ROBERT
+                break;
+            case "Chapel":
+                //TODO ROBERT
+                break;
+            case "Chancellor":
+                useChancellor(numberOfThePlayer);
+                break;
+            case "Village":
+                useVillage(numberOfThePlayer);
+                break;
+            case "Woodcutter":
+                useWoodCutter(numberOfThePlayer);
+                break;
+            case "Workshop":
+                useWorkshop(numberOfThePlayer);
+                break;
+            case "Feast":
+                //TODO ROBERT
+                break;
+            case "Militia":
+                useMilitia(numberOfThePlayer);
+                break;
+            case "Moneylender":
+                useMoneylender(numberOfThePlayer);
+                break;
+            case "Remodel":
+                //TODO ROBERT
+                break;
+            case "Bureaucrat":
+                useBureaucrat(numberOfThePlayer);
+                break;
+            case "Smithy":
+                useSmithy(numberOfThePlayer);
+                break;
+            case "Spy":
+                useSpy(numberOfThePlayer);
+                break;
+            case "Thief":
+                useThief(numberOfThePlayer);
+                break;
+            case "Throne Room":
+                //TODO ROBERT
+                break;
+            case "Moat":
+                useMoat(numberOfThePlayer);
+                break;
+            case "Council Room":
+                useCouncilRoom(numberOfThePlayer);
+                break;
+            case "Festival":
+                useFestival(numberOfThePlayer);
+                break;
+            case "Laboratory":
+                useLaboratory(numberOfThePlayer);
+                break;
+            case "Library":
+                //TODO ROBERT
+                break;
+            case "Garden":
+                //CANT USE THIS CARD TODO ERROR
+                break;
+            case "Market":
+                useMarket(numberOfThePlayer);
+                break;
+            case "Mine":
+                useMine(numberOfThePlayer);
+                break;
+            case "Witch":
+                useWitch(numberOfThePlayer);
+                break;
+            case "Adventurer":
+                useAdventurer(numberOfThePlayer);
+                break;
+
+        }
+    }
 
 
 

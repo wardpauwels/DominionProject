@@ -37,6 +37,7 @@ public class Hand {
 
     }
 
+
     public Card getCardOnPos(int i){
         return hand.get(i);
     }
@@ -64,7 +65,7 @@ public class Hand {
     }
 
 
-    public int showAmountOfCardsInHand(){
+    public int getSize(){
         int amount = hand.size();
         return amount;
     }

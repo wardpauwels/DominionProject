@@ -41,13 +41,13 @@ public class Player {
     }
 
 
-    public void cardsUsedInHand(int index){
+    public void removeFromDeck(int index){
         playersDeck.removeFromDeck(index);
     }
 
     public int getAmountOfCoinsInHand()// wordt atm alleen gebruikt om het aantal coins te printen. TODO: kan verwijderd worden?
     {
-        int handsize = playersHand.showAmountOfCardsInHand();
+        int handsize = playersHand.getSize();
         int amountOfCoins = 0;
         for (int i = 0; i < handsize; i++){
             Card currentCard = playersHand.getCardOnPos(i);
@@ -74,7 +74,7 @@ public class Player {
     }
 
     public void addToHandDiscardpile(){
-        int handsize = playersHand.showAmountOfCardsInHand();
+        int handsize = playersHand.getSize();
         for(int i = 0; i < handsize; i++){
             Card c = playersHand.getCardOnPos(i);
 
@@ -102,8 +102,10 @@ public class Player {
         }
     }
 
+
+
     public boolean scanHandForCard(Card whichCard){
-        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
+        for (int i=0;i < playersHand.getSize(); i++){
             if (playersHand.getCardOnPos(i)==whichCard){
                 return true;
             }
@@ -111,12 +113,14 @@ public class Player {
         return false;
     }
     public int scanHandForCardandGetPositionInHand(Card whichCard){
-        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
-            if (playersHand.getCardOnPos(i)==whichCard){
-                return i;
+        int posOfCard = 0;
+        for (int i = 0; i < playersHand.getSize(); i++) {
+            if (playersHand.getCardOnPos(i) == whichCard) {
+                posOfCard = i;
+                break;
             }
         }
-        return 0;
+        return posOfCard;
     }
 
     public void removeCardFromHand(int spotInHand){
@@ -125,7 +129,16 @@ public class Player {
     public void addCardFromHandToDiscardPile(Card whichCard){
         int toBeRemovedCard = scanHandForCardandGetPositionInHand(whichCard);
         playersHand.removeFromHand(toBeRemovedCard);
+    }
 
+    public int getHandSize(){
+        int size = playersHand.getSize();
+        return size;
+    }
+
+    public void addCardFromHandToDeck(Card c){
+        playersDeck.addCardToDeck(c);
+        playersHand.removeFromHand(scanHandForCardandGetPositionInHand(c));
     }
 
     //Om 1 kaart te trekken
@@ -179,8 +192,6 @@ public class Player {
             discardPile.addCardToDeck(playersDeck.getCardOnPos(0));
             playersDeck.removeFromDeck(0);
         }
-
-
     }
 
 

@@ -8,6 +8,7 @@ public class Player {
     private Hand playersHand = new Hand(playersDeck);
     private Deck discardPile = new Deck();
     private int number;
+    private int score;
 
 
 
@@ -23,7 +24,12 @@ public class Player {
     public void setName(String name){
         this.name=name;
     }
-
+    public void setScore(int amount){
+        this.score = score;
+    }
+    public int getScore(){
+        return score;
+    }
     public String getName(){
         return name;
     }
@@ -156,6 +162,27 @@ public class Player {
         return playersDeck.showAmountOfCardsInDeck();
 
     }
+    public int calculateScore(){
+        int totalAmountOfPoints = 0;
+        Deck victoryCardsInDeck = playersDeck.scanDeckForCardWithTypeX("victory");
+        for (int i = 0; i < victoryCardsInDeck.getSize();i++){
+            totalAmountOfPoints += victoryCardsInDeck.getCardOnPos(i).getPoints();
+        }
+        setScore(totalAmountOfPoints);
+        return totalAmountOfPoints;
+    }
+
+    public Deck scanDeckForCardWithTypeX(String type){
+        return playersDeck.scanDeckForCardWithTypeX(type);
+    }
+    public Deck scanHandForCardWithTypeX(String type){
+        return playersHand.scanDeckForCardWithTypeX(type);
+    }
+public int scanHandForCardAndReturnPosition(String type)
+{
+    return playersHand.scanDeckForCardWithTypeXandReturnPosition(type);
+}
+
 
     public Card getCardOnPosInHand(int position){
         return playersHand.getCardOnPos(position);

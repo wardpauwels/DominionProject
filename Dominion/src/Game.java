@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -359,6 +360,14 @@ private void useVillage (int numberOfThePlayer) {
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addCardToPlaceInDeck(0,treasureCardsOnBoard[1]);
         //TODO nog toevoegen dat andere spelers victory card moeten kiezen (robert)
+        for (int i=0;i<allPlayers.size();i++){
+            if (i != numberOfThePlayer) {
+                int positionOfVictoryCardInHandOfPlayer = allPlayers.get(i).scanHandForCardAndReturnPosition("victory");
+                if (positionOfVictoryCardInHandOfPlayer != -1) {
+                    allPlayers.get(i).addCardToDiscardPile(allPlayers.get(i).getCardOnPosInHand(positionOfVictoryCardInHandOfPlayer));
+                }
+            }
+        }
     }
 
 
@@ -425,8 +434,11 @@ private void useVillage (int numberOfThePlayer) {
     private void addXAmountOfCardsToHandOfPlayerWithNumberY(int amountOfCardsNeeded, int numberOfPLayer){
         allPlayers.get(numberOfPLayer).addXAmountOfCardsToHand(amountOfCardsNeeded);
     }
-    private Player getActivePlayer(int numberOfThePlayer){
+    private Player getActivePlayer(int numberOfThePlayer) {
         return allPlayers.get(numberOfThePlayer);
+    }
+    private int calculateScore(int numberOfPlayer){
+        return allPlayers.get(numberOfPlayer).calculateScore();
     }
 
     }

@@ -21,6 +21,16 @@ public class Deck {
 
     }
 
+    public Deck scanDeckForCardWithTypeX(String typeOfCard){
+        Deck specificCardsInDeck = new Deck();
+        for (int i=0;i<deck.size();i++) {
+            if (deck.get(i).getType().equals(typeOfCard)){
+                specificCardsInDeck.addCardToDeck(deck.get(i));
+            }
+        }
+        return specificCardsInDeck;
+    }
+
     public void addCardToDeck(Card toBeAddedCard){
         deck.add(toBeAddedCard);
     }

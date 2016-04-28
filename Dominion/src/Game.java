@@ -257,15 +257,27 @@ public class Game {
     }
     private void useThief(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
+        ArrayList<Card> tmpDeck = new ArrayList<Card>();
+        boolean stopAction = false;
         for (int i = 0; i < allPlayers.size(); i++){
-            Deck DeckOfPlayerX = returnXAmountOfTopCardsOfPlayerY(2,i);
-            System.out.println("Selecteer kaart (nummer van positie ?1 - 4?)"); // TODO: hoeveel kaarten? + check maken voor juiste input
-            int positie  = in.nextInt();
-            positie  = positie - 1;
-
-            // TODO: vanwaar worden de kaarten geselecteert?
+            if(numberOfThePlayer != i){
+                Deck deckOfPlayerX = returnXAmountOfTopCardsOfPlayerY(2,i);
+                System.out.println("Geef positie van kaart om af te pakken");
+                int positie  = in.nextInt();
+                positie  = positie - 1;
+                getActivePlayer(i).removeFromDeck(positie);
+                tmpDeck.add(deckOfPlayerX.getCardOnPos(positie));
+            }
         }
-
+        while(!stopAction || tmpDeck.size() > 0){
+            System.out.println("Geef positie van kaart om aan je eigen deck toe te voegen of geef 9 om te stoppen");
+            int keuze = in.nextInt();
+            if(keuze > 0 || keuze <= tmpDeck.size()){
+                activePlayer.addCardToDiscardPile(tmpDeck.get(keuze));
+            } else if (keuze == 9){
+                stopAction = true;
+            }
+        }
     }
 
 

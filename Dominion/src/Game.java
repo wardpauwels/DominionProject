@@ -168,7 +168,6 @@ public class Game {
         remainingBuysInPhase =+ 1;
     }
     private void useWorkshop(int numberOfThePlayer){
-        //Deck availableCards = scanArrayForXCostCards(4,actionCardTable);
         System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen? (1 - 3)");
         int intOfTypeCard = in.nextInt();
         if(intOfTypeCard < 1 && intOfTypeCard > 3){
@@ -285,12 +284,12 @@ public class Game {
     {
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addCardToPlaceInDeck(0,treasureCardTable.getCardOnPos(1));
-
-        for (int i=0;i<allPlayers.size();i++) {
+        //TODO nog toevoegen dat andere spelers victory card moeten kiezen (robert)
+        for (int i=0;i<allPlayers.size();i++){
             if (i != numberOfThePlayer) {
-                if (checkForCard(victoryCardTable.getCardOnPos(0), getActivePlayer(i)) || checkForCard(victoryCardTable.getCardOnPos(1), getActivePlayer(i)) || checkForCard(victoryCardTable.getCardOnPos(2), getActivePlayer(i))) {
-                    //getActivePlayer(i).scanHandForCardandGetPositionInHand(); TODO: afmaken
-                    //getActivePlayer(i).addCardFromHandToDiscardPile();
+                int positionOfVictoryCardInHandOfPlayer = allPlayers.get(i).scanHandForCardAndReturnPosition("victory");
+                if (positionOfVictoryCardInHandOfPlayer != -1) {
+                    allPlayers.get(i).addCardToDiscardPile(allPlayers.get(i).getCardOnPosInHand(positionOfVictoryCardInHandOfPlayer));
                 }
             }
         }

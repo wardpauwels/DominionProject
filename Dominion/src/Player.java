@@ -112,6 +112,11 @@ public class Player {
         }
         return false;
     }
+
+    public int scanHandForCardAndReturnPosition(String type)
+    {
+        return playersHand.scanDeckForCardWithTypeXandReturnPosition(type);
+    }
     public int scanHandForCardandGetPositionInHand(Card whichCard){
         int posOfCard = 0;
         for (int i = 0; i < playersHand.getSize(); i++) {

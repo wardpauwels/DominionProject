@@ -36,6 +36,42 @@ public class Hand {
         hand.clear();
 
     }
+    public boolean scanDeckForCardWithTypeXandReturnBoolean(String typeOfCard){
+        Deck specificCardsInDeck = new Deck();
+        for (int i=0;i<hand.size();i++) {
+            if (hand.get(i).getType().equals(typeOfCard)){
+                specificCardsInDeck.addCardToDeck(hand.get(i));
+            }
+        }
+        if (specificCardsInDeck.getSize()==0){
+            return true;
+        }
+        else return false;
+
+
+    }
+
+    public int scanDeckForCardWithTypeXandReturnPosition(String typeOfCard) {
+        Deck specificCardsInDeck = new Deck();
+        int positionOfCard = 100000;
+
+        if (scanDeckForCardWithTypeXandReturnBoolean(typeOfCard)) {
+            while (positionOfCard == 100000) {
+                for (int i = 0; i < hand.size(); i++) {
+                    if (hand.get(i).getType().equals(typeOfCard)) {
+                        positionOfCard = i;
+                    }
+                }
+
+            }
+            return positionOfCard;
+        }
+        else{
+
+            return -1;
+        }
+
+    }
 
 
     public Card getCardOnPos(int i){

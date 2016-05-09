@@ -116,6 +116,24 @@ public class Game {
     public void endTurnForPlayer(Player p){
         p.generateNextHand();
     }
+    public void lowerAmountOfActions(){
+        remainingActionsInPhase -= 1;
+    }
+
+    public void resetAmountOfActions(){
+        remainingActionsInPhase = remainingBuysInPhase;
+
+    }
+    public int returnAmountOfActionsRemaining(){
+        return remainingActionsInPhase;
+    }
+    public void endPhase(){
+        remainingActionsInPhase = 1;
+        remainingBuysInPhase = 1;
+    }
+    public void setRemainingActionsInPhase(int amount){
+        remainingActionsInPhase = amount;
+    }
 
     //---------- Action Cards ------------- //
 
@@ -148,7 +166,7 @@ public class Game {
 
             int pickedCopper = allPlayers.get(numberOfThePlayer).scanHandForCardandGetPositionInHand(treasureCardTable.getCardOnPos(0));
             allPlayers.get(numberOfThePlayer).addCardFromHandToDiscardPile(treasureCardTable.getCardOnPos(0));
-            currentlyActiveAmountOfCoins += 3;
+            currentlyActiveAmountOfCoins=+3;
         }
     };
 
@@ -472,9 +490,13 @@ public class Game {
         return allPlayers.get(numberOfThePlayer);
     }
 
+    public void calculateCoinsOfPlayer(Player player){
+        currentlyActiveAmountOfCoins = player.getAmountOfCoinsInHand();
+    }
+    public int getAmountOfCoinsOfPlayer(){
 
-    public int getAmountOfCoinsOfPlayer(Player player){
-        return player.getAmountOfCoinsInHand();
+        return currentlyActiveAmountOfCoins;
+
     }
 
 
@@ -611,7 +633,8 @@ public class Game {
     }
     public void printCoins(Player whichplayer) {
         System.out.println("--------------------");
-        System.out.println("Amount of coins in current hand:" + whichplayer.getAmountOfCoinsInHand());
+        calculateCoinsOfPlayer(whichplayer);
+        System.out.println("Amount of coins in current hand:" + currentlyActiveAmountOfCoins);
         System.out.println("--------------------");
     }
 }

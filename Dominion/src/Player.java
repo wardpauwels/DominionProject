@@ -159,10 +159,9 @@ public class Player {
 
     public void generateNextHand(){
         int restOfCardsInPlayersDeck = playersDeck.getSize();
-        if (restOfCardsInPlayersDeck<=5)
-               {for(int i=0;i<restOfCardsInPlayersDeck;i++){
-                    playersHand.addCardToHand(playersDeck);
-                   }
+        if (restOfCardsInPlayersDeck<5){
+
+                   addXAmountOfCardsToHand(restOfCardsInPlayersDeck);
                    playersDeck = discardPile;
                    discardPile.clearDeck();
                    playersDeck.shuffleDeck();

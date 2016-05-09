@@ -129,7 +129,7 @@ public class CliGame {
                     g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
                     System.out.println("Kaart " + card.getName() + " gekocht");
                 }else{
-                    System.out.println("onvoldoende coins, probeer opnieuw");
+                    System.out.println("onvoldoende coins, probeer opnieuw" + card.getName() + "is te duur");
                     buyCard();
                 }
                 break;
@@ -138,7 +138,7 @@ public class CliGame {
                 card = g.getCardFromPosInTreasureTable(kaartKeuze);
                 cardCost = card.getCost();
                 if(card.getCost() <= amountOfCoins +1){
-                    g.buyCard(kaartKeuze -1, card.getType(), g.allPlayers.get(player));
+                    g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
                     System.out.println("Kaart " + card.getName() + " gekocht");
                 }else{
                     System.out.println("onvoldoende coins, probeer opnieuw");
@@ -150,7 +150,7 @@ public class CliGame {
                 card = g.getCardFromPosInVictoryTable(kaartKeuze);
                 cardCost = card.getCost();
                 if(card.getCost() <= amountOfCoins +1){
-                    g.buyCard(kaartKeuze -1, card.getType(), g.allPlayers.get(player));
+                    g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
                     System.out.println("Kaart " + card.getName() + " gekocht");
                 }else{
                     System.out.println("onvoldoende coins, probeer opnieuw");

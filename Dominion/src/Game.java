@@ -64,13 +64,13 @@ public class Game {
         Card boughtCard = new Card();
         switch(type){
             case "action":
-                boughtCard = actionCardTable.getCardOnPos(positionOnTheBoard-1);
+                boughtCard = actionCardTable.getCardOnPos(positionOnTheBoard);
                 break;
             case "victory":
-                boughtCard = victoryCardTable.getCardOnPos(positionOnTheBoard -1);
+                boughtCard = victoryCardTable.getCardOnPos(positionOnTheBoard);
                 break;
             case "treasure":
-                boughtCard = treasureCardTable.getCardOnPos(positionOnTheBoard-1);
+                boughtCard = treasureCardTable.getCardOnPos(positionOnTheBoard);
                 break;
         }
         boughtCard.setAmount(boughtCard.getAmount()-1);

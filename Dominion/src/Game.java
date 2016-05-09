@@ -1,4 +1,3 @@
-import com.sun.java.util.jar.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -49,8 +48,18 @@ public class Game {
         currentlyActiveAmountOfCoins = 0;
     }
 
-    private void ExecuteDrawPhase(Player whichPlayer){
+    public void ExecuteDrawPhase(Player whichPlayer){
         whichPlayer.generateNextHand();
+    }
+
+    public Card getCardFromPosInActionTable(int pos){
+        return actionCardTable.getCardOnPos(pos);
+    }
+    public Card getCardFromPosInTreasureTable(int pos){
+        return treasureCardTable.getCardOnPos(pos);
+    }
+    public Card getCardFromPosInVictoryTable(int pos){
+        return victoryCardTable.getCardOnPos(pos);
     }
 
 
@@ -89,11 +98,27 @@ public class Game {
     public void setPlayername(int whichPlayer, String playername){
         allPlayers.get(whichPlayer).setName(playername);
     }
+    public String getPlayerName(int whichPlayer){
+        return allPlayers.get(whichPlayer).getName();
+    }
 
     public void addCardToHand(Player whichPlayer){
         whichPlayer.addCardFromDeckToHand();
     }
 
+    public boolean checkIfFinished(){
+        boolean finished = false;
+        for(int i = 0; i < actionCardTable.getSize(); i++)
+            if(actionCardTable.getCardOnPos(i).getAmount() == 0){
+                finished = true;
+            }
+        for(int i = 0; i < treasureCardTable.getSize(); i++){
+            if(treasureCardTable.getCardOnPos(i).getAmount() == 0){
+                finished = true;
+            }
+        }
+        return finished;
+    }
 
 
     //---------- Action Cards ------------- //
@@ -396,6 +421,9 @@ public class Game {
     }
 
 
+    public int getAmountOfCoinsOfPlayer(Player player){
+        return player.getAmountOfCoinsInHand();
+    }
 
 
 // ------------   Print Methods ----------- //
@@ -421,7 +449,7 @@ public class Game {
         System.out.println("Victory cards:");
         System.out.println("---------------");
         for (int i = 0; i < victoryCardTable.getSize(); i++) {
-            System.out.println(victoryCardTable.getCardOnPos(i).getName() +  ", Cost: " + victoryCardTable.getCardOnPos(i).getCost() + ", Amount: " + victoryCardTable.getCardOnPos(i).getAmount());
+            System.out.println(i+1 +"."+ victoryCardTable.getCardOnPos(i).getName() +  ", Cost: " + victoryCardTable.getCardOnPos(i).getCost() + ", Amount: " + victoryCardTable.getCardOnPos(i).getAmount());
         }
     }
     public void printTreasureCards() {
@@ -429,7 +457,7 @@ public class Game {
         System.out.println("Treasure cards:");
         System.out.println("---------------");
         for (int i = 0; i < treasureCardTable.getSize(); i++) {
-            System.out.println(treasureCardTable.getCardOnPos(i).getName() +  ", Cost: " + treasureCardTable.getCardOnPos(i).getCost() + ", Amount: " + treasureCardTable.getCardOnPos(i).getAmount());
+            System.out.println(i+1 +"."+ treasureCardTable.getCardOnPos(i).getName() +  ", Cost: " + treasureCardTable.getCardOnPos(i).getCost() + ", Amount: " + treasureCardTable.getCardOnPos(i).getAmount());
         }
     }
 
@@ -449,9 +477,8 @@ public class Game {
     }
     public void printCoins(Player whichplayer) {
         System.out.println("--------------------");
-        System.out.println("Amount of coins in current hand:");
+        System.out.println("Amount of coins in current hand:" + whichplayer.getAmountOfCoinsInHand());
         System.out.println("--------------------");
-        System.out.println(whichplayer.getAmountOfCoinsInHand());
     }
 }
 

@@ -45,7 +45,7 @@ public class Player {
         playersDeck.removeFromDeck(index);
     }
 
-    public int getAmountOfCoinsInHand()// wordt atm alleen gebruikt om het aantal coins te printen. TODO: kan verwijderd worden?
+    public int getAmountOfCoinsInHand()// wordt atm alleen gebruikt om het aantal coins te printen.
     {
         int handsize = playersHand.getSize();
         int amountOfCoins = 0;
@@ -53,8 +53,8 @@ public class Player {
             Card currentCard = playersHand.getCardOnPos(i);
 
             if(currentCard.getType().equals("treasure")){
-                name = currentCard.getName();
-                switch (name){
+                String cardName = currentCard.getName();
+                switch (cardName){
                     case "Copper":
                         amountOfCoins += 1;
                         break;

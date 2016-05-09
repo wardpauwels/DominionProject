@@ -96,7 +96,7 @@ public class Hand {
     public void printHand(){
 
         for (int i = 0; i < hand.size() ;i ++){
-            System.out.println(getCardOnPos(i).getName());
+            System.out.println(i+1 + "." + getCardOnPos(i).getName());
         }
     }
 

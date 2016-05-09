@@ -387,6 +387,7 @@ public class Game {
         if (s.equals("Ja") || s.equals("ja")) {
             activePlayer.moveAllCardsFromDeckToDiscardPile();
             System.out.println("Deck is verplaatst naar de discardpile");
+            activePlayer.printHand();
         } else if(s.equals("Nee") || s.equals("nee")){
             System.out.println("Deck is niet verplaatst naar de discardpile");
         }else{

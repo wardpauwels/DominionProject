@@ -160,11 +160,16 @@ public class Player {
     public void generateNextHand(){
         int restOfCardsInPlayersDeck = playersDeck.getSize();
         if (restOfCardsInPlayersDeck<5){
+            int cardsNeededToFillHand = 5-restOfCardsInPlayersDeck;
 
                    addXAmountOfCardsToHand(restOfCardsInPlayersDeck);
-                   playersDeck = discardPile;
+           for (int i=0;i<discardPile.getSize();i++){
+                   playersDeck.addCardToDeck(discardPile.getCardOnPos(i));
+            }
+
                    discardPile.clearDeck();
                    playersDeck.shuffleDeck();
+                    addXAmountOfCardsToHand(cardsNeededToFillHand);
                }
                else{
                     playersHand.generateHand(playersDeck);

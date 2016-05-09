@@ -82,8 +82,10 @@ public class CliGame {
     }
 
     private void endTurn(){
-        g.allPlayers.get(player).clearHand();
-        g.endTurnForPlayer(g.allPlayers.get(player));
+        Player currentPlayer = g.allPlayers.get(player);
+        currentPlayer.addToHandDiscardpile();
+        currentPlayer.clearHand();
+        g.endTurnForPlayer(currentPlayer);
     }
 
 

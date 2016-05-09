@@ -120,7 +120,7 @@ public class CliGame {
                 card = g.getCardFromPosInActionTable(kaartKeuze);
                 cardCost = card.getCost();
                 if(cardCost <= amountOfCoins){
-                    g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
+                    g.buyCard(kaartKeuze -1, card.getType(), g.allPlayers.get(player));
                     System.out.println("Kaart " + card.getName() + " gekocht");
                 }else{
                     System.out.println("onvoldoende coins, probeer opnieuw");
@@ -132,7 +132,7 @@ public class CliGame {
                 card = g.getCardFromPosInTreasureTable(kaartKeuze);
                 cardCost = card.getCost();
                 if(card.getCost() <= amountOfCoins){
-                    g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
+                    g.buyCard(kaartKeuze -1, card.getType(), g.allPlayers.get(player));
                     System.out.println("Kaart " + card.getName() + " gekocht");
                 }else{
                     System.out.println("onvoldoende coins, probeer opnieuw");
@@ -144,7 +144,7 @@ public class CliGame {
                 card = g.getCardFromPosInVictoryTable(kaartKeuze);
                 cardCost = card.getCost();
                 if(card.getCost() <= amountOfCoins){
-                    g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
+                    g.buyCard(kaartKeuze -1, card.getType(), g.allPlayers.get(player));
                     System.out.println("Kaart " + card.getName() + " gekocht");
                 }else{
                     System.out.println("onvoldoende coins, probeer opnieuw");
@@ -168,7 +168,7 @@ public class CliGame {
         }else{
             Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i);
             if (toBePlayedActionCard.getType().equals("action")){
-                // TODO: Start de switch die Jens maakt
+                g.useActionCard(toBePlayedActionCard.getName(),player);
             }else{
                 System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
                 playActionCard();

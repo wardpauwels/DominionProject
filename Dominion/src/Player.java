@@ -31,18 +31,50 @@ public class Player {
     public int getNumber(){return number;}
 
     public void setNumber(int number){this.number=number;}
+
+
     // DECK
 
     public void printDeck(){
 
-        playersDeck.printCardsInDeck();
+        playersDeck.printDeck();
     }
-    public void cardsUsedInHand(int index){
+
+
+    public void removeFromDeck(int index){
         playersDeck.removeFromDeck(index);
     }
 
-    public void addToDiscardpile(){
-        int handsize = playersHand.showAmountOfCardsInHand();
+    public int getAmountOfCoinsInHand()// wordt atm alleen gebruikt om het aantal coins te printen.
+    {
+        int handsize = playersHand.getSize();
+        int amountOfCoins = 0;
+        for (int i = 0; i < handsize; i++){
+            Card currentCard = playersHand.getCardOnPos(i);
+
+            if(currentCard.getType().equals("treasure")){
+                String cardName = currentCard.getName();
+                switch (cardName){
+                    case "Copper":
+                        amountOfCoins += 1;
+                        break;
+                    case "Silver":
+                        amountOfCoins += 2;
+                        break;
+                    case "Gold":
+                        amountOfCoins +=3;
+                        break;
+
+                }
+
+            }
+        }
+        return amountOfCoins;
+
+    }
+
+    public void addToHandDiscardpile(){
+        int handsize = playersHand.getSize();
         for(int i = 0; i < handsize; i++){
             Card c = playersHand.getCardOnPos(i);
 
@@ -53,8 +85,47 @@ public class Player {
     }
 
     public void addCardToDiscardPile(Card toBeAddedCard){
+        discardPile.addCardToDeck(toBeAddedCard);
+    }
 
-        discardPile.addToDeck(toBeAddedCard.getType(),toBeAddedCard.getNumber());
+
+    public void resetDiscardDeck(){
+        playersDeck = discardPile;
+        discardPile.clearDeck();
+    }
+
+    // HAND
+
+    public void addXAmountOfCardsToHand(int amount){
+        for (int i = 0; i < amount ; i++){
+            addCardFromDeckToHand();
+        }
+    }
+
+
+
+    public boolean scanHandForCard(Card whichCard){
+        for (int i=0;i < playersHand.getSize(); i++){
+            if (playersHand.getCardOnPos(i)==whichCard){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int scanHandForCardAndReturnPosition(String type)
+    {
+        return playersHand.scanDeckForCardWithTypeXandReturnPosition(type);
+    }
+    public int scanHandForCardandGetPositionInHand(Card whichCard){
+        int posOfCard = 0;
+        for (int i = 0; i < playersHand.getSize(); i++) {
+            if (playersHand.getCardOnPos(i) == whichCard) {
+                posOfCard = i;
+                break;
+            }
+        }
+        return posOfCard;
     }
 
     public void removeCardFromHand(int spotInHand){
@@ -63,60 +134,34 @@ public class Player {
     public void addCardFromHandToDiscardPile(Card whichCard){
         int toBeRemovedCard = scanHandForCardandGetPositionInHand(whichCard);
         playersHand.removeFromHand(toBeRemovedCard);
-
     }
 
-
-    public void addXAmountOfCardsToHand(int amount){
-        for (int i = 0; i < amount ; i++){
-            addCardFromDeckToHand();
-        }
-    }
-    public void printDiscardDeck(){
-        for(int i = 0; i < discardPile.showAmountOfCardsInDeck(); i++){
-            System.out.println(discardPile.getCardOnPos(i));
-        }
+    public int getHandSize(){
+        int size = playersHand.getSize();
+        return size;
     }
 
-    public void resetDiscardDeck(){
-        playersDeck = discardPile;
-        discardPile.clearDeck();
+    public void addCardFromHandToDeck(Card c){
+        playersDeck.addCardToDeck(c);
+        playersHand.removeFromHand(scanHandForCardandGetPositionInHand(c));
     }
 
-    // HAND
-    public void printHand(){
-
-        playersHand.printHand();
-    }
-
-    public boolean scanHandForCard(Card whichCard){
-        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
-            if (playersHand.getCardOnPos(i)==whichCard){
-                return true;
-            }
-        }
-        return false;
-    }
-    public int scanHandForCardandGetPositionInHand(Card whichCard){
-        for (int i=0;i < playersHand.showAmountOfCardsInHand(); i++){
-            if (playersHand.getCardOnPos(i)==whichCard){
-                return i;
-            }
-        }
-        return 0;
-    }
-//Om 1 kaart te trekken
+    //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){
         playersHand.addCardToHand(playersDeck);
     }
-// wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
+
+    // wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
     // NIET GEBRUIKEN OM 1 KAART TE TREKKEN
+    public void clearHand(){
+        playersHand.clearHand();
+    }
+
     public void generateNextHand(){
-        int restOfCardsInPlayersDeck = playersDeck.showAmountOfCardsInDeck();
-               if (restOfCardsInPlayersDeck<=5)
-               {
-                   for(int i=0;i<restOfCardsInPlayersDeck;i++){
-                       playersHand.addCardToHand(playersDeck);
+        int restOfCardsInPlayersDeck = playersDeck.getSize();
+        if (restOfCardsInPlayersDeck<=5)
+               {for(int i=0;i<restOfCardsInPlayersDeck;i++){
+                    playersHand.addCardToHand(playersDeck);
                    }
                    playersDeck = discardPile;
                    discardPile.clearDeck();
@@ -128,11 +173,56 @@ public class Player {
     }
 
     public int returnAmountOfCardsInDeck(){
-        return playersDeck.showAmountOfCardsInDeck();
+        return playersDeck.getSize();
 
+    }
+    public Card getTopCardFromDeck(){
+        return playersDeck.getCardOnPos(0);
+    }
+
+    public void addSpecificCardToHand(Card toBeAddedCard){
+        playersHand.addSpecificCard(toBeAddedCard);
     }
 
     public Card getCardOnPosInHand(int position){
         return playersHand.getCardOnPos(position);
     }
+    public void addCardToPlaceInDeck(int position,Card specificCard){
+        playersDeck.addCardToSpecificPositionInDeck(position, specificCard);
+    }
+    public Hand returnHand(){
+        return playersHand;
+    }
+
+    public void moveAllCardsFromDeckToDiscardPile(){
+
+        for(int i = 0;i<playersDeck.getSize();i++){
+            discardPile.addCardToDeck(playersDeck.getCardOnPos(0));
+            playersDeck.removeFromDeck(0);
+        }
+    }
+
+
+
+
+    // --------------------   Print Methods -------------------//
+
+    public void printHand(){
+        System.out.println("---------------");
+        System.out.println("Hand:");
+        System.out.println("---------------");
+        playersHand.printHand();
+    }
+
+
+    public void printDiscardDeck(){
+        System.out.println("---------------");
+        System.out.println("Discard pile:");
+        System.out.println("---------------");
+        for(int i = 0; i < discardPile.getSize(); i++){
+
+            System.out.println(discardPile.getCardOnPos(i).getName());
+        }
+    }
+
 }

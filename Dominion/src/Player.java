@@ -62,7 +62,7 @@ public class Player {
                         amountOfCoins += 2;
                         break;
                     case "Gold":
-                        amountOfCoins +=3;
+                        amountOfCoins += 3;
                         break;
 
                 }
@@ -159,7 +159,7 @@ public class Player {
 
     public void generateNextHand(){
         int restOfCardsInPlayersDeck = playersDeck.getSize();
-        if (restOfCardsInPlayersDeck<=5)
+        if (restOfCardsInPlayersDeck < 5)
                {for(int i=0;i<restOfCardsInPlayersDeck;i++){
                     playersHand.addCardToHand(playersDeck);
                    }
@@ -167,8 +167,8 @@ public class Player {
                    discardPile.clearDeck();
                    playersDeck.shuffleDeck();
                }
-               else{
-                    playersHand.generateHand(playersDeck);
+        else{
+            playersHand.generateHand(playersDeck);
                }
     }
 
@@ -192,6 +192,10 @@ public class Player {
     }
     public Hand returnHand(){
         return playersHand;
+    }
+
+    public Deck returnDeck(){
+        return playersDeck;
     }
 
     public void moveAllCardsFromDeckToDiscardPile(){

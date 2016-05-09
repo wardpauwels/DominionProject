@@ -148,7 +148,7 @@ public class Game {
 
             int pickedCopper = allPlayers.get(numberOfThePlayer).scanHandForCardandGetPositionInHand(treasureCardTable.getCardOnPos(0));
             allPlayers.get(numberOfThePlayer).addCardFromHandToDiscardPile(treasureCardTable.getCardOnPos(0));
-            currentlyActiveAmountOfCoins=+3;
+            currentlyActiveAmountOfCoins += 3;
         }
     };
 
@@ -364,6 +364,60 @@ public class Game {
 
     }
 
+    private void useCellar(int numberOfPlayer){
+        Player activePlayer = getActivePlayer(numberOfPlayer);
+        remainingActionsInPhase += 1;
+        System.out.println("Geef positie van kaart in de hand om te verplaatsen naar de discard pile, geef 0 om te stoppen");
+        int i = in.nextInt();
+        while(i != 0){
+            Card card = activePlayer.getCardOnPosInHand(i);
+            activePlayer.addCardToDiscardPile(card);
+            activePlayer.addCardFromDeckToHand();
+            System.out.println("Geef positie van kaart in de hand om te verplaatsen naar de discard pile, geef 0 om te stoppen");
+            i = in.nextInt();
+        }
+
+    }
+    private void useFeast(int numberOfThePlayer){
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+
+        Hand playersHand = activePlayer.returnHand();
+        for(int i = 0; i < playersHand.getSize(); i++){
+            if(playersHand.getCardOnPos(i).getName().equals("Feast")){
+                activePlayer.removeCardFromHand(i);
+            }
+        }System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen? (1 - 3)");
+        int intOfTypeCard = in.nextInt();
+        if(intOfTypeCard < 1 && intOfTypeCard > 3){
+            System.out.println("Ongeldige input, probeer opnieuw");
+            useWorkshop(numberOfThePlayer);
+        }
+        System.out.println("Geef de positie van de kaart die je wilt kopen"); //TODO: check maken voor de positie
+        int positie = in.nextInt();
+        Card gekozenKaart = new Card();
+        switch (intOfTypeCard){
+            case 1:
+                gekozenKaart = actionCardTable.getCardOnPos(positie);
+                break;
+            case 2:
+                gekozenKaart = victoryCardTable.getCardOnPos(positie);
+                break;
+            case 3:
+                gekozenKaart = treasureCardTable.getCardOnPos(positie);
+                break;
+        }
+        activePlayer = getActivePlayer(numberOfThePlayer);
+        if(gekozenKaart.getCost() <= 5){
+            activePlayer.addCardToDiscardPile(gekozenKaart);
+        }else{
+            System.out.println("Gekozen kaart moet 5 coins of minder kosten, probeer opnieuw");
+            useWorkshop(numberOfThePlayer);
+        }
+
+
+
+    }
+
     private void promptDeckOpStapel(Player activePlayer)
     {
         System.out.println("Wil je je deck naar de discardpile sturen? (Ja / Nee)");
@@ -371,6 +425,8 @@ public class Game {
         if (s.equals("Ja") || s.equals("ja")) {
             activePlayer.moveAllCardsFromDeckToDiscardPile();
             System.out.println("Deck is verplaatst naar de discardpile");
+            printHand(activePlayer);
+            printCoins(activePlayer);
         } else if(s.equals("Nee") || s.equals("nee")){
             System.out.println("Deck is niet verplaatst naar de discardpile");
         }else{
@@ -426,7 +482,7 @@ public class Game {
 
         switch (nameOfActionCard) {
             case "Cellar":
-                //TODO ROBERT
+                useCellar(numberOfThePlayer);
                 break;
             case "Chapel":
                 //TODO ROBERT
@@ -444,7 +500,7 @@ public class Game {
                 useWorkshop(numberOfThePlayer);
                 break;
             case "Feast":
-                //TODO ROBERT
+                useFeast(numberOfThePlayer);
                 break;
             case "Militia":
                 useMilitia(numberOfThePlayer);
@@ -486,7 +542,8 @@ public class Game {
                 //TODO ROBERT
                 break;
             case "Garden":
-                //CANT USE THIS CARD TODO ERROR
+                System.out.println("Kaart kan niet gespeeld worden");
+                remainingActionsInPhase += 1;
                 break;
             case "Market":
                 useMarket(numberOfThePlayer);

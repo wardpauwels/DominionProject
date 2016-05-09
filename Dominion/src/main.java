@@ -2,7 +2,7 @@ import java.util.*;
 
 public class main {
 //testklasse
-    public static void main(String[] args) //TODO: eerder geschereven 'tests' verwijderen
+    public static void main(String[] args) //TODO: eerder geschereven 'tests' verwijderen ?
     {
         //int i;
         //String s;

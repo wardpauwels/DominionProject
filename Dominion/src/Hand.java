@@ -28,7 +28,6 @@ public class Hand {
     }
 
     public void addCardToHand(Deck playersDeck){
-
         hand.add(getCardFromDeck(playersDeck));
     }
 

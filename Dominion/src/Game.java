@@ -16,8 +16,8 @@ public class Game {
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
     private Deck playedCards = new Deck();
     private int currentlyActiveAmountOfCoins;
-    private int remainingActionsInPhase;
-    private int remainingBuysInPhase;
+    private int remainingActionsInPhase=1;
+    private int remainingBuysInPhase=1;
 
     public Scanner in = new Scanner(System.in); // scanner voor user input
 
@@ -116,6 +116,24 @@ public class Game {
     public void endTurnForPlayer(Player p){
         p.generateNextHand();
     }
+    public void lowerAmountOfActions(){
+        remainingActionsInPhase -= 1;
+    }
+
+    public void resetAmountOfActions(){
+        remainingActionsInPhase = remainingBuysInPhase;
+
+    }
+    public int returnAmountOfActionsRemaining(){
+        return remainingActionsInPhase;
+    }
+    public void endPhase(){
+        remainingActionsInPhase = 1;
+        remainingBuysInPhase = 1;
+    }
+    public void setRemainingActionsInPhase(int amount){
+        remainingActionsInPhase = amount;
+    }
 
     //---------- Action Cards ------------- //
 
@@ -148,7 +166,7 @@ public class Game {
 
             int pickedCopper = allPlayers.get(numberOfThePlayer).scanHandForCardandGetPositionInHand(treasureCardTable.getCardOnPos(0));
             allPlayers.get(numberOfThePlayer).addCardFromHandToDiscardPile(treasureCardTable.getCardOnPos(0));
-            currentlyActiveAmountOfCoins=+3;
+            currentlyActiveAmountOfCoins+=3;
         }
     };
 
@@ -191,35 +209,33 @@ public class Game {
     private void useWorkshop(int numberOfThePlayer){
         System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen? (1 - 3)");
         int intOfTypeCard = in.nextInt();
+        String type="/";
         if(intOfTypeCard < 1 && intOfTypeCard > 3){
             System.out.println("Ongeldige input, probeer opnieuw");
             useWorkshop(numberOfThePlayer);
         }
         System.out.println("Geef de positie van de kaart die je wilt kopen"); //TODO: check maken voor de positie
-        int positie = in.nextInt();
+        int positie = in.nextInt()-1;
         Card gekozenKaart = new Card();
-        switch (intOfTypeCard){
+        switch (intOfTypeCard) {
             case 1:
-                gekozenKaart = actionCardTable.getCardOnPos(positie);
+                type = "action";
+
                 break;
             case 2:
-                gekozenKaart = victoryCardTable.getCardOnPos(positie);
+                type = "treassure";
                 break;
             case 3:
-                gekozenKaart = treasureCardTable.getCardOnPos(positie);
+                type = "victory";
                 break;
         }
-        Player activePlayer = getActivePlayer(numberOfThePlayer);
-        if(gekozenKaart.getCost() <= 4){
-            activePlayer.addCardToDiscardPile(gekozenKaart);
-        }else{
-            System.out.println("Gekozen kaart moet 4 coins of minder kosten, probeer opnieuw");
-            useWorkshop(numberOfThePlayer);
+        buyCard(positie,type,allPlayers.get(numberOfThePlayer));
+
         }
 
 
 
-    }
+
 
     private void useFestival(int numberOfThePlayer){
         remainingActionsInPhase += 2;
@@ -416,9 +432,13 @@ public class Game {
         return allPlayers.get(numberOfThePlayer);
     }
 
+    public void calculateCoinsOfPlayer(Player player){
+        currentlyActiveAmountOfCoins = player.getAmountOfCoinsInHand();
+    }
+    public int getAmountOfCoinsOfPlayer(){
 
-    public int getAmountOfCoinsOfPlayer(Player player){
-        return player.getAmountOfCoinsInHand();
+        return currentlyActiveAmountOfCoins;
+
     }
 
 
@@ -554,7 +574,8 @@ public class Game {
     }
     public void printCoins(Player whichplayer) {
         System.out.println("--------------------");
-        System.out.println("Amount of coins in current hand:" + whichplayer.getAmountOfCoinsInHand());
+        calculateCoinsOfPlayer(whichplayer);
+        System.out.println("Amount of coins in current hand:" + currentlyActiveAmountOfCoins);
         System.out.println("--------------------");
     }
 }

@@ -153,12 +153,15 @@ public class Player {
 
     // wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
     // NIET GEBRUIKEN OM 1 KAART TE TREKKEN
+    public void clearHand(){
+        playersHand.clearHand();
+    }
+
     public void generateNextHand(){
         int restOfCardsInPlayersDeck = playersDeck.getSize();
-               if (restOfCardsInPlayersDeck<=5)
-               {
-                   for(int i=0;i<restOfCardsInPlayersDeck;i++){
-                       playersHand.addCardToHand(playersDeck);
+        if (restOfCardsInPlayersDeck<=5)
+               {for(int i=0;i<restOfCardsInPlayersDeck;i++){
+                    playersHand.addCardToHand(playersDeck);
                    }
                    playersDeck = discardPile;
                    discardPile.clearDeck();

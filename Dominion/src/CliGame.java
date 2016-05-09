@@ -41,6 +41,7 @@ public class CliGame {
     private void newGame(){
         System.out.println("Geef aantal spelers (2 - 4)");
         intInput = in.nextInt();
+
         amountOfPlayers = intInput;
         g.createPlayersList(amountOfPlayers);
         in.nextLine(); // deze nextline staat hier omdat anders de volgende input niet werkt, geen andere oplossing gevonden
@@ -64,6 +65,7 @@ public class CliGame {
         g.printHand(g.allPlayers.get(player));
         g.printCoins(g.allPlayers.get(player));
         actionMenu();
+        endTurn();
     }
 
     private void nextTurn(){
@@ -76,6 +78,12 @@ public class CliGame {
         g.printHand(g.allPlayers.get(player));
         g.printCoins(g.allPlayers.get(player));
         actionMenu();
+        endTurn();
+    }
+
+    private void endTurn(){
+        g.allPlayers.get(player).clearHand();
+        g.endTurnForPlayer(g.allPlayers.get(player));
     }
 
 
@@ -103,9 +111,7 @@ public class CliGame {
         }
     }
 
-    /*public void endTurn(){
-        g.nextTurnPlayer(g.allPlayers.get(player));
-    }*/
+
 
     public void buyCard(){
         System.out.println("Welk type kaart wil je kopen? 1. Actie. 2. Treasure 3. Victory 4. Stop");
@@ -116,11 +122,11 @@ public class CliGame {
         System.out.println("Geef positie van te kopen kaart");
         switch (keuze){
             case 1:
-                kaartKeuze = in.nextInt();
+                kaartKeuze = in.nextInt() -1;
                 card = g.getCardFromPosInActionTable(kaartKeuze);
                 cardCost = card.getCost();
-                if(cardCost <= amountOfCoins){
-                    g.buyCard(kaartKeuze -1, card.getType(), g.allPlayers.get(player));
+                if(cardCost <= amountOfCoins +1){
+                    g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
                     System.out.println("Kaart " + card.getName() + " gekocht");
                 }else{
                     System.out.println("onvoldoende coins, probeer opnieuw");
@@ -128,10 +134,10 @@ public class CliGame {
                 }
                 break;
             case 2:
-                kaartKeuze = in.nextInt();
+                kaartKeuze = in.nextInt() -1;
                 card = g.getCardFromPosInTreasureTable(kaartKeuze);
                 cardCost = card.getCost();
-                if(card.getCost() <= amountOfCoins){
+                if(card.getCost() <= amountOfCoins +1){
                     g.buyCard(kaartKeuze -1, card.getType(), g.allPlayers.get(player));
                     System.out.println("Kaart " + card.getName() + " gekocht");
                 }else{
@@ -140,10 +146,10 @@ public class CliGame {
                 }
                 break;
             case 3:
-                kaartKeuze = in.nextInt();
+                kaartKeuze = in.nextInt() -1;
                 card = g.getCardFromPosInVictoryTable(kaartKeuze);
                 cardCost = card.getCost();
-                if(card.getCost() <= amountOfCoins){
+                if(card.getCost() <= amountOfCoins +1){
                     g.buyCard(kaartKeuze -1, card.getType(), g.allPlayers.get(player));
                     System.out.println("Kaart " + card.getName() + " gekocht");
                 }else{

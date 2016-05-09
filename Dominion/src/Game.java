@@ -40,13 +40,7 @@ public class Game {
     private void resetRemainingActions(){
         remainingActionsInPhase = 1;
     }
-    public void nextTurnPlayer(Player whichPlayer){
 
-    }
-
-    public void nextTurnFor (Player whichPlayer){
-        currentlyActiveAmountOfCoins = 0;
-    }
 
     public void ExecuteDrawPhase(Player whichPlayer){
         whichPlayer.generateNextHand();
@@ -90,7 +84,6 @@ public class Game {
     }
 
     public void calculateCoins(Card usedCard){
-
         currentlyActiveAmountOfCoins = currentlyActiveAmountOfCoins + usedCard.getNumber() + 1;
     }
 
@@ -120,6 +113,9 @@ public class Game {
         return finished;
     }
 
+    public void endTurnForPlayer(Player p){
+        p.generateNextHand();
+    }
 
     //---------- Action Cards ------------- //
 

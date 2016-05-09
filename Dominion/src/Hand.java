@@ -53,10 +53,10 @@ public class Hand {
 
     public int scanDeckForCardWithTypeXandReturnPosition(String typeOfCard) {
         Deck specificCardsInDeck = new Deck();
-        int positionOfCard = 100000;
+        int positionOfCard = -1;
 
         if (scanDeckForCardWithTypeXandReturnBoolean(typeOfCard)) {
-            while (positionOfCard == 100000) {
+            while (positionOfCard == -1) {
                 for (int i = 0; i < hand.size(); i++) {
                     if (hand.get(i).getType().equals(typeOfCard)) {
                         positionOfCard = i;

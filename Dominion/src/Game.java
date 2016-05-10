@@ -105,6 +105,7 @@ public class Game {
                 break;
         }
         boughtCard.setAmount(boughtCard.getAmount()-1);
+        currentlyActiveAmountOfCoins-=boughtCard.getCost();
         whichPlayer.addCardToDiscardPile(boughtCard);
         remainingActionsInPhase = remainingActionsInPhase - 1;
 
@@ -197,7 +198,7 @@ public class Game {
 
             int pickedCopper = allPlayers.get(numberOfThePlayer).scanHandForCardandGetPositionInHand(treasureCardTable.getCardOnPos(0));
             allPlayers.get(numberOfThePlayer).addCardFromHandToDiscardPile(treasureCardTable.getCardOnPos(0));
-            currentlyActiveAmountOfCoins=+3;
+            currentlyActiveAmountOfCoins+=3;
         }
     };
 
@@ -234,8 +235,8 @@ public class Game {
         }
     }
     private void useWoodCutter(int numberOfThePlayer){
-        currentlyActiveAmountOfCoins =+ 2;
-        remainingBuysInPhase =+ 1;
+        currentlyActiveAmountOfCoins += 2;
+        remainingBuysInPhase += 1;
     }
     private void useWorkshop(int numberOfThePlayer){
         System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen? (1 - 3)");
@@ -432,7 +433,7 @@ public class Game {
             i = in.nextInt();
         }
         printHand(activePlayer);
-        printCoins(activePlayer);
+        printCoins();
 
     }
     private void useCellarAction(Player activePlayer){
@@ -750,15 +751,13 @@ public class Game {
     public void printHand(Player whichPlayer){
         whichPlayer.printHand();
     }
-    public void printCoins(Player whichplayer) {
+    public void printCoins() {
         System.out.println("--------------------");
-        calculateCoinsOfPlayer(whichplayer);
         System.out.println("Amount of coins in current hand:" + currentlyActiveAmountOfCoins);
         System.out.println("--------------------");
     }
-    public void printRemainingActions(Player whichPlayer){
+    public void printRemainingActions(){
         System.out.println("--------------------");
-        calculateCoinsOfPlayer(whichPlayer);
         System.out.println("Amount of remaining actions:" + remainingActionsInPhase);
         System.out.println("--------------------");
 

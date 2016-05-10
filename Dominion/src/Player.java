@@ -99,7 +99,12 @@ public class Player {
     // HAND
 
     public void addXAmountOfCardsToHand(int amount){
+
         for (int i = 0; i < amount ; i++){
+            if (playersDeck.getSize()<1){
+                playersDeck=discardPile;
+                discardPile.clearDeck();
+            }
             addCardFromDeckToHand();
         }
     }

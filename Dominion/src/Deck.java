@@ -27,7 +27,7 @@ public class Deck {
         Card copperCard = treasureCards.getCardOnPos(0);
         Card estateCard = victoryCards.getCardOnPos(0);
         Card goldCard = treasureCards.getCardOnPos(2); // TODO: weg halen na test
-        Card actionCard = actionCards.getCardOnPos(3);
+        Card actionCard = actionCards.getCardOnPos(4);
         // TODO: weg halen na test
 
         int coinsInStarterDeck = 5; //TODO Terug veranderen naar 7 na test

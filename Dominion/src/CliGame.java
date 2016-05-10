@@ -69,8 +69,8 @@ public class CliGame {
         System.out.println(playerName + " is aan de beurt");
         System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
-        g.printCoins(g.allPlayers.get(player));
-        g.printRemainingActions(g.allPlayers.get(player));
+        g.printCoins();
+        g.printRemainingActions();
         actionMenu();
         numberOTurn ++; // TODO: weg na test
         endTurn();
@@ -86,8 +86,8 @@ public class CliGame {
         System.out.println(playerName + " is aan de beurt");
         System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
-        g.printCoins(g.allPlayers.get(player));
-        g.printRemainingActions(g.allPlayers.get(player));
+        g.printCoins();
+        g.printRemainingActions();
         actionMenu();
         numberOTurn++; // TODO: weg na test
         endTurn();
@@ -115,7 +115,7 @@ public class CliGame {
         playActionCard();
         g.resetAmountOfActions();
 
-        g.calculateCoinsOfPlayer(g.allPlayers.get(player));
+
         buyCard();
         g.endPhase();
         g.printDeck(g.allPlayers.get(player));
@@ -180,7 +180,7 @@ public class CliGame {
                     break;
 
             }
-            g.printCoins(g.allPlayers.get(player));
+            g.printCoins();
             remainingBuys -= 1;
         }
     }
@@ -202,9 +202,8 @@ public class CliGame {
                     g.useActionCard(toBePlayedActionCard.getName(), player);
                     g.moveCardFromHandToDiscardPilePosition(i-1, activePLayer);
                     g.printHand(activePLayer);
-                    g.printCoins(activePLayer);
                     g.lowerAmountOfActions();
-                    g.printRemainingActions(activePLayer);
+                    g.printRemainingActions();
 
                 } else {
                     System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
@@ -214,6 +213,8 @@ public class CliGame {
             }
 
         }
+
+        g.printCoins();
 
     }
 }

@@ -122,7 +122,7 @@ public class Player {
         for (int i = 0; i < playersHand.getSize(); i++) {
             if (playersHand.getCardOnPos(i) == whichCard) {
                 posOfCard = i;
-                break;
+                break; // TODO waarom staat er hier break?
             }
         }
         return posOfCard;
@@ -131,8 +131,10 @@ public class Player {
     public void removeCardFromHand(int spotInHand){
         playersHand.removeFromHand(spotInHand);
     }
+
     public void addCardFromHandToDiscardPile(Card whichCard){
         int toBeRemovedCard = scanHandForCardandGetPositionInHand(whichCard);
+        discardPile.addCardToDeck(whichCard);
         playersHand.removeFromHand(toBeRemovedCard);
     }
 

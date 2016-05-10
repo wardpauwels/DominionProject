@@ -19,9 +19,10 @@ public class CliGame {
     private boolean finished = false;
     private Game g;
     private boolean turn = true;
+    private int numberOTurn = 1;
 
 
-    public CliGame() {
+     public CliGame() {
         g = new Game();
         newGame();
         showBoard();
@@ -36,7 +37,7 @@ public class CliGame {
         }
     }
 
-    public static void clearScreen() {
+    private static void clearScreen() { // TODO: werkt niet
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -65,9 +66,11 @@ public class CliGame {
         String playerName = g.getPlayerName(player);
         System.out.println("-------------------");
         System.out.println(playerName + " is aan de beurt");
+        System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
         g.printCoins(g.allPlayers.get(player));
         actionMenu();
+        numberOTurn ++; // TODO: weg na test
         endTurn();
     }
 
@@ -79,10 +82,13 @@ public class CliGame {
         String playerName = g.getPlayerName(player);
         System.out.println("-------------------");
         System.out.println(playerName + " is aan de beurt");
+        System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
         g.printCoins(g.allPlayers.get(player));
         actionMenu();
+        numberOTurn++; // TODO: weg na test
         endTurn();
+
     }
 
     private void endTurn() {
@@ -100,7 +106,7 @@ public class CliGame {
         }
     }
 
-    public void actionMenu() {
+    private void actionMenu() {
 
 
         playActionCard();
@@ -115,7 +121,7 @@ public class CliGame {
 
     }
 
-    public void buyCard() {
+    private void buyCard() {
         int remainingBuys = g.returnAmountOfActionsRemaining();
         while (remainingBuys != 0) {
             System.out.println("Welk type kaart wil je kopen? 1. Actie. 2. Treasure 3. Victory 4. Stop");
@@ -174,11 +180,12 @@ public class CliGame {
         }
     }
 
-    public void cardBought(Card card) {
+    private void cardBought(Card card) {
         System.out.println("Kaart " + card.getName() + " gekocht");
     }
 
-    public void playActionCard() {
+    private void playActionCard() {
+        Player activePLayer = g.allPlayers.get(player);
         System.out.println("Geef positie in hand van te spelen actie kaart (Geef 0 in om te stoppen)");
         int i = in.nextInt();
         if (i == 0) {
@@ -188,7 +195,9 @@ public class CliGame {
                 Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i - 1);
                 if (toBePlayedActionCard.getType().equals("action")) {
                     g.useActionCard(toBePlayedActionCard.getName(), player);
+                    activePLayer.addCardFromHandToDiscardPile(toBePlayedActionCard);
                     g.lowerAmountOfActions();
+
                 } else {
                     System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
                     playActionCard();

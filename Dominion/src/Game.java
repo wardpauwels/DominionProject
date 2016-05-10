@@ -16,8 +16,8 @@ public class Game {
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
     private Deck playedCards = new Deck();
     private int currentlyActiveAmountOfCoins;
-    private int remainingActionsInPhase;
-    private int remainingBuysInPhase;
+    private int remainingActionsInPhase = 1;
+    private int remainingBuysInPhase = 1;
 
     public Scanner in = new Scanner(System.in); // scanner voor user input
 
@@ -389,13 +389,21 @@ public class Game {
         int i = in.nextInt();
         while(i != 0){
             Card card = activePlayer.getCardOnPosInHand(i);
-            activePlayer.addCardToDiscardPile(card);
+            //activePlayer.addCardToDiscardPile(card);
+            //activePlayer.removeCardFromHand(i);
+            activePlayer.addCardFromHandToDiscardPile(card);
             activePlayer.addCardFromDeckToHand();
+            printHand(activePlayer);
             System.out.println("Geef positie van kaart in de hand om te verplaatsen naar de discard pile, geef 0 om te stoppen");
             i = in.nextInt();
         }
+        printHand(activePlayer);
+        printCoins(activePlayer);
+    }
+    private void useCellarAction(Player activePlayer){
 
     }
+
     private void useFeast(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
 

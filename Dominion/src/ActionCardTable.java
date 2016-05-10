@@ -68,6 +68,10 @@ public class ActionCardTable {
         return actionCardTable.size();
     }
 
+    public Card getCardFromAllActionCards(int pos){ // TODO: verwijderen na test
+        Card card = allActionCards.get(pos);
+        return card;
+    }
 
 
 
@@ -86,7 +90,7 @@ public class ActionCardTable {
 
     }
 
-// TODO: Jens pls halp
+
 
     private int getRandomNumber(int minValue, int maxValue) {
         Random rand = new Random();

@@ -27,7 +27,7 @@ public class Deck {
         Card copperCard = treasureCards.getCardOnPos(0);
         Card estateCard = victoryCards.getCardOnPos(0);
         Card goldCard = treasureCards.getCardOnPos(2); // TODO: weg halen na test
-        Card actionCard = actionCards.getCardOnPos(1);
+        Card actionCard = actionCards.getCardOnPos(2);
         // TODO: weg halen na test
 
         int coinsInStarterDeck = 10; //TODO Terug veranderen naar 7 na test
@@ -38,12 +38,12 @@ public class Deck {
         }
         addCardToDeck(actionCard); // TODO weg halen na test
 
-        /*for (int i = 0; i < coinsInStarterDeck; i++){ TODO: terug uit comments halen na het testen van alle actie kaarten
+        for (int i = 0; i < coinsInStarterDeck; i++){ //TODO: terug uit comments halen na het testen van alle actie kaarten
             addCardToDeck(copperCard);;
         }
         for (int i = 0; i < estateInStarterDeck; i++){
             addCardToDeck(estateCard);
-        }*/
+        }
     }
 
     public int getSize(){

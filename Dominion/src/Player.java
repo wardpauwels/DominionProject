@@ -113,6 +113,7 @@ public class Player {
         return false;
     }
 
+
     public int scanHandForCardAndReturnPosition(String type)
     {
         return playersHand.scanDeckForCardWithTypeXandReturnPosition(type);
@@ -136,6 +137,14 @@ public class Player {
         int toBeRemovedCard = scanHandForCardandGetPositionInHand(whichCard);
         discardPile.addCardToDeck(whichCard);
         playersHand.removeFromHand(toBeRemovedCard);
+    }
+
+    public void addCardFromHandToDiscardPileInteger(int positionInHand){
+
+        System.out.println(positionInHand);
+        System.out.println(playersHand.getCardOnPos(positionInHand-1).getName());
+        discardPile.addCardToDeck(playersHand.getCardOnPos(positionInHand-1));
+        playersHand.removeFromHand(positionInHand-1);
     }
 
     public int getHandSize(){

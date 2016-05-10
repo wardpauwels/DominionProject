@@ -553,6 +553,7 @@ public class Game {
         if(s.equals("Ja") || s.equals("ja")) {
             activePlayer.moveAllCardsFromDeckToDiscardPile();
             System.out.println("Deck is verplaatst naar de discardpile");
+            activePlayer.addCardFromHandToDiscardPile(actionCardTable.getCardOnPos(2));
             printHand(activePlayer);
             printCoins(activePlayer);
         } else if(s.equals("Nee") || s.equals("nee")){
@@ -562,6 +563,8 @@ public class Game {
             promptDeckOpStapel(activePlayer);
         }
     }
+
+
 
     private Deck returnXAmountOfTopCardsOfPlayerY(int amountOfCardsToBeReturned,int numberOfThePlayer){
         Deck top2Cards = new Deck();
@@ -607,6 +610,9 @@ public class Game {
 
         return currentlyActiveAmountOfCoins;
 
+    }
+    public void removeCardFromHandToDiscardPile(int position, Player whichPlayer){
+        whichPlayer.addCardFromHandToDiscardPileInteger(position);
     }
 
 

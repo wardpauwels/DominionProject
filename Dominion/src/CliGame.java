@@ -197,6 +197,7 @@ public class CliGame {
                 Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i - 1);
                 if (toBePlayedActionCard.getType().equals("action")) {
                     g.useActionCard(toBePlayedActionCard.getName(), player);
+                    g.removeCardFromHandToDiscardPile(i-1, activePLayer);
                     activePLayer.addCardFromHandToDiscardPile(toBePlayedActionCard);
                     g.lowerAmountOfActions();
 

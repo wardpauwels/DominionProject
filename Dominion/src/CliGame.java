@@ -38,6 +38,22 @@ public class CliGame {
         }
     }
 
+    //TODO Delete after tests
+    public CliGame(int number){
+        g = new Game(number);
+        newGame();
+        showBoard();
+        firstTurn();
+        while (!finished) // hierin de acties per turn zetten
+        {
+            clearScreen(); // TODO: clear screen werkend maken
+            showBoard();
+            nextTurn();
+            finished = g.checkIfFinished();
+
+        }
+    }
+
     private static void clearScreen() { // TODO: werkt niet
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -134,45 +150,38 @@ public class CliGame {
             int cardCost;
             Card card;
             amountOfCoins = g.getAmountOfCoinsOfPlayer();
+            System.out.println("Geef positie van te kopen kaart");
+            kaartKeuze = in.nextInt() - 1;
 
             switch (keuze) {
                 case 1:
-                    System.out.println("Geef positie van te kopen kaart");
-                    kaartKeuze = in.nextInt() - 1;
                     card = g.getCardFromPosInActionTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (cardCost <= amountOfCoins) {
                         g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
                         System.out.println("Kaart " + card.getName() + " gekocht");
                     } else {
-                        System.out.println("onvoldoende coins, probeer opnieuw " + card.getName() + " is te duur");
-                        buyCard();
+                        notEnoughCoins(card.getName());
                     }
                     break;
                 case 2:
-                    System.out.println("Geef positie van te kopen kaart");
-                    kaartKeuze = in.nextInt() - 1;
                     card = g.getCardFromPosInTreasureTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {
                         g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
                         System.out.println("Kaart " + card.getName() + " gekocht");
                     } else {
-                        System.out.println("onvoldoende coins, probeer opnieuw");
-                        buyCard();
+                        notEnoughCoins(card.getName());
                     }
                     break;
                 case 3:
-                    System.out.println("Geef positie van te kopen kaart");
-                    kaartKeuze = in.nextInt() - 1;
                     card = g.getCardFromPosInVictoryTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {
                         g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
                         System.out.println("Kaart " + card.getName() + " gekocht");
                     } else {
-                        System.out.println("onvoldoende coins, probeer opnieuw");
-                        buyCard();
+                        notEnoughCoins(card.getName());
                     }
                     break;
                 case 4:
@@ -183,6 +192,11 @@ public class CliGame {
             g.printCoins();
             remainingBuys -= 1;
         }
+    }
+
+    private void notEnoughCoins(String card){
+        System.out.println("Onvoldoende coins, probeer opnieuw!" + card + " is te duur");
+        buyCard();
     }
 
     private void cardBought(Card card) {
@@ -197,7 +211,6 @@ public class CliGame {
         if (i == 0) {
             g.setRemainingActionsInPhase(0);
         } else {
-
                 Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i - 1);
                 if (toBePlayedActionCard.getType().equals("action")) {
                     g.useActionCard(toBePlayedActionCard.getName(), player);
@@ -205,18 +218,13 @@ public class CliGame {
                     g.printHand(activePLayer);
                     g.lowerAmountOfActions();
                     g.printRemainingActions();
-
                 } else {
                     System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
                     playActionCard();
                 }
-
             }
-
         }
-
         g.printCoins();
-
     }
 }
 

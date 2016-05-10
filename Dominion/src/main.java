@@ -90,7 +90,10 @@ public class main {
         g.printActionCards();
 
         */
-        CliGame g = new CliGame();
+
+        //Final tests CLI
+        //CliGame g = new CliGame();
+        CliGame g = new CliGame(3);
 
 
     }

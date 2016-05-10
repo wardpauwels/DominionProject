@@ -32,6 +32,17 @@ public class Game {
         actionCardsOnBoard = new ArrayList<Card>();
         generateActionCardTable();
     }
+
+    //TODO Delete after tests
+    public Game(int number){
+        victoryCardTable = new VictoryCardTable();
+        treasureCardTable = new TreasureCardTable();
+        actionCardTable = new ActionCardTable();
+        allPlayers = new ArrayList<Player>();
+        actionCardsOnBoard = new ArrayList<Card>();
+        generateActionCardTable(number);
+    }
+
     // lijst aanmaken met spelers
     public void createPlayersList(int amount){
         for(int i=0;i<amount;i++){
@@ -60,6 +71,35 @@ public class Game {
             int randomNumber = getRandomNumber(1, 25);
             while (!checkRandom(randomNumber)) {
                 randomNumber = getRandomNumber(1, 25);
+            }
+
+            Card newCard = actionCardTable.getCardOnPos(randomNumber - 1);
+            actionCardsOnBoard.add(newCard);
+        }
+
+    }
+
+    //TODO Delete after tests
+    public void generateActionCardTable(int number) {
+        int i = 0, j = 0;
+        switch (number) {
+            case 1:
+                i = 0;
+                j = 10;
+                break;
+            case 2:
+                i = 10;
+                j = 20;
+                break;
+            case 3:
+                i = 15;
+                j = 25;
+                break;
+        }
+        for (int k = i; k < j; k++) {
+            int randomNumber = getRandomNumber(i+1, j);
+            while (!checkRandom(randomNumber)) {
+                randomNumber = getRandomNumber(i+1, j);
             }
 
             Card newCard = actionCardTable.getCardOnPos(randomNumber - 1);

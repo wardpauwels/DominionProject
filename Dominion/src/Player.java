@@ -1,6 +1,8 @@
 /**
  * Created by jens.thiel on 24/03/16.
  */
+import java.util.ArrayList;
+
 
 public class Player {
     private String name;
@@ -119,14 +121,13 @@ public class Player {
         return playersHand.scanDeckForCardWithTypeXandReturnPosition(type);
     }
     public int scanHandForCardandGetPositionInHand(Card whichCard){
-        int posOfCard = 0;
-        for (int i = 0; i < playersHand.getSize(); i++) {
-            if (playersHand.getCardOnPos(i) == whichCard) {
-                posOfCard = i;
-                break; // TODO waarom staat er hier break?
+      int positionOfCardInHand=-1;
+        for (int i=0;i<playersHand.getSize();i++){
+            if(playersHand.getCardOnPos(i).equals(whichCard)){
+                positionOfCardInHand=i;
             }
         }
-        return posOfCard;
+    return positionOfCardInHand;
     }
 
     public void removeCardFromHand(int spotInHand){
@@ -138,19 +139,17 @@ public class Player {
         discardPile.addCardToDeck(whichCard);
         playersHand.removeFromHand(toBeRemovedCard);
     }
-
-    public void addCardFromHandToDiscardPileInteger(int positionInHand){
-
-        System.out.println(positionInHand);
-        System.out.println(playersHand.getCardOnPos(positionInHand-1).getName());
-        discardPile.addCardToDeck(playersHand.getCardOnPos(positionInHand-1));
-        playersHand.removeFromHand(positionInHand-1);
+    public void moveCardFromHandToDiscard(int spotInHand){
+        discardPile.addCardToDeck(playersHand.getCardOnPos(spotInHand));
+        playersHand.removeFromHand(spotInHand);
     }
+
 
     public int getHandSize(){
         int size = playersHand.getSize();
         return size;
     }
+
 
     public void addCardFromHandToDeck(Card c){
         playersDeck.addCardToDeck(c);

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Created by Robert on 21-4-2016.
@@ -69,6 +70,7 @@ public class CliGame {
         System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
         g.printCoins(g.allPlayers.get(player));
+        g.printRemainingActions(g.allPlayers.get(player));
         actionMenu();
         numberOTurn ++; // TODO: weg na test
         endTurn();
@@ -85,6 +87,7 @@ public class CliGame {
         System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
         g.printCoins(g.allPlayers.get(player));
+        g.printRemainingActions(g.allPlayers.get(player));
         actionMenu();
         numberOTurn++; // TODO: weg na test
         endTurn();
@@ -197,9 +200,11 @@ public class CliGame {
                 Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i - 1);
                 if (toBePlayedActionCard.getType().equals("action")) {
                     g.useActionCard(toBePlayedActionCard.getName(), player);
-                    g.removeCardFromHandToDiscardPile(i-1, activePLayer);
-                    activePLayer.addCardFromHandToDiscardPile(toBePlayedActionCard);
+                    g.moveCardFromHandToDiscardPilePosition(i-1, activePLayer);
+                    g.printHand(activePLayer);
+                    g.printCoins(activePLayer);
                     g.lowerAmountOfActions();
+                    g.printRemainingActions(activePLayer);
 
                 } else {
                     System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");

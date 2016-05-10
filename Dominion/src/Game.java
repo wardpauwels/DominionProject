@@ -78,7 +78,7 @@ public class Game {
     }
 
     public Card getCardFromPosInActionTable(int pos){
-        return actionCardTable.getCardOnPos(pos);
+        return actionCardsOnBoard.get(pos);
     }
     public Card getCardFromPosInTreasureTable(int pos){
         return treasureCardTable.getCardOnPos(pos);
@@ -95,7 +95,7 @@ public class Game {
         Card boughtCard = new Card();
         switch(type){
             case "action":
-                boughtCard = actionCardTable.getCardOnPos(positionOnTheBoard);
+                boughtCard = actionCardsOnBoard.get(positionOnTheBoard);
                 break;
             case "victory":
                 boughtCard = victoryCardTable.getCardOnPos(positionOnTheBoard);
@@ -406,7 +406,9 @@ public class Game {
         }
         return cost;
     }
-
+    private void moveCardFromHandToDiscardPile(int position,Player whichPlayer){
+        whichPlayer.moveCardFromHandToDiscard(position);
+    }
     private void useChancellor(int numberOfPlayer){
         Player activePlayer = getActivePlayer(numberOfPlayer);
         currentlyActiveAmountOfCoins+=2;
@@ -431,6 +433,7 @@ public class Game {
         }
         printHand(activePlayer);
         printCoins(activePlayer);
+
     }
     private void useCellarAction(Player activePlayer){
 
@@ -553,9 +556,8 @@ public class Game {
         if(s.equals("Ja") || s.equals("ja")) {
             activePlayer.moveAllCardsFromDeckToDiscardPile();
             System.out.println("Deck is verplaatst naar de discardpile");
-            activePlayer.addCardFromHandToDiscardPile(actionCardTable.getCardOnPos(2));
-            printHand(activePlayer);
-            printCoins(activePlayer);
+
+
         } else if(s.equals("Nee") || s.equals("nee")){
             System.out.println("Deck is niet verplaatst naar de discardpile");
         }else{
@@ -611,8 +613,9 @@ public class Game {
         return currentlyActiveAmountOfCoins;
 
     }
-    public void removeCardFromHandToDiscardPile(int position, Player whichPlayer){
-        whichPlayer.addCardFromHandToDiscardPileInteger(position);
+    public void moveCardFromHandToDiscardPilePosition(int position, Player whichPlayer){
+
+        whichPlayer.moveCardFromHandToDiscard(position);
     }
 
 
@@ -752,6 +755,13 @@ public class Game {
         calculateCoinsOfPlayer(whichplayer);
         System.out.println("Amount of coins in current hand:" + currentlyActiveAmountOfCoins);
         System.out.println("--------------------");
+    }
+    public void printRemainingActions(Player whichPlayer){
+        System.out.println("--------------------");
+        calculateCoinsOfPlayer(whichPlayer);
+        System.out.println("Amount of remaining actions:" + remainingActionsInPhase);
+        System.out.println("--------------------");
+
     }
 }
 

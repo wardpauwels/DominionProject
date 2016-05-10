@@ -83,8 +83,9 @@ public class Hand {
 
 
 
-    public void removeFromHand(int index){
-        hand.remove(index);
+    public void removeFromHand(int i){
+        hand.remove(i);
+
     }
 
     public void addSpecificCard(Card toBeAddedCard){
@@ -98,6 +99,7 @@ public class Hand {
             System.out.println(i+1 + "." + getCardOnPos(i).getName());
         }
     }
+
 
 
     public int getSize(){

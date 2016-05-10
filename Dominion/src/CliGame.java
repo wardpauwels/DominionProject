@@ -112,9 +112,10 @@ public class CliGame {
         playActionCard();
         g.resetAmountOfActions();
 
-
+        g.calculateCoinsOfPlayer(g.allPlayers.get(player));
         buyCard();
         g.endPhase();
+        g.printDeck(g.allPlayers.get(player));
 
 
         turn = false;
@@ -176,6 +177,7 @@ public class CliGame {
                     break;
 
             }
+            g.printCoins(g.allPlayers.get(player));
             remainingBuys -= 1;
         }
     }

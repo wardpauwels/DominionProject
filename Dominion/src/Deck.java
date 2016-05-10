@@ -27,8 +27,10 @@ public class Deck {
         Card copperCard = treasureCards.getCardOnPos(0);
         Card estateCard = victoryCards.getCardOnPos(0);
         Card goldCard = treasureCards.getCardOnPos(2); // TODO: weg halen na test
-        Card actionCard = actionCards.getCardFromAllActionCards(0); // TODO: weg halen na test
-        int coinsInStarterDeck = 5; //TODO Terug veranderen naar 7 na test
+        Card actionCard = actionCards.getCardOnPos(1);
+        // TODO: weg halen na test
+
+        int coinsInStarterDeck = 10; //TODO Terug veranderen naar 7 na test
         int estateInStarterDeck = 3;
 
         for(int i = 0; i < coinsInStarterDeck; i++){ //TODO: weg halen na test
@@ -93,7 +95,7 @@ public class Deck {
     public void printDeck(){
         int length = cardList.size();
         for(int i = 0; i < length; i++){
-            System.out.println(getCardOnPos(i));
+            System.out.println(getCardOnPos(i).getName());
         }
     }
 

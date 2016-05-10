@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * @author Jens.Thiel
@@ -12,6 +13,7 @@ public class Game {
     private TreasureCardTable treasureCardTable;
     private ActionCardTable actionCardTable;
     public ArrayList<Player> allPlayers;
+    private ArrayList<Card> actionCardsOnBoard;
 
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
     private Deck playedCards = new Deck();
@@ -27,6 +29,8 @@ public class Game {
         treasureCardTable = new TreasureCardTable();
         actionCardTable = new ActionCardTable();
         allPlayers = new ArrayList<Player>();
+        actionCardsOnBoard = new ArrayList<Card>();
+        generateActionCardTable();
     }
     // lijst aanmaken met spelers
     public void createPlayersList(int amount){
@@ -35,6 +39,33 @@ public class Game {
             newPlayer.setNumber(i);
             allPlayers.add(newPlayer);
         }
+    }
+    private int getRandomNumber(int minValue, int maxValue) {
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(maxValue - minValue + 1) + minValue;
+        return randomNumber;
+    }
+
+    private boolean checkRandom(int randomNumber) {
+        for (int i = 0; i < actionCardsOnBoard.size(); i++) {
+            int currentNumber = actionCardsOnBoard.get(i).getNumber();
+            if (randomNumber == currentNumber) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public void generateActionCardTable() {
+        for (int i = 0; i < 10; i++) {
+            int randomNumber = getRandomNumber(1, 25);
+            while (!checkRandom(randomNumber)) {
+                randomNumber = getRandomNumber(1, 25);
+            }
+
+            Card newCard = actionCardTable.getCardOnPos(randomNumber - 1);
+            actionCardsOnBoard.add(newCard);
+        }
+
     }
 
     private void resetRemainingActions(){
@@ -64,13 +95,13 @@ public class Game {
         Card boughtCard = new Card();
         switch(type){
             case "action":
-                boughtCard = actionCardTable.getCardOnPos(positionOnTheBoard-1);
+                boughtCard = actionCardTable.getCardOnPos(positionOnTheBoard);
                 break;
             case "victory":
-                boughtCard = victoryCardTable.getCardOnPos(positionOnTheBoard -1);
+                boughtCard = victoryCardTable.getCardOnPos(positionOnTheBoard);
                 break;
             case "treasure":
-                boughtCard = treasureCardTable.getCardOnPos(positionOnTheBoard-1);
+                boughtCard = treasureCardTable.getCardOnPos(positionOnTheBoard);
                 break;
         }
         boughtCard.setAmount(boughtCard.getAmount()-1);
@@ -291,6 +322,7 @@ public class Game {
                 activePlayer.addCardToDiscardPile(topCard);
             }
         }
+        activePlayer.printHand();
 
     }
     private void useThief(int numberOfThePlayer){
@@ -505,7 +537,7 @@ public class Game {
         Player activeplayer  = getActivePlayer(numberOfThePlayer);
         int amountOfTrashesLeft = 4;
         System.out.println("Geef de positie van de kaart om te trashen, je kunt nog " + amountOfTrashesLeft + " kaarten trashen. (Druk op 0 om te stoppen)");
-        int i = in.nextInt();
+        int i = in.nextInt()-1;
         while (i != 0 && i <= activeplayer.getHandSize()){
             activeplayer.removeCardFromHand(i);
             amountOfTrashesLeft -= 1;
@@ -674,8 +706,8 @@ public class Game {
         System.out.println("---------------");
         System.out.println("Action cards:");
         System.out.println("---------------");
-        for (int i = 0; i < actionCardTable.getSize(); i++) {
-            System.out.println(i +1 + ". " +  actionCardTable.getCardOnPos(i).getName() +  ", Cost: " + actionCardTable.getCardOnPos(i).getCost() + ", Amount: " + actionCardTable.getCardOnPos(i).getAmount());
+        for (int i = 0; i < actionCardsOnBoard.size(); i++) {
+            System.out.println(i +1 + ". " +  actionCardsOnBoard.get(i).getName() +  ", Cost: " + actionCardsOnBoard.get(i).getCost() + ", Amount: " + actionCardsOnBoard.get(i).getAmount());
         }
     }
     public void printVicotryCards() {

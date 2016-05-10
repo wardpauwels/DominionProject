@@ -191,12 +191,13 @@ public class CliGame {
 
     private void playActionCard() {
         Player activePLayer = g.allPlayers.get(player);
+        while (g.returnAmountOfActionsRemaining() != 0) {
         System.out.println("Geef positie in hand van te spelen actie kaart (Geef 0 in om te stoppen)");
         int i = in.nextInt();
         if (i == 0) {
             g.setRemainingActionsInPhase(0);
         } else {
-            while (g.returnAmountOfActionsRemaining() != 0) {
+
                 Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i - 1);
                 if (toBePlayedActionCard.getType().equals("action")) {
                     g.useActionCard(toBePlayedActionCard.getName(), player);

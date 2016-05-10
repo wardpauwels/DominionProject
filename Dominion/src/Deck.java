@@ -1,118 +1,99 @@
 import java.util.*;
 
+
 /*
 *
 * @author Robert Plasschaert
 */
-// controleer of alles nog nodig is hieronder.
-
 
 
 public class Deck {
-    private ArrayList<Card> deck;
-    private ActionCardTable allActionCards = new ActionCardTable();
-    private Card[] actionCards = allActionCards.actionCardTable;
-    private TreasureCardTable allTreasureCards = new TreasureCardTable();
-    private Card[] treasureCards = allTreasureCards.treasureCardTable;
-    private VictoryCardTable allVictoryCards = new VictoryCardTable();
-    private Card[] victoryCards = allVictoryCards.victoryCardTable;
+    private ArrayList<Card> cardList;
+    private ActionCardTable actionCards;
+    private VictoryCardTable victoryCards;
+    private TreasureCardTable treasureCards;
+
 
     public Deck(){
+        cardList = new ArrayList<Card>();
+        victoryCards = new VictoryCardTable();
+        actionCards = new ActionCardTable();
+        treasureCards = new TreasureCardTable();
 
     }
 
-    public Deck scanDeckForCardWithTypeX(String typeOfCard){
-        Deck specificCardsInDeck = new Deck();
-        for (int i=0;i<deck.size();i++) {
-            if (deck.get(i).getType().equals(typeOfCard)){
-                specificCardsInDeck.addCardToDeck(deck.get(i));
-            }
-        }
-        return specificCardsInDeck;
-    }
-
-    public void addCardToDeck(Card toBeAddedCard){
-        deck.add(toBeAddedCard);
-    }
-
-    public Card getVictoryCard(int victoryCardNumber){
-        Card newCard = new Card();
-        newCard = victoryCards[victoryCardNumber];
-        return newCard;
-    }
-
-    public Card getCoinCard(int coinNumber){
-        Card newCard = new Card();
-        newCard = treasureCards[coinNumber];
-        return newCard;
-
-    }
 
     public void generateStarterDeck(){
-        int coinsInStarterDeck = 7;
+        Card copperCard = treasureCards.getCardOnPos(0);
+        Card estateCard = victoryCards.getCardOnPos(0);
+        Card goldCard = treasureCards.getCardOnPos(2); // TODO: weg halen na test
+        Card actionCard = actionCards.getCardFromAllActionCards(0); // TODO: weg halen na test
+        int coinsInStarterDeck = 5; //TODO Terug veranderen naar 7 na test
         int estateInStarterDeck = 3;
-        deck = new ArrayList<Card>();
 
-        for (int i = 0; i < coinsInStarterDeck; i++){
-            Card coinCard = getCoinCard(0);
-            deck.add(coinCard);
+        for(int i = 0; i < coinsInStarterDeck; i++){ //TODO: weg halen na test
+            addCardToDeck(goldCard);
+        }
+        addCardToDeck(actionCard); // TODO weg halen na test
+
+        /*for (int i = 0; i < coinsInStarterDeck; i++){ TODO: terug uit comments halen na het testen van alle actie kaarten
+            addCardToDeck(copperCard);;
         }
         for (int i = 0; i < estateInStarterDeck; i++){
-            Card estateCard = getVictoryCard(0);
-            deck.add(estateCard);
-        }
-    }
-
-    public int showAmountOfCardsInDeck(){
-        int amount = deck.size();
-        return amount;
-    }
-
-    public void addCardToSpecificPositionInDeck(int position, Card specificCard){
-        deck.add(position,specificCard);
+            addCardToDeck(estateCard);
+        }*/
     }
 
     public int getSize(){
-        return deck.size();
+        return cardList.size();
     }
+
     public Card getCardOnPos(int i){
-        return deck.get(i);
+        return cardList.get(i);
     }
-// om nieuwe kaarten toe te voegen aan deck
+    // om nieuwe kaarten toe te voegen aan deck
+
     public void addToDeck(String typeOfCard, int numberOfCard){
         Card newCard = new Card();
         switch (typeOfCard){
-           
+
             case "action": 
-                    newCard = actionCards[numberOfCard - 1];
+                    newCard = actionCards.getCardOnPos(numberOfCard -1);
                     break;
             case "treasure":
-                    newCard = treasureCards[numberOfCard - 1];
+                    newCard = treasureCards.getCardOnPos(numberOfCard - 1);
                     break;
             case "victory":
-                    newCard = victoryCards[numberOfCard - 1];
+                    newCard = victoryCards.getCardOnPos(numberOfCard -1);
                     break;
-                  
-        
         }
-        deck.add(newCard);
+        cardList.add(newCard);
+    }
+
+    public void addCardToSpecificPositionInDeck(int position, Card specificCard){
+        cardList.add(position,specificCard);
+    }
+
+    public void addCardToDeck(Card c){
+        cardList.add(c);
     }
 
     public void shuffleDeck(){
-        Collections.shuffle(deck);
+        Collections.shuffle(cardList);
     }
 
     public void removeFromDeck(int index){
-        deck.remove(index);
+        cardList.remove(index);
     }
 
     public void clearDeck(){
-        deck.clear();
+        cardList.clear();
     }
 
-    public void printCardsInDeck(){
-        for (int i = 0; i < deck.size() ;i ++){
-            System.out.println(getCardOnPos(i).getName());
+    public void printDeck(){
+        int length = cardList.size();
+        for(int i = 0; i < length; i++){
+            System.out.println(getCardOnPos(i));
         }
     }
 

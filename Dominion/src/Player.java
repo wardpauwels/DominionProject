@@ -98,6 +98,11 @@ public class Player {
 
     public void addXAmountOfCardsToHand(int amount){
         for (int i = 0; i < amount ; i++){
+            if (playersDeck.getSize()<1){
+                playersDeck=discardPile;
+                playersDeck.shuffleDeck();
+                discardPile.clearDeck();
+            }
             addCardFromDeckToHand();
         }
     }
@@ -118,14 +123,13 @@ public class Player {
         return playersHand.scanDeckForCardWithTypeXandReturnPosition(type);
     }
     public int scanHandForCardandGetPositionInHand(Card whichCard){
-        int posOfCard = 0;
-        for (int i = 0; i < playersHand.getSize(); i++) {
-            if (playersHand.getCardOnPos(i) == whichCard) {
-                posOfCard = i;
-                break; // TODO waarom staat er hier break?
+        int positionOfCardInHand=-1;
+        for (int i=0;i<playersHand.getSize();i++){
+            if(playersHand.getCardOnPos(i).equals(whichCard)){
+                positionOfCardInHand=i;
             }
         }
-        return posOfCard;
+        return positionOfCardInHand;
     }
 
     public void removeCardFromHand(int spotInHand){
@@ -141,6 +145,11 @@ public class Player {
     public int getHandSize(){
         int size = playersHand.getSize();
         return size;
+    }
+
+    public void moveCardFromHandToDiscard(int spotInHand) {
+        discardPile.addCardToDeck(playersHand.getCardOnPos(spotInHand));
+        playersHand.removeFromHand(spotInHand);
     }
 
     public void addCardFromHandToDeck(Card c){

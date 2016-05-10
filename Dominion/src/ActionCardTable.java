@@ -7,15 +7,11 @@ import java.util.Random;
  * @author Jens.Thiel
  */
 public class ActionCardTable {
-    public ArrayList<Card> actionCardTable;
     public ArrayList<Card> allActionCards;
 
     public ActionCardTable() {
-        actionCardTable = new ArrayList<Card>();
         allActionCards = new ArrayList<Card>();
         allActionCards();
-        generateActionCardTable();
-
     }
 
 
@@ -30,7 +26,7 @@ public class ActionCardTable {
         allActionCards.add(GenerateSpecificActionCard(9, "Moneylender", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(8, "Militia", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(10, "Remodel", 4, 10));
-        allActionCards.add(GenerateSpecificActionCard(11, "Bureaucrat", 4 ,10));
+        allActionCards.add(GenerateSpecificActionCard(11, "Bureaucrat", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(12, "Smithy", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(13, "Spy", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(14, "Thief", 4, 10));
@@ -60,54 +56,13 @@ public class ActionCardTable {
         return newCard;
     }
 
-    public Card getCardOnPos(int numberOfCard){
-        return actionCardTable.get(numberOfCard);
+    public int getSize() {
+        return allActionCards.size();
     }
 
-    public int getSize(){
-        return actionCardTable.size();
-    }
-
-    public Card getCardFromAllActionCards(int pos){ // TODO: verwijderen na test
+    public Card getCardOnPos(int pos) { // TODO: verwijderen na test
         Card card = allActionCards.get(pos);
         return card;
     }
-
-
-
-    // Action card table maken voor bord
-
-    public void generateActionCardTable() {
-        for (int i = 0; i < 10; i++) {
-            int randomNumber = getRandomNumber(1, 25);
-            while (!checkRandom(randomNumber)) {
-                randomNumber = getRandomNumber(1, 25);
-            }
-
-            Card newCard = allActionCards.get(randomNumber - 1);
-            actionCardTable.add(newCard);
-        }
-
-    }
-
-
-
-    private int getRandomNumber(int minValue, int maxValue) {
-        Random rand = new Random();
-        int randomNumber = rand.nextInt(maxValue - minValue + 1) + minValue;
-        return randomNumber;
-    }
-
-    private boolean checkRandom(int randomNumber) {
-        for (int i = 0; i < actionCardTable.size(); i++) {
-            int currentNumber = actionCardTable.get(i).getNumber();
-            if (randomNumber == currentNumber) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-
 }
+

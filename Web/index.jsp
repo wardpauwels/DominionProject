@@ -20,7 +20,7 @@
             <a href="#" class="dominion_logo"></a>
         </div>
         <div class="play-button" title="Play">
-            <a href="assets/client/Dominionwebclient.jnlp" onclick="javascript: var that=this; ga('send', 'pageview', {'page': 'assets/client/Dominionwebclient.jnlp', 'title': 'Play'}); setTimeout(function(){location.href=that.href;},300); ga('send', 'event', 'play', 'stable'); return false;"></a>
+            <form target="_blank"><input class="buttonStart" type="submit" value="" onclick="form.action='test';"/></form>
         </div>
         <div class="menu_container menu_container_left">
             <div class="menu-left-menu-container">
@@ -29,7 +29,7 @@
                         <a href="index.jsp">Home</a>
                     </li>
                     <li>
-                        <a href="pages/highscores.jsp">Highscores</a>
+                        <a href="highscores.jsp">Highscores</a>
                     </li>
                 </ul>
             </div>
@@ -38,10 +38,10 @@
             <div class="menu-right-menu-container">
                 <ul id="menu-right-menu" class="menu">
                     <li>
-                        <a href="pages/guide.jsp">Guide</a>
+                        <a href="guide.jsp">Guide</a>
                     </li>
                     <li>
-                        <a href="pages/download.jsp">Download</a>
+                        <a href="download.jsp">Download</a>
                     </li>
                 </ul>
             </div>
@@ -49,7 +49,7 @@
     </div>
     <div id="containerbodys">
         <div id="body">
-            <h1>Whats Dominion</h1>
+            <h1>What's Dominion</h1>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
         </div>
 

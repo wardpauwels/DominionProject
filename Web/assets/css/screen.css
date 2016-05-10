@@ -97,7 +97,8 @@ div.menu_container {
     font-style: normal;
     letter-spacing: 2px;
     text-shadow: 1px 1px 4px #000000;
-}div.play-button a{
+}
+div.play-button input.buttonStart{
      position: absolute;
      display: block;
      top: 17px;
@@ -105,13 +106,18 @@ div.menu_container {
      height: 159px;
      background-image: url("../images/play.png");
      background-repeat: no-repeat;
+     background-color: Transparent;
+     border: none;
+     cursor:pointer;
+     overflow: hidden;
+     outline:none;
      margin-left: auto;
      margin-right: auto;
      z-index: 1000000000000000000000;
      background-size: 301px;
      width: 301px;
  }
-div.play-button a:hover {
+div.play-button input.buttonStart:hover {
       position: absolute;
       display: block;
       top: 17px;

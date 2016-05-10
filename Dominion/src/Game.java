@@ -404,11 +404,11 @@ public class Game {
             if(playersHand.getCardOnPos(i).getName().equals("Feast")){
                 activePlayer.removeCardFromHand(i);
             }
-        }System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen? (1 - 3)");
+        }System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen?");
         int intOfTypeCard = in.nextInt();
         if(intOfTypeCard < 1 && intOfTypeCard > 3){
             System.out.println("Ongeldige input, probeer opnieuw");
-            useWorkshop(numberOfThePlayer);
+            useFeast(numberOfThePlayer);
         }
         System.out.println("Geef de positie van de kaart die je wilt kopen"); //TODO: check maken voor de positie
         int positie = in.nextInt();
@@ -431,16 +431,86 @@ public class Game {
             System.out.println("Gekozen kaart moet 5 coins of minder kosten, probeer opnieuw");
             useWorkshop(numberOfThePlayer);
         }
+    }
+
+    private void useRemodel(int numberOfThePlayer){ // Remodel = kaart trashen, nieuwe kaart kiezen met waarde +2 van getrashte kaart
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        System.out.println("Geef positie van de kaart in je hand om te trashen");
+        int i = in.nextInt();
+        Card selectedCard = activePlayer.getCardOnPosInHand(i);
+        int amountOfCoinsToBuyNextCard = selectedCard.getCost() +2;
+        System.out.println("Kies een kaart om te kopen met de waarde van " + amountOfCoinsToBuyNextCard + " 1.Actie 2.victory 3.treasure");
+        int typeOfCard = in.nextInt();
+        if(typeOfCard < 1 && typeOfCard > 3){
+            System.out.println("Ongeldige input, probeer opnieuw");
+            useFeast(numberOfThePlayer);
+        }
+        System.out.println("Geef de positie van de kaart die je wilt kopen"); //TODO: check maken voor de positie
+        int positie = in.nextInt();
+        Card gekozenKaart = new Card();
+        switch (typeOfCard){
+            case 1:
+                gekozenKaart = actionCardTable.getCardOnPos(positie);
+                break;
+            case 2:
+                gekozenKaart = victoryCardTable.getCardOnPos(positie);
+                break;
+            case 3:
+                gekozenKaart = treasureCardTable.getCardOnPos(positie);
+                break;
+        }
+        if(gekozenKaart.getCost() <= amountOfCoinsToBuyNextCard){
+            activePlayer.addCardToDiscardPile(gekozenKaart);
+        }else{
+            System.out.println("Gekozen kaart moet " + amountOfCoinsToBuyNextCard + " coins of minder kosten, probeer opnieuw");
+            useRemodel(numberOfThePlayer);
+        }
+    }
 
 
+    private void useLibrary(int numberOfThePlayer){
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        while(activePlayer.getHandSize() != 7){
+            Card currentCard = activePlayer.getTopCardFromDeck();
+            if (!currentCard.getType().equals("action")){
+                activePlayer.addCardFromDeckToHand();
+            }
+        }
+    }
 
+    private void useThroneRoom(int numberOfThePlayer){
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        System.out.println("Geef de positie van de actie kaart die je 2x wilt uitvoeren");
+        int positie = in.nextInt();
+        Card chosenCard = activePlayer.getCardOnPosInHand(positie);
+        if(chosenCard.getType().equals("action")){
+            for(int i = 0; i < 2; i++){
+                useActionCard(chosenCard.getName(), numberOfThePlayer);
+            }
+        }else{
+            System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
+            useThroneRoom(numberOfThePlayer);
+        }
+    }
+
+    private void useChapel(int numberOfThePlayer){
+        Player activeplayer  = getActivePlayer(numberOfThePlayer);
+        int amountOfTrashesLeft = 4;
+        System.out.println("Geef de positie van de kaart om te trashen, je kunt nog " + amountOfTrashesLeft + " kaarten trashen. (Druk op 0 om te stoppen)");
+        int i = in.nextInt();
+        while (i != 0 && i <= activeplayer.getHandSize()){
+            activeplayer.removeCardFromHand(i);
+            amountOfTrashesLeft -= 1;
+            System.out.println("Geef de positie van de kaart om te trashen, je kunt nog " + amountOfTrashesLeft + " kaarten trashen. (Druk op 0 om te stoppen)");
+            i = in.nextInt();
+        }
     }
 
     private void promptDeckOpStapel(Player activePlayer)
     {
         System.out.println("Wil je je deck naar de discardpile sturen? (Ja / Nee)");
         String s = in.nextLine();
-        if (s.equals("Ja") || s.equals("ja")) {
+        if(s.equals("Ja") || s.equals("ja")) {
             activePlayer.moveAllCardsFromDeckToDiscardPile();
             System.out.println("Deck is verplaatst naar de discardpile");
             printHand(activePlayer);
@@ -507,7 +577,7 @@ public class Game {
                 useCellar(numberOfThePlayer);
                 break;
             case "Chapel":
-                //TODO ROBERT
+                useChapel(numberOfThePlayer);
                 break;
             case "Chancellor":
                 useChancellor(numberOfThePlayer);
@@ -531,7 +601,7 @@ public class Game {
                 useMoneylender(numberOfThePlayer);
                 break;
             case "Remodel":
-                //TODO ROBERT
+                useRemodel(numberOfThePlayer);
                 break;
             case "Bureaucrat":
                 useBureaucrat(numberOfThePlayer);
@@ -546,7 +616,7 @@ public class Game {
                 useThief(numberOfThePlayer);
                 break;
             case "Throne Room":
-                //TODO ROBERT
+                useThroneRoom(numberOfThePlayer);
                 break;
             case "Moat":
                 useMoat(numberOfThePlayer);
@@ -561,7 +631,7 @@ public class Game {
                 useLaboratory(numberOfThePlayer);
                 break;
             case "Library":
-                //TODO ROBERT
+                useLibrary(numberOfThePlayer);
                 break;
             case "Garden":
                 System.out.println("Kaart kan niet gespeeld worden");

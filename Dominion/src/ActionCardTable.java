@@ -86,7 +86,7 @@ public class ActionCardTable {
 
     }
 
-
+// TODO: Jens pls halp
 
     private int getRandomNumber(int minValue, int maxValue) {
         Random rand = new Random();

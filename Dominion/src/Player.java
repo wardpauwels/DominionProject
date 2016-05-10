@@ -169,7 +169,7 @@ public class Player {
 
                    discardPile.clearDeck();
                    playersDeck.shuffleDeck();
-                    addXAmountOfCardsToHand(cardsNeededToFillHand);
+                   addXAmountOfCardsToHand(cardsNeededToFillHand);
                }
                else{
                     playersHand.generateHand(playersDeck);

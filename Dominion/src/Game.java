@@ -40,7 +40,6 @@ public class Game {
             allPlayers.add(newPlayer);
         }
     }
-
     private int getRandomNumber(int minValue, int maxValue) {
         Random rand = new Random();
         int randomNumber = rand.nextInt(maxValue - minValue + 1) + minValue;
@@ -69,8 +68,6 @@ public class Game {
 
     }
 
-
-
     private void resetRemainingActions(){
         remainingActionsInPhase = 1;
     }
@@ -98,16 +95,17 @@ public class Game {
         Card boughtCard = new Card();
         switch(type){
             case "action":
-                boughtCard = actionCardsOnBoard.get(positionOnTheBoard-1);
+                boughtCard = actionCardsOnBoard.get(positionOnTheBoard);
                 break;
             case "victory":
-                boughtCard = victoryCardTable.getCardOnPos(positionOnTheBoard -1);
+                boughtCard = victoryCardTable.getCardOnPos(positionOnTheBoard);
                 break;
             case "treasure":
-                boughtCard = treasureCardTable.getCardOnPos(positionOnTheBoard-1);
+                boughtCard = treasureCardTable.getCardOnPos(positionOnTheBoard);
                 break;
         }
         boughtCard.setAmount(boughtCard.getAmount()-1);
+        currentlyActiveAmountOfCoins-=boughtCard.getCost();
         whichPlayer.addCardToDiscardPile(boughtCard);
         remainingActionsInPhase = remainingActionsInPhase - 1;
 
@@ -200,7 +198,7 @@ public class Game {
 
             int pickedCopper = allPlayers.get(numberOfThePlayer).scanHandForCardandGetPositionInHand(treasureCardTable.getCardOnPos(0));
             allPlayers.get(numberOfThePlayer).addCardFromHandToDiscardPile(treasureCardTable.getCardOnPos(0));
-            currentlyActiveAmountOfCoins=+3;
+            currentlyActiveAmountOfCoins+=3;
         }
     };
 
@@ -237,8 +235,8 @@ public class Game {
         }
     }
     private void useWoodCutter(int numberOfThePlayer){
-        currentlyActiveAmountOfCoins =+ 2;
-        remainingBuysInPhase =+ 1;
+        currentlyActiveAmountOfCoins += 2;
+        remainingBuysInPhase += 1;
     }
     private void useWorkshop(int numberOfThePlayer){
         System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen? (1 - 3)");
@@ -325,6 +323,7 @@ public class Game {
                 activePlayer.addCardToDiscardPile(topCard);
             }
         }
+        activePlayer.printHand();
 
     }
     private void useThief(int numberOfThePlayer){
@@ -408,7 +407,9 @@ public class Game {
         }
         return cost;
     }
-
+    private void moveCardFromHandToDiscardPile(int position,Player whichPlayer){
+        whichPlayer.moveCardFromHandToDiscard(position);
+    }
     private void useChancellor(int numberOfPlayer){
         Player activePlayer = getActivePlayer(numberOfPlayer);
         currentlyActiveAmountOfCoins+=2;
@@ -434,7 +435,8 @@ public class Game {
             i = in.nextInt();
         }
         printHand(activePlayer);
-        printCoins(activePlayer);
+        printCoins();
+
     }
 
     private void useFeast(int numberOfThePlayer){
@@ -538,7 +540,7 @@ public class Game {
         Player activeplayer  = getActivePlayer(numberOfThePlayer);
         int amountOfTrashesLeft = 4;
         System.out.println("Geef de positie van de kaart om te trashen, je kunt nog " + amountOfTrashesLeft + " kaarten trashen. (Druk op 0 om te stoppen)");
-        int i = in.nextInt();
+        int i = in.nextInt()-1;
         while (i != 0 && i <= activeplayer.getHandSize()){
             activeplayer.removeCardFromHand(i);
             amountOfTrashesLeft -= 1;
@@ -554,8 +556,8 @@ public class Game {
         if(s.equals("Ja") || s.equals("ja")) {
             activePlayer.moveAllCardsFromDeckToDiscardPile();
             System.out.println("Deck is verplaatst naar de discardpile");
-            printHand(activePlayer);
-            printCoins(activePlayer);
+
+
         } else if(s.equals("Nee") || s.equals("nee")){
             System.out.println("Deck is niet verplaatst naar de discardpile");
         }else{
@@ -563,6 +565,8 @@ public class Game {
             promptDeckOpStapel(activePlayer);
         }
     }
+
+
 
     private Deck returnXAmountOfTopCardsOfPlayerY(int amountOfCardsToBeReturned,int numberOfThePlayer){
         Deck top2Cards = new Deck();
@@ -609,10 +613,13 @@ public class Game {
         return currentlyActiveAmountOfCoins;
 
     }
+    public void moveCardFromHandToDiscardPilePosition(int position, Player whichPlayer){
 
+        whichPlayer.moveCardFromHandToDiscard(position);
     public void moveCardFromHandToDiscardPilePosition(int position, Player whichPlayer){
         whichPlayer.moveCardFromHandToDiscard(position);
     }
+
 
     public void useActionCard(String nameOfActionCard,int numberOfThePlayer) {
 
@@ -745,16 +752,13 @@ public class Game {
     public void printHand(Player whichPlayer){
         whichPlayer.printHand();
     }
-    public void printCoins(Player whichplayer) {
+    public void printCoins() {
         System.out.println("--------------------");
-        calculateCoinsOfPlayer(whichplayer);
         System.out.println("Amount of coins in current hand:" + currentlyActiveAmountOfCoins);
         System.out.println("--------------------");
     }
-
-    public void printRemainingActions(Player whichPlayer){
+    public void printRemainingActions(){
         System.out.println("--------------------");
-        calculateCoinsOfPlayer(whichPlayer);
         System.out.println("Amount of remaining actions:" + remainingActionsInPhase);
         System.out.println("--------------------");
 

@@ -1,6 +1,8 @@
 /**
  * Created by jens.thiel on 24/03/16.
  */
+import java.util.ArrayList;
+
 
 public class Player {
     private String name;
@@ -97,6 +99,7 @@ public class Player {
     // HAND
 
     public void addXAmountOfCardsToHand(int amount){
+
         for (int i = 0; i < amount ; i++){
             if (playersDeck.getSize()<1){
                 playersDeck=discardPile;
@@ -118,18 +121,19 @@ public class Player {
         return false;
     }
 
+
     public int scanHandForCardAndReturnPosition(String type)
     {
         return playersHand.scanDeckForCardWithTypeXandReturnPosition(type);
     }
     public int scanHandForCardandGetPositionInHand(Card whichCard){
-        int positionOfCardInHand=-1;
+      int positionOfCardInHand=-1;
         for (int i=0;i<playersHand.getSize();i++){
             if(playersHand.getCardOnPos(i).equals(whichCard)){
                 positionOfCardInHand=i;
             }
         }
-        return positionOfCardInHand;
+    return positionOfCardInHand;
     }
 
     public void removeCardFromHand(int spotInHand){
@@ -141,15 +145,15 @@ public class Player {
         discardPile.addCardToDeck(whichCard);
         playersHand.removeFromHand(toBeRemovedCard);
     }
+    public void moveCardFromHandToDiscard(int spotInHand){
+        discardPile.addCardToDeck(playersHand.getCardOnPos(spotInHand));
+        playersHand.removeFromHand(spotInHand);
+    }
+
 
     public int getHandSize(){
         int size = playersHand.getSize();
         return size;
-    }
-
-    public void moveCardFromHandToDiscard(int spotInHand) {
-        discardPile.addCardToDeck(playersHand.getCardOnPos(spotInHand));
-        playersHand.removeFromHand(spotInHand);
     }
 
     public void addCardFromHandToDeck(Card c){

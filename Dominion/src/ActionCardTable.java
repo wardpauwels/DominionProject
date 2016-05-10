@@ -2,16 +2,18 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * testtest
  *
  * @author Jens.Thiel
  */
 public class ActionCardTable {
+
     public ArrayList<Card> allActionCards;
 
     public ActionCardTable() {
         allActionCards = new ArrayList<Card>();
         allActionCards();
+
+
     }
 
 
@@ -56,13 +58,25 @@ public class ActionCardTable {
         return newCard;
     }
 
-    public int getSize() {
+
+
+    public int getSize(){
         return allActionCards.size();
     }
 
-    public Card getCardOnPos(int pos) { // TODO: verwijderen na test
+    public Card getCardOnPos(int pos){ // TODO: verwijderen na test
         Card card = allActionCards.get(pos);
         return card;
     }
+
+
 }
 
+
+
+
+
+
+
+
+}

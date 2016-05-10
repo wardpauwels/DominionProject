@@ -67,8 +67,8 @@ public class CliGame {
         System.out.println(playerName + " is aan de beurt");
         System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
-        g.printCoins(g.allPlayers.get(player));
-        g.printRemainingActions(g.allPlayers.get(player));
+        g.printCoins();
+        g.printRemainingActions();
         actionMenu();
         numberOTurn ++; // TODO: weg na test
         endTurn();
@@ -83,8 +83,8 @@ public class CliGame {
         System.out.println(playerName + " is aan de beurt");
         System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
-        g.printCoins(g.allPlayers.get(player));
-        g.printRemainingActions(g.allPlayers.get(player));
+        g.printCoins();
+        g.printRemainingActions();
         actionMenu();
         numberOTurn++; // TODO: weg na test
         endTurn();
@@ -175,6 +175,7 @@ public class CliGame {
                     break;
 
             }
+            g.printCoins();
             remainingBuys -= 1;
         }
     }
@@ -185,20 +186,20 @@ public class CliGame {
 
     private void playActionCard() {
         Player activePLayer = g.allPlayers.get(player);
+        while (g.returnAmountOfActionsRemaining() != 0) {
         System.out.println("Geef positie in hand van te spelen actie kaart (Geef 0 in om te stoppen)");
         int i = in.nextInt();
         if (i == 0) {
             g.setRemainingActionsInPhase(0);
         } else {
-            while (g.returnAmountOfActionsRemaining() != 0) {
+
                 Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i - 1);
                 if (toBePlayedActionCard.getType().equals("action")) {
                     g.useActionCard(toBePlayedActionCard.getName(), player);
                     g.moveCardFromHandToDiscardPilePosition(i-1, activePLayer);
                     g.printHand(activePLayer);
-                    g.printCoins(activePLayer);
                     g.lowerAmountOfActions();
-                    g.printRemainingActions(activePLayer);
+                    g.printRemainingActions();
 
                 } else {
                     System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
@@ -208,6 +209,8 @@ public class CliGame {
             }
 
         }
+
+        g.printCoins();
 
     }
 }

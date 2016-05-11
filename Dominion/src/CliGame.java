@@ -28,7 +28,7 @@ public class CliGame {
         firstTurn();
         while (!finished) // hierin de acties per turn zetten
         {
-            clearScreen(); // TODO: clear screen werkend maken
+            //clearScreen(); // TODO: clear screen werkend maken
             showBoard();
             nextTurn();
             finished = g.checkIfFinished();
@@ -36,10 +36,10 @@ public class CliGame {
         }
     }
 
-    private static void clearScreen() { // TODO: werkt niet
+    /*private static void clearScreen() { // TODO: werkt niet
         System.out.print("\033[H\033[2J");
         System.out.flush();
-    }
+    }*/
 
     private void newGame() {
         System.out.println("Geef aantal spelers (2 - 4)");
@@ -65,12 +65,10 @@ public class CliGame {
         String playerName = g.getPlayerName(player);
         System.out.println("-------------------");
         System.out.println(playerName + " is aan de beurt");
-        System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
         g.printCoins();
         g.printRemainingActions();
         actionMenu();
-        numberOTurn ++; // TODO: weg na test
         endTurn();
     }
 
@@ -81,12 +79,10 @@ public class CliGame {
         String playerName = g.getPlayerName(player);
         System.out.println("-------------------");
         System.out.println(playerName + " is aan de beurt");
-        System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
         g.printCoins();
         g.printRemainingActions();
         actionMenu();
-        numberOTurn++; // TODO: weg na test
         endTurn();
 
     }
@@ -115,7 +111,7 @@ public class CliGame {
 
         buyCard();
         g.endPhase();
-        g.printDeck(g.allPlayers.get(player));
+        //g.printDeck(g.allPlayers.get(player)); //Alleen gebruiken bij het testen
 
 
     }
@@ -180,11 +176,7 @@ public class CliGame {
         }
     }
 
-    private void cardBought(Card card) {
-        System.out.println("Kaart " + card.getName() + " gekocht");
-    }
-
-    private void playActionCard() {
+       private void playActionCard() {
         Player activePLayer = g.allPlayers.get(player);
         while (g.returnAmountOfActionsRemaining() != 0) {
         System.out.println("Geef positie in hand van te spelen actie kaart (Geef 0 in om te stoppen)");
@@ -195,8 +187,9 @@ public class CliGame {
 
                 Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i - 1);
                 if (toBePlayedActionCard.getType().equals("action")) {
-                    g.useActionCard(toBePlayedActionCard.getName(), player);
                     g.moveCardFromHandToDiscardPilePosition(i-1, activePLayer);
+                    g.useActionCard(toBePlayedActionCard.getName(), player);
+
                     g.printHand(activePLayer);
                     g.lowerAmountOfActions();
                     g.printRemainingActions();

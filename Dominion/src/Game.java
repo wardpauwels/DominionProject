@@ -197,8 +197,13 @@ public class Game {
         if(allPlayers.get(numberOfThePlayer).scanHandForCard(treasureCardTable.getCardOnPos(0))) {
 
             int pickedCopper = allPlayers.get(numberOfThePlayer).scanHandForCardandGetPositionInHand(treasureCardTable.getCardOnPos(0));
-            allPlayers.get(numberOfThePlayer).addCardFromHandToDiscardPile(treasureCardTable.getCardOnPos(0));
+            allPlayers.get(numberOfThePlayer).moveCardFromHandToDiscard(pickedCopper);
             currentlyActiveAmountOfCoins+=3;
+            printHand(allPlayers.get(numberOfThePlayer));
+            printCoins();
+        }
+        else{
+            System.out.println("geen copper gevonden");
         }
     };
 

@@ -5,6 +5,12 @@ $(document).ready(function () {
     messageArray.forEach(function (item) {
     });
     showCards(messageArray);
+    disableCopyPaste();
+
+    $("#baraja-el li").click(function(){
+        console.log("klik!")
+        $(this).appendTo('#playedcards_on_table ul');
+    });
 });
 
 
@@ -38,6 +44,16 @@ function checkRedundant(array, string) {
         }
     }
     return true;
+}
+
+function disableCopyPaste(){
+    $('body').bind('copy paste',function(e) {
+        e.preventDefault(); return false;
+    });
+}
+
+function moveCardToBoard() {
+    //$(this).appendTo('#playedcards_on_table ul');
 }
 
 //var allCardsInHand = document.getElementById("baraja-el").children;

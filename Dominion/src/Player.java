@@ -152,8 +152,8 @@ public class Player {
 
 
     public int getHandSize(){
-        int size = playersHand.getSize();
-        return size;
+        int handSize = playersHand.getSize();
+        return handSize;
     }
 
     public void addCardFromHandToDeck(Card c){
@@ -191,10 +191,7 @@ public class Player {
                }
     }
 
-    public int returnAmountOfCardsInDeck(){
-        return playersDeck.getSize();
 
-    }
     public Card getTopCardFromDeck(){
         return playersDeck.getCardOnPos(0);
     }
@@ -211,10 +208,6 @@ public class Player {
     }
     public Hand returnHand(){
         return playersHand;
-    }
-
-    public Deck returnDeck(){
-        return playersDeck;
     }
 
     public void moveAllCardsFromDeckToDiscardPile(){

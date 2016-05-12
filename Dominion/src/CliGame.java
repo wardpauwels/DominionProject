@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
 /**
  * Created by Robert on 21-4-2016.
  */
@@ -28,18 +29,15 @@ public class CliGame {
         firstTurn();
         while (!finished) // hierin de acties per turn zetten
         {
-            //clearScreen(); // TODO: clear screen werkend maken
+
             showBoard();
             nextTurn();
-            finished = g.checkIfFinished();
+            finished = g.checkIfFinished(); //TODO: bug: Stopt wanneer er 1 stapel actie kaarten op is, moet 3 zijn
 
         }
     }
 
-    /*private static void clearScreen() { // TODO: werkt niet
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }*/
+
 
     private void newGame() {
         System.out.println("Geef aantal spelers (2 - 4)");
@@ -116,7 +114,7 @@ public class CliGame {
 
     }
 
-    private void buyCard() {
+    private void buyCard() { //TODO: check maken of de kaart die je wilt kopen nog niet op is
         int remainingBuys = g.returnAmountOfActionsRemaining();
         while (remainingBuys != 0) {
             System.out.println("Welk type kaart wil je kopen? 1. Actie. 2. Treasure 3. Victory 4. Stop");
@@ -126,10 +124,11 @@ public class CliGame {
             Card card;
             amountOfCoins = g.getAmountOfCoinsOfPlayer();
 
+            System.out.println("Geef positie van te kopen kaart");
+            kaartKeuze = in.nextInt() - 1;
+
             switch (keuze) {
                 case 1:
-                    System.out.println("Geef positie van te kopen kaart");
-                    kaartKeuze = in.nextInt() - 1;
                     card = g.getCardFromPosInActionTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (cardCost <= amountOfCoins) {
@@ -141,8 +140,6 @@ public class CliGame {
                     }
                     break;
                 case 2:
-                    System.out.println("Geef positie van te kopen kaart");
-                    kaartKeuze = in.nextInt() - 1;
                     card = g.getCardFromPosInTreasureTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {
@@ -154,8 +151,6 @@ public class CliGame {
                     }
                     break;
                 case 3:
-                    System.out.println("Geef positie van te kopen kaart");
-                    kaartKeuze = in.nextInt() - 1;
                     card = g.getCardFromPosInVictoryTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {
@@ -167,7 +162,6 @@ public class CliGame {
                     }
                     break;
                 case 4:
-
                     break;
 
             }

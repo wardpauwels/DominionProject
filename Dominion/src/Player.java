@@ -114,7 +114,7 @@ public class Player {
 
     public boolean scanHandForCard(Card whichCard){
         for (int i=0;i < playersHand.getSize(); i++){
-            if (playersHand.getCardOnPos(i)==whichCard){
+            if (playersHand.getCardOnPos(i).getName().equals(whichCard.getName())){
                 return true;
             }
         }
@@ -129,7 +129,7 @@ public class Player {
     public int scanHandForCardandGetPositionInHand(Card whichCard){
       int positionOfCardInHand=-1;
         for (int i=0;i<playersHand.getSize();i++){
-            if(playersHand.getCardOnPos(i).equals(whichCard)){
+            if(playersHand.getCardOnPos(i).getName().equals(whichCard.getName())){
                 positionOfCardInHand=i;
             }
         }

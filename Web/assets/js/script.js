@@ -8,8 +8,11 @@ $(document).ready(function () {
     showCards(messageArray);
     disableCopyPaste();
 
-    $("#baraja-el li").click(function(){
-        $(this).appendTo('#playedcards_on_table ul');
+    $("#baraja-el li").click(function(e){
+        e.preventDefault();
+        if (!$("#baraja-el li:active")){
+            $(this).appendTo('#playedcards_on_table ul');
+        }
     });
 
     $("#actioncards_on_table ul li img").click(function () {
@@ -60,10 +63,6 @@ function disableCopyPaste(){
     $('body').bind('copy paste',function(e) {
         e.preventDefault(); return false;
     });
-}
-
-function moveCardToBoard() {
-    //$(this).appendTo('#playedcards_on_table ul');
 }
 
 //var allCardsInHand = document.getElementById("baraja-el").children;

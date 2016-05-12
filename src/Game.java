@@ -653,10 +653,8 @@ public class Game {
         return currentlyActiveAmountOfCoins;
 
     }
-    public void moveCardFromHandToDiscardPilePosition(int position, Player whichPlayer){
+    public void moveCardFromHandToDiscardPilePosition(int position, Player whichPlayer) {
 
-        whichPlayer.moveCardFromHandToDiscard(position);
-    public void moveCardFromHandToDiscardPilePosition(int position, Player whichPlayer){
         whichPlayer.moveCardFromHandToDiscard(position);
     }
 

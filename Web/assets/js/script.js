@@ -2,14 +2,24 @@ $(document).ready(function () {
     var messages = ['adventurer', 'bureaucrat', 'cellar', 'chancellor', 'chapel', 'councilroom', 'feast', 'festival', 'gardens', 'laboratory', 'library', 'market', 'militia', 'mine', 'moat', 'moneylender', 'remodel', 'smithy', 'Spy', 'thief', 'throneroom', 'village', 'witch', 'woodcutter', 'workshop'];
     console.log("Loaded!");
     var messageArray = getMessage(messages);
+    var actioncardOnTableName;
     messageArray.forEach(function (item) {
     });
     showCards(messageArray);
     disableCopyPaste();
 
     $("#baraja-el li").click(function(){
-        console.log("klik!")
         $(this).appendTo('#playedcards_on_table ul');
+    });
+
+    $("#actioncards_on_table ul li img").click(function () {
+        $actioncardOnTableName = $(this).attr("title");
+        var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
+
+        $('#bigCard').html(src).css('visibility', 'visible');
+    });
+    $('#bigCard').click(function () {
+        $('#bigCard').css('visibility', 'hidden');
     });
 });
 

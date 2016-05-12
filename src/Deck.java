@@ -32,8 +32,6 @@ public class Deck {
         // TODO: weg halen na test
 
         int coinsInStarterDeck = 5; //TODO Terug veranderen naar 7 na test
-        Card actionCard = actionCards.getCardOnPos(0); // TODO: weg halen na test
-        int coinsInStarterDeck = 15; //TODO Terug veranderen naar 7 na test
         int estateInStarterDeck = 3;
 
         for(int i = 0; i < coinsInStarterDeck; i++){ //TODO: weg halen na test

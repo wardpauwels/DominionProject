@@ -463,20 +463,19 @@ public class Game {
         System.out.println("Geef positie van kaart in de hand om te verplaatsen naar de discard pile, geef 0 om te stoppen");
         int i = in.nextInt();
         while(i != 0){
-            Card card = activePlayer.getCardOnPosInHand(i);
+            //Card card = activePlayer.getCardOnPosInHand(i);
             //activePlayer.addCardToDiscardPile(card);
             //activePlayer.removeCardFromHand(i);
-            activePlayer.addCardFromHandToDiscardPile(card);
-            activePlayer.addCardFromDeckToHand();
+            //activePlayer.addCardFromHandToDiscardPile(card);
+
+            moveCardFromHandToDiscardPilePosition(i, activePlayer);
+            activePlayer.addXAmountOfCardsToHand(1);
             printHand(activePlayer);
             System.out.println("Geef positie van kaart in de hand om te verplaatsen naar de discard pile, geef 0 om te stoppen");
             i = in.nextInt();
         }
         printHand(activePlayer);
         printCoins();
-
-    }
-    private void useCellarAction(Player activePlayer){
 
     }
 
@@ -656,6 +655,8 @@ public class Game {
     }
     public void moveCardFromHandToDiscardPilePosition(int position, Player whichPlayer){
 
+        whichPlayer.moveCardFromHandToDiscard(position);
+    public void moveCardFromHandToDiscardPilePosition(int position, Player whichPlayer){
         whichPlayer.moveCardFromHandToDiscard(position);
     }
 

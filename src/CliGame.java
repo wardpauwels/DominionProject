@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-
 /**
  * Created by Robert on 21-4-2016.
  */
@@ -19,7 +18,6 @@ public class CliGame {
     private int amountOfCoins = 0;
     private boolean finished = false;
     private Game g;
-    private boolean turn = true;
     private int numberOTurn = 1;
 
 
@@ -95,7 +93,6 @@ public class CliGame {
     private void nextTurn() {
         g.calculateCoinsOfPlayer(g.allPlayers.get(player));
         amountOfCoins = g.getAmountOfCoinsOfPlayer();
-        turn = true;
         nextPlayer();
         String playerName = g.getPlayerName(player);
         System.out.println("-------------------");
@@ -136,8 +133,6 @@ public class CliGame {
         g.endPhase();
         g.printDeck(g.allPlayers.get(player));
 
-
-        turn = false;
 
     }
 

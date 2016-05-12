@@ -103,6 +103,7 @@ public class Player {
         for (int i = 0; i < amount ; i++){
             if (playersDeck.getSize()<1){
                 playersDeck=discardPile;
+                playersDeck.shuffleDeck();
                 discardPile.clearDeck();
             }
             addCardFromDeckToHand();
@@ -154,7 +155,6 @@ public class Player {
         int size = playersHand.getSize();
         return size;
     }
-
 
     public void addCardFromHandToDeck(Card c){
         playersDeck.addCardToDeck(c);

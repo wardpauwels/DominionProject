@@ -19,7 +19,6 @@ public class CliGame {
     private int amountOfCoins = 0;
     private boolean finished = false;
     private Game g;
-    private boolean turn = true;
     private int numberOTurn = 1;
 
 
@@ -67,7 +66,6 @@ public class CliGame {
         String playerName = g.getPlayerName(player);
         System.out.println("-------------------");
         System.out.println(playerName + " is aan de beurt");
-        System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
         g.printCoins();
         g.printRemainingActions();
@@ -79,7 +77,7 @@ public class CliGame {
     private void nextTurn() {
         g.calculateCoinsOfPlayer(g.allPlayers.get(player));
         amountOfCoins = g.getAmountOfCoinsOfPlayer();
-        turn = true;
+
         nextPlayer();
         String playerName = g.getPlayerName(player);
         System.out.println("-------------------");
@@ -119,13 +117,9 @@ public class CliGame {
         buyCard();
         g.endPhase();
         g.printDeck(g.allPlayers.get(player));
-        System.out.println("------------------------");
-        System.out.println("discard pile");
-        System.out.println("------------------------");
-        g.printDiscardPile(g.allPlayers.get(player));
 
 
-        turn = false;
+
 
     }
 
@@ -180,7 +174,6 @@ public class CliGame {
                     }
                     break;
                 case 4:
-
                     break;
 
             }
@@ -189,11 +182,7 @@ public class CliGame {
         }
     }
 
-    private void cardBought(Card card) {
-        System.out.println("Kaart " + card.getName() + " gekocht");
-    }
-
-    private void playActionCard() {
+       private void playActionCard() {
         Player activePLayer = g.allPlayers.get(player);
         while (g.returnAmountOfActionsRemaining() != 0) {
         System.out.println("Geef positie in hand van te spelen actie kaart (Geef 0 in om te stoppen)");
@@ -204,8 +193,9 @@ public class CliGame {
 
                 Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i - 1);
                 if (toBePlayedActionCard.getType().equals("action")) {
-                    g.useActionCard(toBePlayedActionCard.getName(), player);
                     g.moveCardFromHandToDiscardPilePosition(i-1, activePLayer);
+                    g.useActionCard(toBePlayedActionCard.getName(), player);
+
                     g.printHand(activePLayer);
                     g.lowerAmountOfActions();
                     g.printRemainingActions();

@@ -38,7 +38,6 @@ public class Player {
     // DECK
 
     public void printDeck(){
-
         playersDeck.printDeck();
     }
 
@@ -91,7 +90,7 @@ public class Player {
     }
 
 
-    public void resetDiscardDeck(){
+    public void resetDiscardPile(){
         playersDeck = discardPile;
         discardPile.clearDeck();
     }
@@ -103,6 +102,7 @@ public class Player {
         for (int i = 0; i < amount ; i++){
             if (playersDeck.getSize()<1){
                 playersDeck=discardPile;
+                playersDeck.shuffleDeck();
                 discardPile.clearDeck();
             }
             addCardFromDeckToHand();
@@ -151,10 +151,9 @@ public class Player {
 
 
     public int getHandSize(){
-        int size = playersHand.getSize();
-        return size;
+        int handSize = playersHand.getSize();
+        return handSize;
     }
-
 
     public void addCardFromHandToDeck(Card c){
         playersDeck.addCardToDeck(c);
@@ -191,10 +190,7 @@ public class Player {
                }
     }
 
-    public int returnAmountOfCardsInDeck(){
-        return playersDeck.getSize();
 
-    }
     public Card getTopCardFromDeck(){
         return playersDeck.getCardOnPos(0);
     }
@@ -211,10 +207,6 @@ public class Player {
     }
     public Hand returnHand(){
         return playersHand;
-    }
-
-    public Deck returnDeck(){
-        return playersDeck;
     }
 
     public void moveAllCardsFromDeckToDiscardPile(){
@@ -238,7 +230,7 @@ public class Player {
     }
 
 
-    public void printDiscardDeck(){
+    public void printDiscardPile(){
         System.out.println("---------------");
         System.out.println("Discard pile:");
         System.out.println("---------------");

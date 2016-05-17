@@ -24,23 +24,19 @@ public class Deck {
 
 
     public void generateStarterDeck(){
+
         Card copperCard = treasureCards.getCardOnPos(0);
         Card estateCard = victoryCards.getCardOnPos(0);
-        Card goldCard = treasureCards.getCardOnPos(2); // TODO: weg halen na test
-        //Card actionCard = actionCards.getCardOnPos(8);// TODO: weg halen na test
+        Card actionCard = actionCards.getCardOnPos(13); // TODO verwijderen na test
+        int coinsInStarterDeck = 15; // TODO: terug naar 7 na test
+        int estateInStarterDeck = 3;
 
-         // TODO: weg halen na test
-        int coinsInStarterDeck = 15; //TODO Terug veranderen naar 7 na test
-        int estateInStarterDeck = 1;
+        addCardToDeck(actionCard); // TODO: verwijderen na test
 
-        for(int i = 0; i < coinsInStarterDeck; i++){ //TODO: weg halen na test
-            addCardToDeck(goldCard);
+        for(int i = 0; i < coinsInStarterDeck; i++){
+            addCardToDeck(copperCard);
         }
-        //addCardToDeck(actionCard); // TODO weg halen na test
 
-        for (int i = 0; i < coinsInStarterDeck; i++){
-            addCardToDeck(goldCard);; //TODO: terug veranderen naar copper na test
-        }
         for (int i = 0; i < estateInStarterDeck; i++){
             addCardToDeck(estateCard);
         }
@@ -53,8 +49,8 @@ public class Deck {
     public Card getCardOnPos(int i){
         return cardList.get(i);
     }
-    // om nieuwe kaarten toe te voegen aan deck
 
+    // om nieuwe kaarten toe te voegen aan deck
     public void addToDeck(String typeOfCard, int numberOfCard){
         Card newCard = new Card();
         switch (typeOfCard){

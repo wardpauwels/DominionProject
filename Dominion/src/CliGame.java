@@ -124,11 +124,12 @@ public class CliGame {
             Card card;
             amountOfCoins = g.getAmountOfCoinsOfPlayer();
 
-            System.out.println("Geef positie van te kopen kaart");
-            kaartKeuze = in.nextInt() - 1;
+
 
             switch (keuze) {
                 case 1:
+                    System.out.println("Geef positie van te kopen kaart");
+                    kaartKeuze = in.nextInt() - 1;
                     card = g.getCardFromPosInActionTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (cardCost <= amountOfCoins) {
@@ -140,6 +141,8 @@ public class CliGame {
                     }
                     break;
                 case 2:
+                    System.out.println("Geef positie van te kopen kaart");
+                    kaartKeuze = in.nextInt() - 1;
                     card = g.getCardFromPosInTreasureTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {
@@ -151,6 +154,8 @@ public class CliGame {
                     }
                     break;
                 case 3:
+                    System.out.println("Geef positie van te kopen kaart");
+                    kaartKeuze = in.nextInt() - 1;
                     card = g.getCardFromPosInVictoryTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {

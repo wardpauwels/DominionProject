@@ -27,7 +27,6 @@ public class ActionCardTable {
         allActionCards.add(GenerateSpecificActionCard(7, "Feast", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(8, "Militia", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(9, "Moneylender", 4, 10));
-
         allActionCards.add(GenerateSpecificActionCard(10, "Remodel", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(11, "Bureaucrat", 4 ,10));
         allActionCards.add(GenerateSpecificActionCard(12, "Smithy", 4, 10));

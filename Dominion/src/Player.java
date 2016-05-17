@@ -38,7 +38,6 @@ public class Player {
     // DECK
 
     public void printDeck(){
-
         playersDeck.printDeck();
     }
 
@@ -91,7 +90,7 @@ public class Player {
     }
 
 
-    public void resetDiscardDeck(){
+    public void resetDiscardPile(){
         playersDeck = discardPile;
         discardPile.clearDeck();
     }
@@ -231,7 +230,7 @@ public class Player {
     }
 
 
-    public void printDiscardDeck(){
+    public void printDiscardPile(){
         System.out.println("---------------");
         System.out.println("Discard pile:");
         System.out.println("---------------");

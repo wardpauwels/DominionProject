@@ -207,6 +207,7 @@ public class Game {
     private void useSmithy(int numberOfThePlayer){
         allPlayers.get(numberOfThePlayer).addXAmountOfCardsToHand(3);
     }
+
     private void useWitch(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addXAmountOfCardsToHand(2);
@@ -218,7 +219,6 @@ public class Game {
                 }
             }
         }
-
     }
     private boolean checkForCard(Card toFindCard, Player specificPlayer){
         return specificPlayer.scanHandForCard(toFindCard);
@@ -332,7 +332,7 @@ public class Game {
         for (int i = 0; i < allPlayers.size(); i++){
             if(numberOfThePlayer != i){
                 Deck deckOfPlayerX = returnXAmountOfTopCardsOfPlayerY(2,i); // TODO: bug: krijgt altijd 2 de zelfde kaarten terug
-                System.out.println("1: "+ deckOfPlayerX.getCardOnPos(0).getName() + " 2:" +deckOfPlayerX.getCardOnPos(1).getName());
+                System.out.println("1: "+ deckOfPlayerX.getCardOnPos(0).getName() + " 2:" + deckOfPlayerX.getCardOnPos(1).getName());
                 System.out.println("Geef positie van kaart om af te pakken");
                 int positie  = in.nextInt();
                 positie  = positie - 1;
@@ -724,7 +724,7 @@ public class Game {
 
 
     public void printDiscardPile(Player whichPlayer){
-        whichPlayer.printDiscardDeck();
+        whichPlayer.printDiscardPile();
     }
 
 

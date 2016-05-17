@@ -1,0 +1,34 @@
+.baraja-demo {
+	width: 200px;
+	margin: 59px auto 0px auto;
+}
+
+.no-js .baraja-demo {
+	width: auto;
+}
+
+.baraja-demo h4 {
+	padding: 8px 10px 5px;
+	margin: 20px 3px 5px;
+}
+
+.baraja-demo p {
+	font-size: 12px;
+	font-weight: 700;
+	padding: 0 10px;
+	margin: 10px 3px 0;
+}
+
+.baraja-demo ul.baraja-container li {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.baraja-demo li img {
+	display: block;
+	margin: 0 auto;
+	width: 146px;
+}

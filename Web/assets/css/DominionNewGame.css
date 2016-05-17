@@ -65,7 +65,7 @@ input[type="text"] {
 #addPlayer:focus {
     outline:0;
 }
-#addPlayer {
+#addPlayer, #startGame {
     top: 470px;
     left: 397px;
     font-size:20px;
@@ -109,4 +109,24 @@ input[type="submit"] {
     font-weight: bold;
     cursor:pointer;
     cursor: url(../images/cursor.png), auto!important;
+    margin-bottom: 10px;
+}
+.deletePlayer{
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+    border-radius: 3px;
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    width: 350px;
+    height: 50px;
+    background-color: rgba(21, 25, 29, 1);
+    color: rgba(45, 52, 63, 1);
+    font-size:20px;
+    font-weight: bold;
+    cursor:pointer;
+    cursor: url(../images/cursor.png), auto!important;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
 }

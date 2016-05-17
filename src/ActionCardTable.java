@@ -44,6 +44,8 @@ public class ActionCardTable {
         allActionCards.add(GenerateSpecificActionCard(23, "Mine", 5, 10));
         allActionCards.add(GenerateSpecificActionCard(24, "Witch", 5, 10));
         allActionCards.add(GenerateSpecificActionCard(25, "Adventurer", 6, 10));
+
+
     }
 
     private Card GenerateSpecificActionCard(int number, String name, int cost, int amount) {

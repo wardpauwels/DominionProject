@@ -18,7 +18,6 @@ public class Player {
         playersDeck.generateStarterDeck();
         playersDeck.shuffleDeck();
         playersHand.generateHand(playersDeck);
-
     }
 
 
@@ -40,7 +39,6 @@ public class Player {
     public void printDeck(){
         playersDeck.printDeck();
     }
-
 
     public void removeFromDeck(int index){
         playersDeck.removeFromDeck(index);
@@ -65,9 +63,7 @@ public class Player {
                     case "Gold":
                         amountOfCoins += 3;
                         break;
-
                 }
-
             }
         }
         return amountOfCoins;
@@ -155,10 +151,10 @@ public class Player {
         return handSize;
     }
 
-    public void addCardFromHandToDeck(Card c){
+    /*public void addCardFromHandToDeck(Card c){ // TODO: wordt niet gebruikt, kan weg?
         playersDeck.addCardToDeck(c);
         playersHand.removeFromHand(scanHandForCardandGetPositionInHand(c));
-    }
+    }*/
 
     //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){
@@ -166,7 +162,6 @@ public class Player {
     }
 
     // wordt gebruikt aan begin van een beurt om de 5 kaarten te generen
-    // NIET GEBRUIKEN OM 1 KAART TE TREKKEN
     public void clearHand(){
         playersHand.clearHand();
     }
@@ -193,6 +188,9 @@ public class Player {
 
     public Card getTopCardFromDeck(){
         return playersDeck.getCardOnPos(0);
+    }
+    public Card getCardOnPosInDeck(int pos){
+        return playersDeck.getCardOnPos(pos);
     }
 
     public void addSpecificCardToHand(Card toBeAddedCard){
@@ -235,7 +233,6 @@ public class Player {
         System.out.println("Discard pile:");
         System.out.println("---------------");
         for(int i = 0; i < discardPile.getSize(); i++){
-
             System.out.println(discardPile.getCardOnPos(i).getName());
         }
     }

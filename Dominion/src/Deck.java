@@ -1,6 +1,7 @@
 import java.util.*;
 
 
+
 /*
 *
 * @author Robert Plasschaert
@@ -27,11 +28,9 @@ public class Deck {
 
         Card copperCard = treasureCards.getCardOnPos(0);
         Card estateCard = victoryCards.getCardOnPos(0);
-        Card actionCard = actionCards.getCardOnPos(13); // TODO verwijderen na test
-        int coinsInStarterDeck = 15; // TODO: terug naar 7 na test
+        int coinsInStarterDeck = 7;
         int estateInStarterDeck = 3;
 
-        addCardToDeck(actionCard); // TODO: verwijderen na test
 
         for(int i = 0; i < coinsInStarterDeck; i++){
             addCardToDeck(copperCard);

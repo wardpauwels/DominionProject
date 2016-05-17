@@ -64,7 +64,7 @@ public class ActionCardTable {
         return allActionCards.size();
     }
 
-    public Card getCardOnPos(int pos){ // TODO: verwijderen na test
+    public Card getCardOnPos(int pos){
         Card card = allActionCards.get(pos);
         return card;
     }

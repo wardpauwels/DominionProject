@@ -3,16 +3,16 @@ $(document).ready(function () {
     console.log("Loaded!");
     var messageArray = getMessage(messages);
     var actioncardOnTableName;
+    var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
     showCards(messageArray);
     disableCopyPaste();
+    ajaxAsyncRequest("get-current-time");
 
     $("#baraja-el li").click(function(e){
         e.preventDefault();
-        if (!$("#baraja-el li:active")){
-            $(this).appendTo('#playedcards_on_table ul');
-        }
+        $(this).appendTo('#playedcards_on_table ul');
     });
 
     $("#actioncards_on_table ul li img").click(function () {
@@ -23,6 +23,19 @@ $(document).ready(function () {
     });
     $('#bigCard').click(function () {
         $('#bigCard').css('visibility', 'hidden');
+    });
+    $("#addPlayer").click(function(){
+        if(ammountOfPlayers < 4) {
+            ammountOfPlayers++;
+            var playerId = "player" + ammountOfPlayers;
+            $('#playerNamesField').append('<input id="' + playerId + '" name = "' + playerId + '" type="text" placeholder="Playername" required/>');
+        }
+    });
+    $('.deletePlayer').click(function(){
+        if(ammountOfPlayers > 2) {
+            $('#playerNamesField input').last().remove();
+            ammountOfPlayers--;
+        }
     });
 });
 
@@ -63,6 +76,32 @@ function disableCopyPaste(){
     $('body').bind('copy paste',function(e) {
         e.preventDefault(); return false;
     });
+}
+
+function ajaxAsyncRequest(reqURL)
+{
+    //Creating a new XMLHttpRequest object
+    var xmlhttp;
+    if (window.XMLHttpRequest){
+        xmlhttp = new XMLHttpRequest(); //for IE7+, Firefox, Chrome, Opera, Safari
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); //for IE6, IE5
+    }
+    //Create a asynchronous GET request
+    xmlhttp.open("POST", reqURL, false);
+    xmlhttp.send(null);
+
+    //Execution blocked till server send the response
+    if (xmlhttp.readyState == 4) {
+        if (xmlhttp.status == 200)
+        {
+            document.getElementsByClassName("player_fourth_name").innerHTML = xmlhttp.responseText;
+        }
+        else
+        {
+            alert('Something is wrong !!');
+        }
+    }
 }
 
 //var allCardsInHand = document.getElementById("baraja-el").children;

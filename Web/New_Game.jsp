@@ -44,17 +44,14 @@
         </div>
         <div id="tile">
             <div id="users">
-                <form action="Board.jsp" method="post">
-                    <input type="text" placeholder="Playername"/>
-                    <br>
-                    <input type="text" placeholder="Playername"/>
-                    <br>
-                    <input type="text" placeholder="Playername" class="hidden"/>
-                    <br>
-                    <input type="text" placeholder="Playername" class="hidden"/>
-                    <br>
-                    <input type="submit" id="addPlayer" value="Start" action="Board.jsp">
+                <form action="Board.jsp" method="post" id="playerNameForm">
+                    <div id="playerNamesField">
+                        <input id="player1" name = "player1" type="text" placeholder="Playername" required/>
+                        <input id="player2" name = "player2" type="text" placeholder="Playername" required/>
+                    </div>
+                    <input type="submit" id="startGame" value="Start" action="Board.jsp">
                     <input type="button" id="addPlayer" value="Add player" />
+                    <input type="button" class = "deletePlayer" value="Delete last Player">
                 </form>
             </div>
         </div>
@@ -70,9 +67,9 @@
         </div>
     </div>
     <div id="footer">
-
-
     </div>
 </div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

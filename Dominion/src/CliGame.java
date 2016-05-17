@@ -119,6 +119,10 @@ public class CliGame {
         buyCard();
         g.endPhase();
         g.printDeck(g.allPlayers.get(player));
+        System.out.println("------------------------");
+        System.out.println("discard pile");
+        System.out.println("------------------------");
+        g.printDiscardPile(g.allPlayers.get(player));
 
 
         turn = false;

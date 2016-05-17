@@ -40,5 +40,13 @@ public class TreasureCardTable {
     public int getSize(){
         return treasureCardTable.size();
     }
-
+    public Card searchForCardOnName(String nameOfCard){
+        Card foundCard=new Card();
+        for(int i=0;i<treasureCardTable.size();i++){
+            if (nameOfCard.equals(treasureCardTable.get(i).getName())){
+                foundCard = treasureCardTable.get(i);
+            }
+        }
+        return foundCard;
+    };
 }

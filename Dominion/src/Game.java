@@ -223,6 +223,8 @@ public class Game {
         }
 
     }
+
+
     private boolean checkForCard(Card toFindCard, Player specificPlayer){
         if (specificPlayer.scanHandForCard(toFindCard)) {
             return true;
@@ -572,7 +574,9 @@ public class Game {
         }
     }
 
-
+    public int getAmountOfPlayers(){
+        return allPlayers.size();
+    }
 
     private Deck returnXAmountOfTopCardsOfPlayerY(int amountOfCardsToBeReturned,int numberOfThePlayer){
         Deck top2Cards = new Deck();

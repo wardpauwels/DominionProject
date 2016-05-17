@@ -72,6 +72,15 @@ public class ActionCardTable {
         return card;
     }
 
+    public Card searchForCardOnName(String nameOfCard){
+        Card foundCard=new Card();
+        for(int i=0;i<allActionCards.size();i++){
+            if (nameOfCard.equals(allActionCards.get(i).getName())){
+                foundCard = allActionCards.get(i);
+            }
+        }
+        return foundCard;
+    };
 
 
     // Action card table maken voor bord

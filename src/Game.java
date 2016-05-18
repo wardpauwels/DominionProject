@@ -168,7 +168,7 @@ public class Game {
 
     private void useVillage (int numberOfThePlayer) {
         addXAmountOfCardsToHandOfPlayerWithNumberY(1, numberOfThePlayer);
-        remainingActionsInPhase = +2;
+        remainingActionsInPhase +=2;
 
 
     }

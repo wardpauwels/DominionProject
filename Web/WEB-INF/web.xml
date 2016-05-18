@@ -15,6 +15,15 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Board</servlet-name>
-        <url-pattern>/Board</url-pattern>
+        <url-pattern>/BoardServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>someservlet</servlet-name>
+        <servlet-class>SomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>someservlet</servlet-name>
+        <url-pattern>/someservlet</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dylan
-  Date: 12/05/2016
-  Time: 13:11
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -13,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/Layout.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/Container.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/DominionNewGame.css" />
-    <meta name="author" content="Dylan Van Kerrebroeck"/>
+    <meta name="author" content="Groep 4"/>
     <title>Dominion</title>
 </head>
 <body>
@@ -44,10 +37,10 @@
         </div>
         <div id="tile">
             <div id="users">
-                <form action="Board.jsp" method="post" id="playerNameForm">
+                <form action="Board.jsp" method="get" id="playerNameForm">
                     <div id="playerNamesField">
-                        <input id="player1" name = "player1" type="text" placeholder="Playername" required/>
-                        <input id="player2" name = "player2" type="text" placeholder="Playername" required/>
+                        <input id="player1" name = "player1" type="text" placeholder="Playername" />
+                        <input id="player2" name = "player2" type="text" placeholder="Playername" />
                     </div>
                     <input type="submit" id="startGame" value="Start" action="Board.jsp">
                     <input type="button" id="addPlayer" value="Add" />

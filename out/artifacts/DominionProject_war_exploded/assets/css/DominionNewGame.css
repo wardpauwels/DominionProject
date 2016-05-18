@@ -1,0 +1,132 @@
+#login_box {
+    padding-top: 112px;
+    width: 561px;
+    margin-right: auto;
+    margin-left: 118px;
+    text-align: left;
+}
+#headername {
+    background-image: url('../images/new_game.png');
+}
+
+input:focus {
+    outline:0;
+}
+input[type=number]:focus{
+    outline:0;
+    background-color: rgba(27,30,34,0.7);
+
+}
+input[type=text]:focus {
+    outline:0;
+    background-color: rgba(27,30,34,0.3);
+}
+::-webkit-input-placeholder {
+    color: #2d343f;
+    font-weight:bold;
+
+}
+
+:-moz-placeholder { /* Firefox 18- */
+
+    color: #2d343f;
+    font-weight:bold;
+
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: #2d343f;
+    font-weight:bold;
+
+}
+
+:-ms-input-placeholder {
+
+    color: #2d343f;
+    font-weight:bold;
+}
+
+input[type="text"] {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+    border-radius: 3px;
+    background-color: rgba(21, 25, 29, 0.6);
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    width: 358px;
+    height: 64px;
+    z-index: 298;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    color: #2d343f;
+    text-transform: capitalize;
+    cursor: url(../images/cursor.png), auto!important;
+}
+#addPlayer:focus {
+    outline:0;
+}
+#addPlayer, #startGame {
+    top: 470px;
+    left: 397px;
+    font-size:20px;
+    background-color: rgba(21, 25, 29, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+    border-radius: 3px;
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    width: 173px;
+    height: 64px;
+    z-index: 298;
+    color: rgba(45, 52, 63, 1);
+    font-weight: bold;
+    cursor:pointer;
+    cursor: url(../images/cursor.png), auto!important;
+}
+
+form {
+    width:100%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+button {
+    background-color:transparent;
+    border:none;
+    outline:0;
+}
+input[type="submit"] {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+    border-radius: 3px;
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    width: 100px;
+    height: 50px;
+    background-color: rgba(21, 25, 29, 1);
+    color: rgba(45, 52, 63, 1);
+    font-size:20px;
+    font-weight: bold;
+    cursor:pointer;
+    cursor: url(../images/cursor.png), auto!important;
+    margin-bottom: 10px;
+}
+.deletePlayer{
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+    border-radius: 3px;
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    width: 350px;
+    height: 50px;
+    background-color: rgba(21, 25, 29, 1);
+    color: rgba(45, 52, 63, 1);
+    font-size:20px;
+    font-weight: bold;
+    cursor:pointer;
+    cursor: url(../images/cursor.png), auto!important;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
+}

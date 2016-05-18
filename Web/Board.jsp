@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/Baraja/custom.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/Baraja/demo.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/DominionBoard.css" />
-    <meta name="author" content="Dylan Van Kerrebroeck"/>
+    <meta name="author" content="Groep 4"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dominion</title>
 </head>
@@ -23,10 +23,10 @@
 <div id="wrapper">
     <div id="bigCard"></div>
     <div id="header">
-        <!--<div id="two_players">
-               <p class="player_one_name">Dylan</p>
-               <p class="player_two_name">Ward</p>
-           </div>-->
+        <div id="two_players">
+               <p id="player_one_name" class="player_one_name"></p>
+               <p id="player_two_name" class="player_two_name"></p>
+           </div>
         <!--<div id="three_players">
              <div class="player_one_name">
                  <p>Dylan</p>
@@ -41,7 +41,7 @@
 
          </div>-->
 
-        <div id="four_players">
+        <!--<div id="four_players">
             <div class="player_one_name">
                 <p>Dylan</p>
             </div>
@@ -54,7 +54,7 @@
             <div class="player_fourth_name">
                 <p>Jens</p>
             </div>
-        </div>
+        </div>-->
     </div>
 
     <div id="content">
@@ -176,6 +176,7 @@
 </div>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/script.js"></script>
+<script src="assets/js/scriptBoard.js"></script>
 <script src="assets/css/Baraja/js/modernizr.custom.79639.js"></script>
 <script src="assets/css/Baraja/js/jquery.baraja.js"></script>
 </body>

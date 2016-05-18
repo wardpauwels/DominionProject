@@ -8,7 +8,7 @@ $(document).ready(function () {
     });
     showCards(messageArray);
     disableCopyPaste();
-    ajaxAsyncRequest("get-current-time");
+    makeNewGame();
 
     $("#baraja-el li").click(function(e){
         e.preventDefault();
@@ -37,6 +37,24 @@ $(document).ready(function () {
             ammountOfPlayers--;
         }
     });
+    $('#startGame').click(function(){
+        var request = $.ajax({ cache: false,
+            url: "/BoardServlet",
+            type: "GET",
+            data:{ operation: 'initialize',
+                    name1: $('#player1').val(),
+                    name2: $('#player2').val()
+            } ,
+            success: function (data) {
+                console.log(data);
+                alert("SUCCES: " + data.status);
+            },
+            error: function (data) {
+                console.log(data);
+                alert("ERROR: " + data.status);
+            }
+        });
+    })
 });
 
 
@@ -78,30 +96,15 @@ function disableCopyPaste(){
     });
 }
 
-function ajaxAsyncRequest(reqURL)
+function makeNewGame()
 {
-    //Creating a new XMLHttpRequest object
-    var xmlhttp;
-    if (window.XMLHttpRequest){
-        xmlhttp = new XMLHttpRequest(); //for IE7+, Firefox, Chrome, Opera, Safari
-    } else {
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); //for IE6, IE5
-    }
-    //Create a asynchronous GET request
-    xmlhttp.open("POST", reqURL, false);
-    xmlhttp.send(null);
-
-    //Execution blocked till server send the response
-    if (xmlhttp.readyState == 4) {
-        if (xmlhttp.status == 200)
-        {
-            document.getElementsByClassName("player_fourth_name").innerHTML = xmlhttp.responseText;
-        }
-        else
-        {
-            alert('Something is wrong !!');
-        }
-    }
+    $("button").click(function(){
+        $.ajax({url: "/Board/initGame()",
+            success: function(result){
+                $("body").html(result);
+            }
+        });
+    });
 }
 
 //var allCardsInHand = document.getElementById("baraja-el").children;

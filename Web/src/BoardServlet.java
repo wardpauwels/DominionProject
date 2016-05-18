@@ -1,23 +1,37 @@
 import java.io.*;
-import java.util.Date;
+import java.util.ArrayList;
 import javax.servlet.*;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
+import org.json.JSONObject;
 
 
 //@WebServlet(name = "BoardServlet")
 public class BoardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    String name1;
+    String name2;
 
     public void doGet (HttpServletRequest request,HttpServletResponse response)
             throws ServletException, IOException
     {
-        response.setHeader("Cache-Control", "no-cache");
-        response.setHeader("Pragma", "no-cache");
-        PrintWriter out = response.getWriter();
-        Date currentTime= new Date();
-        String message = String.format("Currently time is %tr on %tD.",currentTime, currentTime);
-        out.print(message);
+        response.setContentType("application/json");
+        Writer writer = response.getWriter();
+
+        String operation = request.getParameter("operation");
+
+        switch (operation){
+            case "initialize":
+                name1 = request.getParameter("name1");
+                name2 = request.getParameter("name2");
+                JSONObject names = new JSONObject();
+                names.append("name1", name1);
+                names.append("name2", name2);
+                writer.append(names.toString());
+                break;
+        }
+    }
+
+    public void initGame(){
+
     }
 }

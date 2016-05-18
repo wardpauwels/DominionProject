@@ -38,22 +38,61 @@ $(document).ready(function () {
         }
     });
     $('#startGame').click(function(){
-        var request = $.ajax({ cache: false,
-            url: "/BoardServlet",
-            type: "GET",
-            data:{ operation: 'initialize',
+        if($('#player4').length){
+            var request = $.ajax({ cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                data:{ operation: 'initialize',
+                    name1: $('#player1').val(),
+                    name2: $('#player2').val(),
+                    name3: $('#player3').val(),
+                    name4: $('#player4').val()
+                } ,
+                success: function (data) {
+                    console.log(data);
+                    //alert("SUCCES: " + data.status);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("ERROR: " + data.status);
+                }
+            });
+        } else if($('#player3').length){
+            var request = $.ajax({ cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                data:{ operation: 'initialize',
+                    name1: $('#player1').val(),
+                    name2: $('#player2').val(),
+                    name3: $('#player3').val()
+                } ,
+                success: function (data) {
+                    console.log(data);
+                    //alert("SUCCES: " + data.status);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("ERROR: " + data.status);
+                }
+            });
+        } else {
+            var request = $.ajax({ cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                data:{ operation: 'initialize',
                     name1: $('#player1').val(),
                     name2: $('#player2').val()
-            } ,
-            success: function (data) {
-                console.log(data);
-                //alert("SUCCES: " + data.status);
-            },
-            error: function (data) {
-                console.log(data);
-                alert("ERROR: " + data.status);
-            }
-        });
+                } ,
+                success: function (data) {
+                    console.log(data);
+                    //alert("SUCCES: " + data.status);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("ERROR: " + data.status);
+                }
+            });
+        }
     })
 });
 

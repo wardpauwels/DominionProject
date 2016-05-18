@@ -47,7 +47,7 @@ $(document).ready(function () {
             } ,
             success: function (data) {
                 console.log(data);
-                alert("SUCCES: " + data.status);
+                //alert("SUCCES: " + data.status);
             },
             error: function (data) {
                 console.log(data);

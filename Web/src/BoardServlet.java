@@ -18,7 +18,7 @@ public class BoardServlet extends HttpServlet {
     ArrayList<String> playerNames;
     JSONObject names;
 
-    public void doGet (HttpServletRequest request,HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
         response.setContentType("application/json");
@@ -38,8 +38,15 @@ public class BoardServlet extends HttpServlet {
                 names.append("name3", name3);
                 names.append("name4", name4);
                 writer.append(names.toString());
+                System.out.println("Test");
                 System.out.println(names);
-                initGame();
+                System.out.println("ammount"+ammountOfPlayers());
+                System.out.println("s1");
+                g = new Game();
+                System.out.println("s2");
+                g.createPlayersList(ammountOfPlayers());
+                System.out.println("s3");
+                setNames();
 
 
                 break;
@@ -59,13 +66,13 @@ public class BoardServlet extends HttpServlet {
     }
 
     public void initGame(){
-        System.out.println("1");
+        System.out.println("ammount"+ammountOfPlayers());
+        System.out.println("s1");
         g = new Game();
-        System.out.println("2");
+        System.out.println("s2");
         g.createPlayersList(ammountOfPlayers());
-        System.out.println("3");
+        System.out.println("s3");
         setNames();
-        System.out.println(ammountOfPlayers());
     }
 
     private int ammountOfPlayers() {

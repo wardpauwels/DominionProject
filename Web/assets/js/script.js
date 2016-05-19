@@ -8,11 +8,25 @@ $(document).ready(function () {
     });
     showCards(messageArray);
     disableCopyPaste();
+    $("#playedcards_on_table li").mousedown(function(e) {
+        if(e.which === 3) {
+            e.preventDefault()
+        }
+        else {
+            e.preventDefault()
+        }
 
-    $("#baraja-el li").click(function(e){
-        e.preventDefault();
-        $(this).appendTo('#playedcards_on_table ul');
     });
+    $("#baraja-el li").mousedown(function(e) {
+        if(e.which === 1) {
+            e.preventDefault()
+        }
+        else {
+            $(this).appendTo('#playedcards_on_table ul');
+        }
+    });
+    $('body').on('contextmenu', '#wrapper', function(e){ return false; });
+
 
     $("#actioncards_on_table ul li img").click(function () {
         $actioncardOnTableName = $(this).attr("title");

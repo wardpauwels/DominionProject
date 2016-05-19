@@ -149,24 +149,35 @@ public class Game {
         return whichPlayer.returnHand();
     }
 
-    public void buyCard(int positionOnTheBoard, String type, Player whichPlayer){
+    public void buyCard(){
         Card boughtCard = new Card();
-        switch(type){
+        switch(decisionOfPlayerType){
             case "action":
-                boughtCard = actionCardsOnBoard.get(positionOnTheBoard);
+                boughtCard = actionCardsOnBoard.get(decisionOfPlayerPosition);
                 break;
             case "victory":
-                boughtCard = victoryCardTable.getCardOnPos(positionOnTheBoard);
+                boughtCard = victoryCardTable.getCardOnPos(decisionOfPlayerPosition);
                 break;
             case "treasure":
-                boughtCard = treasureCardTable.getCardOnPos(positionOnTheBoard);
+                boughtCard = treasureCardTable.getCardOnPos(decisionOfPlayerPosition);
                 break;
         }
         boughtCard.setAmount(boughtCard.getAmount()-1);
         currentlyActiveAmountOfCoins-=boughtCard.getCost();
-        whichPlayer.addCardToDiscardPile(boughtCard);
+        allPlayers.get(player).addCardToDiscardPile(boughtCard);
         remainingActionsInPhase = remainingActionsInPhase - 1;
+        if (!checkRemainingActions()){
+            endTurn();
+        }
 
+    }
+
+    private boolean checkRemainingActions(){
+        if (remainingActionsInPhase==0){
+            return false;
+        }
+        else{return true;
+        }
     }
 
     private void executeSpecificAction(Card card){

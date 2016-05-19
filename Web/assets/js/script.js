@@ -8,32 +8,26 @@ $(document).ready(function () {
     });
     showCards(messageArray);
     disableCopyPaste();
-    $("#playedcards_on_table li").mousedown(function(e) {
-        if(e.which === 3) {
-            e.preventDefault()
-        }
-        else {
-            e.preventDefault()
-        }
 
-    });
     $("#baraja-el li").mousedown(function(e) {
         if(e.which === 1) {
-            e.preventDefault()
+            $(this).appendTo('#playedcards_on_table ul')
         }
         else {
-            $(this).appendTo('#playedcards_on_table ul');
+            e.preventDefault()
         }
     });
     $('body').on('contextmenu', '#wrapper', function(e){ return false; });
 
 
-    $("#actioncards_on_table ul li img").click(function () {
+    $(".showactioncard").click(function () {
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
 
         $('#bigCard').html(src).css('visibility', 'visible');
     });
+
+    
     $('#bigCard').click(function () {
         $('#bigCard').css('visibility', 'hidden');
     });
@@ -99,8 +93,8 @@ function showCards(array) {
     for (var i = 0; i < array.length; i++) {
         var html = '<li> <p class="counteronactioncards">0</p>';
         var src = 'assets/images/Small%20Cards/' + array[i] + '.jpg';
-        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
-        html += '</li>';
+        html += '<img class="showActionCard" alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '"/>';
+        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard"/></li>';
         $(".actioncards_on_table_print").append(html);
     }
 }

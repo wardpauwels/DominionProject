@@ -284,7 +284,7 @@ body{
     width: 776px;
     margin-right: auto;
     margin-left: auto;
-    margin-top: -50px;
+    margin-top: -89px;
 }
 
 #actioncards_on_table ul li {
@@ -296,7 +296,7 @@ body{
     width: 123px ;
     margin-right: 10px;
     margin-left: 10px;
-    margin-bottom: 19px;
+    margin-bottom: 0px;
 }
 
 #footer_container {
@@ -371,11 +371,11 @@ body{
     padding-top:139px;
 }
 #playedcards_on_table {
-    height: 221px;
+    height: 189px;
     width: 864px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: -297px;
+    margin-top: -240px;
 }
 #playedcards_on_table li{
     display: inline;
@@ -388,7 +388,7 @@ body{
 
 }
 #hand_on_table {
-    margin-top: -62px;
+    margin-top: -19px;
 }
 
 #opencards {
@@ -472,7 +472,7 @@ body{
     width:100px;
 }
 #cards_on_board {
-    margin-top:-251px;
+    margin-top:-295px;
 }
 #cards_on_board ul li{
     display:inline-block;
@@ -540,4 +540,40 @@ body{
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+.buyActionCard {
+    position: relative;
+    display: block;
+    bottom: 21px;
+    left: 81px;
+    width: 42px!important;
+}
+.buyVictoryCardsandCoinCards {
+    position: relative;
+    display: block;
+    bottom: 21px;
+    left: 59px;
+    width: 42px!important;
+}
+
+.buyVictoryCardsandCoinCards:active, .buyActionCard:active {
+    opacity: 0.8;
+}
+
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+body {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
 }

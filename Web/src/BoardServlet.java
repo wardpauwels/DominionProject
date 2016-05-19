@@ -48,12 +48,44 @@ public class BoardServlet extends HttpServlet {
         return 2; //TODO input via website/gebruiker ipv 2
     };
 
-    private void firstTurn(){
+    private void nextTurn(){
+        g.nextTurn();
+        //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
+
+
+
+
+
 
     }
+
     private void setNames(){
         for (int i=0;i<playerNames.size();i++){
             g.allPlayers.get(i).setName(playerNames.get(i));
         }
     }
+    private void useActionCard(int positionInHand){
+        g.setDecisionOfPlayerPosition(positionInHand);
+        g.playActionCard();
+
+
+    }
+    private void endTurn(){
+        g.endTurn();
+        //TODO ANIMATION VOOR NIEUW GEMAAKT HAND OPVRAAGBAAR VIA g.returnHand(g.allPlayers.get(player)
+
+    }
+    private void endPhase(){
+        //TODO ANIMATION VOOR BUYPHASE
+
+    }
+
+    private void buyCard(int positionOnTheBoard, String typeOfToBeBoughtCard){
+        g.setDecisionOfPlayerPosition(positionOnTheBoard);
+        g.setDecisionOfPlayerType(typeOfToBeBoughtCard);
+        g.buyCard();
+        g.checkIfFinished();
+    }
+
+
 }

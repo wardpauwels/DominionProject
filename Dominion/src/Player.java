@@ -106,6 +106,14 @@ public class Player {
     }
 
 
+    public boolean scanDiscardPileForCard(Card whichCard){
+        for (int i=0;i < discardPile.getSize(); i++){
+            if (discardPile.getCardOnPos(i).getName().equals(whichCard.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean scanHandForCard(Card whichCard){
         for (int i=0;i < playersHand.getSize(); i++){
@@ -117,8 +125,7 @@ public class Player {
     }
 
 
-    public int scanHandForCardAndReturnPosition(String type)
-    {
+    public int scanHandForCardAndReturnPosition(String type) {
         return playersHand.scanDeckForCardWithTypeXandReturnPosition(type);
     }
     public int scanHandForCardandGetPositionInHand(Card whichCard){
@@ -187,6 +194,9 @@ public class Player {
 
 
     public Card getTopCardFromDeck(){
+        if (playersDeck.getSize() == 0){
+            resetDiscardPile();
+        }
         return playersDeck.getCardOnPos(0);
     }
     public Card getCardOnPosInDeck(int pos){
@@ -213,6 +223,10 @@ public class Player {
             discardPile.addCardToDeck(playersDeck.getCardOnPos(0));
             playersDeck.removeFromDeck(0);
         }
+    }
+
+    public Card getCardFromDiscardPileOnPos(int pos){
+        return discardPile.getCardOnPos(pos);
     }
 
 

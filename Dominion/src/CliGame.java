@@ -29,11 +29,9 @@ public class CliGame {
         firstTurn();
         while (!finished) // hierin de acties per turn zetten
         {
-
             showBoard();
             nextTurn();
             finished = g.checkIfFinished(); //TODO: bug: Stopt wanneer er 1 stapel actie kaarten op is, moet 3 zijn
-
         }
     }
 
@@ -102,11 +100,8 @@ public class CliGame {
 
     private void actionMenu() {
 
-
         playActionCard();
         g.resetAmountOfActions();
-
-
         buyCard();
         g.endPhase();
         //g.printDeck(g.allPlayers.get(player)); //Alleen gebruiken bij het testen
@@ -115,7 +110,7 @@ public class CliGame {
     }
 
     private void buyCard() { //TODO: check maken of de kaart die je wilt kopen nog niet op is
-        int remainingBuys = g.returnAmountOfActionsRemaining();
+        int remainingBuys = g.getAmountOfActionsRemaining();
         while (remainingBuys != 0) {
             System.out.println("Welk type kaart wil je kopen? 1. Actie. 2. Treasure 3. Victory 4. Stop");
             int keuze = in.nextInt();
@@ -123,8 +118,6 @@ public class CliGame {
             int cardCost;
             Card card;
             amountOfCoins = g.getAmountOfCoinsOfPlayer();
-
-
 
             switch (keuze) {
                 case 1:
@@ -168,7 +161,6 @@ public class CliGame {
                     break;
                 case 4:
                     break;
-
             }
             g.printCoins();
             remainingBuys -= 1;
@@ -177,31 +169,25 @@ public class CliGame {
 
        private void playActionCard() {
         Player activePLayer = g.allPlayers.get(player);
-        while (g.returnAmountOfActionsRemaining() != 0) {
+        while (g.getAmountOfActionsRemaining() != 0) {
         System.out.println("Geef positie in hand van te spelen actie kaart (Geef 0 in om te stoppen)");
         int i = in.nextInt();
         if (i == 0) {
             g.setRemainingActionsInPhase(0);
         } else {
-
                 Card toBePlayedActionCard = g.allPlayers.get(player).getCardOnPosInHand(i - 1);
                 if (toBePlayedActionCard.getType().equals("action")) {
                     g.moveCardFromHandToDiscardPilePosition(i-1, activePLayer);
                     g.useActionCard(toBePlayedActionCard.getName(), player);
-
                     g.printHand(activePLayer);
                     g.lowerAmountOfActions();
                     g.printRemainingActions();
-
                 } else {
                     System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
                     playActionCard();
                 }
-
             }
-
         }
-
         g.printCoins();
 
     }

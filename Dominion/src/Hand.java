@@ -42,10 +42,7 @@ public class Hand {
                 specificCardsInDeck.addCardToDeck(hand.get(i));
             }
         }
-        if (specificCardsInDeck.getSize()==0){
-            return true;
-        }
-        else return false;
+        return specificCardsInDeck.getSize() == 0;
 
 
     }
@@ -53,20 +50,19 @@ public class Hand {
     public int scanDeckForCardWithTypeXandReturnPosition(String typeOfCard) {
         Deck specificCardsInDeck = new Deck();
         int positionOfCard = -1;
-
         if (scanDeckForCardWithTypeXandReturnBoolean(typeOfCard)) {
             while (positionOfCard == -1) {
                 for (int i = 0; i < hand.size(); i++) {
                     if (hand.get(i).getType().equals(typeOfCard)) {
                         positionOfCard = i;
+                    } else{
+                        positionOfCard = -1;
                     }
                 }
-
             }
             return positionOfCard;
         }
         else{
-
             return -1;
         }
 

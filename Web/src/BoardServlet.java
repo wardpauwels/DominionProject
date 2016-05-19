@@ -33,6 +33,13 @@ public class BoardServlet extends HttpServlet {
                 initGame();
                 break;
 
+            case "playCard":
+                int positionInHand;
+                positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                System.out.println(positionInHand);
+                useActionCard(positionInHand);
+
+
         }
     }
 

@@ -26,15 +26,18 @@ public class CliGame {
         firstTurn();
         while (!finished) // hierin de acties per turn zetten
         {
-
+            clearScreen(); // TODO: clear screen werkend maken
             showBoard();
             nextTurn();
-            finished = g.checkIfFinished(); //TODO: bug: Stopt wanneer er 1 stapel actie kaarten op is, moet 3 zijn
+            finished = g.checkIfFinished();
 
         }
     }
 
-
+    private static void clearScreen() { // TODO: werkt niet
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
     private void newGame() {
         System.out.println("Geef aantal spelers (2 - 4)");
@@ -64,20 +67,24 @@ public class CliGame {
         g.printCoins();
         g.printRemainingActions();
         actionMenu();
+        numberOTurn ++; // TODO: weg na test
         endTurn();
     }
 
     private void nextTurn() {
         g.calculateCoinsOfPlayer(g.allPlayers.get(player));
         amountOfCoins = g.getAmountOfCoinsOfPlayer();
+
         nextPlayer();
         String playerName = g.getPlayerName(player);
         System.out.println("-------------------");
         System.out.println(playerName + " is aan de beurt");
+        System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
         g.printCoins();
         g.printRemainingActions();
         actionMenu();
+        numberOTurn++; // TODO: weg na test
         endTurn();
 
     }
@@ -106,12 +113,14 @@ public class CliGame {
 
         buyCard();
         g.endPhase();
-        //g.printDeck(g.allPlayers.get(player)); //Alleen gebruiken bij het testen
+        g.printDeck(g.allPlayers.get(player));
+
+
 
 
     }
 
-    private void buyCard() { //TODO: check maken of de kaart die je wilt kopen nog niet op is
+    private void buyCard() {
         int remainingBuys = g.returnAmountOfActionsRemaining();
         while (remainingBuys != 0) {
             System.out.println("Welk type kaart wil je kopen? 1. Actie. 2. Treasure 3. Victory 4. Stop");
@@ -120,8 +129,6 @@ public class CliGame {
             int cardCost;
             Card card;
             amountOfCoins = g.getAmountOfCoinsOfPlayer();
-
-
 
             switch (keuze) {
                 case 1:

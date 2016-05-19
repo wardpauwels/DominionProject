@@ -43,8 +43,8 @@
                         <input id="player2" name = "player2" type="text" placeholder="Playername" />
                     </div>
                     <input type="submit" id="startGame" value="Start" action="Board.jsp">
-                    <input type="button" id="addPlayer" value="Add player" />
-                    <input type="button" class = "deletePlayer" value="Delete last Player">
+                    <input type="button" id="addPlayer" value="Add" />
+                    <input type="button" class = "deletePlayer" value="Delete">
                 </form>
             </div>
         </div>

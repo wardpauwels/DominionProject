@@ -31,12 +31,24 @@ public class VictoryCardTable {
         return newCard;
     }
 
-    public Card getCardOnPos(int numberOfCard){
+    public Card getCardOnPos(int numberOfCard) {
         return victoryCardTable.get(numberOfCard);
     }
 
-    public int getSize(){
+    public int getSize() {
         return victoryCardTable.size();
     }
 
+
+    public Card searchForCardOnName(String nameOfCard) {
+        Card foundCard = new Card();
+        for (int i = 0; i < victoryCardTable.size(); i++) {
+            if (nameOfCard.equals(victoryCardTable.get(i).getName())) {
+                foundCard = victoryCardTable.get(i);
+            }
+        }
+        return foundCard;
+    }
+
+    ;
 }

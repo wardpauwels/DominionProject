@@ -25,6 +25,7 @@ public class ActionCardTable {
         allActionCards.add(GenerateSpecificActionCard(5, "Woodcutter", 3, 10));
         allActionCards.add(GenerateSpecificActionCard(6, "Workshop", 3, 10));
         allActionCards.add(GenerateSpecificActionCard(7, "Feast", 4, 10));
+        allActionCards.add(GenerateSpecificActionCard(9, "Moneylender", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(8, "Militia", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(9, "Moneylender", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(10, "Remodel", 4, 10));
@@ -69,5 +70,14 @@ public class ActionCardTable {
         return card;
     }
 
+    public Card searchForCardOnName(String nameOfCard){
+        Card foundCard=new Card();
+        for(int i=0;i<allActionCards.size();i++){
+            if (nameOfCard.equals(allActionCards.get(i).getName())){
+                foundCard = allActionCards.get(i);
+            }
+        }
+        return foundCard;
+    };
 
 }

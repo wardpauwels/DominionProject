@@ -92,6 +92,7 @@ public class Main {
         */
 
         //Final tests CLI
+        //CliGame g = new CliGame();
         CliGame g = new CliGame();
 
 

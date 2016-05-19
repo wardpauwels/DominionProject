@@ -52,9 +52,13 @@ $(document).ready(function () {
             error: function (data) {
                 console.log(data);
                 alert("ERROR: " + data.status);
-            }
+            }.done(function(data){
+                console.log(data);
+            })
         });
-    })
+    });
+    console.log(data.cards);
+    showCards(data.cards);
 });
 $('#baraja-el li').click(function(){
     var request = $.ajax({ cache: false,

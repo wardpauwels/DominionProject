@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -27,10 +29,18 @@ public class BoardServlet extends HttpServlet {
                 name1 = request.getParameter("name1");
                 name2 = request.getParameter("name2");
                 JSONObject names = new JSONObject();
-                names.append("name1", name1);
-                names.append("name2", name2);
+                names.put("name1", name1);
+                names.put("name2", name2);
                 writer.append(names.toString());
                 initGame();
+                JSONObject cards = new JSONObject();
+                for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
+                    cards.put("kaart"+ i,g.allPlayers.get(g.player).getCardOnPosInHand(i).getName());
+                }
+                System.out.println(cards);
+                writer.append(cards.toString());
+
+
                 break;
 
             case "playCard":
@@ -47,8 +57,13 @@ public class BoardServlet extends HttpServlet {
 
         int amountOfPlayers = countAmountOfPlayers();
         g.createPlayersList(amountOfPlayers);
+        putNamesIntoArrayList();
         setNames();
 
+
+
+    }
+    private void putNamesIntoArrayList(){
 
     }
     private int countAmountOfPlayers(){

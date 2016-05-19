@@ -8,6 +8,8 @@ import org.json.JSONObject;
 //@WebServlet(name = "BoardServlet")
 public class BoardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    Game g;
+    int ammountOfPlayers;
     String name1;
     String name2;
     String operation;
@@ -38,5 +40,9 @@ public class BoardServlet extends HttpServlet {
         names.append("name1", name1);
         names.append("name2", name2);
         writer.append(names.toString());
+
+        //initializing Game
+        g = new Game();
+        ammountOfPlayers = 1;
     }
 }

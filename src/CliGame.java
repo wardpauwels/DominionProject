@@ -1,9 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-/**
- * Created by Robert on 21-4-2016.
- */
 
 
 public class CliGame {

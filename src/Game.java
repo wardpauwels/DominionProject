@@ -20,6 +20,9 @@ public class Game {
     private int currentlyActiveAmountOfCoins;
     private int remainingActionsInPhase = 1;
     private int remainingBuysInPhase = 1;
+    private int player = 0;
+    public int decisionOfPlayerPosition;
+    public String decisionOfPlayerType;
 
     public Scanner in = new Scanner(System.in); // scanner voor user input
 
@@ -31,6 +34,7 @@ public class Game {
         allPlayers = new ArrayList<Player>();
         actionCardsOnBoard = new ArrayList<Card>();
         generateActionCardTable();
+
     }
     // lijst aanmaken met spelers
     public void createPlayersList(int amount){
@@ -39,6 +43,13 @@ public class Game {
             newPlayer.setNumber(i);
             allPlayers.add(newPlayer);
         }
+    }
+
+    public void setDecisionOfPlayerPosition(int numberOfDecision){
+        this.decisionOfPlayerPosition = numberOfDecision;
+    }
+    public void setDecisionOfPlayerType(String typeOfDecision){
+        decisionOfPlayerType = typeOfDecision;
     }
 
     //Random number generator voor het maken van de lijst van actie kaarten
@@ -69,6 +80,49 @@ public class Game {
         }
 
     }
+    private void nextPlayer() {
+        if (player != allPlayers.size() - 1) {
+            player++;
+        } else {
+            player = 0;
+        }
+    }
+    public void endTurn() {
+        Player currentPlayer = allPlayers.get(player);
+        currentPlayer.addToHandDiscardpile();
+        currentPlayer.clearHand();
+        endTurnForPlayer(currentPlayer);
+    }
+    public void nextTurn() {
+        calculateCoinsOfPlayer(allPlayers.get(player));
+        nextPlayer();
+
+
+    }
+
+
+
+    public void playActionCard() {
+        Player activePlayer = allPlayers.get(player);
+        if (decisionOfPlayerPosition == 0) {
+            setRemainingActionsInPhase(0);}
+        else {
+            Card toBePlayedActionCard = allPlayers.get(player).getCardOnPosInHand(decisionOfPlayerPosition - 1);
+            if (toBePlayedActionCard.getType().equals("action")) {
+                moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition - 1, activePlayer);
+                useActionCard(toBePlayedActionCard.getName(), player);
+                lowerAmountOfActions();
+            }
+            else {
+
+                    playActionCard();
+            }
+
+        }
+
+    }
+
+
 
     private void resetRemainingActions(){ //TODO: wordt niet gebruikt. kan weg?
         remainingActionsInPhase = 1;
@@ -91,7 +145,9 @@ public class Game {
 
 
 
-
+    public Hand returnHand(Player whichPlayer){
+        return whichPlayer.returnHand();
+    }
 
     public void buyCard(int positionOnTheBoard, String type, Player whichPlayer){
         Card boughtCard = new Card();
@@ -375,6 +431,8 @@ public class Game {
             }
         }
     }
+
+
 
 
     private void useMoat(int numberOfThePlayer){

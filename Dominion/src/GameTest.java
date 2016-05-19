@@ -101,7 +101,7 @@ public class GameTest {
         assertEquals("Amount of coins wel omhoog zonder copper in hand", 0, g.getAmountOfCoinsOfPlayer());
     }
     @Test
-    public void bureaucratAtionCardTester(){ // TODO: test slaagt niet altijd, nog naar kijken
+    public void bureaucratAtionCardTester(){ // TODO: test slaagt niet altijd, soms in infinite loop
         g.useActionCard("Bureaucrat", 0);
         assertEquals("Silver kaart niet gekregen", "Silver", g.allPlayers.get(0).getTopCardFromDeck().getName());
     }
@@ -157,7 +157,7 @@ public class GameTest {
         assertEquals("Geen extra kaarten gekregen",7, g.allPlayers.get(0).getHandSize());
     }
     @Test
-    public void adventurerAtionCardTester(){ //TODO: test slaagt niet altijd, nog naar kijken
+    public void adventurerAtionCardTester(){ //TODO: test slaagt niet altijd, soms in infinite loop
         g.useActionCard("Adventurer", 0);
         assertEquals("Geen extra kaarten gekregen",7, g.allPlayers.get(0).getHandSize());
         assertEquals("Extra gekregen kaarten zijn geen treasuere cards", "treasure", g.allPlayers.get(0).getCardOnPosInHand(6).getType());

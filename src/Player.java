@@ -38,7 +38,6 @@ public class Player {
     // DECK
 
     public void printDeck(){
-
         playersDeck.printDeck();
     }
 
@@ -91,7 +90,7 @@ public class Player {
     }
 
 
-    public void resetDiscardDeck(){
+    public void resetDiscardPile(){
         playersDeck = discardPile;
         discardPile.clearDeck();
     }
@@ -114,7 +113,7 @@ public class Player {
 
     public boolean scanHandForCard(Card whichCard){
         for (int i=0;i < playersHand.getSize(); i++){
-            if (playersHand.getCardOnPos(i)==whichCard){
+            if (playersHand.getCardOnPos(i).getName().equals(whichCard.getName())){
                 return true;
             }
         }
@@ -129,7 +128,7 @@ public class Player {
     public int scanHandForCardandGetPositionInHand(Card whichCard){
       int positionOfCardInHand=-1;
         for (int i=0;i<playersHand.getSize();i++){
-            if(playersHand.getCardOnPos(i).equals(whichCard)){
+            if(playersHand.getCardOnPos(i).getName().equals(whichCard.getName())){
                 positionOfCardInHand=i;
             }
         }
@@ -152,8 +151,8 @@ public class Player {
 
 
     public int getHandSize(){
-        int size = playersHand.getSize();
-        return size;
+        int handSize = playersHand.getSize();
+        return handSize;
     }
 
     public void addCardFromHandToDeck(Card c){
@@ -191,10 +190,7 @@ public class Player {
                }
     }
 
-    public int returnAmountOfCardsInDeck(){
-        return playersDeck.getSize();
 
-    }
     public Card getTopCardFromDeck(){
         return playersDeck.getCardOnPos(0);
     }
@@ -211,10 +207,6 @@ public class Player {
     }
     public Hand returnHand(){
         return playersHand;
-    }
-
-    public Deck returnDeck(){
-        return playersDeck;
     }
 
     public void moveAllCardsFromDeckToDiscardPile(){
@@ -238,7 +230,7 @@ public class Player {
     }
 
 
-    public void printDiscardDeck(){
+    public void printDiscardPile(){
         System.out.println("---------------");
         System.out.println("Discard pile:");
         System.out.println("---------------");

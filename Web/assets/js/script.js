@@ -3,6 +3,7 @@ $(document).ready(function () {
     console.log("Loaded!");
     var messageArray = getMessage(messages);
     var actioncardOnTableName;
+    var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
     showCards(messageArray);
@@ -10,9 +11,7 @@ $(document).ready(function () {
 
     $("#baraja-el li").click(function(e){
         e.preventDefault();
-        if (!$("#baraja-el li:active")){
-            $(this).appendTo('#playedcards_on_table ul');
-        }
+        $(this).appendTo('#playedcards_on_table ul');
     });
 
     $("#actioncards_on_table ul li img").click(function () {
@@ -24,7 +23,62 @@ $(document).ready(function () {
     $('#bigCard').click(function () {
         $('#bigCard').css('visibility', 'hidden');
     });
+    $("#addPlayer").click(function(){
+        if(ammountOfPlayers < 4) {
+            ammountOfPlayers++;
+            var playerId = "player" + ammountOfPlayers;
+            $('#playerNamesField').append('<input id="' + playerId + '" name = "' + playerId + '" type="text" placeholder="Playername" required/>');
+        }
+    });
+    $('.deletePlayer').click(function(){
+        if(ammountOfPlayers > 2) {
+            $('#playerNamesField input').last().remove();
+            ammountOfPlayers--;
+        }
+    });
+    $('#startGame').click(function(){
+        var request = $.ajax({ cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                data:{ operation: 'initialize',
+                    name1: $('#player1').val(),
+                    name2: $('#player2').val(),
+                    name3: $('#player3').val(),
+                    name4: $('#player4').val()
+                } ,
+                success: function (data) {
+                    console.log(data);
+                    //alert("SUCCES: " + data.status);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("ERROR: " + data.status);
+                }
+            });
+        })
 });
+$('#baraja-el li').click(function(){
+    var request = $.ajax({ cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        data:{ operation: 'playCard',
+            positionInHand: $('#baraja-el li').index(this)
+            
+            
+        }
+        ,
+        success: function (data) {
+            console.log(data);
+            alert("SUCCES: " + data.status);
+        },
+        error: function (data) {
+            console.log(data);
+            alert("ERROR: " + data.status);
+        }
+    });
+    
+});
+
 
 
 function showCards(array) {

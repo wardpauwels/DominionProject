@@ -4,8 +4,15 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <welcome-file-list>
-        <welcome-file>Menu.html</welcome-file>
-        <welcome-file>Menu.htm</welcome-file>
         <welcome-file>Menu.jsp</welcome-file>
     </welcome-file-list>
+
+    <servlet>
+        <servlet-name>Board</servlet-name>
+        <servlet-class>BoardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Board</servlet-name>
+        <url-pattern>/BoardServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

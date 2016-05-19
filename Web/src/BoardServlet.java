@@ -36,7 +36,7 @@ public class BoardServlet extends HttpServlet {
             case "playCard":
                 int positionInHand;
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                System.out.println(positionInHand);
+                System.out.println("nummer " + positionInHand+1 +  "gespeeld!");
                 useActionCard(positionInHand);
 
 

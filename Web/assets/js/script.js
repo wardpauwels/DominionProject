@@ -8,7 +8,6 @@ $(document).ready(function () {
     });
     showCards(messageArray);
     disableCopyPaste();
-    makeNewGame();
 
     $("#baraja-el li").click(function(e){
         e.preventDefault();
@@ -38,8 +37,7 @@ $(document).ready(function () {
         }
     });
     $('#startGame').click(function(){
-        if($('#player4').length){
-            var request = $.ajax({ cache: false,
+        var request = $.ajax({ cache: false,
                 url: "/BoardServlet",
                 type: "GET",
                 data:{ operation: 'initialize',
@@ -57,43 +55,7 @@ $(document).ready(function () {
                     alert("ERROR: " + data.status);
                 }
             });
-        } else if($('#player3').length){
-            var request = $.ajax({ cache: false,
-                url: "/BoardServlet",
-                type: "GET",
-                data:{ operation: 'initialize',
-                    name1: $('#player1').val(),
-                    name2: $('#player2').val(),
-                    name3: $('#player3').val()
-                } ,
-                success: function (data) {
-                    console.log(data);
-                    //alert("SUCCES: " + data.status);
-                },
-                error: function (data) {
-                    console.log(data);
-                    alert("ERROR: " + data.status);
-                }
-            });
-        } else {
-            var request = $.ajax({ cache: false,
-                url: "/BoardServlet",
-                type: "GET",
-                data:{ operation: 'initialize',
-                    name1: $('#player1').val(),
-                    name2: $('#player2').val()
-                } ,
-                success: function (data) {
-                    console.log(data);
-                    //alert("SUCCES: " + data.status);
-                },
-                error: function (data) {
-                    console.log(data);
-                    alert("ERROR: " + data.status);
-                }
-            });
-        }
-    })
+        })
 });
 
 
@@ -132,17 +94,6 @@ function checkRedundant(array, string) {
 function disableCopyPaste(){
     $('body').bind('copy paste',function(e) {
         e.preventDefault(); return false;
-    });
-}
-
-function makeNewGame()
-{
-    $("button").click(function(){
-        $.ajax({url: "/Board/initGame()",
-            success: function(result){
-                $("body").html(result);
-            }
-        });
     });
 }
 

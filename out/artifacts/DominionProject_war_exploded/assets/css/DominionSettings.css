@@ -2,7 +2,7 @@
     background-image: url('../images/setings.png');
 }
 form p {
-    color:#2d343f;
+    color:#FFFFFF !important;
     font-size:20px;
 }
 form {
@@ -18,7 +18,7 @@ input[type="submit"] {
     height: 64px;
     z-index: 298;
     background-color: rgba(21, 25, 29, 1);
-    color: rgba(45, 52, 63, 1);
+    color: rgba(255, 255, 255, 1);
     font-size:20px;
     font-weight: bold;
     cursor:pointer;
@@ -100,7 +100,8 @@ input[type=checkbox] {
 }
 
 .slideThree input[type=checkbox]:checked + label {
-    left: 43px;
+    left: 43px
+
 }
 
 /* SQUARED THREE */
@@ -153,12 +154,15 @@ input[type=checkbox] {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
     filter: alpha(opacity=30);
     opacity: 0.3;
+
 }
 
 .squaredThree input[type=checkbox]:checked + label:after {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     filter: alpha(opacity=100);
     opacity: 1;
+
+
 }
 table{
     width:80%;

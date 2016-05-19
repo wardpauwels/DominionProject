@@ -57,6 +57,28 @@ $(document).ready(function () {
             });
         })
 });
+$('#baraja-el li').click(function(){
+    var request = $.ajax({ cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        data:{ operation: 'playCard',
+            positionInHand: $('#baraja-el li').index(this)
+            
+            
+        }
+        ,
+        success: function (data) {
+            console.log(data);
+            alert("SUCCES: " + data.status);
+        },
+        error: function (data) {
+            console.log(data);
+            alert("ERROR: " + data.status);
+        }
+    });
+    
+});
+
 
 
 function showCards(array) {

@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DominionProject.iml" filepath="$PROJECT_DIR$/.idea/DominionProject.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/apache-tomcat-9.0.0.M6/webapps/examples/WEB-INF/WEB-INF.iml" filepath="$USER_HOME$/Downloads/apache-tomcat-9.0.0.M6/webapps/examples/WEB-INF/WEB-INF.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/apache-tomcat-9.0.0.M6/webapps/examples/WEB-INF/jsp/jsp.iml" filepath="$USER_HOME$/Downloads/apache-tomcat-9.0.0.M6/webapps/examples/WEB-INF/jsp/jsp.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/apache-tomcat-9.0.0.M6/webapps/examples/jsp/plugin/plugin.iml" filepath="$USER_HOME$/Downloads/apache-tomcat-9.0.0.M6/webapps/examples/jsp/plugin/plugin.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/apache-tomcat-9.0.0.M6/webapps/docs/appdev/sample/sample.iml" filepath="$USER_HOME$/Downloads/apache-tomcat-9.0.0.M6/webapps/docs/appdev/sample/sample.iml" />
     </modules>
   </component>
 </project>

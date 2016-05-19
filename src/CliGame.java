@@ -137,7 +137,9 @@ public class CliGame {
                     card = g.getCardFromPosInActionTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (cardCost <= amountOfCoins) {
-                        g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
+                        g.setDecisionOfPlayerPosition(kaartKeuze);
+                        g.setDecisionOfPlayerType(card.getType());
+                        g.buyCard();
                         System.out.println("Kaart " + card.getName() + " gekocht");
                     } else {
                         System.out.println("onvoldoende coins, probeer opnieuw " + card.getName() + " is te duur");
@@ -150,7 +152,9 @@ public class CliGame {
                     card = g.getCardFromPosInTreasureTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {
-                        g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
+                        g.setDecisionOfPlayerPosition(kaartKeuze);
+                        g.setDecisionOfPlayerType(card.getType());
+                        g.buyCard();
                         System.out.println("Kaart " + card.getName() + " gekocht");
                     } else {
                         System.out.println("onvoldoende coins, probeer opnieuw");
@@ -163,7 +167,9 @@ public class CliGame {
                     card = g.getCardFromPosInVictoryTable(kaartKeuze);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {
-                        g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
+                        g.setDecisionOfPlayerPosition(kaartKeuze);
+                        g.setDecisionOfPlayerType(card.getType());
+                        g.buyCard();
                         System.out.println("Kaart " + card.getName() + " gekocht");
                     } else {
                         System.out.println("onvoldoende coins, probeer opnieuw");
@@ -184,6 +190,7 @@ public class CliGame {
         while (g.returnAmountOfActionsRemaining() != 0) {
         System.out.println("Geef positie in hand van te spelen actie kaart (Geef 0 in om te stoppen)");
         int i = in.nextInt();
+
         if (i == 0) {
             g.setRemainingActionsInPhase(0);
         } else {

@@ -9,11 +9,11 @@ import java.util.Random;
 
 
 public class Game {
-    private VictoryCardTable victoryCardTable;
-    private TreasureCardTable treasureCardTable;
+    public VictoryCardTable victoryCardTable;
+    public TreasureCardTable treasureCardTable;
     private ActionCardTable actionCardTable;
     public ArrayList<Player> allPlayers;
-    private ArrayList<Card> actionCardsOnBoard;
+    public ArrayList<Card> actionCardsOnBoard;
 
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
     private Deck playedCards = new Deck(); // TODO: wordt niet gebruikt. kan weg?

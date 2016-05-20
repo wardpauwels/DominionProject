@@ -53,17 +53,16 @@ $(document).ready(function () {
                     name2: $('#player2').val(),
                     name3: $('#player3').val(),
                     name4: $('#player4').val()
-                } ,
-                success: function (data) {
-                    console.log(data);
-                    //alert("SUCCES: " + data.status);
-                },
-                error: function (data) {
-                    console.log(data);
-                    alert("ERROR: " + data.status);
                 }
-            });
-        })
+        });
+        request.done(function (data) {
+            var obj = JSON.parse(data);
+            console.log("nameP1: "+obj.nameP1+" nameP2: "+obj.nameP2);
+        });
+        request.fail(function (jqXHR, textStatus) {
+            alert(jqXHR.status + ' ' + textStatus);
+        });
+    });
 });
 $('#baraja-el li').click(function(){
     var request = $.ajax({ cache: false,

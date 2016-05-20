@@ -12,10 +12,7 @@ function setBoard() {
         url: "/BoardServlet",
         type: "GET",
         dataType: "text",
-        data: {
-            action: 'getCards'
-
-        }
+        data: {action: 'getCards'}
     });
 
     request.done(function (data) {

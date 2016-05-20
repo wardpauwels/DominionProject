@@ -46,14 +46,10 @@ public class BoardServlet extends HttpServlet {
                 names.append("name4", name4);
 
                 writer.append(names.toString());
-                System.out.println("Test");
                 System.out.println(names);
                 //System.out.println("amount"+countAmountOfPlayers());
-                //System.out.println("s1");
                 g = new Game();
-                System.out.println("s2");
                 g.createPlayersList(2);
-                System.out.println("s3");
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
                     /*if(i == g.allPlayers.get(g.player).getHandSize()-1){
@@ -89,13 +85,12 @@ public class BoardServlet extends HttpServlet {
     }
 
     public void initGame(){
-        System.out.println("amount"+countAmountOfPlayers());
-        System.out.println("s1");
         g = new Game();
-        System.out.println("s2");
         g.createPlayersList(countAmountOfPlayers());
-        System.out.println("s3");
         setNames();
+        System.out.println("amount");
+        System.out.println("amount"+countAmountOfPlayers());
+        System.out.println("amount");
     }
 
 
@@ -122,9 +117,6 @@ public class BoardServlet extends HttpServlet {
     private void nextTurn(){
         g.nextTurn();
         //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
-
-
-
 
 
 
@@ -157,6 +149,4 @@ public class BoardServlet extends HttpServlet {
         g.buyCard();
         g.checkIfFinished();
     }
-
-
 }

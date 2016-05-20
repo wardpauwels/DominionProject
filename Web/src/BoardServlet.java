@@ -39,8 +39,6 @@ public class BoardServlet extends HttpServlet {
                 }
                 System.out.println(cards);
                 writer.append(cards.toString());
-
-
                 break;
 
             case "playCard":

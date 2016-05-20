@@ -22,7 +22,6 @@ $(document).ready(function () {
     var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
-    cardNames(array);
     showCards(messageArray);
     disableCopyPaste();
 
@@ -30,15 +29,7 @@ $(document).ready(function () {
         e.preventDefault();
         $(this).appendTo('#playedcards_on_table ul');
     });
-    function cardNames(array) {
-        for (var i = 0; i < array.length; i++) {
-            var html = '<li>';
-            var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
-            html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
-            html += '</li>';
-            $("#baraja-el").append(html);
-        }
-    }
+
     $("#actioncards_on_table ul li img").click(function () {
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
@@ -124,7 +115,15 @@ function showCards(array) {
 
 
 
-
+function importPlayerCards(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+        html += '</li>';
+        $("#baraja-el").append(html);
+    }
+}
 
 
 

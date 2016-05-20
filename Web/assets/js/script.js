@@ -22,7 +22,7 @@ $(document).ready(function () {
     var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
-    cardNames(array);
+    generateVisualCardNames(cardNames);
     showCards(messageArray);
     disableCopyPaste();
 
@@ -30,7 +30,7 @@ $(document).ready(function () {
         e.preventDefault();
         $(this).appendTo('#playedcards_on_table ul');
     });
-    function cardNames(array) {
+    function generateVisualCardNames(array) {
         for (var i = 0; i < array.length; i++) {
             var html = '<li>';
             var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
@@ -101,6 +101,7 @@ $('#startGame').click(function(){
     request.done(function (data) {
         cardNames = JSON.parse(data.cards);
         alert(cardNames);
+        generateVisualCardNames(cardNames);
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");

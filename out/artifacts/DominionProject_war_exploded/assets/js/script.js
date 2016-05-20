@@ -22,20 +22,24 @@ $(document).ready(function () {
     var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
+    generateVisualCardNames(cardNames);
     showCards(messageArray);
     disableCopyPaste();
 
-    $("#baraja-el li").mousedown(function(e) {
-        if(e.which === 1) {
-            $(this).appendTo('#playedcards_on_table ul')
-        }
-        else {
-            e.preventDefault()
-        }
+    $("#baraja-el li").click(function(e){
+        e.preventDefault();
+        $(this).appendTo('#playedcards_on_table ul');
     });
-
-
-    $(".showactioncard").click(function () {
+    function generateVisualCardNames(array) {
+        for (var i = 0; i < array.length; i++) {
+            var html = '<li>';
+            var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+            html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+            html += '</li>';
+            $("#baraja-el").append(html);
+        }
+    }
+    $("#actioncards_on_table ul li img").click(function () {
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
 
@@ -61,26 +65,27 @@ $(document).ready(function () {
 });
 $('#baraja-el li').click(function(){
     console.log("kaart spelen werkt");
-    var request = $.ajax({ cache: false,
+    var request = $.ajax({
+        cache: false,
         url: "/BoardServlet",
         type: "GET",
-        data:{ action: 'playCard',
+        data: {
+            action: 'playCard',
             positionInHand: $('#baraja-el li').index(this)
-            
-            
+
+
         }
-        ,
-        success: function (data) {
-            console.log(data);
-            alert("SUCCES: " + data.status);
-        },
-        error: function (data) {
-            console.log(data);
-            alert("ERROR: " + data.status);
-        }
+
     });
+request.done(function (data) {
+        alert("SUCCES: " + data.status);
+});
+request.fail(function (jqXHR, textStatus) {
+    console.log("nie gelukt");
+    alert(jqXHR.status + ' ' + textStatus);
+});
     
-});$('#startGame').click(function(){
+$('#startGame').click(function(){
     console.log("init werkt");
     var request = $.ajax({ cache: false,
         url: "/BoardServlet",
@@ -96,6 +101,7 @@ $('#baraja-el li').click(function(){
     request.done(function (data) {
         cardNames = JSON.parse(data.cards);
         alert(cardNames);
+        generateVisualCardNames(cardNames);
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");
@@ -106,10 +112,11 @@ $('#baraja-el li').click(function(){
 
 function showCards(array) {
     for (var i = 0; i < array.length; i++) {
-        var html = '<li> <p class="counteronactioncards">0</p>';
+        var html = '<li><p class="counteronactioncards">0</p>';
         var src = 'assets/images/Small%20Cards/' + array[i] + '.jpg';
-        html += '<img class="showActionCard" alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '"/>';
-        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard"/></li>';
+        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
+        html += '</li>';
         $(".actioncards_on_table_print").append(html);
     }
 }
@@ -140,7 +147,7 @@ function disableCopyPaste(){
     $('body').bind('copy paste',function(e) {
         e.preventDefault(); return false;
     });
-}
+}});
 
 /*function makeNewGame()
 {
@@ -172,12 +179,4 @@ function disableCopyPaste(){
 //}
 
 
-document.getElementById('baraja-el').addEventListener("wheel", function (e) {
-    if (e.wheelDelta < 0) {
-        this.style.zIndex = 0;
-        console.log("down");
-    } else {
-        this.style.zIndex = 1000000000;
-        console.log("up");
-    }
-});
+

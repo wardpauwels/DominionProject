@@ -24,9 +24,9 @@
     <div id="bigCard"></div>
     <div id="header">
         <div id="two_players">
-               <p id="player_one_name" class="player_one_name"></p>
-               <p id="player_two_name" class="player_two_name"></p>
-           </div>
+            <p id="player_one_name" class="player_one_name"></p>
+            <p id="player_two_name" class="player_two_name"></p>
+        </div>
         <!--<div id="three_players">
              <div class="player_one_name">
                  <p>Dylan</p>
@@ -68,18 +68,22 @@
                     <li>
                         <p class="counteronsmallcards">0</p>
                         <img src="assets/images/Small%20Cards/province.jpg" title="Province + 6 points" alt="Province"/>
+                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
                     </li>
                     <li>
                         <p class="counteronsmallcards">0</p>
                         <img src="assets/images/Small%20Cards/duchy.jpg" title="Duchy + 3 points" alt="Duchy"/>
+                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
                     </li>
                     <li>
                         <p class="counteronsmallcards">0</p>
                         <img src="assets/images/Small%20Cards/estate.jpg" title="Estate + 1 point" alt="Estate"/>
+                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
                     </li>
                     <li>
                         <p class="counteronsmallcards">0</p>
                         <img src="assets/images/Small%20Cards/curse.jpg" title="Curse - 1 point" alt="Curse"/>
+                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
                     </li>
                 </ul>
             </div>
@@ -88,14 +92,17 @@
                     <li>
                         <p class="counteronsmallcards">0</p>
                         <img src="assets/images/Small%20Cards/gold.jpg" alt="Gold" title="Gold + 3 coins"/>
+                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
                     </li>
                     <li>
                         <p class="counteronsmallcards">0</p>
                         <img src="assets/images/Small%20Cards/silver.jpg" alt="Silver" title="Silver + 2 coins"/>
+                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
                     </li>
                     <li>
                         <p class="counteronsmallcards">0</p>
                         <img src="assets/images/Small%20Cards/copper.jpg" alt="Copper" title="Copper + 1 coin"/>
+                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
                     </li>
                 </ul>
             </div>
@@ -177,6 +184,7 @@
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/script.js"></script>
 <!--<script src="assets/js/scriptBoard.js"></script>-->
+<%--<script src="assets/js/scriptBoard.js"></script>--%>
 <script src="assets/css/Baraja/js/modernizr.custom.79639.js"></script>
 <script src="assets/css/Baraja/js/jquery.baraja.js"></script>
 </body>

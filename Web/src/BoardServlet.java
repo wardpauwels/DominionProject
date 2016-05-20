@@ -96,7 +96,7 @@ public class BoardServlet extends HttpServlet {
         setNames();
     }
 
-    
+
     private int countAmountOfPlayers() {
         if (name4 != null){
             playerNames.add(name1);

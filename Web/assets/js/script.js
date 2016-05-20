@@ -22,15 +22,23 @@ $(document).ready(function () {
     var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
+    cardNames(array);
     showCards(messageArray);
     disableCopyPaste();
-    makeNewGame();
 
     $("#baraja-el li").click(function(e){
         e.preventDefault();
         $(this).appendTo('#playedcards_on_table ul');
     });
-
+    function cardNames(array) {
+        for (var i = 0; i < array.length; i++) {
+            var html = '<li>';
+            var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+            html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+            html += '</li>';
+            $("#baraja-el").append(html);
+        }
+    }
     $("#actioncards_on_table ul li img").click(function () {
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
@@ -103,9 +111,10 @@ $('#startGame').click(function(){
 
 function showCards(array) {
     for (var i = 0; i < array.length; i++) {
-        var html = '<li> <p class="counteronactioncards">0</p>';
+        var html = '<li><p class="counteronactioncards">0</p>';
         var src = 'assets/images/Small%20Cards/' + array[i] + '.jpg';
         html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
         html += '</li>';
         $(".actioncards_on_table_print").append(html);
     }

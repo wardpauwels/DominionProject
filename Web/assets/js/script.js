@@ -1,4 +1,3 @@
-
 function setBoard(){
     var request = $.ajax({ cache: false,
         url: "/BoardServlet",
@@ -14,6 +13,7 @@ function setBoard(){
         }
     });
 }
+
 $(document).ready(function () {
     var messages = ['adventurer', 'bureaucrat', 'cellar', 'chancellor', 'chapel', 'councilroom', 'feast', 'festival', 'gardens', 'laboratory', 'library', 'market', 'militia', 'mine', 'moat', 'moneylender', 'remodel', 'smithy', 'Spy', 'thief', 'throneroom', 'village', 'witch', 'woodcutter', 'workshop'];
     console.log("Loaded!");
@@ -122,6 +122,24 @@ function showCards(array) {
 }
 
 
+
+
+
+function importPlayerCards(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+        html += '</li>';
+        $("#baraja-el").append(html);
+    }
+}
+
+
+
+
+
+
 function getMessage(messages) {
     var allCards = [];
     for (var i = 0; allCards.length < 10; i++) {
@@ -147,36 +165,15 @@ function disableCopyPaste(){
     $('body').bind('copy paste',function(e) {
         e.preventDefault(); return false;
     });
-}});
-
-/*function makeNewGame()
-{
-    $("button").click(function(){
-        $.ajax({url: "/Board/initGame()",
-            success: function(result){
-                $("body").html(result);
-            }
-        });
-    });
-}*/
-
-//var allCardsInHand = document.getElementById("baraja-el").children;
-//var zindexArray = [];
-//for (var i = 0; allCardsInHand.length > i; i++) {
-//    zindexArray[i] = allCardsInHand.length - i + 1000 - 1;
-//    console.log(allCardsInHand[i]);
-//    allCardsInHand[i].addEventListener("wheel", function (e) {
-//        this.id=zindexArray[i.toString()];
-//        if (e.wheelDelta < 0) {
-//            console.log(this);
-//            this.style.zIndex = zindexArray[i];
-//            console.log("down");
-//        } else {
-//            this.style.zIndex = 1000000000;
-//            console.log("up");
-//        }
-//    })
-//}
+}
 
 
-
+document.getElementById('baraja-el').addEventListener("wheel", function (e) {
+    if (e.wheelDelta < 0) {
+        this.style.zIndex = 0;
+        console.log("down");
+    } else {
+        this.style.zIndex = 1000000000;
+        console.log("up");
+    }
+});

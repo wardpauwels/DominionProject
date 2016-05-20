@@ -38,9 +38,6 @@ public class Deck {
         }
     }
 
-    public int getSize(){
-        return cardList.size();
-    }
 
     public Card getCardOnPos(int i){
         return cardList.get(i);
@@ -92,4 +89,89 @@ public class Deck {
     }
 
 
+
+// HAND//
+
+    //bovenste kaart van het pakje nemen
+    private Card getCardFromDeck(Deck playersDeck){
+        Card cardFromDeck = playersDeck.getCardOnPos(0);
+        playersDeck.removeFromDeck(0);
+        return cardFromDeck;
+    }
+
+    // 5 kaarten nemen
+    public void generateHand(Deck playersDeck){
+        for(int i=0; i < 5; i++){
+            Card newCard = getCardFromDeck(playersDeck);
+            cardList.add(newCard);
+        }
+    }
+
+    public void addCardToHand(Deck playersDeck){
+        cardList.add(getCardFromDeck(playersDeck));
+    }
+
+    public void clearHand(){
+        cardList.clear();
+
+    }
+    public boolean scanDeckForCardWithTypeXandReturnBoolean(String typeOfCard){
+        ArrayList<Card> specificCardsInDeck = new ArrayList<>();
+        boolean typeCheck = false;
+        for (int i=0;i<cardList.size();i++) {
+            if (cardList.get(i).getType().equals(typeOfCard)){
+                specificCardsInDeck.add(cardList.get(i));
+            }
+        }
+        if (specificCardsInDeck.size() != 0){
+            typeCheck = true;
+        }
+        return typeCheck;
+    }
+
+    public int scanDeckForCardWithTypeXandReturnPosition(String typeOfCard) {
+        int positionOfCard = -1;
+        if (scanDeckForCardWithTypeXandReturnBoolean(typeOfCard)) {
+            while (positionOfCard == -1) {
+                for (int i = 0; i < cardList.size(); i++) {
+                    if (cardList.get(i).getType().equals(typeOfCard)) {
+                        positionOfCard = i;
+                    } else{
+                        positionOfCard = -1;
+                    }
+                }
+            }
+            return positionOfCard;
+        }
+        else{
+            return -1;
+        }
+
+    }
+
+
+
+
+    public void removeFromHand(int index){
+        cardList.remove(index);
+    }
+
+    public void addSpecificCard(Card toBeAddedCard){
+        cardList.add(toBeAddedCard);
+    }
+
+
+    public void printHand(){
+
+        for (int i = 0; i < cardList.size() ;i ++){
+            System.out.println(i+1 + "." + getCardOnPos(i).getName());
+        }
+    }
+
+
+    public int getSize(){
+        return cardList.size();
+    }
 }
+
+

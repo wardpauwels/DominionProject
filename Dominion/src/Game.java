@@ -423,7 +423,7 @@ public class Game {
     private void useFeast(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
 
-        Hand playersHand = activePlayer.returnHand();
+        Deck playersHand = activePlayer.returnHand();
         for(int i = 0; i < playersHand.getSize(); i++){
             if(playersHand.getCardOnPos(i).getName().equals("Feast")){
                 activePlayer.removeCardFromHand(i);
@@ -543,7 +543,7 @@ public class Game {
         return tmpDeck;
     }
 
-    private Deck scanArrayForSpecificCard(Card toBeFoundCard,Hand toBeScannedArray){
+    private Deck scanArrayForSpecificCard(Card toBeFoundCard,Deck toBeScannedArray){
         Deck scannedArray = new Deck();
 
         for (int i=0; i<toBeScannedArray.getSize(); i++){

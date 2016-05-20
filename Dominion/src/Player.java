@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Player {
     private String name;
     private Deck playersDeck = new Deck();
-    private Hand playersHand = new Hand();
+    private Deck playersHand = new Deck();
     private Deck discardPile = new Deck();
     private int number;
 
@@ -213,7 +213,7 @@ public class Player {
     public void addCardToPlaceInDeck(int position,Card specificCard){
         playersDeck.addCardToSpecificPositionInDeck(position, specificCard);
     }
-    public Hand returnHand(){
+    public Deck returnHand(){
         return playersHand;
     }
 

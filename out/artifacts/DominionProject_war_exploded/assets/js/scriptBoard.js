@@ -52,7 +52,7 @@ function setBoard() {
             $('#header').html("<div id='four_players'><div class='player_one_name'><p>" + obj.name1 + "</p></div><div class='player_two_name'><p>" + obj.name2 + "</p></div> <div class='player_third_name'><p>" + obj.name3 + "</p></div><div class='player_fourth_name'><p>" + obj.name4 + "</p></div></div>");
         }
     });
-    requrequestNamesest.fail(function (jqXHR, textStatus) {
+    requestNames.fail(function (jqXHR, textStatus) {
         alert(jqXHR.status + ' ' + textStatus);
     });
 

@@ -74,7 +74,7 @@ $('#baraja-el li').click(function(){
         console.log("nie gelukt");
         alert(jqXHR.status + ' ' + textStatus);
     });
-
+  
 
 });
 $('#startGame').click(function(){

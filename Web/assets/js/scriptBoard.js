@@ -26,10 +26,11 @@ function setBoard() {
         var obj = JSON.parse(data);
         console.log(obj.CardNames);
         generateVisualCardNames(obj.CardNames);
-
+        
 
     });
     request.fail(function (jqXHR, textStatus) {
+
         alert(jqXHR.status + ' ' + textStatus);
     });
 

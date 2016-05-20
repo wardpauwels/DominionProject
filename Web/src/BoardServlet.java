@@ -44,11 +44,11 @@ public class BoardServlet extends HttpServlet {
                 writer.append(names.toString());
                 System.out.println("Test");
                 System.out.println(names);
-                System.out.println("ammount"+ammountOfPlayers());
+                System.out.println("ammount"+countAmountOfPlayers());
                 System.out.println("s1");
                 g = new Game();
                 System.out.println("s2");
-                g.createPlayersList(ammountOfPlayers());
+                g.createPlayersList(countAmountOfPlayers());
                 System.out.println("s3");
                 JSONObject cards = new JSONObject();
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
@@ -76,16 +76,13 @@ public class BoardServlet extends HttpServlet {
     }
 
     public void initGame(){
-        System.out.println("ammount"+ammountOfPlayers());
+        System.out.println("ammount"+countAmountOfPlayers());
         System.out.println("s1");
         g = new Game();
         System.out.println("s2");
-        g.createPlayersList(ammountOfPlayers());
+        g.createPlayersList(countAmountOfPlayers());
         System.out.println("s3");
         setNames();
-    }
-
-
     }
     private int countAmountOfPlayers() {
         if (name4 != null){

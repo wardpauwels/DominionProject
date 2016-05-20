@@ -8,7 +8,7 @@ public class Hand {
 
     
     
-    public Hand(Deck playersDeck){
+    public Hand(){
         hand = new ArrayList<>();
     }
 
@@ -36,19 +36,20 @@ public class Hand {
 
     }
     public boolean scanDeckForCardWithTypeXandReturnBoolean(String typeOfCard){
-        Deck specificCardsInDeck = new Deck();
+        ArrayList<Card> specificCardsInDeck = new ArrayList<>();
+        boolean typeCheck = false;
         for (int i=0;i<hand.size();i++) {
             if (hand.get(i).getType().equals(typeOfCard)){
-                specificCardsInDeck.addCardToDeck(hand.get(i));
+                specificCardsInDeck.add(hand.get(i));
             }
         }
-        return specificCardsInDeck.getSize() == 0;
-
-
+        if (specificCardsInDeck.size() != 0){
+            typeCheck = true;
+        }
+        return typeCheck;
     }
 
     public int scanDeckForCardWithTypeXandReturnPosition(String typeOfCard) {
-        Deck specificCardsInDeck = new Deck();
         int positionOfCard = -1;
         if (scanDeckForCardWithTypeXandReturnBoolean(typeOfCard)) {
             while (positionOfCard == -1) {
@@ -73,12 +74,6 @@ public class Hand {
         return hand.get(i);
     }
 
-    public Card getFirstCard(){
-        return hand.get(0);
-    }
-
-
-
     public void removeFromHand(int index){
         hand.remove(index);
     }
@@ -97,8 +92,7 @@ public class Hand {
 
 
     public int getSize(){
-        int amount = hand.size();
-        return amount;
+        return hand.size();
     }
 }
 

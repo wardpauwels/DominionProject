@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Player {
     private String name;
     private Deck playersDeck = new Deck();
-    private Hand playersHand = new Hand(playersDeck);
+    private Hand playersHand = new Hand();
     private Deck discardPile = new Deck();
     private int number;
 

@@ -8,7 +8,6 @@ $(document).ready(function () {
     });
     showCards(messageArray);
     disableCopyPaste();
-    makeNewGame();
 
     $("#baraja-el li").click(function(e){
         e.preventDefault();
@@ -39,26 +38,26 @@ $(document).ready(function () {
     });
     $('#startGame').click(function(){
         var request = $.ajax({ cache: false,
-                url: "/BoardServlet",
-                type: "GET",
-                data:{ operation: 'initialize',
-                    name1: $('#player1').val(),
-                    name2: $('#player2').val(),
-                    name3: $('#player3').val(),
-                    name4: $('#player4').val()
-                } ,
-                success: function (data) {
-                    console.log(data);
-                    //alert("SUCCES: " + data.status);
-                },
-                error: function (data) {
-                    console.log(data);
-                    alert("ERROR: " + data.status);
-                }.done(function(data){
-                    console.log(data);
-                })
-            });
-        })
+            url: "/BoardServlet",
+            type: "GET",
+            data:{ operation: 'initialize',
+                name1: $('#player1').val(),
+                name2: $('#player2').val(),
+                name3: $('#player3').val(),
+                name4: $('#player4').val()
+            } ,
+            success: function (data) {
+                console.log(data);
+                //alert("SUCCES: " + data.status);
+            },
+            error: function (data) {
+                console.log(data);
+                alert("ERROR: " + data.status);
+            }.done(function(data){
+                console.log(data);
+            })
+        });
+    })
 });
 $('#baraja-el li').click(function(){
     var request = $.ajax({ cache: false,
@@ -66,8 +65,6 @@ $('#baraja-el li').click(function(){
         type: "GET",
         data:{ operation: 'playCard',
             positionInHand: $('#baraja-el li').index(this)
-            
-            
         }
         ,
         success: function (data) {
@@ -79,7 +76,7 @@ $('#baraja-el li').click(function(){
             alert("ERROR: " + data.status);
         }
     });
-    
+
 });
 
 
@@ -122,17 +119,6 @@ function disableCopyPaste(){
     });
 }
 
-function makeNewGame()
-{
-    $("button").click(function(){
-        $.ajax({url: "/Board/initGame()",
-            success: function(result){
-                $("body").html(result);
-            }
-        });
-    });
-}
-
 //var allCardsInHand = document.getElementById("baraja-el").children;
 //var zindexArray = [];
 //for (var i = 0; allCardsInHand.length > i; i++) {
@@ -150,7 +136,6 @@ function makeNewGame()
 //        }
 //    })
 //}
-
 
 document.getElementById('baraja-el').addEventListener("wheel", function (e) {
     if (e.wheelDelta < 0) {

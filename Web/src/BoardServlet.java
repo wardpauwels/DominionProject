@@ -18,8 +18,8 @@ public class BoardServlet extends HttpServlet {
     String name3;
     String name4;
     Game g;
-    ArrayList<String> playerNames;
-    JSONObject names;
+    ArrayList<String> playerNames = new ArrayList<>();
+    JSONObject names = new JSONObject();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
@@ -35,7 +35,6 @@ public class BoardServlet extends HttpServlet {
                 name2 = request.getParameter("name2");
                 name3 = request.getParameter("name3");
                 name4 = request.getParameter("name4");
-                names = new JSONObject();
                 names.append("name1", name1);
                 names.append("name2", name2);
                 names.append("name3", name3);
@@ -45,20 +44,14 @@ public class BoardServlet extends HttpServlet {
                 System.out.println("Test");
                 System.out.println(names);
                 System.out.println("ammount"+countAmountOfPlayers());
-                System.out.println("s1");
                 g = new Game();
-                System.out.println("s2");
                 g.createPlayersList(countAmountOfPlayers());
-                System.out.println("s3");
                 JSONObject cards = new JSONObject();
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
                     cards.put("kaart"+ i,g.allPlayers.get(g.player).getCardOnPosInHand(i).getName());
                 }
                 System.out.println(cards);
                 writer.append(cards.toString());
-
-
-
                 break;
             case "getNames":
                 writer.append(names.toString());
@@ -76,10 +69,15 @@ public class BoardServlet extends HttpServlet {
     }
 
     public void initGame(){
+        System.out.println("ammount"+countAmountOfPlayers());
+        System.out.println("s1");
         g = new Game();
+        System.out.println("s2");
         g.createPlayersList(countAmountOfPlayers());
+        System.out.println("s3");
         setNames();
     }
+
     private int countAmountOfPlayers() {
         if (name4 != null){
             playerNames.add(name1);
@@ -138,6 +136,4 @@ public class BoardServlet extends HttpServlet {
         g.buyCard();
         g.checkIfFinished();
     }
-
-
 }

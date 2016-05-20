@@ -16,7 +16,7 @@ function setBoard(){
 }
 
 $(document).ready(function () {
-    var messages = ['adventurer', 'bureaucrat', 'cellar', 'chancellor', 'chapel', 'councilroom', 'feast', 'festival', 'gardens', 'laboratory', 'library', 'market', 'militia', 'mine', 'moat', 'moneylender', 'remodel', 'smithy', 'Spy', 'thief', 'throneroom', 'village', 'witch', 'woodcutter', 'workshop'];
+    var messages = ['adventurer', 'bureaucrat', 'cellar', 'chancellor', 'chapel', 'councilroom', 'feast', 'festival', 'gardens', 'laboratory', 'library', 'market', 'militia', 'mine', 'moat', 'moneylender', 'remodel', 'smithy', 'spy', 'thief', 'throneroom', 'village', 'witch', 'woodcutter', 'workshop'];
     console.log("Loaded!");
     var messageArray = getMessage(messages);
     var actioncardOnTableName;
@@ -25,14 +25,13 @@ $(document).ready(function () {
     });
     showCards(messageArray);
     disableCopyPaste();
-    console.log("testest");
 
     $("#baraja-el li").click(function(e){
         e.preventDefault();
         $(this).appendTo('#playedcards_on_table ul');
     });
 
-    $("#actioncards_on_table ul li img").click(function () {
+    $("#actioncards_on_table ul li img:nth-of-type(1)").click(function () {
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
 
@@ -126,15 +125,15 @@ function generateVisualCardNames(array) {
 
 
 
-function importPlayerCards(array) {
-    for (var i = 0; i < array.length; i++) {
-        var html = '<li>';
-        var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
-        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
-        html += '</li>';
-        $("#baraja-el").append(html);
-    }
-}
+// function importPlayerCards(array) {
+//     for (var i = 0; i < array.length; i++) {
+//         var html = '<li>';
+//         var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+//         html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+//         html += '</li>';
+//         $("#baraja-el").append(html);
+//     }
+// }
 
 
 

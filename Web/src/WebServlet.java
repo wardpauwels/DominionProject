@@ -23,7 +23,7 @@ public class WebServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         player1 = request.getParameter("player1");
         player2 = request.getParameter("player2");

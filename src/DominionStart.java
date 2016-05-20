@@ -36,7 +36,7 @@ public class DominionStart extends JFrame implements ActionListener {
     public static void main(String[] args) {
         DominionStart game = new DominionStart();
 
-        game.setContentPane(new JLabel(new ImageIcon(setImages("swingStuff/background.jpg"))));
+        game.setContentPane(new JLabel(new ImageIcon(setImages("src/swingStuff/background.jpg"))));
         game.setExtendedState(JFrame.MAXIMIZED_BOTH);
         game.setMinimumSize(new Dimension(BREEDTE, HOOGTE));
         game.setName("Dominion");
@@ -69,7 +69,7 @@ public class DominionStart extends JFrame implements ActionListener {
     {
         try
         {
-            InputStream inputStream = getClass().getResourceAsStream("swingStuff/sound/music.mp3");
+            InputStream inputStream = getClass().getResourceAsStream("src/swingStuff/sound/music.mp3");
             AudioStream audioStream = new AudioStream(inputStream);
             AudioPlayer.player.start(audioStream);
         }
@@ -86,16 +86,16 @@ public class DominionStart extends JFrame implements ActionListener {
         JLabel label;
 
         //Top component
-            label = new JLabel(new ImageIcon(setImages("swingStuff/logoMed.png")));
+            label = new JLabel(new ImageIcon(setImages("src/swingStuff/logoMed.png")));
             label.setSize(new Dimension(10,10));
             pane.add(label, BorderLayout.PAGE_START);
 
 
         //Center
-            buttonNewGame.setIcon(new ImageIcon(setImages("swingStuff/newGame.png")));
-            buttonLoadGame.setIcon(new ImageIcon(setImages("swingStuff/loadGame.png")));
-            buttonSettings.setIcon(new ImageIcon(setImages("swingStuff/settings.png")));
-            buttonExit.setIcon(new ImageIcon(setImages("swingStuff/exit.png")));
+            buttonNewGame.setIcon(new ImageIcon(setImages("src/swingStuff/newGame.png")));
+            buttonLoadGame.setIcon(new ImageIcon(setImages("src/swingStuff/loadGame.png")));
+            buttonSettings.setIcon(new ImageIcon(setImages("src/swingStuff/settings.png")));
+            buttonExit.setIcon(new ImageIcon(setImages("src/swingStuff/exit.png")));
 
 
         setButtonCharasteristics(buttonNewGame);

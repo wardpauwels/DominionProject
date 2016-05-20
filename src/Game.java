@@ -20,7 +20,7 @@ public class Game {
     private int currentlyActiveAmountOfCoins;
     private int remainingActionsInPhase = 1;
     private int remainingBuysInPhase = 1;
-    private int player = 0;
+    public int player = 0;
     public int decisionOfPlayerPosition;
     public String decisionOfPlayerType;
 

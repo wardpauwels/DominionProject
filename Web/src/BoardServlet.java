@@ -2,6 +2,9 @@ import java.io.*;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.*;
 
 import static java.lang.Integer.parseInt;
@@ -37,6 +40,7 @@ public class BoardServlet extends HttpServlet {
                 names.append("name2", name2);
                 names.append("name3", name3);
                 names.append("name4", name4);
+
                 writer.append(names.toString());
                 System.out.println("Test");
                 System.out.println(names);
@@ -46,7 +50,13 @@ public class BoardServlet extends HttpServlet {
                 System.out.println("s2");
                 g.createPlayersList(ammountOfPlayers());
                 System.out.println("s3");
-                setNames();
+                JSONObject cards = new JSONObject();
+                for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
+                    cards.put("kaart"+ i,g.allPlayers.get(g.player).getCardOnPosInHand(i).getName());
+                }
+                System.out.println(cards);
+                writer.append(cards.toString());
+
 
 
                 break;
@@ -75,7 +85,9 @@ public class BoardServlet extends HttpServlet {
         setNames();
     }
 
-    private int ammountOfPlayers() {
+
+    }
+    private int countAmountOfPlayers() {
         if (name4 != null){
             playerNames.add(name1);
             playerNames.add(name2);
@@ -93,6 +105,7 @@ public class BoardServlet extends HttpServlet {
             return 2;
         }
     }
+
 
     private void nextTurn(){
         g.nextTurn();

@@ -15,7 +15,7 @@ public class BoardServlet extends HttpServlet {
     String name3;
     String name4;
     Game g;
-    ArrayList<String> playerNames;
+    ArrayList<String> playerNames = new ArrayList<String>();;
     JSONObject names;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,17 +38,8 @@ public class BoardServlet extends HttpServlet {
                 names.append("name3", name3);
                 names.append("name4", name4);
                 writer.append(names.toString());
-                System.out.println("Test");
                 System.out.println(names);
-                System.out.println("ammount"+ammountOfPlayers());
-                System.out.println("s1");
-                g = new Game();
-                System.out.println("s2");
-                g.createPlayersList(ammountOfPlayers());
-                System.out.println("s3");
-                setNames();
-
-
+                initGame();
                 break;
             case "getNames":
                 writer.append(names.toString());
@@ -60,47 +51,40 @@ public class BoardServlet extends HttpServlet {
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
                 System.out.println("nummer " + positionInHand+1 +  "gespeeld!");
                 useActionCard(positionInHand);
-
-
         }
     }
 
     public void initGame(){
-        System.out.println("ammount"+ammountOfPlayers());
-        System.out.println("s1");
+        System.out.println(ammountOfPlayers());
         g = new Game();
-        System.out.println("s2");
         g.createPlayersList(ammountOfPlayers());
-        System.out.println("s3");
         setNames();
     }
 
-    private int ammountOfPlayers() {
+    public int ammountOfPlayers() {
+        int ammount;
         if (name4 != null){
             playerNames.add(name1);
             playerNames.add(name2);
             playerNames.add(name3);
             playerNames.add(name4);
-            return 4;
+            ammount = 4;
         } else if (name3 != null){
             playerNames.add(name1);
             playerNames.add(name2);
             playerNames.add(name3);
-            return 3;
+            ammount = 3;
         } else{
             playerNames.add(name1);
             playerNames.add(name2);
-            return 2;
+            ammount = 2;
         }
+        return ammount;
     }
 
     private void nextTurn(){
         g.nextTurn();
         //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
-
-
-
-
 
 
     }

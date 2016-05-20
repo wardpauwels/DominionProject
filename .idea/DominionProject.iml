@@ -47,6 +47,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="JsonProcessing" level="project" />
-    <orderEntry type="library" name="lib1" level="project" />
+    <orderEntry type="library" name="bin" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

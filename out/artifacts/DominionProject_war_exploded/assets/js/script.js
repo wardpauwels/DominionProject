@@ -38,24 +38,26 @@ $(document).ready(function () {
     });
     $('#startGame').click(function(){
         var request = $.ajax({ cache: false,
-                url: "/BoardServlet",
-                type: "GET",
-                data:{ operation: 'initialize',
-                    name1: $('#player1').val(),
-                    name2: $('#player2').val(),
-                    name3: $('#player3').val(),
-                    name4: $('#player4').val()
-                } ,
-                success: function (data) {
-                    console.log(data);
-                    //alert("SUCCES: " + data.status);
-                },
-                error: function (data) {
-                    console.log(data);
-                    alert("ERROR: " + data.status);
-                }
-            });
-        })
+            url: "/BoardServlet",
+            type: "GET",
+            data:{ operation: 'initialize',
+                name1: $('#player1').val(),
+                name2: $('#player2').val(),
+                name3: $('#player3').val(),
+                name4: $('#player4').val()
+            } ,
+            success: function (data) {
+                console.log(data);
+                //alert("SUCCES: " + data.status);
+            },
+            error: function (data) {
+                console.log(data);
+                alert("ERROR: " + data.status);
+            }.done(function(data){
+                console.log(data);
+            })
+        });
+    })
 });
 $('#baraja-el li').click(function(){
     var request = $.ajax({ cache: false,
@@ -63,8 +65,6 @@ $('#baraja-el li').click(function(){
         type: "GET",
         data:{ operation: 'playCard',
             positionInHand: $('#baraja-el li').index(this)
-            
-            
         }
         ,
         success: function (data) {
@@ -76,7 +76,7 @@ $('#baraja-el li').click(function(){
             alert("ERROR: " + data.status);
         }
     });
-    
+
 });
 
 
@@ -136,7 +136,6 @@ function disableCopyPaste(){
 //        }
 //    })
 //}
-
 
 document.getElementById('baraja-el').addEventListener("wheel", function (e) {
     if (e.wheelDelta < 0) {

@@ -8,12 +8,11 @@ function setBoard(){
         type: "GET",
         data:{ operation: 'getNames'} ,
         success: function (data) {
-            $('#player_one_name').html(data.name1);
-            $('#player_two_name').html(data.name2);
+            $('#player_one_name').html("haha");
+            $('#player_two_name').html("haha");
         },
         error: function (data) {
-            console.log(data);
-            alert("ERROR: " + data.status);
+            alert("ERRORRR: " + data.status);
         }
     });
 }

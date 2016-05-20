@@ -44,7 +44,7 @@ public class Player {
         playersDeck.removeFromDeck(index);
     }
 
-    public int getAmountOfCoinsInHand()// wordt atm alleen gebruikt om het aantal coins te printen.
+    public int getAmountOfCoinsInHand()
     {
         int handsize = playersHand.getSize();
         int amountOfCoins = 0;

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -27,10 +28,10 @@ public class BoardServlet extends HttpServlet {
         response.setContentType("application/json");
         Writer writer = response.getWriter();
 
-        String operation = request.getParameter("operation");
+        String action = request.getParameter("action");
 
-        switch (operation){
-            case "initialize":
+        switch (action){
+            case "init":
                 name1 = request.getParameter("name1");
                 name2 = request.getParameter("name2");
                 name3 = request.getParameter("name3");
@@ -44,19 +45,29 @@ public class BoardServlet extends HttpServlet {
                 writer.append(names.toString());
                 System.out.println("Test");
                 System.out.println(names);
-                System.out.println("ammount"+countAmountOfPlayers());
-                System.out.println("s1");
+                //System.out.println("amount"+countAmountOfPlayers());
+                //System.out.println("s1");
                 g = new Game();
                 System.out.println("s2");
-                g.createPlayersList(countAmountOfPlayers());
+                g.createPlayersList(2);
                 System.out.println("s3");
                 JSONObject cards = new JSONObject();
+                String[] cardNames;
+                cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
-                    cards.put("kaart"+ i,g.allPlayers.get(g.player).getCardOnPosInHand(i).getName());
+                    /*if(i == g.allPlayers.get(g.player).getHandSize()-1){
+                    cards.put("cardName",g.allPlayers.get(g.player).getCardOnPosInHand(i).getName());}
+                    else{
+                        cards.put("cardName",g.allPlayers.get(g.player).getCardOnPosInHand(i).getName()+",");
+                    }*/
+                    cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
+
                 }
+                cards.put("CardNames",cardNames);
+
                 System.out.println(cards);
                 writer.append(cards.toString());
-
+                System.out.println(cards);
 
 
                 break;
@@ -68,7 +79,7 @@ public class BoardServlet extends HttpServlet {
             case "playCard":
                 int positionInHand;
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                System.out.println("nummer " + positionInHand+1 +  "gespeeld!");
+                System.out.println("nummer " + positionInHand+  "gespeeld!");
                 useActionCard(positionInHand);
 
 
@@ -76,7 +87,7 @@ public class BoardServlet extends HttpServlet {
     }
 
     public void initGame(){
-        System.out.println("ammount"+countAmountOfPlayers());
+        System.out.println("amount"+countAmountOfPlayers());
         System.out.println("s1");
         g = new Game();
         System.out.println("s2");
@@ -84,6 +95,8 @@ public class BoardServlet extends HttpServlet {
         System.out.println("s3");
         setNames();
     }
+
+
     private int countAmountOfPlayers() {
         if (name4 != null){
             playerNames.add(name1);

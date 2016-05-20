@@ -22,6 +22,7 @@ $(document).ready(function () {
     var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
+    generateVisualCardNames(cardNames);
     showCards(messageArray);
     disableCopyPaste();
 
@@ -29,7 +30,15 @@ $(document).ready(function () {
         e.preventDefault();
         $(this).appendTo('#playedcards_on_table ul');
     });
-
+    function generateVisualCardNames(array) {
+        for (var i = 0; i < array.length; i++) {
+            var html = '<li>';
+            var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+            html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+            html += '</li>';
+            $("#baraja-el").append(html);
+        }
+    }
     $("#actioncards_on_table ul li img").click(function () {
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
@@ -56,26 +65,26 @@ $(document).ready(function () {
 });
 $('#baraja-el li').click(function(){
     console.log("kaart spelen werkt");
-    var request = $.ajax({ cache: false,
+    var request = $.ajax({
+        cache: false,
         url: "/BoardServlet",
         type: "GET",
-        data:{ action: 'playCard',
+        data: {
+            action: 'playCard',
             positionInHand: $('#baraja-el li').index(this)
 
 
         }
-        ,
-        success: function (data) {
-            console.log(data);
-            alert("SUCCES: " + data.status);
-        },
-        error: function (data) {
-            console.log(data);
-            alert("ERROR: " + data.status);
-        }
-    });
 
+    });
+request.done(function (data) {
+        alert("SUCCES: " + data.status);
 });
+request.fail(function (jqXHR, textStatus) {
+    console.log("nie gelukt");
+    alert(jqXHR.status + ' ' + textStatus);
+});
+    
 $('#startGame').click(function(){
     console.log("init werkt");
     var request = $.ajax({ cache: false,
@@ -92,6 +101,7 @@ $('#startGame').click(function(){
     request.done(function (data) {
         cardNames = JSON.parse(data.cards);
         alert(cardNames);
+        generateVisualCardNames(cardNames);
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");

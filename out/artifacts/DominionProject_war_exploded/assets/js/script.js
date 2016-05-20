@@ -1,3 +1,4 @@
+
 function setBoard(){
     var request = $.ajax({ cache: false,
         url: "/BoardServlet",
@@ -13,7 +14,6 @@ function setBoard(){
         }
     });
 }
-
 $(document).ready(function () {
     var messages = ['adventurer', 'bureaucrat', 'cellar', 'chancellor', 'chapel', 'councilroom', 'feast', 'festival', 'gardens', 'laboratory', 'library', 'market', 'militia', 'mine', 'moat', 'moneylender', 'remodel', 'smithy', 'Spy', 'thief', 'throneroom', 'village', 'witch', 'woodcutter', 'workshop'];
     console.log("Loaded!");
@@ -22,6 +22,7 @@ $(document).ready(function () {
     var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
+    generateVisualCardNames(cardNames);
     showCards(messageArray);
     disableCopyPaste();
 
@@ -29,13 +30,23 @@ $(document).ready(function () {
         e.preventDefault();
         $(this).appendTo('#playedcards_on_table ul');
     });
-
+    function generateVisualCardNames(array) {
+        for (var i = 0; i < array.length; i++) {
+            var html = '<li>';
+            var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+            html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+            html += '</li>';
+            $("#baraja-el").append(html);
+        }
+    }
     $("#actioncards_on_table ul li img").click(function () {
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
 
         $('#bigCard').html(src).css('visibility', 'visible');
     });
+
+    
     $('#bigCard').click(function () {
         $('#bigCard').css('visibility', 'hidden');
     });
@@ -56,26 +67,26 @@ $(document).ready(function () {
 });
 $('#baraja-el li').click(function(){
     console.log("kaart spelen werkt");
-    var request = $.ajax({ cache: false,
+    var request = $.ajax({
+        cache: false,
         url: "/BoardServlet",
         type: "GET",
-        data:{ action: 'playCard',
+        data: {
+            action: 'playCard',
             positionInHand: $('#baraja-el li').index(this)
 
 
         }
-        ,
-        success: function (data) {
-            console.log(data);
-            alert("SUCCES: " + data.status);
-        },
-        error: function (data) {
-            console.log(data);
-            alert("ERROR: " + data.status);
-        }
-    });
 
+    });
+request.done(function (data) {
+        alert("SUCCES: " + data.status);
 });
+request.fail(function (jqXHR, textStatus) {
+    console.log("nie gelukt");
+    alert(jqXHR.status + ' ' + textStatus);
+});
+    
 $('#startGame').click(function(){
     console.log("init werkt");
     var request = $.ajax({ cache: false,
@@ -92,6 +103,7 @@ $('#startGame').click(function(){
     request.done(function (data) {
         cardNames = JSON.parse(data.cards);
         alert(cardNames);
+        generateVisualCardNames(cardNames);
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");
@@ -110,24 +122,6 @@ function showCards(array) {
         $(".actioncards_on_table_print").append(html);
     }
 }
-
-
-
-
-
-function importPlayerCards(array) {
-    for (var i = 0; i < array.length; i++) {
-        var html = '<li>';
-        var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
-        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
-        html += '</li>';
-        $("#baraja-el").append(html);
-    }
-}
-
-
-
-
 
 
 function getMessage(messages) {
@@ -155,15 +149,18 @@ function disableCopyPaste(){
     $('body').bind('copy paste',function(e) {
         e.preventDefault(); return false;
     });
-}
+}});
+
+/*function makeNewGame()
+{
+    $("button").click(function(){
+        $.ajax({url: "/Board/initGame()",
+            success: function(result){
+                $("body").html(result);
+            }
+        });
+    });
+}*/
 
 
-document.getElementById('baraja-el').addEventListener("wheel", function (e) {
-    if (e.wheelDelta < 0) {
-        this.style.zIndex = 0;
-        console.log("down");
-    } else {
-        this.style.zIndex = 1000000000;
-        console.log("up");
-    }
-});
+

@@ -39,26 +39,26 @@ $(document).ready(function () {
     });
     $('#startGame').click(function(){
         var request = $.ajax({ cache: false,
-            url: "/BoardServlet",
-            type: "GET",
-            data:{ operation: 'initialize',
+                url: "/BoardServlet",
+                type: "GET",
+                data:{ operation: 'initialize',
                     name1: $('#player1').val(),
-                    name2: $('#player2').val()
-            } ,
-            success: function (data) {
-                console.log(data);
-                alert("SUCCES: " + data.status);
-            },
-            error: function (data) {
-                console.log(data);
-                alert("ERROR: " + data.status);
-            }.done(function(data){
-                console.log(data);
-            })
-        });
-    });
-    console.log(data.cards);
-    showCards(data.cards);
+                    name2: $('#player2').val(),
+                    name3: $('#player3').val(),
+                    name4: $('#player4').val()
+                } ,
+                success: function (data) {
+                    console.log(data);
+                    //alert("SUCCES: " + data.status);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("ERROR: " + data.status);
+                }.done(function(data){
+                    console.log(data);
+                })
+            });
+        })
 });
 $('#baraja-el li').click(function(){
     var request = $.ajax({ cache: false,

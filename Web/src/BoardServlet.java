@@ -1,11 +1,13 @@
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.*;
 
+import static java.lang.Integer.parseInt;
 
 
 //@WebServlet(name = "BoardServlet")
@@ -13,10 +15,13 @@ public class BoardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     String name1;
     String name2;
-    Game g = new Game();
+    String name3;
+    String name4;
+    Game g;
     ArrayList<String> playerNames;
+    JSONObject names;
 
-    public void doGet (HttpServletRequest request,HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
         response.setContentType("application/json");
@@ -28,18 +33,37 @@ public class BoardServlet extends HttpServlet {
             case "initialize":
                 name1 = request.getParameter("name1");
                 name2 = request.getParameter("name2");
-                JSONObject names = new JSONObject();
-                names.put("name1", name1);
-                names.put("name2", name2);
+                name3 = request.getParameter("name3");
+                name4 = request.getParameter("name4");
+                names = new JSONObject();
+                names.append("name1", name1);
+                names.append("name2", name2);
+                names.append("name3", name3);
+                names.append("name4", name4);
+
                 writer.append(names.toString());
-                initGame();
+                System.out.println("Test");
+                System.out.println(names);
+                System.out.println("ammount"+ammountOfPlayers());
+                System.out.println("s1");
+                g = new Game();
+                System.out.println("s2");
+                g.createPlayersList(ammountOfPlayers());
+                System.out.println("s3");
                 JSONObject cards = new JSONObject();
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
                     cards.put("kaart"+ i,g.allPlayers.get(g.player).getCardOnPosInHand(i).getName());
                 }
                 System.out.println(cards);
                 writer.append(cards.toString());
+
+
+
                 break;
+            case "getNames":
+                writer.append(names.toString());
+                break;
+
 
             case "playCard":
                 int positionInHand;
@@ -51,22 +75,37 @@ public class BoardServlet extends HttpServlet {
         }
     }
 
-    private void initGame(){
-
-        int amountOfPlayers = countAmountOfPlayers();
-        g.createPlayersList(amountOfPlayers);
-        putNamesIntoArrayList();
+    public void initGame(){
+        System.out.println("ammount"+ammountOfPlayers());
+        System.out.println("s1");
+        g = new Game();
+        System.out.println("s2");
+        g.createPlayersList(ammountOfPlayers());
+        System.out.println("s3");
         setNames();
-
+    }
 
 
     }
-    private void putNamesIntoArrayList(){
-
+    private int countAmountOfPlayers() {
+        if (name4 != null){
+            playerNames.add(name1);
+            playerNames.add(name2);
+            playerNames.add(name3);
+            playerNames.add(name4);
+            return 4;
+        } else if (name3 != null){
+            playerNames.add(name1);
+            playerNames.add(name2);
+            playerNames.add(name3);
+            return 3;
+        } else{
+            playerNames.add(name1);
+            playerNames.add(name2);
+            return 2;
+        }
     }
-    private int countAmountOfPlayers(){
-        return 2; //TODO input via website/gebruiker ipv 2
-    };
+
 
     private void nextTurn(){
         g.nextTurn();

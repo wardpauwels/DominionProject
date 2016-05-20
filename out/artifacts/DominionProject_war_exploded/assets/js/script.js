@@ -1,4 +1,3 @@
-
 function setBoard(){
     var request = $.ajax({ cache: false,
         url: "/BoardServlet",
@@ -13,7 +12,9 @@ function setBoard(){
             alert("ERROR: " + data.status);
         }
     });
+
 }
+
 $(document).ready(function () {
     var messages = ['adventurer', 'bureaucrat', 'cellar', 'chancellor', 'chapel', 'councilroom', 'feast', 'festival', 'gardens', 'laboratory', 'library', 'market', 'militia', 'mine', 'moat', 'moneylender', 'remodel', 'smithy', 'Spy', 'thief', 'throneroom', 'village', 'witch', 'woodcutter', 'workshop'];
     console.log("Loaded!");
@@ -22,23 +23,15 @@ $(document).ready(function () {
     var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
-    generateVisualCardNames(cardNames);
     showCards(messageArray);
     disableCopyPaste();
+    console.log("testest");
 
     $("#baraja-el li").click(function(e){
         e.preventDefault();
         $(this).appendTo('#playedcards_on_table ul');
     });
-    function generateVisualCardNames(array) {
-        for (var i = 0; i < array.length; i++) {
-            var html = '<li>';
-            var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
-            html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
-            html += '</li>';
-            $("#baraja-el").append(html);
-        }
-    }
+
     $("#actioncards_on_table ul li img").click(function () {
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
@@ -65,26 +58,25 @@ $(document).ready(function () {
 });
 $('#baraja-el li').click(function(){
     console.log("kaart spelen werkt");
-    var request = $.ajax({
-        cache: false,
+    var request = $.ajax({ cache: false,
         url: "/BoardServlet",
         type: "GET",
-        data: {
-            action: 'playCard',
+        data:{ action: 'playCard',
             positionInHand: $('#baraja-el li').index(this)
 
 
         }
-
     });
-request.done(function (data) {
-        alert("SUCCES: " + data.status);
+    request.done(function (data) {
+        alert(success(data));
+    });
+    request.fail(function (jqXHR, textStatus) {
+        console.log("nie gelukt");
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+  
+
 });
-request.fail(function (jqXHR, textStatus) {
-    console.log("nie gelukt");
-    alert(jqXHR.status + ' ' + textStatus);
-});
-    
 $('#startGame').click(function(){
     console.log("init werkt");
     var request = $.ajax({ cache: false,
@@ -99,9 +91,8 @@ $('#startGame').click(function(){
         }
     });
     request.done(function (data) {
-        cardNames = JSON.parse(data.cards);
-        alert(cardNames);
-        generateVisualCardNames(cardNames);
+        CardNames = JSON.parse(data.CardNames);
+        alert(CardNames);
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");
@@ -120,6 +111,34 @@ function showCards(array) {
         $(".actioncards_on_table_print").append(html);
     }
 }
+
+function generateVisualCardNames(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+        html += '</li>';
+        $("#baraja-el").append(html);
+    }
+}
+
+
+
+
+
+function importPlayerCards(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+        html += '</li>';
+        $("#baraja-el").append(html);
+    }
+}
+
+
+
+
 
 
 function getMessage(messages) {
@@ -147,36 +166,15 @@ function disableCopyPaste(){
     $('body').bind('copy paste',function(e) {
         e.preventDefault(); return false;
     });
-}});
-
-/*function makeNewGame()
-{
-    $("button").click(function(){
-        $.ajax({url: "/Board/initGame()",
-            success: function(result){
-                $("body").html(result);
-            }
-        });
-    });
-}*/
-
-//var allCardsInHand = document.getElementById("baraja-el").children;
-//var zindexArray = [];
-//for (var i = 0; allCardsInHand.length > i; i++) {
-//    zindexArray[i] = allCardsInHand.length - i + 1000 - 1;
-//    console.log(allCardsInHand[i]);
-//    allCardsInHand[i].addEventListener("wheel", function (e) {
-//        this.id=zindexArray[i.toString()];
-//        if (e.wheelDelta < 0) {
-//            console.log(this);
-//            this.style.zIndex = zindexArray[i];
-//            console.log("down");
-//        } else {
-//            this.style.zIndex = 1000000000;
-//            console.log("up");
-//        }
-//    })
-//}
+}
 
 
-
+document.getElementById('baraja-el').addEventListener("wheel", function (e) {
+    if (e.wheelDelta < 0) {
+        this.style.zIndex = 0;
+        console.log("down");
+    } else {
+        this.style.zIndex = 1000000000;
+        console.log("up");
+    }
+});

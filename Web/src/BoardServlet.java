@@ -21,6 +21,9 @@ public class BoardServlet extends HttpServlet {
     Game g;
     ArrayList<String> playerNames;
     JSONObject names;
+    JSONObject cards = new JSONObject();
+    String[] cardNames;
+
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
@@ -51,8 +54,6 @@ public class BoardServlet extends HttpServlet {
                 System.out.println("s2");
                 g.createPlayersList(2);
                 System.out.println("s3");
-                JSONObject cards = new JSONObject();
-                String[] cardNames;
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
                     /*if(i == g.allPlayers.get(g.player).getHandSize()-1){
@@ -71,8 +72,9 @@ public class BoardServlet extends HttpServlet {
 
 
                 break;
-            case "getNames":
-                writer.append(names.toString());
+            case "getCards":
+                //writer.append(names.toString());
+                writer.append(cards.toString());
                 break;
 
 

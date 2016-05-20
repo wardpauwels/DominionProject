@@ -12,6 +12,7 @@ function setBoard(){
             alert("ERROR: " + data.status);
         }
     });
+
 }
 
 $(document).ready(function () {
@@ -22,23 +23,15 @@ $(document).ready(function () {
     var ammountOfPlayers = 2;
     messageArray.forEach(function (item) {
     });
-    generateVisualCardNames(cardNames);
     showCards(messageArray);
     disableCopyPaste();
+    console.log("testest");
 
     $("#baraja-el li").click(function(e){
         e.preventDefault();
         $(this).appendTo('#playedcards_on_table ul');
     });
-    function generateVisualCardNames(array) {
-        for (var i = 0; i < array.length; i++) {
-            var html = '<li>';
-            var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
-            html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
-            html += '</li>';
-            $("#baraja-el").append(html);
-        }
-    }
+
     $("#actioncards_on_table ul li img").click(function () {
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
@@ -65,26 +58,25 @@ $(document).ready(function () {
 });
 $('#baraja-el li').click(function(){
     console.log("kaart spelen werkt");
-    var request = $.ajax({
-        cache: false,
+    var request = $.ajax({ cache: false,
         url: "/BoardServlet",
         type: "GET",
-        data: {
-            action: 'playCard',
+        data:{ action: 'playCard',
             positionInHand: $('#baraja-el li').index(this)
 
 
         }
-
     });
-request.done(function (data) {
-        alert("SUCCES: " + data.status);
+    request.done(function (data) {
+        alert(success(data));
+    });
+    request.fail(function (jqXHR, textStatus) {
+        console.log("nie gelukt");
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+  
+
 });
-request.fail(function (jqXHR, textStatus) {
-    console.log("nie gelukt");
-    alert(jqXHR.status + ' ' + textStatus);
-});
-    
 $('#startGame').click(function(){
     console.log("init werkt");
     var request = $.ajax({ cache: false,
@@ -99,9 +91,8 @@ $('#startGame').click(function(){
         }
     });
     request.done(function (data) {
-        cardNames = JSON.parse(data.cards);
-        alert(cardNames);
-        generateVisualCardNames(cardNames);
+        CardNames = JSON.parse(data.CardNames);
+        alert(CardNames);
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");
@@ -118,6 +109,16 @@ function showCards(array) {
         html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
         html += '</li>';
         $(".actioncards_on_table_print").append(html);
+    }
+}
+
+function generateVisualCardNames(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i] + '.jpg';
+        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+        html += '</li>';
+        $("#baraja-el").append(html);
     }
 }
 

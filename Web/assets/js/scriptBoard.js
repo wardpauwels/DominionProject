@@ -1,5 +1,6 @@
 $(document).ready(function () {
     setBoard();
+    console.log("Loadeddd");
 });
 
 function setBoard(){

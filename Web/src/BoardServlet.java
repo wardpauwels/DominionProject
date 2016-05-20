@@ -58,7 +58,7 @@ public class BoardServlet extends HttpServlet {
                 writer.append(cards.toString());
 
 
-
+                initGame();
                 break;
             case "getNames":
                 writer.append(names.toString());

@@ -1,10 +1,11 @@
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import org.json.*;
 
-import static java.lang.Integer.parseInt;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 
 //@WebServlet(name = "BoardServlet")
@@ -12,13 +13,10 @@ public class BoardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     String name1;
     String name2;
-    String name3;
-    String name4;
-    Game g;
-    ArrayList<String> playerNames = new ArrayList<String>();;
-    JSONObject names;
+    Game g = new Game();
+    ArrayList<String> playerNames;
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doGet (HttpServletRequest request,HttpServletResponse response)
             throws ServletException, IOException
     {
         response.setContentType("application/json");
@@ -30,61 +28,55 @@ public class BoardServlet extends HttpServlet {
             case "initialize":
                 name1 = request.getParameter("name1");
                 name2 = request.getParameter("name2");
-                name3 = request.getParameter("name3");
-                name4 = request.getParameter("name4");
-                names = new JSONObject();
-                names.append("name1", name1);
-                names.append("name2", name2);
-                names.append("name3", name3);
-                names.append("name4", name4);
+                JSONObject names = new JSONObject();
+                names.put("name1", name1);
+                names.put("name2", name2);
                 writer.append(names.toString());
-                System.out.println(names);
                 initGame();
-                break;
-            case "getNames":
-                writer.append(names.toString());
-                break;
+                JSONObject cards = new JSONObject();
+                for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
+                    cards.put("kaart"+ i,g.allPlayers.get(g.player).getCardOnPosInHand(i).getName());
+                }
+                System.out.println(cards);
+                writer.append(cards.toString());
 
+
+                break;
 
             case "playCard":
                 int positionInHand;
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
                 System.out.println("nummer " + positionInHand+1 +  "gespeeld!");
                 useActionCard(positionInHand);
+
+
         }
     }
 
-    public void initGame(){
-        System.out.println(ammountOfPlayers());
-        g = new Game();
-        g.createPlayersList(ammountOfPlayers());
+    private void initGame(){
+
+        int amountOfPlayers = countAmountOfPlayers();
+        g.createPlayersList(amountOfPlayers);
+        putNamesIntoArrayList();
         setNames();
-    }
 
-    public int ammountOfPlayers() {
-        int ammount;
-        if (name4 != null){
-            playerNames.add(name1);
-            playerNames.add(name2);
-            playerNames.add(name3);
-            playerNames.add(name4);
-            ammount = 4;
-        } else if (name3 != null){
-            playerNames.add(name1);
-            playerNames.add(name2);
-            playerNames.add(name3);
-            ammount = 3;
-        } else{
-            playerNames.add(name1);
-            playerNames.add(name2);
-            ammount = 2;
-        }
-        return ammount;
+
+
     }
+    private void putNamesIntoArrayList(){
+
+    }
+    private int countAmountOfPlayers(){
+        return 2; //TODO input via website/gebruiker ipv 2
+    };
 
     private void nextTurn(){
         g.nextTurn();
         //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
+
+
+
+
 
 
     }

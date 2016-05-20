@@ -26,7 +26,7 @@ function setBoard() {
         var obj = JSON.parse(data);
         console.log(obj.CardNames);
         generateVisualCardNames(obj.CardNames);
-
+        
 
     });
     request.fail(function (jqXHR, textStatus) {
@@ -37,11 +37,13 @@ function setBoard() {
 }
 
 function generateVisualCardNames(array) {
+    zindex = 1000;
     for (var i = 0; i < array.length; i++) {
-        var html = '<li>';
+        var html = '<li style="z-index: '+ zindex +' ">';
         var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
         html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
         html += '</li>';
         $("#baraja-el").append(html);
+        zindex--;
     }
 }

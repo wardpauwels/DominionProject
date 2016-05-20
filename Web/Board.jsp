@@ -115,8 +115,7 @@
 
         <div id="handcards_on_table">
             <div id="deck_on_table">
-
-            </div>
+                </div>
             <div id="discard_pile_on_table">
                 <div id="playedcards_on_discard_pile">
                     <img src="assets/images/Big%20cards/bureaucrat.jpg" alt="" title=""/>
@@ -130,20 +129,8 @@
             <div id="hand_on_table">
                 <div class="baraja-demo">
                     <ul id="baraja-el" class="baraja-container">
-                        <!--<li><img src="assets/images/Big%20cards/adventurer.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/bureaucrat.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/gold.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/silver.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>
-                        <li><img src="assets/images/Big%20cards/copper.jpg"/> </li>-->
+                        <li><img alt="copper" title="copper" src="assets/images/Big%20cards/copper.jpg"></li>
+                        <li><img alt="copper" title="copper" src="assets/images/Big%20cards/copper.jpg"></li>
                     </ul>
                 </div>
             </div>
@@ -183,8 +170,7 @@
 </div>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/script.js"></script>
-<!--<script src="assets/js/scriptBoard.js"></script>-->
-<%--<script src="assets/js/scriptBoard.js"></script>--%>
+<script src="assets/js/scriptBoard.js"></script>
 <script src="assets/css/Baraja/js/modernizr.custom.79639.js"></script>
 <script src="assets/css/Baraja/js/jquery.baraja.js"></script>
 </body>

@@ -162,7 +162,6 @@ public class Deck {
 
 
     public void printHand(){
-
         for (int i = 0; i < cardList.size() ;i ++){
             System.out.println(i+1 + "." + getCardOnPos(i).getName());
         }

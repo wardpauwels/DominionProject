@@ -118,7 +118,7 @@
                 </div>
             <div id="discard_pile_on_table">
                 <div id="playedcards_on_discard_pile">
-                    <img src="assets/images/Big%20cards/bureaucrat.jpg" alt="" title=""/>
+                    <img src="assets/images/Big%20cards/back.jpg" alt="" title=""/>
                 </div>
                 <div id="toplaycards_on_discard_pile">
                     <p id="backcardcounter">0</p>
@@ -129,8 +129,6 @@
             <div id="hand_on_table">
                 <div class="baraja-demo">
                     <ul id="baraja-el" class="baraja-container">
-                        <li><img alt="copper" title="copper" src="assets/images/Big%20cards/copper.jpg"></li>
-                        <li><img alt="copper" title="copper" src="assets/images/Big%20cards/copper.jpg"></li>
                     </ul>
                 </div>
             </div>

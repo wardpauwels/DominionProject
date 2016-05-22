@@ -177,3 +177,7 @@ document.getElementById('baraja-el').addEventListener("wheel", function (e) {
         console.log("up");
     }
 });
+
+
+
+

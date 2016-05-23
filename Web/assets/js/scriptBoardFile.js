@@ -29,6 +29,7 @@ function setBoard() {
         var obj = JSON.parse(data);
         console.log(obj.CardNames);
         generateVisualCardNames(obj.CardNames);
+        $('body').append("<script src=\"assets/css/Baraja/js/modernizr.custom.79639.js\"></script><script src=\"assets/css/Baraja/js/jquery.baraja.js\"></script>");
 
 
     });

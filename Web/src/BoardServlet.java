@@ -202,10 +202,6 @@ public class BoardServlet extends HttpServlet {
         //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
 
 
-
-
-
-
     }
 
     private void setNames(){

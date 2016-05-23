@@ -22,7 +22,6 @@ function setBoard() {
         dataType: "text",
         data: {
             action: 'getCards'
-
         }
     });
 
@@ -41,9 +40,9 @@ function setBoard() {
 function generateActionCardsOnBoard(array) {
     for (var i = 0; i < array.length; i++) {
         var html = '<li>';
-        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
-        html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
-        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        var src = 'assets/images/Small%20Cards/' + array[i] + '.jpg';
+        html += '<p class="counteronactioncards">0</p>';
+        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
         html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
         html += '</li>';
         $(".actioncards_on_table_print").append(html);
@@ -59,6 +58,28 @@ function generateActionCardsOnBoard(array) {
         console.log(parent);
         $(".actioncards_on_table_print").append(parent);
     }*/
+}
+function generateVictoryCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        html += '<img alt="buy '+ array[i].name.toLowerCase() +'" title="buy '+ array[i].name.toLowerCase() +'" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">'
+        html += '</li>';
+        $("#victory_cards ul").append(html);
+    }
+}
+function generateMoneyCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        html += '<img alt="buy '+ array[i].name.toLowerCase() +'" title="buy '+ array[i].name.toLowerCase() +'" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">'
+        html += '</li>';
+        $("#money_cards ul").append(html);
+    }
 }
 
 function updateActionCardBoard() {
@@ -188,8 +209,6 @@ function buyActionCard(){
             url: "/BoardServlet",
             type: "GET",
             data:{ action: 'buyActionCard',
-                positionOnBoard: $('#actioncards_on_table li').index($(this)) //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
-
                 positionOnBoard: $('#actioncards_on_table li').index(this) //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
             }
         });

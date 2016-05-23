@@ -130,7 +130,7 @@ $('#actioncards_on_table').on('click', '.buyActionCard', function () {
     });
 
     request.done(function (data) {
-        alert(data);
+        //alert(data);
         update();
 
     });
@@ -158,9 +158,11 @@ function updateVictoryCardBoard() {
     });
 
     request.done(function (data) {
+
         console.log(data);
         var obj = JSON.parse(data);
         console.log(obj.victoryCardsOnBoard);
+        //FIXCOUNTERSMETHOD
     });
 
     request.fail(function (jqXHR, textStatus) {

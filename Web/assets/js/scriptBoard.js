@@ -43,9 +43,31 @@ function generateActionCardsOnBoard(array) {
         var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
         html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
-        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
+        html += '<img alt="buy '+ array[i].name.toLowerCase() +'" title="buy '+ array[i].name.toLowerCase() +'" src="assets/images/buybutton.png" class="buyActionCard">'
         html += '</li>';
         $(".actioncards_on_table_print").append(html);
+    }
+}
+function generateVictoryCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        html += '<img alt="buy '+ array[i].name.toLowerCase() +'" title="buy '+ array[i].name.toLowerCase() +'" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">'
+        html += '</li>';
+        $("#victory_cards ul").append(html);
+    }
+}
+function generateMoneyCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        html += '<img alt="buy '+ array[i].name.toLowerCase() +'" title="buy '+ array[i].name.toLowerCase() +'" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">'
+        html += '</li>';
+        $("#money_cards ul").append(html);
     }
 }
 
@@ -83,7 +105,6 @@ function updateActionCardBoard() {
         $("#actioncards_on_table ul li img:nth-of-type(2)").click(function () {
             console.log("kopen werkt");
             buyActionCard();})
-        
 
     });
 
@@ -110,14 +131,15 @@ function updateVictoryCardBoard(){
         console.log(data);
         var obj = JSON.parse(data);
         console.log(obj.victoryCardsOnBoard);
+        generateVictoryCardsOnBoard(obj.victoryCardsOnBoard);
     });
-        
+
     request.fail(function (jqXHR, textStatus) {
 
-            alert(jqXHR.status + ' ' + textStatus);
-        });
+        alert(jqXHR.status + ' ' + textStatus);
+    });
 
-    }
+}
 
 function updateTreasureCardBoard(){
     console.log("update victory werkt");
@@ -136,6 +158,7 @@ function updateTreasureCardBoard(){
         console.log(data);
         var obj = JSON.parse(data);
         console.log(obj.treasureCardsOnBoard);
+        generateMoneyCardsOnBoard(obj.treasureCardsOnBoard);
     });
 
     request.fail(function (jqXHR, textStatus) {
@@ -145,22 +168,66 @@ function updateTreasureCardBoard(){
 
 }
 
+
+
+
+
+
+
+
+
+// var buyCard = function (event) {
+//
+//     var buyThisCard = event.target.id;
+//     var request = $.ajax({cache: false,
+//         dataType: "text",
+//         url: "/BoardServlet",
+//         data: {action: "buyActionCard",
+//             positionOnBoard: buyThisCard}
+//     });
+//     request.done(function (data) {
+//         var obj = JSON.parse(data);
+//
+//         thisCard = obj.thisCard;
+//         console.log(thisCard);
+//         amount = obj.amount;
+//         coins = obj.coins;
+//         buys = obj.buys;
+//         actions = obj.actions;
+//         amount = obj.amount;
+//         $(".coins").html($(".coins").html().replace(parseInt($(".coins").text().split(":")[1]), coins));
+//         $(".buys").html($(".buys").html().replace(parseInt($(".buys").text().split(":")[1]), buys));
+//         $(".actions").html($(".actions").html().replace(parseInt($(".actions").text().split(":")[1]), actions));
+//         if (thisCard < 2) {nextPlayer();}
+//         updateAmount(thisCard, amount);
+//         ;
+//     });
+//     request.fail(function (jqXHR, textStatus) {
+//         alert(jqXHR.status + ' ' + textStatus);
+//     });
+// };
+
+
+
+
+
 function buyActionCard(){
-        console.log("kaart spelen werkt");
-        var request = $.ajax({ cache: false,
-            url: "/BoardServlet",
-            type: "GET",
-            data:{ action: 'buyActionCard',
-                positionOnBoard: $('#actioncards_on_table li').index(this) //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
-            }
-        });
-        request.done(function (data) {
-            alert(success(data));
-        });
-        request.fail(function (jqXHR, textStatus) {
-            console.log("nie gelukt");
-            alert(jqXHR.status + ' ' + textStatus);
-        });
+    console.log("kaart kopen werkt");
+    var request = $.ajax({ cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        data:{ action: 'buyActionCard',
+            positionOnBoard: $('#actioncards_on_table li').index(this)//TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
+        }
+    });
+    request.done(function (data) {
+        alert(success(data));
+
+    });
+    request.fail(function (jqXHR, textStatus) { 
+        console.log();
+        alert(jqXHR.status + ' ' + textStatus);
+    });
 
 
 
@@ -194,78 +261,47 @@ function updateCoinsActionsBuys(){
 
 
 function update() {
-                updateHand();
-            }
+    updateHand();
+}
 
-            function updateHand() {
-                console.log("updateHand werkt");
-                var request = $.ajax({
-                    cache: false,
-                    url: "/BoardServlet",
-                    type: "GET",
-                    dataType: "text",
-                    data: {
-                        action: 'updateHand'
+function updateHand() {
+    console.log("updateHand werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'updateHand'
 
-                    }
-                });
+        }
+    });
 
-                request.done(function (data) {
-                    //$('#player_one_name').html(data.name1);
-                    //$('#player_two_name').html(data.name2);
-                    console.log(data);
-                    console.log(data.CardNames);
-                    var obj = JSON.parse(data);
-                    console.log(obj.CardNames);
-                    generateVisualCardNames(obj.CardNames);
-
-
-                });
-                request.fail(function (jqXHR, textStatus) {
-
-                    alert(jqXHR.status + ' ' + textStatus);
-                });
-
-            }
+    request.done(function (data) {
+        //$('#player_one_name').html(data.name1);
+        //$('#player_two_name').html(data.name2);
+        console.log(data);
+        console.log(data.CardNames);
+        var obj = JSON.parse(data);
+        console.log(obj.CardNames);
+        generateVisualCardNames(obj.CardNames);
 
 
-            function generateVisualCardNames(array) {
-                for (var i = 0; i < array.length; i++) {
-                    var html = '<li>';
-                    var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
-                    html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
-                    html += '</li>';
-                    $("#baraja-el").append(html);
-                }
-            }
+    });
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function generateVisualCardNames(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
+        html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
+        html += '</li>';
+        $("#baraja-el").append(html);
+    }
+}

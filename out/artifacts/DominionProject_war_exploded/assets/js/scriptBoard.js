@@ -6,6 +6,10 @@ $(document).ready(function () {
     updateVictoryCardBoard();
     updateTreasureCardBoard();
     updateCoinsActionsBuys();
+    console.log("fml");
+
+
+
 });
 
 
@@ -18,6 +22,7 @@ function setBoard() {
         dataType: "text",
         data: {
             action: 'getCards'
+
         }
     });
 
@@ -43,6 +48,17 @@ function generateActionCardsOnBoard(array) {
         html += '</li>';
         $(".actioncards_on_table_print").append(html);
     }
+    /*for (var i = 0; i < array.length; i++) {
+        var parent = $('<li class="test"></li>');
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        var html = "";
+        html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
+        parent.html(html);
+        console.log(parent);
+        $(".actioncards_on_table_print").append(parent);
+    }*/
 }
 function generateVictoryCardsOnBoard(array) {
     for (var i = 0; i < array.length; i++) {
@@ -240,8 +256,10 @@ function buyActionCard(){
                 positionOnBoard: $('#actioncards_on_table li').index(this) //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
             }
         });
+
         request.done(function (data) {
             alert(success(data));
+            console.log($(this));
         });
         request.fail(function (jqXHR, textStatus) {
             console.log("nie gelukt");
@@ -280,78 +298,47 @@ function updateCoinsActionsBuys(){
 
 
 function update() {
-                updateHand();
-            }
+    updateHand();
+}
 
-            function updateHand() {
-                console.log("updateHand werkt");
-                var request = $.ajax({
-                    cache: false,
-                    url: "/BoardServlet",
-                    type: "GET",
-                    dataType: "text",
-                    data: {
-                        action: 'updateHand'
+function updateHand() {
+    console.log("updateHand werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'updateHand'
 
-                    }
-                });
+        }
+    });
 
-                request.done(function (data) {
-                    //$('#player_one_name').html(data.name1);
-                    //$('#player_two_name').html(data.name2);
-                    console.log(data);
-                    console.log(data.CardNames);
-                    var obj = JSON.parse(data);
-                    console.log(obj.CardNames);
-                    generateVisualCardNames(obj.CardNames);
-
-
-                });
-                request.fail(function (jqXHR, textStatus) {
-
-                    alert(jqXHR.status + ' ' + textStatus);
-                });
-
-            }
+    request.done(function (data) {
+        //$('#player_one_name').html(data.name1);
+        //$('#player_two_name').html(data.name2);
+        console.log(data);
+        console.log(data.CardNames);
+        var obj = JSON.parse(data);
+        console.log(obj.CardNames);
+        generateVisualCardNames(obj.CardNames);
 
 
-            function generateVisualCardNames(array) {
-                for (var i = 0; i < array.length; i++) {
-                    var html = '<li>';
-                    var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
-                    html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
-                    html += '</li>';
-                    $("#baraja-el").append(html);
-                }
-            }
+    });
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function generateVisualCardNames(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
+        html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
+        html += '</li>';
+        $("#baraja-el").append(html);
+    }
+}

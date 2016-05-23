@@ -364,7 +364,7 @@ body{
     background: url("../images/trash_pile.png") no-repeat bottom;
     height:100%;
     width:91px;
-    margin-top: -340px;
+    margin-top: -347px;
     margin-right:10px;
 }
 
@@ -559,7 +559,7 @@ body{
     width: 42px!important;
 }
 
-.buyVictoryCardsandCoinCards:active, .buyActionCard:active {
+.buyVictoryCardsandCoinCards:active, .buyActionCard:active, #nextPlayerButton:active, #playVictoryButton:active, #playActionButton:active {
     opacity: 0.8;
 }
 
@@ -578,4 +578,44 @@ body {
     -moz-user-select: none;      /* Firefox */
     -ms-user-select: none;       /* Internet Explorer/Edge */
     user-select: none;
+}
+#nextPlayerButton{
+    background-image: url("../images/End_Turn.png");
+    background-repeat:no-repeat;
+    background-size:160px;
+    background-color: transparent;
+    border-color: transparent;
+    height: 48px;
+    width: 162px;
+}
+#playVictoryButton{
+    background-image: url("../images/Play_Victory.png");
+    background-color: transparent;
+    background-repeat:no-repeat;
+    background-size:160px;
+    border-color: transparent;
+    height: 48px;
+    width: 162px;
+}
+#playActionButton{
+    background-image: url("../images/Play_Actions.png");
+    background-color: transparent;
+    background-repeat:no-repeat;
+    background-size:160px;
+    border-color: transparent;
+    height: 48px;
+    width: 162px;
+}
+
+#playButtons {
+    position: relative;
+    bottom: 344px;
+    left: 457px;
+    width: 495px;
+    display:inline;
+}
+button:focus {outline:0;}
+
+button:disabled {
+    opacity: 0.5;
 }

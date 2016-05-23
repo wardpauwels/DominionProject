@@ -70,9 +70,14 @@
                 </div>
             </div>
             <div id="trash_pile_on_table">
-                <!--<img src="assets/images/exit_button.jpg" title="exit the game" alt="exit"/>-->
                 <img src="assets/images/trash_pile_filled.png" title="Trash Pile" alt="Trash Pile"/>
-
+            </div>
+            <div id="playButtons">
+                <button id="nextPlayerButton"></button>
+                <br>
+                <button id="playVictoryButton" disabled></button>
+                <br>
+                <button id="playActionButton" disabled></button>
             </div>
         </div>
     </div>

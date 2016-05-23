@@ -19,6 +19,7 @@ public class BoardServlet extends HttpServlet {
     String name3;
     String name4;
     Game g;
+    int activePlayer;
     ArrayList<String> playerNames;
     JSONObject names;
     JSONObject cleanNames;
@@ -27,8 +28,10 @@ public class BoardServlet extends HttpServlet {
     JSONObject actionCards = new JSONObject();
     JSONObject victoryCards = new JSONObject();
     Card[] cardsOnBoard;
+    Player[] player;
     JSONObject treasureCards = new JSONObject();
     JSONObject CAB = new JSONObject();
+    JSONObject currentlyPlayingPlayer = new JSONObject();
 
 
 
@@ -62,6 +65,7 @@ public class BoardServlet extends HttpServlet {
                 playerNames = new ArrayList<>();
                 g.createPlayersList(countAmountOfPlayers());
                 setNames();
+                activePlayer = 0;
 
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
@@ -157,6 +161,16 @@ public class BoardServlet extends HttpServlet {
                 writer.append(CAB.toString());
                 break;
 
+            case "updatePlayer":
+                player = new Player[1];
+                player[0] = g.allPlayers.get(g.getPlayer());
+
+                currentlyPlayingPlayer.put("activePlayer",player);
+                writer.append(currentlyPlayingPlayer.toString());
+                break;
+
+
+
             case "buyActionCard":
                 int positionOnBoard;
                 positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
@@ -177,6 +191,13 @@ public class BoardServlet extends HttpServlet {
 
                 buyCard(positionOnBoard-1,"treasure");
                 System.out.println("kaart " + positionOnBoard +  " gekocht!");
+                break;
+
+            case "endTurn":
+                System.out.println("Einde beurt voor speler: " + g.getPlayerName(g.player));
+                g.nextPlayer();
+                g.printHand(g.allPlayers.get(g.player));
+                System.out.println("Nieuwe speler: " + g.getPlayerName(g.player));
                 break;
         }
     }
@@ -246,6 +267,4 @@ public class BoardServlet extends HttpServlet {
         g.buyCard();
         g.checkIfFinished();
     }
-
-
 }

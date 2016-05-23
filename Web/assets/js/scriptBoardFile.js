@@ -10,29 +10,7 @@ function updateActionAmount(){
 
 function setBoard() {
     console.log("set board werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'getCards'
-
-        }
-    });
-
-    request.done(function (data) {
-        //$('#player_one_name').html(data.name1);
-        //$('#player_two_name').html(data.name2);
-        console.log(data);
-        console.log(data.CardNames);
-        var obj = JSON.parse(data);
-        console.log(obj.CardNames);
-        generateVisualCardNames(obj.CardNames);
-        $('body').append("<script src=\"assets/css/Baraja/js/modernizr.custom.79639.js\"></script><script src=\"assets/css/Baraja/js/jquery.baraja.js\"></script>");
-
-
-    });
+    updateHand();
 
     //get names
     var requestNames = $.ajax({
@@ -90,10 +68,10 @@ function generateVictoryCardsOnBoard(array){
         var parent = $('<li></li>');
         var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
         var html = "";
-        html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">');
+        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         console.log(parent.data("cardNumber"));
         parent.html(html);
@@ -108,10 +86,10 @@ function generateTreasureCardsOnBoard(array){
         var parent = $('<li></li>');
         var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
         var html = "";
-        html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">');
+        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         console.log(parent.data("cardNumber"));
         parent.html(html);
@@ -123,7 +101,7 @@ function generateTreasureCardsOnBoard(array){
 
 
 
-$('#victory_cards').on('click', '.buyActionCard', function () {
+$('#victory_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 
     console.log("kaart spelen werkt");
@@ -152,7 +130,7 @@ $('#victory_cards').on('click', '.buyActionCard', function () {
 
 });
 
-$('#money_cards').on('click', '.buyActionCard', function () {
+$('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 
     console.log("kaart spelen werkt");
@@ -315,6 +293,32 @@ function updateTreasureCardBoard() {
     });
 
 }
+function updateCurrentlyPlaying() {
+    console.log("update coins werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'updatePlayer'
+
+        }
+    });
+
+    request.done(function (data) {
+        console.log(data);
+        var obj = JSON.parse(data);
+        console.log(obj.activePlayer);
+        updatePlayer(obj.activePlayer);
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+
+}
 
 
 function updateCoinsActionsBuys() {
@@ -333,7 +337,8 @@ function updateCoinsActionsBuys() {
     request.done(function (data) {
         console.log(data);
         var obj = JSON.parse(data);
-        console.log(obj.CAB);
+        console.log(obj.coinsActionsBuys);
+        updateCAB(obj.coinsActionsBuys);
     });
 
     request.fail(function (jqXHR, textStatus) {
@@ -343,6 +348,15 @@ function updateCoinsActionsBuys() {
 
 }
 
+function updateCAB(array){
+    $('#Amount_Of_Coins').html(array[0]);
+    $('#Amount_Of_Actions').html(array[1]);
+    $('#Amount_Of_Buys').html(array[2]);
+}
+
+function updatePlayer(player){
+    $('#Current_Playing').html(player[0].name);
+}
 
 function update() {
     console.log("voor werkt");
@@ -352,6 +366,7 @@ function update() {
     updateVictoryCardBoard();
     updateTreasureCardBoard();
     updateCoinsActionsBuys();
+    updateCurrentlyPlaying();
     console.log("fml");
 }
 
@@ -388,6 +403,7 @@ function updateHand() {
 
 
 function generateVisualCardNames(array) {
+    $("#baraja-el").empty();
     for (var i = 0; i < array.length; i++) {
         var html = '<li>';
         var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
@@ -396,3 +412,24 @@ function generateVisualCardNames(array) {
         $("#baraja-el").append(html);
     }
 }
+
+$('#nextPlayerButton').on('click', function () {
+    console.log("volgende speler werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType:"text",
+        data: {action: 'endTurn'}
+    });
+
+    request.done(function (data) {
+        //alert(data);
+        update();
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert("nie gelukt om volgende speler te starten");
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+});

@@ -45,6 +45,10 @@ public class Game {
         }
     }
 
+    public int getPlayer(){
+        return player;
+    }
+
     public void setDecisionOfPlayerPosition(int numberOfDecision){
         this.decisionOfPlayerPosition = numberOfDecision;
     }
@@ -93,7 +97,7 @@ public class Game {
         }
         return -1;
     }
-    private void nextPlayer() {
+    public void nextPlayer() {
         if (player != allPlayers.size() - 1) {
             player++;
         } else {
@@ -125,6 +129,7 @@ public class Game {
                 moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition - 1, activePlayer);
                 useActionCard(toBePlayedActionCard.getName(), player);
                 lowerAmountOfActions();
+                System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
             }
             else {
 

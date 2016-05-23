@@ -21,6 +21,7 @@ public class BoardServlet extends HttpServlet {
     Game g;
     ArrayList<String> playerNames;
     JSONObject names;
+    JSONObject cleanNames;
     JSONObject cards = new JSONObject();
     String[] cardNames;
     JSONObject actionCards = new JSONObject();
@@ -58,14 +59,9 @@ public class BoardServlet extends HttpServlet {
                 //System.out.println("amount"+countAmountOfPlayers());
                 //System.out.println("s1");
                 g = new Game();
-                System.out.println("s2");
-                g.createPlayersList(2);
-                System.out.println("s3");
-
                 playerNames = new ArrayList<>();
                 g.createPlayersList(countAmountOfPlayers());
                 setNames();
-
 
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
@@ -88,6 +84,15 @@ public class BoardServlet extends HttpServlet {
             case "getCards":
                 //writer.append(names.toString());
                 writer.append(cards.toString());
+                break;
+
+            case "getNames":
+                cleanNames = new JSONObject();
+                for (int i = 0; i<g.allPlayers.size(); i++){
+                    cleanNames.put("name"+(i+1), g.allPlayers.get(i).getName());
+                }
+                cleanNames.put("amount", countAmountOfPlayers());
+                writer.append(cleanNames.toString());
                 break;
 
 

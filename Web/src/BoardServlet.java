@@ -71,16 +71,14 @@ public class BoardServlet extends HttpServlet {
                         cards.put("cardName",g.allPlayers.get(g.player).getCardOnPosInHand(i).getName()+",");
                     }*/
                     cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
-
                 }
                 cards.put("CardNames",cardNames);
 
                 System.out.println(cards);
                 writer.append(cards.toString());
                 System.out.println(cards);
-
-
                 break;
+
             case "getCards":
                 //writer.append(names.toString());
                 writer.append(cards.toString());
@@ -95,13 +93,13 @@ public class BoardServlet extends HttpServlet {
                 writer.append(cleanNames.toString());
                 break;
 
-
             case "playCard":
                 int positionInHand;
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
                 System.out.println("nummer " + positionInHand+  "gespeeld!");
                 useActionCard(positionInHand);
                 break;
+
             case "updateHand":
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
@@ -110,8 +108,8 @@ public class BoardServlet extends HttpServlet {
                 cards.put("CardNames",cardNames);
                 System.out.println(cards);
                 writer.append(cards.toString());
-
                 break;
+
             case "updateActionBoard":
                 cardsOnBoard = new Card[g.actionCardsOnBoard.size()];
                 for(int i = 0; i < g.actionCardsOnBoard.size();i++){
@@ -122,8 +120,6 @@ public class BoardServlet extends HttpServlet {
                 writer.append(actionCards.toString());
                 g.printActionCards();
                 break;
-
-
 
             case "updateVictoryBoard":
                 cardsOnBoard = new Card[g.victoryCardTable.getSize()];
@@ -137,6 +133,7 @@ public class BoardServlet extends HttpServlet {
                 writer.append(victoryCards.toString());
                 g.printVictoryCards();
                 break;
+
             case "updateTreasureBoard":
                 cardsOnBoard = new Card[g.treasureCardTable.getSize()];
 
@@ -149,6 +146,7 @@ public class BoardServlet extends HttpServlet {
                 writer.append(treasureCards.toString());
                 g.printTreasureCards();
                 break;
+
             case "updateCoinsActionsBuys":
                 g.calculateCoinsOfPlayer(g.allPlayers.get(g.player));
                 int[] coinsActionsBuys = new int[3];
@@ -158,15 +156,13 @@ public class BoardServlet extends HttpServlet {
                 CAB.put("coinsActionsBuys",coinsActionsBuys);
                 writer.append(CAB.toString());
                 break;
+
             case "buyActionCard":
                 int positionOnBoard;
                 positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                 System.out.println("kaart " + positionOnBoard+  "gekocht!");
                 buyCard(positionOnBoard,"action");
                 break;
-
-
-
         }
     }
 

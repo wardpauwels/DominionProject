@@ -16,14 +16,14 @@ function setBoard(){
 }
 
 $(document).ready(function () {
-    var messages = ['adventurer', 'bureaucrat', 'cellar', 'chancellor', 'chapel', 'councilroom', 'feast', 'festival', 'gardens', 'laboratory', 'library', 'market', 'militia', 'mine', 'moat', 'moneylender', 'remodel', 'smithy', 'spy', 'thief', 'throneroom', 'village', 'witch', 'woodcutter', 'workshop'];
+    //var messages = ['adventurer', 'bureaucrat', 'cellar', 'chancellor', 'chapel', 'councilroom', 'feast', 'festival', 'gardens', 'laboratory', 'library', 'market', 'militia', 'mine', 'moat', 'moneylender', 'remodel', 'smithy', 'spy', 'thief', 'throneroom', 'village', 'witch', 'woodcutter', 'workshop'];
     console.log("Loaded!");
-    var messageArray = getMessage(messages);
+    /*var messageArray = getMessage(messages);*/
     var actioncardOnTableName;
     var ammountOfPlayers = 2;
-    messageArray.forEach(function (item) {
+    /*messageArray.forEach(function (item) {
     });
-    showCards(messageArray);
+    showCards(messageArray);*/
     disableCopyPaste();
 
     $("#baraja-el li").click(function(e){
@@ -32,9 +32,10 @@ $(document).ready(function () {
     });
 
     $("#actioncards_on_table ul li img:nth-of-type(1)").click(function () {
+        console.log("gevonden");
         $actioncardOnTableName = $(this).attr("title");
         var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
-
+        console.log(src);
         $('#bigCard').html(src).css('visibility', 'visible');
     });
     $('#bigCard').click(function () {
@@ -120,6 +121,23 @@ function generateVisualCardNames(array) {
         $("#baraja-el").append(html);
     }
 }
+
+
+
+
+
+function generateActionCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i] + '.jpg';
+        html += '<p class="counteronactioncards">0</p>';
+        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
+        html += '</li>';
+        $(".actioncards_on_table_print").append(html);
+    }
+}
+
 
 
 

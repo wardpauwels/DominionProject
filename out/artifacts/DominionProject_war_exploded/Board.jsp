@@ -118,11 +118,11 @@
                 </div>
             <div id="discard_pile_on_table">
                 <div id="playedcards_on_discard_pile">
-                    <img src="assets/images/Big%20cards/back.jpg" alt="" title=""/>
+                    <img src="assets/images/Big%20cards/back.jpg" alt="Back" title="Back"/>
                 </div>
                 <div id="toplaycards_on_discard_pile">
                     <p id="backcardcounter">0</p>
-                    <img src="assets/images/Big%20cards/back.jpg" alt="" title=""/>
+                    <img src="assets/images/Big%20cards/back.jpg" alt="back" title="back"/>
                 </div>
 
             </div>
@@ -168,8 +168,10 @@
 </div>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/script.js"></script>
-<script src="assets/js/scriptBoard.js"></script>
 <script src="assets/css/Baraja/js/modernizr.custom.79639.js"></script>
 <script src="assets/css/Baraja/js/jquery.baraja.js"></script>
+<script src="assets/js/scriptBoard.js"></script>
+
+
 </body>
 </html>

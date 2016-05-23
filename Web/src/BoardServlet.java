@@ -23,6 +23,13 @@ public class BoardServlet extends HttpServlet {
     JSONObject names;
     JSONObject cards = new JSONObject();
     String[] cardNames;
+    JSONObject actionCards = new JSONObject();
+    JSONObject victoryCards = new JSONObject();
+    Card[] cardsOnBoard;
+    JSONObject treasureCards = new JSONObject();
+    JSONObject CAB = new JSONObject();
+
+
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -83,6 +90,70 @@ public class BoardServlet extends HttpServlet {
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
                 System.out.println("nummer " + positionInHand+  "gespeeld!");
                 useActionCard(positionInHand);
+                break;
+            case "updateHand":
+                cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
+                for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
+                    cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
+                }
+                cards.put("CardNames",cardNames);
+                System.out.println(cards);
+                writer.append(cards.toString());
+
+                break;
+            case "updateActionBoard":
+                cardsOnBoard = new Card[g.actionCardsOnBoard.size()];
+                for(int i = 0; i < g.actionCardsOnBoard.size();i++){
+                    cardsOnBoard[i] = g.actionCardsOnBoard.get(i);
+                }
+                actionCards.put("actionCardsOnBoard",cardsOnBoard);
+                System.out.println(actionCards);
+                writer.append(actionCards.toString());
+                g.printActionCards();
+                break;
+
+
+
+            case "updateVictoryBoard":
+                cardsOnBoard = new Card[g.victoryCardTable.getSize()];
+
+                for(int i = 0; i < g.victoryCardTable.getSize();i++){
+
+                    cardsOnBoard[i] = g.victoryCardTable.getCardOnPos(i);
+                }
+                victoryCards.put("victoryCardsOnBoard",cardsOnBoard);
+                System.out.println(victoryCards);
+                writer.append(victoryCards.toString());
+                g.printVictoryCards();
+                break;
+            case "updateTreasureBoard":
+                cardsOnBoard = new Card[g.treasureCardTable.getSize()];
+
+                for(int i = 0; i < g.treasureCardTable.getSize();i++){
+
+                    cardsOnBoard[i] = g.treasureCardTable.getCardOnPos(i);
+                }
+                treasureCards.put("treasureCardsOnBoard",cardsOnBoard);
+                System.out.println(treasureCards);
+                writer.append(treasureCards.toString());
+                g.printTreasureCards();
+                break;
+            case "updateCoinsActionsBuys":
+                g.calculateCoinsOfPlayer(g.allPlayers.get(g.player));
+                int[] coinsActionsBuys = new int[3];
+                coinsActionsBuys[0]=g.getAmountOfCoinsOfPlayer();
+                coinsActionsBuys[1]=g.returnAmountOfActionsRemaining();
+                coinsActionsBuys[2]=g.returnRemainingBuys();
+                CAB.put("coinsActionsBuys",coinsActionsBuys);
+                writer.append(CAB.toString());
+                break;
+            case "buyActionCard":
+                int positionOnBoard;
+                positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                System.out.println("kaart " + positionOnBoard+  "gekocht!");
+                buyCard(positionOnBoard,"action");
+                break;
+
 
 
         }

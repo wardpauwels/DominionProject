@@ -9,11 +9,11 @@ import java.util.Random;
 
 
 public class Game {
-    private VictoryCardTable victoryCardTable;
-    private TreasureCardTable treasureCardTable;
+    public VictoryCardTable victoryCardTable;
+    public TreasureCardTable treasureCardTable;
     private ActionCardTable actionCardTable;
     public ArrayList<Player> allPlayers;
-    private ArrayList<Card> actionCardsOnBoard;
+    public ArrayList<Card> actionCardsOnBoard;
 
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
     private Deck playedCards = new Deck(); // TODO: wordt niet gebruikt. kan weg?
@@ -57,6 +57,9 @@ public class Game {
         Random rand = new Random();
         int randomNumber = rand.nextInt(maxValue - minValue + 1) + minValue;
         return randomNumber;
+    }
+    public int returnRemainingBuys(){
+        return remainingBuysInPhase;
     }
     private boolean checkRandom(int randomNumber) {
         for (int i = 0; i < actionCardsOnBoard.size(); i++) {
@@ -765,7 +768,7 @@ public class Game {
 
     public void printBoard(){
         printActionCards();
-        printVicotryCards();
+        printVictoryCards();
         printTreasureCards();
     }
 
@@ -778,7 +781,7 @@ public class Game {
             System.out.println(i +1 + ". " +  actionCardsOnBoard.get(i).getName() +  ", Cost: " + actionCardsOnBoard.get(i).getCost() + ", Amount: " + actionCardsOnBoard.get(i).getAmount());
         }
     }
-    public void printVicotryCards() {
+    public void printVictoryCards() {
         System.out.println("---------------");
         System.out.println("Victory cards:");
         System.out.println("---------------");

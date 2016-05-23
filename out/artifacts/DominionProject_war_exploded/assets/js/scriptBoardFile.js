@@ -35,8 +35,32 @@ function setBoard() {
         var obj = JSON.parse(data);
         console.log(obj.CardNames);
         generateVisualCardNames(obj.CardNames);
+        $('body').append("<script src=\"assets/css/Baraja/js/modernizr.custom.79639.js\"></script><script src=\"assets/css/Baraja/js/jquery.baraja.js\"></script>");
 
 
+    });
+
+    //get names
+    var requestNames = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {action: 'getNames'}
+    });
+
+    requestNames.done(function (data) {
+        var obj = JSON.parse(data);
+        if (obj.amount == "2"){
+            $("#header").html("<div id='two_players'><p id='player_one_name' class='player_one_name'>" + obj.name1 + "</p><p id='player_two_name' class='player_two_name'>" + obj.name2 + "</p></div>");
+        } else if (obj.amount == "3"){
+            $('#header').html("<div id='three_players'><div class='player_one_name'><p>" + obj.name1 + "</p></div><div class='player_two_name'><p>" + obj.name2 + "</p></div><div class='player_third_name'><p>" + obj.name3 + "</p></div>");
+        } else if (obj.amount == "4"){
+            $('#header').html("<div id='four_players'><div class='player_one_name'><p>" + obj.name1 + "</p></div><div class='player_two_name'><p>" + obj.name2 + "</p></div> <div class='player_third_name'><p>" + obj.name3 + "</p></div><div class='player_fourth_name'><p>" + obj.name4 + "</p></div></div>");
+        }
+    });
+    requestNames.fail(function (jqXHR, textStatus) {
+        alert(jqXHR.status + ' ' + textStatus);
     });
 }
 function generateActionCardsOnBoard(array) {
@@ -114,7 +138,7 @@ function updateActionCardBoard() {
 }
 
 $('#actioncards_on_table').on('click', '.buyActionCard', function () {
-    
+
 
     console.log("kaart spelen werkt");
     var request = $.ajax({
@@ -130,7 +154,7 @@ $('#actioncards_on_table').on('click', '.buyActionCard', function () {
     });
 
     request.done(function (data) {
-        alert(data);
+        //alert(data);
         update();
 
     });
@@ -158,9 +182,11 @@ function updateVictoryCardBoard() {
     });
 
     request.done(function (data) {
+
         console.log(data);
         var obj = JSON.parse(data);
         console.log(obj.victoryCardsOnBoard);
+        //FIXCOUNTERSMETHOD
     });
 
     request.fail(function (jqXHR, textStatus) {
@@ -206,7 +232,7 @@ function buyActionCard() {
         type: "GET",
         data: {
             action: 'buyActionCard',
-            positionOnBoard: $(this).parent().index() //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
+            positionOnBoard: $(this).prev().index() //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
 
         }
     });
@@ -301,6 +327,7 @@ function generateVisualCardNames(array) {
         html += '</li>';
         $("#baraja-el").append(html);
     }
+
 }
 
 

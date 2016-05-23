@@ -15,7 +15,7 @@ $(function() {
 		baraja = $el.baraja();
 
 	// playing with different origins and ranges
-	$( '#opencards' ).on('click', function(event) {
+	$( '#opencards' ).delegate('.deletelanguage','click', function(event) {
 		console.log("test")
 		baraja.fan( {
 			speed : 500,

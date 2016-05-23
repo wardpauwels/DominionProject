@@ -326,6 +326,7 @@ function generateVisualCardNames(array) {
         html += '</li>';
         $("#baraja-el").append(html);
     }
+
 }
 
 

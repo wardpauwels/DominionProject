@@ -26,10 +26,7 @@ $(document).ready(function () {
     showCards(messageArray);*/
     disableCopyPaste();
 
-    $("#baraja-el li").click(function(e){
-        e.preventDefault();
-        $(this).appendTo('#playedcards_on_table ul');
-    });
+
 
     $("#actioncards_on_table ul li img:nth-of-type(1)").click(function () {
         console.log("gevonden");
@@ -197,5 +194,9 @@ document.getElementById('baraja-el').addEventListener("wheel", function (e) {
 });
 
 
-
-
+$("#baraja-el li").mousedown(function(event) {
+    if (e.which === 1) {
+        e.preventDefault();
+        $(this).appendTo('#playedcards_on_table ul');
+    }
+});

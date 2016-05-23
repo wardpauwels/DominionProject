@@ -160,8 +160,9 @@ public class BoardServlet extends HttpServlet {
             case "buyActionCard":
                 int positionOnBoard;
                 positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                System.out.println("kaart " + positionOnBoard+  "gekocht!");
-                buyCard(positionOnBoard,"action");
+                int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
+                buyCard(pos,"action");
+                System.out.println("kaart " + pos +  " gekocht!");
                 break;
         }
     }

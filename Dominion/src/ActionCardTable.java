@@ -65,8 +65,7 @@ public class ActionCardTable {
     }
 
     public Card getCardOnPos(int pos){
-        Card card = allActionCards.get(pos);
-        return card;
+        return allActionCards.get(pos);
     }
 
 

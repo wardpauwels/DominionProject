@@ -314,6 +314,32 @@ function updateTreasureCardBoard() {
     });
 
 }
+function updateCurrentlyPlaying() {
+    console.log("update coins werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'updatePlayer'
+
+        }
+    });
+
+    request.done(function (data) {
+        console.log(data);
+        var obj = JSON.parse(data);
+        console.log(obj.activePlayer);
+        updatePlayer(obj.activePlayer);
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+
+}
 
 
 function updateCoinsActionsBuys() {
@@ -332,7 +358,8 @@ function updateCoinsActionsBuys() {
     request.done(function (data) {
         console.log(data);
         var obj = JSON.parse(data);
-        console.log(obj.CAB);
+        console.log(obj.coinsActionsBuys);
+        updateCAB(obj.coinsActionsBuys);
     });
 
     request.fail(function (jqXHR, textStatus) {
@@ -342,6 +369,15 @@ function updateCoinsActionsBuys() {
 
 }
 
+function updateCAB(array){
+    $('#Amount_Of_Coins').html(array[0]);
+    $('#Amount_Of_Actions').html(array[1]);
+    $('#Amount_Of_Buys').html(array[2]);
+}
+
+function updatePlayer(player){
+    $('#Current_Playing').html(player[0].name);
+}
 
 function update() {
     console.log("voor werkt");
@@ -351,6 +387,7 @@ function update() {
     updateVictoryCardBoard();
     updateTreasureCardBoard();
     updateCoinsActionsBuys();
+    updateCurrentlyPlaying();
     console.log("fml");
 }
 

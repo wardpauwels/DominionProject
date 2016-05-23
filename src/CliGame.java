@@ -12,7 +12,6 @@ public class CliGame {
     private int amountOfPlayers;
     private int amountOfCoins = 0;
     private Game g;
-    private int numberOTurn = 1;
 
 
      public CliGame() {

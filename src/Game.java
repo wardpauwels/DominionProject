@@ -58,6 +58,9 @@ public class Game {
         int randomNumber = rand.nextInt(maxValue - minValue + 1) + minValue;
         return randomNumber;
     }
+    public int returnRemainingBuys(){
+        return remainingBuysInPhase;
+    }
     private boolean checkRandom(int randomNumber) {
         for (int i = 0; i < actionCardsOnBoard.size(); i++) {
             int currentNumber = actionCardsOnBoard.get(i).getNumber();
@@ -765,7 +768,7 @@ public class Game {
 
     public void printBoard(){
         printActionCards();
-        printVicotryCards();
+        printVictoryCards();
         printTreasureCards();
     }
 
@@ -778,7 +781,7 @@ public class Game {
             System.out.println(i +1 + ". " +  actionCardsOnBoard.get(i).getName() +  ", Cost: " + actionCardsOnBoard.get(i).getCost() + ", Amount: " + actionCardsOnBoard.get(i).getAmount());
         }
     }
-    public void printVicotryCards() {
+    public void printVictoryCards() {
         System.out.println("---------------");
         System.out.println("Victory cards:");
         System.out.println("---------------");

@@ -27,34 +27,6 @@
             <p id="player_one_name" class="player_one_name"></p>
             <p id="player_two_name" class="player_two_name"></p>
         </div>
-        <!--<div id="three_players">
-             <div class="player_one_name">
-                 <p>Dylan</p>
-             </div>
-
-             <div class="player_two_name">
-                 <p>Ward</p>
-                 </div>
-             <div class="player_third_name">
-                 <p>Robert</p>
-             </div>
-
-         </div>-->
-
-        <!--<div id="four_players">
-            <div class="player_one_name">
-                <p>Dylan</p>
-            </div>
-            <div class="player_two_name">
-                <p>Ward</p>
-            </div>
-            <div class="player_third_name">
-                <p>Robert</p>
-            </div>
-            <div class="player_fourth_name">
-                <p>Jens</p>
-            </div>
-        </div>-->
     </div>
 
     <div id="content">

@@ -7,7 +7,7 @@ $(document).ready(function () {
     updateTreasureCardBoard();
     updateCoinsActionsBuys();
 
-    
+
 
 });
 
@@ -150,8 +150,7 @@ function buyActionCard(){
             url: "/BoardServlet",
             type: "GET",
             data:{ action: 'buyActionCard',
-
-                positionOnBoard: $(this).parent().index('li')
+                positionOnBoard: $('#actioncards_on_table li').index(this) //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
             }
         });
         request.done(function (data) {

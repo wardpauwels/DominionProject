@@ -126,7 +126,6 @@ function generateVisualCardNames(array) {
 
 
 
-
 function generateActionCardsOnBoard(array) {
     for (var i = 0; i < array.length; i++) {
         var html = '<li>';
@@ -196,3 +195,7 @@ document.getElementById('baraja-el').addEventListener("wheel", function (e) {
         console.log("up");
     }
 });
+
+
+
+

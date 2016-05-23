@@ -175,8 +175,7 @@ public class Game {
                 boughtCard = treasureCardTable.getCardOnPos(decisionOfPlayerPosition);
                 break;
         }
-        //boughtCard.setAmount(boughtCard.getAmount()-1);
-        actionCardsOnBoard.get(decisionOfPlayerPosition).setAmount(actionCardsOnBoard.get(decisionOfPlayerPosition).getAmount()-1);
+        boughtCard.setAmount(boughtCard.getAmount()-1);
         currentlyActiveAmountOfCoins-=boughtCard.getCost();
         allPlayers.get(player).addCardToDiscardPile(boughtCard);
         remainingActionsInPhase = remainingActionsInPhase - 1;

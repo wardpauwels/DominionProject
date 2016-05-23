@@ -36,11 +36,11 @@
         </div>
         <div id="cards_on_board">
             <div id="victory_cards">
-                <ul>
+                <ul class="victorycards_on_table_print">
                 </ul>
             </div>
             <div id="money_cards">
-                <ul>
+                <ul class="treasurecards_on_table_print">
                 </ul>
             </div>
         </div>

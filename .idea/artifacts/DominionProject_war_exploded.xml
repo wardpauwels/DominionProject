@@ -10,6 +10,8 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="JsonProcessing" />
           <element id="library" level="project" name="lib1" />
+          <element id="library" level="project" name="json-20160212" />
+          <element id="library" level="project" name="bin" />
         </element>
       </element>
     </root>

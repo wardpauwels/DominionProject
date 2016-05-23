@@ -83,6 +83,16 @@ public class Game {
         }
 
     }
+
+    public int returnPositionOnBoardForCardWithNumber(int numberOfCard){
+        for (int i = 0;i<actionCardsOnBoard.size();i++){
+            if(actionCardsOnBoard.get(i).getNumber()==numberOfCard){
+                return i;
+
+            }
+        }
+        return -1;
+    }
     private void nextPlayer() {
         if (player != allPlayers.size() - 1) {
             player++;
@@ -165,7 +175,8 @@ public class Game {
                 boughtCard = treasureCardTable.getCardOnPos(decisionOfPlayerPosition);
                 break;
         }
-        boughtCard.setAmount(boughtCard.getAmount()-1);
+        //boughtCard.setAmount(boughtCard.getAmount()-1);
+        actionCardsOnBoard.get(decisionOfPlayerPosition).setAmount(actionCardsOnBoard.get(decisionOfPlayerPosition).getAmount()-1);
         currentlyActiveAmountOfCoins-=boughtCard.getCost();
         allPlayers.get(player).addCardToDiscardPile(boughtCard);
         remainingActionsInPhase = remainingActionsInPhase - 1;

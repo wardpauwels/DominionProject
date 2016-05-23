@@ -48,5 +48,8 @@
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="JsonProcessing" level="project" />
     <orderEntry type="library" name="lib1" level="project" />
+    <orderEntry type="library" name="json-20160212" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="bin" level="project" />
   </component>
 </module>

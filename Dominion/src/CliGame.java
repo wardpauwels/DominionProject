@@ -1,8 +1,5 @@
 import java.util.Scanner;
 
-/**
- * Created by Robert on 21-4-2016.
- */
 
 
 public class CliGame {
@@ -131,7 +128,9 @@ public class CliGame {
 
     private void buyCardCheck(Card card, int kaartKeuze){
         if (card.getCost() <= amountOfCoins) {
-            g.buyCard(kaartKeuze, card.getType(), g.allPlayers.get(player));
+            g.setDecisionOfPlayerPosition(kaartKeuze);
+            g.setDecisionOfPlayerType(card.getType());
+            g.buyCard();
             System.out.println("Kaart " + card.getName() + " gekocht");
         } else {
             System.out.println("onvoldoende coins, probeer opnieuw");
@@ -167,7 +166,6 @@ public class CliGame {
             }
         }
         g.printCoins();
-
     }
 }
 

@@ -136,8 +136,8 @@ function updateActionCardBoard() {
 
 }
 
-$('.buyActionCard').on('click', function () {
-    
+$('#actioncards_on_table').on('click', '.buyActionCard', function () {
+
 
     console.log("kaart spelen werkt");
     var request = $.ajax({

@@ -125,6 +125,7 @@ public class Game {
                 moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition - 1, activePlayer);
                 useActionCard(toBePlayedActionCard.getName(), player);
                 lowerAmountOfActions();
+                System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
             }
             else {
 

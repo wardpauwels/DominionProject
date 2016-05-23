@@ -19,6 +19,7 @@ public class BoardServlet extends HttpServlet {
     String name3;
     String name4;
     Game g;
+    int activePlayer;
     ArrayList<String> playerNames;
     JSONObject names;
     JSONObject cleanNames;
@@ -62,6 +63,7 @@ public class BoardServlet extends HttpServlet {
                 playerNames = new ArrayList<>();
                 g.createPlayersList(countAmountOfPlayers());
                 setNames();
+                activePlayer = 0;
 
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
@@ -178,6 +180,13 @@ public class BoardServlet extends HttpServlet {
                 buyCard(positionOnBoard-1,"treasure");
                 System.out.println("kaart " + positionOnBoard +  " gekocht!");
                 break;
+
+            case "endTurn":
+                System.out.println("Einde beurt voor speler: " + g.getPlayerName(g.player));
+                g.nextPlayer();
+                g.printHand(g.allPlayers.get(g.player));
+                System.out.println("Nieuwe speler: " + g.getPlayerName(g.player));
+                break;
         }
     }
 
@@ -246,6 +255,4 @@ public class BoardServlet extends HttpServlet {
         g.buyCard();
         g.checkIfFinished();
     }
-
-
 }

@@ -93,7 +93,7 @@ public class Game {
         }
         return -1;
     }
-    private void nextPlayer() {
+    public void nextPlayer() {
         if (player != allPlayers.size() - 1) {
             player++;
         } else {

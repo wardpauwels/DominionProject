@@ -10,28 +10,7 @@ function updateActionAmount(){
 
 function setBoard() {
     console.log("set board werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'getCards'
-
-        }
-    });
-
-    request.done(function (data) {
-        //$('#player_one_name').html(data.name1);
-        //$('#player_two_name').html(data.name2);
-        console.log(data);
-        console.log(data.CardNames);
-        var obj = JSON.parse(data);
-        console.log(obj.CardNames);
-        generateVisualCardNames(obj.CardNames);
-
-
-    });
+    updateHand();
 
     //get names
     var requestNames = $.ajax({
@@ -387,6 +366,7 @@ function updateHand() {
 
 
 function generateVisualCardNames(array) {
+    $("#baraja-el").empty();
     for (var i = 0; i < array.length; i++) {
         var html = '<li>';
         var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
@@ -395,3 +375,24 @@ function generateVisualCardNames(array) {
         $("#baraja-el").append(html);
     }
 }
+
+$('#nextPlayerButton').on('click', function () {
+    console.log("volgende speler werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType:"text",
+        data: {action: 'endTurn'}
+    });
+
+    request.done(function (data) {
+        //alert(data);
+        update();
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert("nie gelukt om volgende speler te starten");
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+});

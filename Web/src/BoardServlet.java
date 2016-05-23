@@ -142,7 +142,7 @@ public class BoardServlet extends HttpServlet {
                 g.calculateCoinsOfPlayer(g.allPlayers.get(g.player));
                 int[] coinsActionsBuys = new int[3];
                 coinsActionsBuys[0]=g.getAmountOfCoinsOfPlayer();
-                coinsActionsBuys[1]=g.returnAmountOfActionsRemaining();
+                coinsActionsBuys[1]=g.getAmountOfActionsRemaining();
                 coinsActionsBuys[2]=g.returnRemainingBuys();
                 CAB.put("coinsActionsBuys",coinsActionsBuys);
                 writer.append(CAB.toString());

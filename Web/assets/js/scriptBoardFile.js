@@ -136,7 +136,7 @@ function updateActionCardBoard() {
 
 }
 
-$('#actioncards_on_table').on('click', '.buyActionCard', function () {
+$('.buyActionCard').on('click', function () {
     
 
     console.log("kaart spelen werkt");
@@ -229,7 +229,7 @@ function buyActionCard() {
         type: "GET",
         data: {
             action: 'buyActionCard',
-            positionOnBoard: $(this).parent().index() //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
+            positionOnBoard: $(this).prev().index() //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
 
         }
     });

@@ -89,6 +89,16 @@ public class Game {
 
     }
 
+    public int returnPositionOnBoardForCardWithNumber(int numberOfCard){
+        for (int i = 0;i<actionCardsOnBoard.size();i++){
+            if(actionCardsOnBoard.get(i).getNumber()==numberOfCard){
+                return i;
+
+            }
+        }
+        return -1;
+    }
+
     private void nextPlayer() {
         if (player != allPlayers.size() - 1) {
             player++;

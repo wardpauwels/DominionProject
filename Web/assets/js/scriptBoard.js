@@ -2,8 +2,10 @@ $(document).ready(function () {
     console.log("voor werkt");
     setBoard();
     console.log("na werkt");
+    updateActionCardBoard();
 
 });
+
 
 function setBoard() {
     console.log("set board werkt");
@@ -25,9 +27,31 @@ function setBoard() {
         var obj = JSON.parse(data);
         console.log(obj.CardNames);
         generateVisualCardNames(obj.CardNames);
-        
+
 
     });
+}
+
+function updateActionCardBoard() {
+
+    console.log("update action werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'updateActionBoard'
+
+        }
+    });
+
+    request.done(function (data) {
+        console.log(data);
+        var obj = JSON.parse(data);
+        console.log(obj.actionCardsOnBoard);
+    });
+
     request.fail(function (jqXHR, textStatus) {
 
         alert(jqXHR.status + ' ' + textStatus);
@@ -57,15 +81,41 @@ function setBoard() {
     });
 
 }
+function update() {
+    updateHand();
+}
+
+function updateHand() {
+    console.log("updateHand werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'updateHand'
+        }
+    });
+
+    request.done(function (data) {
+        console.log(data);
+        console.log(data.CardNames);
+        var obj = JSON.parse(data);
+        console.log(obj.CardNames);
+        generateVisualCardNames(obj.CardNames);
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+}
+
 
 function generateVisualCardNames(array) {
-    zindex = 1000;
     for (var i = 0; i < array.length; i++) {
-        var html = '<li style="z-index: '+ zindex +' ">';
+        var html = '<li>';
         var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
         html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
         html += '</li>';
         $("#baraja-el").append(html);
-        zindex--;
     }
 }

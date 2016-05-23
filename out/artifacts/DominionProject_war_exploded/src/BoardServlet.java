@@ -24,6 +24,8 @@ public class BoardServlet extends HttpServlet {
     JSONObject cleanNames;
     JSONObject cards = new JSONObject();
     String[] cardNames;
+    JSONObject actionCards = new JSONObject();
+    Card[] actionCardsOnBoard;
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -89,8 +91,26 @@ public class BoardServlet extends HttpServlet {
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
                 System.out.println("nummer " + positionInHand+  "gespeeld!");
                 useActionCard(positionInHand);
+                break;
+            case "updateHand":
+                cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
+                for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
+                    cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
+                }
+                cards.put("CardNames",cardNames);
+                System.out.println(cards);
+                writer.append(cards.toString());
 
-
+                break;
+            case "updateActionBoard":
+                actionCardsOnBoard = new Card[g.actionCardsOnBoard.size()];
+                for(int i = 0; i < g.actionCardsOnBoard.size();i++){
+                    actionCardsOnBoard[i] = g.actionCardsOnBoard.get(i);
+                }
+                actionCards.put("actionCardsOnBoard",actionCardsOnBoard);
+                System.out.println(actionCards);
+                writer.append(actionCards.toString());
+                g.printActionCards();
         }
     }
 

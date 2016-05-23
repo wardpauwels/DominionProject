@@ -27,34 +27,6 @@
             <p id="player_one_name" class="player_one_name"></p>
             <p id="player_two_name" class="player_two_name"></p>
         </div>
-        <!--<div id="three_players">
-             <div class="player_one_name">
-                 <p>Dylan</p>
-             </div>
-
-             <div class="player_two_name">
-                 <p>Ward</p>
-                 </div>
-             <div class="player_third_name">
-                 <p>Robert</p>
-             </div>
-
-         </div>-->
-
-        <!--<div id="four_players">
-            <div class="player_one_name">
-                <p>Dylan</p>
-            </div>
-            <div class="player_two_name">
-                <p>Ward</p>
-            </div>
-            <div class="player_third_name">
-                <p>Robert</p>
-            </div>
-            <div class="player_fourth_name">
-                <p>Jens</p>
-            </div>
-        </div>-->
     </div>
 
     <div id="content">
@@ -118,19 +90,17 @@
                 </div>
             <div id="discard_pile_on_table">
                 <div id="playedcards_on_discard_pile">
-                    <img src="assets/images/Big%20cards/bureaucrat.jpg" alt="" title=""/>
+                    <img src="assets/images/Big%20cards/back.jpg" alt="Back" title="Back"/>
                 </div>
                 <div id="toplaycards_on_discard_pile">
                     <p id="backcardcounter">0</p>
-                    <img src="assets/images/Big%20cards/back.jpg" alt="" title=""/>
+                    <img src="assets/images/Big%20cards/back.jpg" alt="back" title="back"/>
                 </div>
 
             </div>
             <div id="hand_on_table">
                 <div class="baraja-demo">
                     <ul id="baraja-el" class="baraja-container">
-                        <li><img alt="copper" title="copper" src="assets/images/Big%20cards/copper.jpg"></li>
-                        <li><img alt="copper" title="copper" src="assets/images/Big%20cards/copper.jpg"></li>
                     </ul>
                 </div>
             </div>

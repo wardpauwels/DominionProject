@@ -125,6 +125,23 @@ function generateVisualCardNames(array) {
 
 
 
+function generateActionCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i] + '.jpg';
+        html += '<p class="counteronactioncards">0</p>'
+        html += '<img alt="' + array[i] + '"  title="' + array[i] + '" src="' + src + '" />';
+        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
+        html += '</li>';
+        $(".actioncards_on_table_print").append(html);
+    }
+}
+
+
+
+
+
+
 // function importPlayerCards(array) {
 //     for (var i = 0; i < array.length; i++) {
 //         var html = '<li>';
@@ -177,3 +194,7 @@ document.getElementById('baraja-el').addEventListener("wheel", function (e) {
         console.log("up");
     }
 });
+
+
+
+

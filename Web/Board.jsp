@@ -36,11 +36,11 @@
         </div>
         <div id="cards_on_board">
             <div id="victory_cards">
-                <ul>
+                <ul class="victorycards_on_table_print">
                 </ul>
             </div>
             <div id="money_cards">
-                <ul>
+                <ul class="treasurecards_on_table_print">
                 </ul>
             </div>
         </div>
@@ -66,7 +66,6 @@
             <div id="hand_on_table">
                 <div class="baraja-demo">
                     <ul id="baraja-el" class="baraja-container">
-                        <li><img src="assets/images/Big%20cards/militia.jpg" /></li>
                     </ul>
                 </div>
             </div>
@@ -106,6 +105,8 @@
 </div>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/script.js"></script>
+<script src="assets/css/Baraja/js/modernizr.custom.79639.js"></script>
+<script src="assets/css/Baraja/js/jquery.baraja.js"></script>
 <script src="assets/js/scriptBoardFile.js"></script>
 </body>
 </html>

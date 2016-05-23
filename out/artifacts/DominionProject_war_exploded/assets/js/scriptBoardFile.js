@@ -1,10 +1,5 @@
-/**
- * Created by jensthiel on 23/05/16.
- */
 $(document).ready(function () {
     update();
-
-
 });
 /*
 function updateActionAmount(){
@@ -12,7 +7,6 @@ function updateActionAmount(){
     html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
 
 }}*/
-
 
 function setBoard() {
     console.log("set board werkt");
@@ -35,7 +29,6 @@ function setBoard() {
         var obj = JSON.parse(data);
         console.log(obj.CardNames);
         generateVisualCardNames(obj.CardNames);
-        $('body').append("<script src=\"assets/css/Baraja/js/modernizr.custom.79639.js\"></script><script src=\"assets/css/Baraja/js/jquery.baraja.js\"></script>");
 
 
     });
@@ -88,6 +81,29 @@ function generateActionCardsOnBoard(array) {
         parent.append(plusbutton);
         console.log(parent);
         $(".actioncards_on_table_print").append(parent);
+    }
+}
+
+function generateVictoryCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        html += '<img alt="buy '+ array[i].name.toLowerCase() +'" title="buy '+ array[i].name.toLowerCase() +'" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">'
+        html += '</li>';
+        $("#victory_cards ul").append(html);
+    }
+}
+function generateMoneyCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        html += '<img alt="buy '+ array[i].name.toLowerCase() +'" title="buy '+ array[i].name.toLowerCase() +'" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">'
+        html += '</li>';
+        $("#money_cards ul").append(html);
     }
 }
 
@@ -186,6 +202,7 @@ function updateVictoryCardBoard() {
         console.log(data);
         var obj = JSON.parse(data);
         console.log(obj.victoryCardsOnBoard);
+        generateVictoryCardsOnBoard(obj.victoryCardsOnBoard);
         //FIXCOUNTERSMETHOD
     });
 
@@ -215,6 +232,7 @@ function updateTreasureCardBoard() {
         console.log(data);
         var obj = JSON.parse(data);
         console.log(obj.treasureCardsOnBoard);
+        generateMoneyCardsOnBoard(obj.treasureCardsOnBoard);
     });
 
     request.fail(function (jqXHR, textStatus) {
@@ -232,7 +250,7 @@ function buyActionCard() {
         type: "GET",
         data: {
             action: 'buyActionCard',
-            positionOnBoard: $(this).prev().index() //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
+            positionOnBoard: $(this).parent().index() //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
 
         }
     });
@@ -327,36 +345,4 @@ function generateVisualCardNames(array) {
         html += '</li>';
         $("#baraja-el").append(html);
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -70,8 +70,8 @@
                 </div>
             </div>
             <div id="trash_pile_on_table">
+                <button id="nextPlayerButton"></button>
                 <img src="assets/images/trash_pile_filled.png" title="Trash Pile" alt="Trash Pile"/>
-                <img src="assets/images/exit_button.jpg" id="nextPlayerButton" title="endTurn" alt="endTurn"/>
             </div>
         </div>
     </div>

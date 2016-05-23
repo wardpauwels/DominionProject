@@ -28,8 +28,10 @@ public class BoardServlet extends HttpServlet {
     JSONObject actionCards = new JSONObject();
     JSONObject victoryCards = new JSONObject();
     Card[] cardsOnBoard;
+    Player[] player;
     JSONObject treasureCards = new JSONObject();
     JSONObject CAB = new JSONObject();
+    JSONObject currentlyPlayingPlayer = new JSONObject();
 
 
 
@@ -158,6 +160,16 @@ public class BoardServlet extends HttpServlet {
                 CAB.put("coinsActionsBuys",coinsActionsBuys);
                 writer.append(CAB.toString());
                 break;
+
+            case "updatePlayer":
+                player = new Player[1];
+                player[0] = g.allPlayers.get(g.getPlayer());
+
+                currentlyPlayingPlayer.put("activePlayer",player);
+                writer.append(currentlyPlayingPlayer.toString());
+                break;
+
+
 
             case "buyActionCard":
                 int positionOnBoard;

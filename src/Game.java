@@ -45,6 +45,10 @@ public class Game {
         }
     }
 
+    public int getPlayer(){
+        return player;
+    }
+
     public void setDecisionOfPlayerPosition(int numberOfDecision){
         this.decisionOfPlayerPosition = numberOfDecision;
     }

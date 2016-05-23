@@ -34,18 +34,24 @@ public class GameTest {
 
     @Test
     public void buyCardAndCheckPlayerDiscardPile() throws Exception {
-        g.buyCard(0,"victory",g.allPlayers.get(0));
+        g.setDecisionOfPlayerPosition(0);
+        g.setDecisionOfPlayerType("victory");
+        g.buyCard();
         assertEquals("Gekochte kaart niet gevonden in discardpile", "Estate", g.allPlayers.get(0).getCardFromDiscardPileOnPos(0).getName());
     }
     @Test
     public void buyCardAndCheckRemainingActions() throws Exception {
-        g.buyCard(0,"victory",g.allPlayers.get(0));
+        g.setDecisionOfPlayerPosition(0);
+        g.setDecisionOfPlayerType("victory");
+        g.buyCard();
         assertEquals("Actions niet omlaag na het kopen van een kaart", 0, g.getAmountOfActionsRemaining());
 
     }
     @Test
     public void buyCardAndCheckIfAmountChanged(){
-        g.buyCard(0,"victory",g.allPlayers.get(0));
+        g.setDecisionOfPlayerPosition(0);
+        g.setDecisionOfPlayerType("victory");
+        g.buyCard();
         assertEquals("Card amount niet veranderd na het kopen van kaart", 23, g.getCardFromPosInVictoryTable(0).getAmount());
     }
 
@@ -101,7 +107,7 @@ public class GameTest {
         assertEquals("Amount of coins wel omhoog zonder copper in hand", 0, g.getAmountOfCoinsOfPlayer());
     }
     @Test
-    public void bureaucratAtionCardTester(){ // TODO: test slaagt niet altijd, soms in infinite loop
+    public void bureaucratAtionCardTester(){
         g.useActionCard("Bureaucrat", 0);
         assertEquals("Silver kaart niet gekregen", "Silver", g.allPlayers.get(0).getTopCardFromDeck().getName());
     }
@@ -153,28 +159,20 @@ public class GameTest {
     @Test
     public void WitchAtionCardTester(){
         g.useActionCard("Witch", 0);
-        assertEquals("Andere speler heeft geen curse kaart gekregen", true , g.allPlayers.get(1).scanDiscardPileForCard(g.getCardFromPosInTreasureTable(3)));
+        assertEquals("Andere speler heeft geen curse kaart gekregen", true , g.allPlayers.get(1).scanDiscardPileForCard(g.getCardFromPosInVictoryTable(3)));
         assertEquals("Geen extra kaarten gekregen",7, g.allPlayers.get(0).getHandSize());
     }
+
     @Test
-    public void adventurerAtionCardTester(){ //TODO: test slaagt niet altijd, soms in infinite loop
+    public void adventurerAtionCardTester() {
         g.useActionCard("Adventurer", 0);
-        assertEquals("Geen extra kaarten gekregen",7, g.allPlayers.get(0).getHandSize());
+        g.allPlayers.get(1).addSpecificCardToDeck(g.getCardFromPosInTreasureTable(0));
+        g.allPlayers.get(1).addSpecificCardToDeck(g.getCardFromPosInTreasureTable(0));
+        g.allPlayers.get(2).addSpecificCardToDeck(g.getCardFromPosInTreasureTable(0));
+        g.allPlayers.get(2).addSpecificCardToDeck(g.getCardFromPosInTreasureTable(0));
+        assertEquals("Geen extra kaarten gekregen", 7, g.allPlayers.get(0).getHandSize());
         assertEquals("Extra gekregen kaarten zijn geen treasuere cards", "treasure", g.allPlayers.get(0).getCardOnPosInHand(6).getType());
     }
-
-    /*@Test
-    public void NAAMAtionCardTester(){
-
-    }*/
-    /*@Test
-    public void NAAMAtionCardTester(){
-
-    }*/
-    /*@Test
-    public void NAAMAtionCardTester(){
-
-    }*/
 
 
 

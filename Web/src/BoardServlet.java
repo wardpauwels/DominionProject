@@ -222,6 +222,7 @@ public class BoardServlet extends HttpServlet {
     }
     private void endTurn(){
         g.endTurn();
+
         //TODO ANIMATION VOOR NIEUW GEMAAKT HAND OPVRAAGBAAR VIA g.returnHand(g.allPlayers.get(player)
 
     }

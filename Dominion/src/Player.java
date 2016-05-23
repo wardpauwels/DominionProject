@@ -91,6 +91,10 @@ public class Player {
         discardPile.clearDeck();
     }
 
+    public void addSpecificCardToDeck(Card c){
+        playersDeck.addCardToDeck(c);
+    }
+
     // HAND
 
     public void addXAmountOfCardsToHand(int amount){
@@ -158,10 +162,6 @@ public class Player {
         return handSize;
     }
 
-    /*public void addCardFromHandToDeck(Card c){ // TODO: wordt niet gebruikt, kan weg?
-        playersDeck.addCardToDeck(c);
-        playersHand.removeFromHand(scanHandForCardandGetPositionInHand(c));
-    }*/
 
     //Om 1 kaart te trekken
     public void addCardFromDeckToHand(){

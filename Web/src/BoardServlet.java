@@ -61,6 +61,12 @@ public class BoardServlet extends HttpServlet {
                 System.out.println("s2");
                 g.createPlayersList(2);
                 System.out.println("s3");
+
+                playerNames = new ArrayList<>();
+                g.createPlayersList(countAmountOfPlayers());
+                setNames();
+
+
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
                     /*if(i == g.allPlayers.get(g.player).getHandSize()-1){

@@ -17,7 +17,6 @@ public class TreasureCardTable {
         treasureCardTable.add(GenerateSpecificTreasureCard(2, "Silver", 5, 40));
         treasureCardTable.add(GenerateSpecificTreasureCard(3, "Gold", 8, 30));
 
-
     }
 
     private Card GenerateSpecificTreasureCard(int number, String name, int cost, int amount) {

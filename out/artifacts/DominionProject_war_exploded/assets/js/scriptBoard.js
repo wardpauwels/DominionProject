@@ -39,26 +39,31 @@ function setBoard() {
     });
 }
 function generateActionCardsOnBoard(array) {
+    /* for (var i = 0; i < array.length; i++) {
+     var html = '<li>';
+     var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+     html += '<p class="counteronactioncards">0</p>';
+     html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+     html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
+     html += '</li>';
+     $(".actioncards_on_table_print").append(html);
+     }*/
+    console.log(array);
     for (var i = 0; i < array.length; i++) {
-        var html = '<li>';
-        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
-        html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
-        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
-        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
-        html += '</li>';
-        $(".actioncards_on_table_print").append(html);
-    }
-    /*for (var i = 0; i < array.length; i++) {
         var parent = $('<li class="test"></li>');
         var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
         var html = "";
         html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
-        html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
+        //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
+        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">');
+        plusbutton.data("cardNumber", array[i].number);
+        console.log(parent.data("cardNumber"));
         parent.html(html);
+        parent.append(plusbutton);
         console.log(parent);
         $(".actioncards_on_table_print").append(parent);
-    }*/
+    }
 }
 function generateVictoryCardsOnBoard(array) {
     for (var i = 0; i < array.length; i++) {

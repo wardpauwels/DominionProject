@@ -1,10 +1,5 @@
-/**
- * Created by jensthiel on 23/05/16.
- */
 $(document).ready(function () {
     update();
-
-
 });
 /*
 function updateActionAmount(){
@@ -12,7 +7,6 @@ function updateActionAmount(){
     html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
 
 }}*/
-
 
 function setBoard() {
     console.log("set board werkt");
@@ -137,7 +131,7 @@ function updateActionCardBoard() {
 }
 
 $('#actioncards_on_table').on('click', '.buyActionCard', function () {
-    
+
 
     console.log("kaart spelen werkt");
     var request = $.ajax({
@@ -325,34 +319,3 @@ function generateVisualCardNames(array) {
         $("#baraja-el").append(html);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

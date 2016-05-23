@@ -66,7 +66,6 @@
             <div id="hand_on_table">
                 <div class="baraja-demo">
                     <ul id="baraja-el" class="baraja-container">
-                        <li><img src="assets/images/Big%20cards/militia.jpg" /></li>
                     </ul>
                 </div>
             </div>
@@ -108,6 +107,6 @@
 <script src="assets/js/script.js"></script>
 <script src="assets/css/Baraja/js/modernizr.custom.79639.js"></script>
 <script src="assets/css/Baraja/js/jquery.baraja.js"></script>
-<script src="assets/js/scriptBoard.js"></script>
+<script src="assets/js/scriptBoardFile.js"></script>
 </body>
 </html>

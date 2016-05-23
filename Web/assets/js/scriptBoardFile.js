@@ -84,6 +84,131 @@ function generateActionCardsOnBoard(array) {
     }
 }
 
+function generateVictoryCardsOnBoard(array){
+    for (var i = 0; i < array.length; i++) {
+        var parent = $('<li></li>');
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        var html = "";
+        html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
+        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">');
+        plusbutton.data("cardNumber", array[i].number);
+        console.log(parent.data("cardNumber"));
+        parent.html(html);
+        parent.append(plusbutton);
+        console.log(parent);
+        $(".victorycards_on_table_print").append(parent);
+    }
+}
+
+function generateTreasureCardsOnBoard(array){
+    for (var i = 0; i < array.length; i++) {
+        var parent = $('<li></li>');
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        var html = "";
+        html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
+        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">');
+        plusbutton.data("cardNumber", array[i].number);
+        console.log(parent.data("cardNumber"));
+        parent.html(html);
+        parent.append(plusbutton);
+        console.log(parent);
+        $(".treasurecards_on_table_print").append(parent);
+    }
+}
+
+
+
+$('#victory_cards').on('click', '.buyActionCard', function () {
+
+
+    console.log("kaart spelen werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType:"text",
+        data: {
+            action: 'buyVictoryCard',
+            positionOnBoard: $(this).data('cardNumber') //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
+
+        }
+    });
+
+    request.done(function (data) {
+        //alert(data);
+        update();
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert("nie gelukt");
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+
+
+});
+
+$('#money_cards').on('click', '.buyActionCard', function () {
+
+
+    console.log("kaart spelen werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType:"text",
+        data: {
+            action: 'buyTreasureCard',
+            positionOnBoard: $(this).data('cardNumber') //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
+
+        }
+    });
+
+    request.done(function (data) {
+        //alert(data);
+        update();
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert("nie gelukt");
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+
+
+});
+
+$('#actioncards_on_table').on('click', '.buyActionCard', function () {
+
+
+    console.log("kaart spelen werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType:"text",
+        data: {
+            action: 'buyActionCard',
+            positionOnBoard: $(this).data('cardNumber') //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
+
+        }
+    });
+
+    request.done(function (data) {
+        //alert(data);
+        update();
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert("nie gelukt");
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+
+
+});
+
 function updateActionCardBoard() {
     var actionCards = $('.actioncards_on_table_print');
     actionCards.empty();
@@ -130,37 +255,8 @@ function updateActionCardBoard() {
 
 }
 
-$('#actioncards_on_table').on('click', '.buyActionCard', function () {
-
-
-    console.log("kaart spelen werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType:"text",
-        data: {
-            action: 'buyActionCard',
-            positionOnBoard: $(this).data('cardNumber') //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
-
-        }
-    });
-
-    request.done(function (data) {
-        //alert(data);
-        update();
-
-    });
-    request.fail(function (jqXHR, textStatus) {
-        alert("nie gelukt");
-        alert(jqXHR.status + ' ' + textStatus);
-    });
-
-
-});
-
 function updateVictoryCardBoard() {
-    var victoryCards = $('.counteronsmallcards');
+    var victoryCards = $('.victorycards_on_table_print');
     victoryCards.empty();
     console.log("update victory werkt");
     var request = $.ajax({
@@ -179,6 +275,7 @@ function updateVictoryCardBoard() {
         console.log(data);
         var obj = JSON.parse(data);
         console.log(obj.victoryCardsOnBoard);
+        generateVictoryCardsOnBoard(obj.victoryCardsOnBoard);
         //FIXCOUNTERSMETHOD
     });
 
@@ -190,7 +287,7 @@ function updateVictoryCardBoard() {
 }
 
 function updateTreasureCardBoard() {
-    var treasureCards = $('.counteronsmallcards');
+    var treasureCards = $('.treasurecards_on_table_print');
     treasureCards.empty();
     console.log("update victory werkt");
     var request = $.ajax({
@@ -208,6 +305,7 @@ function updateTreasureCardBoard() {
         console.log(data);
         var obj = JSON.parse(data);
         console.log(obj.treasureCardsOnBoard);
+        generateTreasureCardsOnBoard(obj.treasureCardsOnBoard);
     });
 
     request.fail(function (jqXHR, textStatus) {
@@ -217,30 +315,6 @@ function updateTreasureCardBoard() {
 
 }
 
-function buyActionCard() {
-    console.log("kaart spelen werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        data: {
-            action: 'buyActionCard',
-            positionOnBoard: $(this).parent().index() //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
-
-        }
-    });
-
-    request.done(function (data) {
-        alert(success(data));
-
-    });
-    request.fail(function (jqXHR, textStatus) {
-        console.log("nie gelukt");
-        alert(jqXHR.status + ' ' + textStatus);
-    });
-
-
-}
 
 function updateCoinsActionsBuys() {
     console.log("update coins werkt");

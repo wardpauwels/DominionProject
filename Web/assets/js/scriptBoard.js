@@ -14,14 +14,15 @@ $(document).ready(function () {
 
 function setBoard() {
     console.log("set board werkt");
-
-    //get handcards
     var request = $.ajax({
         cache: false,
         url: "/BoardServlet",
         type: "GET",
         dataType: "text",
-        data: {action: 'getCards'}
+        data: {
+            action: 'getCards'
+
+        }
     });
 
     request.done(function (data) {
@@ -45,6 +46,28 @@ function generateActionCardsOnBoard(array) {
         html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
         html += '</li>';
         $(".actioncards_on_table_print").append(html);
+    }
+}
+function generateVictoryCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        html += '<img alt="buy '+ array[i].name.toLowerCase() +'" title="buy '+ array[i].name.toLowerCase() +'" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">'
+        html += '</li>';
+        $("#victory_cards ul").append(html);
+    }
+}
+function generateMoneyCardsOnBoard(array) {
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
+        html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
+        html += '<img alt="buy '+ array[i].name.toLowerCase() +'" title="buy '+ array[i].name.toLowerCase() +'" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">'
+        html += '</li>';
+        $("#money_cards ul").append(html);
     }
 }
 
@@ -109,6 +132,7 @@ function updateVictoryCardBoard(){
         console.log(data);
         var obj = JSON.parse(data);
         console.log(obj.victoryCardsOnBoard);
+        generateVictoryCardsOnBoard(obj.victoryCardsOnBoard);
     });
         
     request.fail(function (jqXHR, textStatus) {
@@ -143,6 +167,49 @@ function updateTreasureCardBoard(){
     });
 
 }
+
+
+
+
+
+
+
+
+
+// var buyCard = function (event) {
+//
+//     var buyThisCard = event.target.id;
+//     var request = $.ajax({cache: false,
+//         dataType: "text",
+//         url: "/BoardServlet",
+//         data: {action: "buyActionCard",
+//             positionOnBoard: buyThisCard}
+//     });
+//     request.done(function (data) {
+//         var obj = JSON.parse(data);
+//
+//         thisCard = obj.thisCard;
+//         console.log(thisCard);
+//         amount = obj.amount;
+//         coins = obj.coins;
+//         buys = obj.buys;
+//         actions = obj.actions;
+//         amount = obj.amount;
+//         $(".coins").html($(".coins").html().replace(parseInt($(".coins").text().split(":")[1]), coins));
+//         $(".buys").html($(".buys").html().replace(parseInt($(".buys").text().split(":")[1]), buys));
+//         $(".actions").html($(".actions").html().replace(parseInt($(".actions").text().split(":")[1]), actions));
+//         if (thisCard < 2) {nextPlayer();}
+//         updateAmount(thisCard, amount);
+//         ;
+//     });
+//     request.fail(function (jqXHR, textStatus) {
+//         alert(jqXHR.status + ' ' + textStatus);
+//     });
+// };
+
+
+
+
 
 function buyActionCard(){
         console.log("kaart spelen werkt");
@@ -189,57 +256,43 @@ function updateCoinsActionsBuys(){
         alert(jqXHR.status + ' ' + textStatus);
     });
 
-    //get names
-    var requestNames = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {action: 'getNames'}
-    });
-
-    requestNames.done(function (data) {
-        var obj = JSON.parse(data);
-        if (obj.amount == "2"){
-            $("#header").html("<div id='two_players'><p id='player_one_name' class='player_one_name'>" + obj.name1 + "</p><p id='player_two_name' class='player_two_name'>" + obj.name2 + "</p></div>");
-        } else if (obj.amount == "3"){
-            $('#header').html("<div id='three_players'><div class='player_one_name'><p>" + obj.name1 + "</p></div><div class='player_two_name'><p>" + obj.name2 + "</p></div><div class='player_third_name'><p>" + obj.name3 + "</p></div>");
-        } else if (obj.amount == "4"){
-            $('#header').html("<div id='four_players'><div class='player_one_name'><p>" + obj.name1 + "</p></div><div class='player_two_name'><p>" + obj.name2 + "</p></div> <div class='player_third_name'><p>" + obj.name3 + "</p></div><div class='player_fourth_name'><p>" + obj.name4 + "</p></div></div>");
-        }
-    });
-    requestNames.fail(function (jqXHR, textStatus) {
-        alert(jqXHR.status + ' ' + textStatus);
-    });
-
 }
+
+
 function update() {
-    updateHand();
-}
+                updateHand();
+            }
 
-function updateHand() {
-    console.log("updateHand werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'updateHand'
-        }
-    });
+            function updateHand() {
+                console.log("updateHand werkt");
+                var request = $.ajax({
+                    cache: false,
+                    url: "/BoardServlet",
+                    type: "GET",
+                    dataType: "text",
+                    data: {
+                        action: 'updateHand'
 
-    request.done(function (data) {
-        console.log(data);
-        console.log(data.CardNames);
-        var obj = JSON.parse(data);
-        console.log(obj.CardNames);
-        generateVisualCardNames(obj.CardNames);
-    });
-    request.fail(function (jqXHR, textStatus) {
-        alert(jqXHR.status + ' ' + textStatus);
-    });
-}
+                    }
+                });
+
+                request.done(function (data) {
+                    //$('#player_one_name').html(data.name1);
+                    //$('#player_two_name').html(data.name2);
+                    console.log(data);
+                    console.log(data.CardNames);
+                    var obj = JSON.parse(data);
+                    console.log(obj.CardNames);
+                    generateVisualCardNames(obj.CardNames);
+
+
+                });
+                request.fail(function (jqXHR, textStatus) {
+
+                    alert(jqXHR.status + ' ' + textStatus);
+                });
+
+            }
 
 
             function generateVisualCardNames(array) {

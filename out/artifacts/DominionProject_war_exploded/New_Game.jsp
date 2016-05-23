@@ -39,8 +39,8 @@
             <div id="users">
                 <form action="Board.jsp" method="get" id="playerNameForm">
                     <div id="playerNamesField">
-                        <input id="player1" name = "player1" type="text" placeholder="Playername" />
-                        <input id="player2" name = "player2" type="text" placeholder="Playername" />
+                        <input id="player1" name = "player1" type="text" placeholder="Playername" required/>
+                        <input id="player2" name = "player2" type="text" placeholder="Playername" required/>
                     </div>
                     <input type="submit" id="startGame" value="Start" action="Board.jsp">
                     <input type="button" id="addPlayer" value="Add" />

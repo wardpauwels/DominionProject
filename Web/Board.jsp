@@ -27,34 +27,6 @@
             <p id="player_one_name" class="player_one_name"></p>
             <p id="player_two_name" class="player_two_name"></p>
         </div>
-        <!--<div id="three_players">
-             <div class="player_one_name">
-                 <p>Dylan</p>
-             </div>
-
-             <div class="player_two_name">
-                 <p>Ward</p>
-                 </div>
-             <div class="player_third_name">
-                 <p>Robert</p>
-             </div>
-
-         </div>-->
-
-        <!--<div id="four_players">
-            <div class="player_one_name">
-                <p>Dylan</p>
-            </div>
-            <div class="player_two_name">
-                <p>Ward</p>
-            </div>
-            <div class="player_third_name">
-                <p>Robert</p>
-            </div>
-            <div class="player_fourth_name">
-                <p>Jens</p>
-            </div>
-        </div>-->
     </div>
 
     <div id="content">
@@ -65,45 +37,10 @@
         <div id="cards_on_board">
             <div id="victory_cards">
                 <ul>
-                    <li>
-                        <p class="counteronsmallcards">0</p>
-                        <img src="assets/images/Small%20Cards/province.jpg" title="Province + 6 points" alt="Province"/>
-                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
-                    </li>
-                    <li>
-                        <p class="counteronsmallcards">0</p>
-                        <img src="assets/images/Small%20Cards/duchy.jpg" title="Duchy + 3 points" alt="Duchy"/>
-                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
-                    </li>
-                    <li>
-                        <p class="counteronsmallcards">0</p>
-                        <img src="assets/images/Small%20Cards/estate.jpg" title="Estate + 1 point" alt="Estate"/>
-                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
-                    </li>
-                    <li>
-                        <p class="counteronsmallcards">0</p>
-                        <img src="assets/images/Small%20Cards/curse.jpg" title="Curse - 1 point" alt="Curse"/>
-                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
-                    </li>
                 </ul>
             </div>
             <div id="money_cards">
                 <ul>
-                    <li>
-                        <p class="counteronsmallcards">0</p>
-                        <img src="assets/images/Small%20Cards/gold.jpg" alt="Gold" title="Gold + 3 coins"/>
-                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
-                    </li>
-                    <li>
-                        <p class="counteronsmallcards">0</p>
-                        <img src="assets/images/Small%20Cards/silver.jpg" alt="Silver" title="Silver + 2 coins"/>
-                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
-                    </li>
-                    <li>
-                        <p class="counteronsmallcards">0</p>
-                        <img src="assets/images/Small%20Cards/copper.jpg" alt="Copper" title="Copper + 1 coin"/>
-                        <img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">
-                    </li>
                 </ul>
             </div>
         </div>
@@ -171,7 +108,5 @@
 <script src="assets/css/Baraja/js/modernizr.custom.79639.js"></script>
 <script src="assets/css/Baraja/js/jquery.baraja.js"></script>
 <script src="assets/js/scriptBoardFile.js"></script>
-
-
 </body>
 </html>

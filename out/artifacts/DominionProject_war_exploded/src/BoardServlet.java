@@ -194,7 +194,6 @@ public class BoardServlet extends HttpServlet {
 
                 break;
             case "buyVictoryCard":
-
                 if(g.currentPhase == 1) {
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
 

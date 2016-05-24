@@ -161,12 +161,12 @@ $('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 });
 
 function playCard(){
-$('#hand li').on('click', function () {
-    pos = $(this).index();
-    console.log(pos);
-playCardAjax(pos);
-
-});}
+    $('#hand li').on('click', function () {
+        pos = $(this).index();
+        console.log(pos);
+        playCardAjax(pos);
+    });
+}
 function playCardAjax(pos)
 {
     var request = $.ajax({

@@ -561,6 +561,50 @@ body{
     bottom: 0;
 }
 
+
+
+
+
+#otherPlayerCardInfo{
+    z-index: 3000;
+    position: absolute;
+    top: 13px;
+    visibility:hidden;
+    width: 100%;
+    transition:1s;
+}
+
+#otherPlayerCardInfo ul {
+    height: 326px;
+    border: solid 4px black;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: rgba(17, 17, 17, .6);
+}
+#otherPlayerCardInfo img{
+    height: 260px;
+    margin: auto;
+}
+#otherPlayerCardInfo li {
+    display:inline;
+}
+
+#otherPlayerCardInfo h1 {
+    color: #8c6d47;
+    font-size: 20px;
+    background-color: black;
+    margin-bottom: 15px;
+    text-align: center;
+    line-height: 38px;
+}
+
+
+
+
+
+
 .buyActionCard {
     position: relative;
     display: block;
@@ -606,7 +650,7 @@ body {
     width: 162px;
 }
 #playVictoryButton{
-    background-image: url("../images/Play_Victory.png");
+    background-image: url("../images/Play_Treasure.png");
     background-color: transparent;
     background-repeat:no-repeat;
     background-size:160px;
@@ -615,7 +659,7 @@ body {
     width: 162px;
 }
 #playActionButton{
-    background-image: url("../images/Play_Actions.png");
+    background-image: url("../images/Buy_Phase.png");
     background-color: transparent;
     background-repeat:no-repeat;
     background-size:160px;

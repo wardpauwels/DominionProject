@@ -13,8 +13,14 @@
     <title>Dominion</title>
 </head>
 <body>
+
 <div id="wrapper">
     <div id="bigCard"></div>
+    <div id="otherPlayerCardInfo">
+        <ul>
+            <h1>Trash one of the cards below</h1>
+        </ul>
+    </div>
     <div id="header">
         <div id="two_players">
             <p id="player_one_name" class="player_one_name"></p>

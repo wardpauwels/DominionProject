@@ -700,3 +700,7 @@ button:disabled {
 #hand li img {
     height:150px;
 }
+
+.activeCard {
+    box-shadow: 0 0 20px 7px rgba(255, 99, 13, 0.73);
+}

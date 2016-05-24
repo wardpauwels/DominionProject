@@ -204,6 +204,13 @@ public class Game {
             return true;
         }
     }
+    public Deck useThiefGui() {
+        Deck top2CardsOfPlayer = new Deck();
+        for (int i = 0; i < 2; i++) {
+
+        }
+        return top2CardsOfPlayer;
+    }
 
     private void executeSpecificAction(Card card){
         card.getNumber();

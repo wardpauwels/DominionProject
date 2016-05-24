@@ -328,6 +328,37 @@ function updateTreasureCardBoard() {
     });
 
 }
+
+function getThiefOrSpyArray() {
+    
+    console.log("thief getter lukt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'playThiefOrSpy'
+
+        }
+    });
+
+    request.done(function (data) {
+
+        console.log(data);
+        var obj = JSON.parse(data);
+        console.log("thief succesfull");
+        console.log(obj.top2Cards);
+        console.log(obj.top2Cards[0]);
+        //FIXCOUNTERSMETHOD
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
+    });
+
+}
 function updateCurrentlyPlaying() {
     console.log("update coins werkt");
     var request = $.ajax({
@@ -402,11 +433,45 @@ function update() {
     updateTreasureCardBoard();
     updateCoinsActionsBuys();
     updateCurrentlyPlaying();
+    //getThiefOrSpyArray();
     console.log("fml");
+    checkIfFinished();
 
 
 
     // playing with different origins and ranges
+
+}
+
+function checkIfFinished(){
+    console.log("checkiffinished werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'checkIfFinished'
+
+        }
+    });
+
+    request.done(function (data) {
+        //$('#player_one_name').html(data.name1);
+        //$('#player_two_name').html(data.name2);
+        console.log(data);
+        console.log(data.gameOver);
+        var obj = JSON.parse(data);
+        console.log(obj.gameOver);
+
+
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + 'updateHand' + textStatus);
+    });
+
 
 }
 

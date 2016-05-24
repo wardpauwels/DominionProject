@@ -33,6 +33,9 @@ public class BoardServlet extends HttpServlet {
     JSONObject CAB = new JSONObject();
     JSONObject currentlyPlayingPlayer = new JSONObject();
     int positionOnBoard;
+    JSONObject thiefOrSpyArray = new JSONObject();
+    boolean finished = false;
+    JSONObject gameOver = new JSONObject();
 
 
 
@@ -100,14 +103,21 @@ public class BoardServlet extends HttpServlet {
 
             case "playCard":
                 if(g.currentPhase == 0){
+
                     int positionInHand;
                     positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                    if(g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14){
+                        thiefOrSpyPlayed();
+                    }
+                    else{
                     System.out.println("nummer " + positionInHand+  "gespeeld!");
-                    useActionCard(positionInHand);
+                    useActionCard(positionInHand);}
                 }else{
                     System.out.println("Er kan geen actie kaart gespeeld worden in de koop fase");
                 }
 
+                break;
+            case "playThiefOrSpy":
                 break;
 
             case "updateHand":
@@ -191,6 +201,9 @@ public class BoardServlet extends HttpServlet {
                 } else{
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
+                if(g.checkIfFinished()){
+                    runGameIsDone();
+                }
 
                 break;
             case "buyVictoryCard":
@@ -204,6 +217,9 @@ public class BoardServlet extends HttpServlet {
                 else{
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
+                if(g.checkIfFinished()){
+                    runGameIsDone();
+                }
                 break;
 
             case "buyTreasureCard":
@@ -214,6 +230,9 @@ public class BoardServlet extends HttpServlet {
                     System.out.println("kaart " + positionOnBoard +  " gekocht!");
                 }else{
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
+                }
+                if(g.checkIfFinished()){
+                    runGameIsDone();
                 }
 
                 break;
@@ -231,6 +250,16 @@ public class BoardServlet extends HttpServlet {
             case "endPhase":
 
                 g.endPhase();
+                break;
+            case "checkIfFinished":
+                if (finished){
+                    gameOver.put("gameIsDone",1);
+                }
+                else{
+                    gameOver.put("gameIsDone",-1);
+                }
+                writer.append(gameOver.toString());
+
         }
     }
 
@@ -278,6 +307,10 @@ public class BoardServlet extends HttpServlet {
             g.allPlayers.get(i).setName(playerNames.get(i));
         }
     }
+
+    private void thiefOrSpyPlayed(){
+
+    }
     private void useActionCard(int positionInHand){
         g.setDecisionOfPlayerPosition(positionInHand);
         g.playActionCard();
@@ -291,6 +324,10 @@ public class BoardServlet extends HttpServlet {
     private void endPhase(){
         g.nextPhase();
         //TODO ANIMATION VOOR BUYPHASE
+
+    }
+    private void runGameIsDone(){
+        finished = true;
 
     }
 

@@ -58,6 +58,11 @@ public class Game {
     }
 
     public void setDecisionOfPlayerPosition(int numberOfDecision) {
+    public int getPlayer(){
+        return player;
+    }
+
+    public void setDecisionOfPlayerPosition(int numberOfDecision){
         this.decisionOfPlayerPosition = numberOfDecision;
     }
 
@@ -274,9 +279,9 @@ public class Game {
     public void useMilitia(int numberOfThePlayer) {
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         currentlyActiveAmountOfCoins += 2;
-        for (int i = 0; i < allPlayers.size(); i++) {
-            if (i != numberOfThePlayer) {
-                while (getActivePlayer(i).getHandSize() > 3) {
+        for(int i = 0; i < allPlayers.size(); i++){
+            if(i != numberOfThePlayer){
+                while(getActivePlayer(i).getHandSize() > 3) {
                     System.out.println(getActivePlayer(i).getName() + ", geef de positie van een kaart om weg te doen tot je er 3 hebt");
                     //int pos = in.nextInt();// TODO:user input weghalen
                     int pos = decisionOfPlayerPosition;
@@ -284,6 +289,7 @@ public class Game {
                     activePlayer.addCardFromHandToDiscardPile(chosenCard);
                 }
             }
+
         }
     }
 
@@ -330,7 +336,7 @@ public class Game {
         remainingBuysInPhase += 1;
     }
 
-    private void useWorkshop(int numberOfThePlayer) {
+    private void useWorkshop(int numberOfThePlayer){
         System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen? (1 - 3)");
         String typeOfCard = decisionOfPlayerType;
         /*int intOfTypeCard = in.nextInt();// TODO:user input weghalen

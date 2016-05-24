@@ -21,13 +21,16 @@ public class BoardServlet extends HttpServlet {
     Game g;
     ArrayList<String> playerNames;
     JSONObject names;
+    JSONObject cleanNames;
     JSONObject cards = new JSONObject();
     String[] cardNames;
     JSONObject actionCards = new JSONObject();
     JSONObject victoryCards = new JSONObject();
     Card[] cardsOnBoard;
+    Player[] player;
     JSONObject treasureCards = new JSONObject();
     JSONObject CAB = new JSONObject();
+    JSONObject currentlyPlayingPlayer = new JSONObject();
 
 
 
@@ -58,9 +61,10 @@ public class BoardServlet extends HttpServlet {
                 //System.out.println("amount"+countAmountOfPlayers());
                 //System.out.println("s1");
                 g = new Game();
-                System.out.println("s2");
-                g.createPlayersList(2);
-                System.out.println("s3");
+                playerNames = new ArrayList<>();
+                g.createPlayersList(countAmountOfPlayers());
+                setNames();
+
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
                     /*if(i == g.allPlayers.get(g.player).getHandSize()-1){
@@ -69,21 +73,27 @@ public class BoardServlet extends HttpServlet {
                         cards.put("cardName",g.allPlayers.get(g.player).getCardOnPosInHand(i).getName()+",");
                     }*/
                     cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
-
                 }
                 cards.put("CardNames",cardNames);
 
                 System.out.println(cards);
                 writer.append(cards.toString());
                 System.out.println(cards);
-
-
                 break;
+
             case "getCards":
                 //writer.append(names.toString());
                 writer.append(cards.toString());
                 break;
 
+            case "getNames":
+                cleanNames = new JSONObject();
+                for (int i = 0; i<g.allPlayers.size(); i++){
+                    cleanNames.put("name"+(i+1), g.allPlayers.get(i).getName());
+                }
+                cleanNames.put("amount", countAmountOfPlayers());
+                writer.append(cleanNames.toString());
+                break;
 
             case "playCard":
                 if (g.currentPhase == 0){
@@ -104,8 +114,8 @@ public class BoardServlet extends HttpServlet {
                 cards.put("CardNames",cardNames);
                 System.out.println(cards);
                 writer.append(cards.toString());
-
                 break;
+
             case "updateActionBoard":
                 cardsOnBoard = new Card[g.actionCardsOnBoard.size()];
                 for(int i = 0; i < g.actionCardsOnBoard.size();i++){
@@ -116,8 +126,6 @@ public class BoardServlet extends HttpServlet {
                 writer.append(actionCards.toString());
                 g.printActionCards();
                 break;
-
-
 
             case "updateVictoryBoard":
                 cardsOnBoard = new Card[g.victoryCardTable.getSize()];
@@ -131,6 +139,7 @@ public class BoardServlet extends HttpServlet {
                 writer.append(victoryCards.toString());
                 g.printVictoryCards();
                 break;
+
             case "updateTreasureBoard":
                 cardsOnBoard = new Card[g.treasureCardTable.getSize()];
 
@@ -143,6 +152,7 @@ public class BoardServlet extends HttpServlet {
                 writer.append(treasureCards.toString());
                 g.printTreasureCards();
                 break;
+
             case "updateCoinsActionsBuys":
                 g.calculateCoinsOfPlayer(g.allPlayers.get(g.player));
                 int[] coinsActionsBuys = new int[3];
@@ -152,6 +162,17 @@ public class BoardServlet extends HttpServlet {
                 CAB.put("coinsActionsBuys",coinsActionsBuys);
                 writer.append(CAB.toString());
                 break;
+
+            case "updatePlayer":
+                player = new Player[1];
+                player[0] = g.allPlayers.get(g.getPlayer());
+
+                currentlyPlayingPlayer.put("activePlayer",player);
+                writer.append(currentlyPlayingPlayer.toString());
+                break;
+
+
+
             case "buyActionCard":
                 if (g.currentPhase == 1){
                     int positionOnBoard;
@@ -159,13 +180,33 @@ public class BoardServlet extends HttpServlet {
                     int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
                     buyCard(pos,"action");
                     System.out.println("kaart " + pos +  " gekocht!");
-                    break;
+
                 } else{
                     System.out.println("Er kan niet gekocht worden in de action phase");
                 }
+                break;
+            case "buyVictoryCard":
+                if (g.currentPhase == 1){
+                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
 
+                    buyCard(positionOnBoard-1,"victory");
+                    System.out.println("kaart " + positionOnBoard +  " gekocht!");
+                }else{
+                    System.out.println("Er kan niet gekocht worden in de action phase");
+                }
 
+                break;
 
+            case "buyTreasureCard":
+                if (g.currentPhase == 1) {
+                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+
+                    buyCard(positionOnBoard - 1, "treasure");
+                    System.out.println("kaart " + positionOnBoard + " gekocht!");
+                } else {
+                    System.out.println("Er kan niet gekocht worden in de action phase");
+                }
+                break;
         }
     }
 
@@ -203,10 +244,6 @@ public class BoardServlet extends HttpServlet {
     private void nextTurn(){
         g.nextTurn();
         //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
-
-
-
-
 
 
     }

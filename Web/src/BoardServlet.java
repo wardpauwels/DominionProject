@@ -110,7 +110,10 @@ public class BoardServlet extends HttpServlet {
                     cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
                 }
                 cards.put("CardNames",cardNames);
-                System.out.println(cards);
+                g.allPlayers.get(g.getPlayer()).printDeck();
+                System.out.println("--------------------");
+                g.allPlayers.get(g.getPlayer()).printDiscardPile();
+                    System.out.println(cards);
                 writer.append(cards.toString());
                 break;
 
@@ -152,7 +155,7 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "updateCoinsActionsBuys":
-                g.calculateCoinsOfPlayer(g.allPlayers.get(g.player));
+
                 int[] coinsActionsBuys = new int[3];
                 coinsActionsBuys[0]=g.getAmountOfCoinsOfPlayer();
                 coinsActionsBuys[1]=g.returnAmountOfActionsRemaining();
@@ -196,9 +199,15 @@ public class BoardServlet extends HttpServlet {
             case "endTurn":
                 System.out.println("Einde beurt voor speler: " + g.getPlayerName(g.player));
                 g.nextPlayer();
+                g.endTurn();
                 g.printHand(g.allPlayers.get(g.player));
                 System.out.println("Nieuwe speler: " + g.getPlayerName(g.player));
+                g.resetAmountOfActions();
                 break;
+
+            case "endPhase":
+                g.nextPhase();
+                g.endPhase();
         }
     }
 

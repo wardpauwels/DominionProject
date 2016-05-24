@@ -75,7 +75,7 @@
                 <br>
                 <button id="playVictoryButton" disabled></button>
                 <br>
-                <button id="playActionButton" disabled></button>
+                <button id="playActionButton"></button>
             </div>
         </div>
     </div>

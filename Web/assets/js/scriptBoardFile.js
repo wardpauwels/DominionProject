@@ -1,5 +1,6 @@
 $(document).ready(function () {
     update();
+    
 });
 /*
 function updateActionAmount(){
@@ -158,6 +159,39 @@ $('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 
 });
+
+function playCard(){
+$('#hand li').on('click', function () {
+    pos = $(this).index();
+    console.log(pos);
+playCardAjax(pos);
+
+});}
+function playCardAjax(pos)
+{
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'playCard',
+            positionInHand: pos
+
+
+        }
+    });
+    request.done(function (data) {
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        console.log("nie gelukt");
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+
+
+}
+
 
 $('#actioncards_on_table').on('click', '.buyActionCard', function () {
 
@@ -369,26 +403,10 @@ function update() {
     updateCurrentlyPlaying();
     console.log("fml");
 
-    var $el = $( '#baraja-el' ),
-        baraja = $el.baraja();
+
 
     // playing with different origins and ranges
-    $( '#opencards' ).on('click', function(event) {
-        console.log("test")
-        baraja.fan( {
-            speed : 500,
-            easing : 'ease-out',
-            range : 45,
-            direction : 'middle',
-            origin : { x : 50, y : 200 },
-            center : true,
-        });
-        console.log("test2")
-    } );
-    $( '#closecards' ).on( 'click', function( event ) {
-        baraja.close();
 
-    } );
 }
 
 function updateHand() {
@@ -432,6 +450,7 @@ function generateVisualCardNames(array) {
         html += '</li>';
         $("#hand").append(html);
     }
+    playCard();
 }
 
 $('#nextPlayerButton').on('click', function () {
@@ -442,6 +461,27 @@ $('#nextPlayerButton').on('click', function () {
         type: "GET",
         dataType:"text",
         data: {action: 'endTurn'}
+    });
+
+    request.done(function (data) {
+        //alert(data);
+        update();
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert("nie gelukt om volgende speler te starten");
+        alert(jqXHR.status + ' ' + textStatus);
+    });
+});
+
+$('#playActionButton').on('click', function () {
+    console.log("volgende speler werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType:"text",
+        data: {action: 'endPhase'}
     });
 
     request.done(function (data) {

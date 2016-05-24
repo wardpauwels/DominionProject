@@ -118,9 +118,10 @@ public class Game {
         currentPlayer.addToHandDiscardpile();
         currentPlayer.clearHand();
         endTurnForPlayer(currentPlayer);
+
     }
     public void nextTurn() {
-        calculateCoinsOfPlayer(allPlayers.get(player));
+
         nextPlayer();
 
 
@@ -130,20 +131,15 @@ public class Game {
 
     public void playActionCard() {
         Player activePlayer = allPlayers.get(player);
-        if (decisionOfPlayerPosition == 0) {
-            setRemainingActionsInPhase(0);}
-        else {
-            Card toBePlayedActionCard = allPlayers.get(player).getCardOnPosInHand(decisionOfPlayerPosition - 1);
+
+            Card toBePlayedActionCard = allPlayers.get(player).getCardOnPosInHand(decisionOfPlayerPosition);
             if (toBePlayedActionCard.getType().equals("action")) {
-                moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition - 1, activePlayer);
+                moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition, activePlayer);
                 useActionCard(toBePlayedActionCard.getName(), player);
                 lowerAmountOfActions();
                 System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
-            }
-            else {
 
-                playActionCard();
-            }
+
 
         }
 
@@ -192,15 +188,15 @@ public class Game {
         boughtCard.setAmount(boughtCard.getAmount()-1);
         currentlyActiveAmountOfCoins-=boughtCard.getCost();
         allPlayers.get(player).addCardToDiscardPile(boughtCard);
-        remainingActionsInPhase = remainingActionsInPhase - 1;
-        if (!checkRemainingActions()){
+        remainingBuysInPhase-= 1;
+        if (!checkRemainingActions(remainingBuysInPhase)){
             endTurn();
         }
 
     }
 
-    private boolean checkRemainingActions(){
-        if (remainingActionsInPhase==0){
+    private boolean checkRemainingActions(int actions){
+        if (actions==0){
             return false;
         }
         else{
@@ -245,15 +241,15 @@ public class Game {
     }
 
     public void resetAmountOfActions(){
-        remainingActionsInPhase = remainingBuysInPhase;
-
+        remainingActionsInPhase = 1;
+        remainingBuysInPhase = 1;
     }
     public int returnAmountOfActionsRemaining(){
         return remainingActionsInPhase;
     }
     public void endPhase(){
-        remainingActionsInPhase = 1;
-        remainingBuysInPhase = 1;
+        calculateCoinsOfPlayer(allPlayers.get(player));
+        remainingActionsInPhase = 0;
     }
     public void setRemainingActionsInPhase(int amount){
         remainingActionsInPhase = amount;
@@ -693,7 +689,7 @@ public class Game {
     }
 
     public void calculateCoinsOfPlayer(Player player){
-        currentlyActiveAmountOfCoins = player.getAmountOfCoinsInHand();
+        currentlyActiveAmountOfCoins = currentlyActiveAmountOfCoins + player.getAmountOfCoinsInHand();
     }
     public int getAmountOfCoinsOfPlayer(){
 

@@ -101,7 +101,7 @@ function generateTreasureCardsOnBoard(array){
 
 
 
-$('#victory_cards').not(".disabled").on('click', '.buyVictoryCardsandCoinCards', function () {
+$('#victory_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 
     console.log("kaart spelen werkt");

@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
@@ -23,6 +22,8 @@ public class Game {
     public int player = 0;
     public int decisionOfPlayerPosition;
     public String decisionOfPlayerType;
+
+    public int currentPhase = 0; // 0 = Action phase 1 = Buy phase
 
     public Scanner in = new Scanner(System.in); // scanner voor user input
 
@@ -73,6 +74,14 @@ public class Game {
             }
         }
         return true;
+    }
+
+    public void nextPhase(){
+        if(currentPhase == 0){
+            currentPhase += 1;
+        } else{
+            System.out.println("Phase kan niet hoger dan 1");
+        }
     }
     //Lijst met 10 random actie kaarten wordt hier gemaakt
     public void generateActionCardTable() {
@@ -133,7 +142,7 @@ public class Game {
             }
             else {
 
-                    playActionCard();
+                playActionCard();
             }
 
         }
@@ -194,7 +203,8 @@ public class Game {
         if (remainingActionsInPhase==0){
             return false;
         }
-        else{return true;
+        else{
+            return true;
         }
     }
 
@@ -299,7 +309,7 @@ public class Game {
         for (int i=0;i<allPlayers.size();i++){
             if(i!=numberOfThePlayer){
                 if(!checkForCard(actionCardTable.getCardOnPos(15), getActivePlayer(i)))
-                    {
+                {
                     getActivePlayer(i).addCardToDiscardPile(victoryCardTable.getCardOnPos(3));
                 }
             }
@@ -397,20 +407,20 @@ public class Game {
         }
     }
 
-    private void useAdventurer (int numberOfThePlayer){
+    public void useAdventurer(int numberOfThePlayer) {
         int amountOfTreasureCardsFound = 0;
         Player activePlayer = getActivePlayer(numberOfThePlayer);
-        while (amountOfTreasureCardsFound!=2) {
+        while (amountOfTreasureCardsFound != 2) {
             Card topCard = activePlayer.getTopCardFromDeck();
             if (topCard.getType().equals("treasure")) {
                 amountOfTreasureCardsFound += 1;
                 activePlayer.addSpecificCardToHand(topCard);
             } else {
+                activePlayer.removeFromDeck(0);
                 activePlayer.addCardToDiscardPile(topCard);
             }
         }
         activePlayer.printHand();
-
     }
     private void useThief(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
@@ -418,7 +428,7 @@ public class Game {
         boolean stopAction = false;
         for (int i = 0; i < allPlayers.size(); i++){
             if(numberOfThePlayer != i){
-                Deck deckOfPlayerX = returnXAmountOfTopCardsOfPlayerY(2,i); // TODO: bug: krijgt altijd 2 de zelfde kaarten terug
+                Deck deckOfPlayerX = returnXAmountOfTopCardsOfPlayerY(2,i);// TODO: bug: krijgt altijd 2 de zelfde kaarten terug
                 System.out.println("1: "+ deckOfPlayerX.getCardOnPos(0).getName() + " 2:" + deckOfPlayerX.getCardOnPos(1).getName());
                 System.out.println("Geef positie van kaart om af te pakken");
                 int positie  = in.nextInt();
@@ -450,7 +460,7 @@ public class Game {
     {
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addCardToPlaceInDeck(0,treasureCardTable.getCardOnPos(1));
-        //TODO nog toevoegen dat andere spelers victory card moeten kiezen (robert)
+
         for (int i=0;i<allPlayers.size();i++){
             if (i != numberOfThePlayer) {
                 int positionOfVictoryCardInHandOfPlayer = allPlayers.get(i).scanHandForCardAndReturnPosition("victory");
@@ -693,7 +703,7 @@ public class Game {
     public void moveCardFromHandToDiscardPilePosition(int position, Player whichPlayer){
 
         whichPlayer.moveCardFromHandToDiscard(position);
-     }
+    }
 
 
     public void useActionCard(String nameOfActionCard,int numberOfThePlayer) {
@@ -839,5 +849,3 @@ public class Game {
 
     }
 }
-
-

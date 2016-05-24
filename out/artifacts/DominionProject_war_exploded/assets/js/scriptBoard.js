@@ -209,49 +209,6 @@ function updateTreasureCardBoard(){
 
 }
 
-
-
-
-
-
-
-
-
-// var buyCard = function (event) {
-//
-//     var buyThisCard = event.target.id;
-//     var request = $.ajax({cache: false,
-//         dataType: "text",
-//         url: "/BoardServlet",
-//         data: {action: "buyActionCard",
-//             positionOnBoard: buyThisCard}
-//     });
-//     request.done(function (data) {
-//         var obj = JSON.parse(data);
-//
-//         thisCard = obj.thisCard;
-//         console.log(thisCard);
-//         amount = obj.amount;
-//         coins = obj.coins;
-//         buys = obj.buys;
-//         actions = obj.actions;
-//         amount = obj.amount;
-//         $(".coins").html($(".coins").html().replace(parseInt($(".coins").text().split(":")[1]), coins));
-//         $(".buys").html($(".buys").html().replace(parseInt($(".buys").text().split(":")[1]), buys));
-//         $(".actions").html($(".actions").html().replace(parseInt($(".actions").text().split(":")[1]), actions));
-//         if (thisCard < 2) {nextPlayer();}
-//         updateAmount(thisCard, amount);
-//         ;
-//     });
-//     request.fail(function (jqXHR, textStatus) {
-//         alert(jqXHR.status + ' ' + textStatus);
-//     });
-// };
-
-
-
-
-
 function buyActionCard(){
         console.log("kaart spelen werkt");
         var request = $.ajax({ cache: false,

@@ -19,6 +19,7 @@ public class BoardServlet extends HttpServlet {
     String name3;
     String name4;
     Game g;
+    int activePlayer;
     ArrayList<String> playerNames;
     JSONObject names;
     JSONObject cleanNames;
@@ -65,6 +66,7 @@ public class BoardServlet extends HttpServlet {
                 playerNames = new ArrayList<>();
                 g.createPlayersList(countAmountOfPlayers());
                 setNames();
+                activePlayer = 0;
 
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
@@ -97,11 +99,22 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "playCard":
+                int positionInHand;
+                positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
                 if(g.currentPhase == 0){
-                    int positionInHand;
-                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    System.out.println("nummer " + positionInHand+  "gespeeld!");
-                    useActionCard(positionInHand);
+                    if(g.trashingCards()) {
+                        g.selectedCard = g.allPlayers.get(activePlayer).getCardOnPosInHand(positionInHand);
+                        g.moveCardFromHandToDiscardPilePosition(positionInHand, g.allPlayers.get(activePlayer));
+
+                        if (g.currentAction.equals("remodel")) {
+                            g.changeCoinsToCostOfCardPlusTwo();
+                            g.amountOfCardsToBeTrashed -=1;
+                        }
+                    }else{
+                        System.out.println("nummer " + positionInHand+  "gespeeld!");
+                        useActionCard(positionInHand);
+                    }
+
                 }else{
                     System.out.println("Er kan geen actie kaart gespeeld worden in de koop fase");
                 }
@@ -114,7 +127,10 @@ public class BoardServlet extends HttpServlet {
                     cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
                 }
                 cards.put("CardNames",cardNames);
-                System.out.println(cards);
+                g.allPlayers.get(g.getPlayer()).printDeck();
+                System.out.println("--------------------");
+                g.allPlayers.get(g.getPlayer()).printDiscardPile();
+                    System.out.println(cards);
                 writer.append(cards.toString());
                 break;
 
@@ -156,7 +172,7 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "updateCoinsActionsBuys":
-                g.calculateCoinsOfPlayer(g.allPlayers.get(g.player));
+
                 int[] coinsActionsBuys = new int[3];
                 coinsActionsBuys[0]=g.getAmountOfCoinsOfPlayer();
                 coinsActionsBuys[1]=g.returnAmountOfActionsRemaining();
@@ -176,40 +192,55 @@ public class BoardServlet extends HttpServlet {
 
 
             case "buyActionCard":
-                if(g.currentPhase == 1){
-                    int positionOnBoard;
+                if(g.currentPhase == 1 || g.actionToBuyCard){
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                     int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
                     buyCard(pos,"action");
                     System.out.println("kaart " + pos +  " gekocht!");
+                    g.actionToBuyCard = false;
                 } else{
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
-
                 break;
             case "buyVictoryCard":
 
-                if(g.currentPhase == 1) {
+                if(g.currentPhase == 1 || g.actionToBuyCard) {
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-
-                    buyCard(positionOnBoard - 1, "victory");
+                    buyCard(positionOnBoard-1, "victory");
                     System.out.println("kaart " + positionOnBoard + " gekocht!");
+                    g.actionToBuyCard = false;
                 }
                 else{
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
-                break;
-            case "buyTreasureCard":
-                if(g.currentPhase == 1){
-                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
 
+                break;
+
+            case "buyTreasureCard":
+                if(g.currentPhase == 1 || g.actionToBuyCard){
+                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                     buyCard(positionOnBoard-1,"treasure");
                     System.out.println("kaart " + positionOnBoard +  " gekocht!");
+                    g.actionToBuyCard = false;
                 }else{
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
 
                 break;
+
+            case "endTurn":
+                System.out.println("Einde beurt voor speler: " + g.getPlayerName(g.player));
+                g.nextPlayer();
+                g.endTurn();
+                g.printHand(g.allPlayers.get(g.player));
+                System.out.println("Nieuwe speler: " + g.getPlayerName(g.player));
+                g.resetAmountOfActions();
+                g.resetPhase();
+                break;
+
+            case "endPhase":
+
+                g.endPhase();
         }
     }
 
@@ -260,11 +291,10 @@ public class BoardServlet extends HttpServlet {
     private void useActionCard(int positionInHand){
         g.setDecisionOfPlayerPosition(positionInHand);
         g.playActionCard();
-
-
     }
     private void endTurn(){
         g.endTurn();
+
         //TODO ANIMATION VOOR NIEUW GEMAAKT HAND OPVRAAGBAAR VIA g.returnHand(g.allPlayers.get(player)
 
     }
@@ -275,10 +305,12 @@ public class BoardServlet extends HttpServlet {
     }
 
     private void buyCard(int positionOnTheBoard, String typeOfToBeBoughtCard){
-        g.setDecisionOfPlayerPosition(positionOnTheBoard);
-        g.setDecisionOfPlayerType(typeOfToBeBoughtCard);
-        g.buyCard();
-        g.checkIfFinished();
+        if (g.returnRemainingBuys()>=1) {
+            g.setDecisionOfPlayerPosition(positionOnTheBoard);
+            g.setDecisionOfPlayerType(typeOfToBeBoughtCard);
+            g.buyCard();
+            g.checkIfFinished();
+        }
     }
 
 

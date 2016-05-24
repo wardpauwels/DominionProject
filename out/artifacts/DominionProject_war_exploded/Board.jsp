@@ -64,15 +64,18 @@
 
             </div>
             <div id="hand_on_table">
-                <div class="baraja-demo">
-                    <ul id="baraja-el" class="baraja-container">
+                    <ul id="hand">
                     </ul>
-                </div>
             </div>
             <div id="trash_pile_on_table">
-                <!--<img src="assets/images/exit_button.jpg" title="exit the game" alt="exit"/>-->
                 <img src="assets/images/trash_pile_filled.png" title="Trash Pile" alt="Trash Pile"/>
-
+            </div>
+            <div id="playButtons">
+                <button id="nextPlayerButton"></button>
+                <br>
+                <button id="playVictoryButton" disabled></button>
+                <br>
+                <button id="playActionButton"></button>
             </div>
         </div>
     </div>
@@ -92,10 +95,6 @@
                     <p id="Amount_Of_Coins" style="padding:2px 14px 2px 14px">0</p>
                 </div>
             </div>
-            <div id="center_side_footer">
-                <button id="opencards">Open hand</button>
-                <button id="closecards">Close hand</button>
-            </div>
             <div id="right_side_footer">
                 <p>Currently playing: </p>
                 <p id="Current_Playing">Player Dominion</p>
@@ -105,8 +104,7 @@
 </div>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/script.js"></script>
-<script src="assets/css/Baraja/js/modernizr.custom.79639.js"></script>
-<script src="assets/css/Baraja/js/jquery.baraja.js"></script>
 <script src="assets/js/scriptBoardFile.js"></script>
+
 </body>
 </html>

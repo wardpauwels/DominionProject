@@ -26,10 +26,7 @@ $(document).ready(function () {
     showCards(messageArray);*/
     disableCopyPaste();
 
-    $("#baraja-el li").click(function(e){
-        e.preventDefault();
-        $(this).appendTo('#playedcards_on_table ul');
-    });
+
 
     $("#actioncards_on_table ul li img:nth-of-type(1)").click(function () {
         console.log("gevonden");
@@ -56,27 +53,7 @@ $(document).ready(function () {
     });
 
 });
-$('#baraja-el li').click(function(){
-    console.log("kaart spelen werkt");
-    var request = $.ajax({ cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        data:{ action: 'playCard',
-            positionInHand: $('#baraja-el li').index(this)
 
-
-        }
-    });
-    request.done(function (data) {
-        alert(success(data));
-    });
-    request.fail(function (jqXHR, textStatus) {
-        console.log("nie gelukt");
-        alert(jqXHR.status + ' ' + textStatus);
-    });
-  
-
-});
 $('#startGame').click(function(){
     console.log("init werkt");
     var request = $.ajax({ cache: false,
@@ -197,5 +174,9 @@ document.getElementById('baraja-el').addEventListener("wheel", function (e) {
 });
 
 
-
-
+$("#baraja-el li").mousedown(function(event) {
+    if (e.which === 1) {
+        e.preventDefault();
+        $(this).appendTo('#playedcards_on_table ul');
+    }
+});

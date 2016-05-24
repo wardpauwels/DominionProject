@@ -35,24 +35,25 @@ public class Hand {
         hand.clear();
 
     }
-
-
     public boolean scanDeckForCardWithTypeXandReturnBoolean(String typeOfCard){
-        ArrayList<Card> specificCardsInDeck = new ArrayList<>();
-        boolean typeCheck = false;
+        Deck specificCardsInDeck = new Deck();
         for (int i=0;i<hand.size();i++) {
             if (hand.get(i).getType().equals(typeOfCard)){
-                specificCardsInDeck.add(hand.get(i));
+                specificCardsInDeck.addCardToDeck(hand.get(i));
             }
         }
-        if (specificCardsInDeck.size() != 0){
-            typeCheck = true;
+        if (specificCardsInDeck.getSize()==0){
+            return true;
         }
-        return typeCheck;
+        else return false;
+
+
     }
 
     public int scanDeckForCardWithTypeXandReturnPosition(String typeOfCard) {
+        Deck specificCardsInDeck = new Deck();
         int positionOfCard = -1;
+
         if (scanDeckForCardWithTypeXandReturnBoolean(typeOfCard)) {
             while (positionOfCard == -1) {
                 for (int i = 0; i < hand.size(); i++) {
@@ -60,10 +61,12 @@ public class Hand {
                         positionOfCard = i;
                     }
                 }
+
             }
             return positionOfCard;
         }
         else{
+
             return -1;
         }
 

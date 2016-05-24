@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Robert on 20-5-2016.
  */
+
 public class CardTest {
     private Card c = new Card();
 

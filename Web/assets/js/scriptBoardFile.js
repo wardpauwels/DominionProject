@@ -1,5 +1,6 @@
 $(document).ready(function () {
     update();
+    
 });
 /*
 function updateActionAmount(){
@@ -10,28 +11,7 @@ function updateActionAmount(){
 
 function setBoard() {
     console.log("set board werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'getCards'
-
-        }
-    });
-
-    request.done(function (data) {
-        //$('#player_one_name').html(data.name1);
-        //$('#player_two_name').html(data.name2);
-        console.log(data);
-        console.log(data.CardNames);
-        var obj = JSON.parse(data);
-        console.log(obj.CardNames);
-        generateVisualCardNames(obj.CardNames);
-
-
-    });
+    updateHand();
 
     //get names
     var requestNames = $.ajax({
@@ -89,10 +69,10 @@ function generateVictoryCardsOnBoard(array){
         var parent = $('<li></li>');
         var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
         var html = "";
-        html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">');
+        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         console.log(parent.data("cardNumber"));
         parent.html(html);
@@ -107,10 +87,10 @@ function generateTreasureCardsOnBoard(array){
         var parent = $('<li></li>');
         var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
         var html = "";
-        html += '<p class="counteronactioncards">' + array[i].amount + '</p>';
+        html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">');
+        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         console.log(parent.data("cardNumber"));
         parent.html(html);
@@ -122,7 +102,7 @@ function generateTreasureCardsOnBoard(array){
 
 
 
-$('#victory_cards').on('click', '.buyActionCard', function () {
+$('#victory_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 
     console.log("kaart spelen werkt");
@@ -151,7 +131,7 @@ $('#victory_cards').on('click', '.buyActionCard', function () {
 
 });
 
-$('#money_cards').on('click', '.buyActionCard', function () {
+$('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 
     console.log("kaart spelen werkt");
@@ -180,6 +160,40 @@ $('#money_cards').on('click', '.buyActionCard', function () {
 
 });
 
+function playCard(){
+$('#hand li').on('click', function () {
+    pos = $(this).index();
+    console.log(pos);
+playCardAjax(pos);
+
+});}
+function playCardAjax(pos)
+{
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'playCard',
+            positionInHand: pos
+
+
+        }
+    });
+    request.done(function (data) {
+        update();
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        console.log("nie gelukt");
+        alert(jqXHR.status + 'PlayCardAjax' + textStatus);
+    });
+
+
+}
+
+
 $('#actioncards_on_table').on('click', '.buyActionCard', function () {
 
 
@@ -203,7 +217,7 @@ $('#actioncards_on_table').on('click', '.buyActionCard', function () {
     });
     request.fail(function (jqXHR, textStatus) {
         alert("nie gelukt");
-        alert(jqXHR.status + ' ' + textStatus);
+        alert(jqXHR.status + 'buyActionCard' + textStatus);
     });
 
 
@@ -250,7 +264,7 @@ function updateActionCardBoard() {
 
     request.fail(function (jqXHR, textStatus) {
 
-        alert(jqXHR.status + ' ' + textStatus);
+        alert(jqXHR.status + 'updateActionCardBoard' + textStatus);
     });
 
 }
@@ -281,7 +295,7 @@ function updateVictoryCardBoard() {
 
     request.fail(function (jqXHR, textStatus) {
 
-        alert(jqXHR.status + ' ' + textStatus);
+        alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
     });
 
 }
@@ -310,7 +324,7 @@ function updateTreasureCardBoard() {
 
     request.fail(function (jqXHR, textStatus) {
 
-        alert(jqXHR.status + ' ' + textStatus);
+        alert(jqXHR.status + 'updateTreasureBoard' + textStatus);
     });
 
 }
@@ -336,7 +350,7 @@ function updateCurrentlyPlaying() {
 
     request.fail(function (jqXHR, textStatus) {
 
-        alert(jqXHR.status + ' ' + textStatus);
+        alert(jqXHR.status + 'updateCurrentlyPlaying' + textStatus);
     });
 
 }
@@ -364,7 +378,7 @@ function updateCoinsActionsBuys() {
 
     request.fail(function (jqXHR, textStatus) {
 
-        alert(jqXHR.status + ' ' + textStatus);
+        alert(jqXHR.status + 'updateCoinsActionsBuys' + textStatus);
     });
 
 }
@@ -389,6 +403,11 @@ function update() {
     updateCoinsActionsBuys();
     updateCurrentlyPlaying();
     console.log("fml");
+
+
+
+    // playing with different origins and ranges
+
 }
 
 function updateHand() {
@@ -417,18 +436,62 @@ function updateHand() {
     });
     request.fail(function (jqXHR, textStatus) {
 
-        alert(jqXHR.status + ' ' + textStatus);
+        alert(jqXHR.status + 'updateHand' + textStatus);
     });
 
 }
 
 
 function generateVisualCardNames(array) {
+    $("#hand").empty();
     for (var i = 0; i < array.length; i++) {
         var html = '<li>';
         var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
         html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
         html += '</li>';
-        $("#baraja-el").append(html);
+        $("#hand").append(html);
     }
+    playCard();
 }
+
+$('#nextPlayerButton').on('click', function () {
+    console.log("volgende speler werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType:"text",
+        data: {action: 'endTurn'}
+    });
+
+    request.done(function (data) {
+        //alert(data);
+        update();
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert("nie gelukt om volgende speler te starten");
+        alert(jqXHR.status + 'nextPlayerButton' + textStatus);
+    });
+});
+
+$('#playActionButton').on('click', function () {
+    console.log("volgende speler werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType:"text",
+        data: {action: 'endPhase'}
+    });
+
+    request.done(function (data) {
+        //alert(data);
+        update();
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert("nie gelukt om volgende speler te starten");
+        alert(jqXHR.status + 'PlayActionButton' + textStatus);
+    });
+});

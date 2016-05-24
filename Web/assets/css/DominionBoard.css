@@ -34,6 +34,7 @@ body{
     color: #8c6d47;
     top: 19px;
     left: -309px;
+    text-transform: capitalize;
 
 }
 #two_players .player_two_name {
@@ -42,6 +43,7 @@ body{
     top: 0;
     left: 254px;
     color: #8c6d47;
+    text-transform: capitalize;
 }
 
 #three_players .player_one_name p {
@@ -49,18 +51,21 @@ body{
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #three_players .player_two_name p {
     margin-left: 189px;
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #three_players .player_third_name p {
     margin-left: 189px;
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #three_players .player_one_name {
     background: url("../images/3_players_PLAYER_ONE.png") no-repeat left top;
@@ -75,6 +80,7 @@ body{
     z-index:500;
     -webkit-transition: left 1.5s; /* Safari */
     transition: left 1.5s;
+    text-transform: capitalize;
 }
 #three_players .player_two_name {
     background: url("../images/3_players_PLAYER_TWO.png") no-repeat left top;
@@ -89,6 +95,7 @@ body{
     z-index:500;
     -webkit-transition: right 1.5s; /* Safari */
     transition: right 1.5s;
+    text-transform: capitalize;
 }
 #three_players .player_third_name {
     background: url("../images/3_players_PLAYER_THREE.png") no-repeat left top;
@@ -103,6 +110,7 @@ body{
     z-index:500;
     -webkit-transition: right 1.5s; /* Safari */
     transition: right 1.5s;
+    text-transform: capitalize;
 }
 
 
@@ -142,18 +150,21 @@ body{
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #four_players .player_two_name p {
     margin-left: 189px;
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #four_players .player_third_name p {
     margin-left: 189px;
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 
 #four_players .player_fourth_name p {
@@ -161,6 +172,7 @@ body{
     padding-top: 7px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 
 }
 
@@ -177,6 +189,7 @@ body{
     z-index:500;
     -webkit-transition: left 1.5s; /* Safari */
     transition: left 1.5s;
+    text-transform: capitalize;
 }
 #four_players .player_two_name {
     background: url("../images/3_players_PLAYER_TWO.png") no-repeat left top;
@@ -191,6 +204,7 @@ body{
     z-index:500;
     -webkit-transition: right 1.5s; /* Safari */
     transition: right 1.5s;
+    text-transform: capitalize;
 }
 #four_players .player_third_name {
     background: url("../images/3_players_PLAYER_THREE.png") no-repeat left top;
@@ -205,6 +219,7 @@ body{
     z-index:500;
     -webkit-transition: right 1.5s; /* Safari */
     transition: right 1.5s;
+    text-transform: capitalize;
 }
 #four_players .player_fourth_name {
     background: url("../images/4_players_PLAYER_FOUR.png") no-repeat left top;
@@ -219,6 +234,7 @@ body{
     z-index:500;
     -webkit-transition: left 1.5s; /* Safari */
     transition: left 1.5s;
+    text-transform: capitalize;
 }
 
 
@@ -303,7 +319,7 @@ body{
 #footer_container {
     background: url("../images/footer.png") no-repeat center top 100%;
     width:1280px;
-    height:100px;
+    height:58px;
     margin-right:auto;
     margin-left:auto;
 }
@@ -321,12 +337,12 @@ body{
 }
 #left_side_footer {
     position: relative;
-    top: 73px;
+    top: 29px;
     left: 163px;
 }
 #right_side_footer {
     position: relative;
-    top: 27px;
+    top: 15px;
     left: 851px;
     width: 271px;
 }
@@ -360,12 +376,12 @@ body{
     float:left;
 }
 #trash_pile_on_table {
-    float:right;
+    float: right;
     background: url("../images/trash_pile.png") no-repeat bottom;
-    height:100%;
-    width:91px;
-    margin-top: -340px;
-    margin-right:10px;
+    height: 100%;
+    width: 91px;
+    margin-top: -165px;
+    margin-right: 10px;
 }
 
 #trash_pile_on_table img {
@@ -377,7 +393,7 @@ body{
     margin-left: auto;
     margin-right: auto;
     margin-top: -195px;
-    margin-bottom: 60px;
+    margin-bottom: 42px;
 }
 #playedcards_on_table li{
     display: inline;
@@ -474,7 +490,7 @@ body{
     width:100px;
 }
 #cards_on_board {
-    margin-top:-295px;
+    margin-top:-268px;
 }
 #cards_on_board ul li{
     display:inline-block;
@@ -506,9 +522,10 @@ body{
 
 
 #actioncards_on_table li p {
-    width: 21px;
-    line-height: 21px;
+    width: 20px;
+    line-height: 20px;
     font-size: 12px;
+    text-align: center;
 }
 
 #playedcards_on_discard_pile img, #toplaycards_on_discard_pile img {
@@ -559,7 +576,7 @@ body{
     width: 42px!important;
 }
 
-.buyVictoryCardsandCoinCards:active, .buyActionCard:active {
+.buyVictoryCardsandCoinCards:active, .buyActionCard:active, #nextPlayerButton:active, #playVictoryButton:active, #playActionButton:active {
     opacity: 0.8;
 }
 
@@ -578,4 +595,64 @@ body {
     -moz-user-select: none;      /* Firefox */
     -ms-user-select: none;       /* Internet Explorer/Edge */
     user-select: none;
+}
+#nextPlayerButton{
+    background-image: url("../images/End_Turn.png");
+    background-repeat:no-repeat;
+    background-size:160px;
+    background-color: transparent;
+    border-color: transparent;
+    height: 48px;
+    width: 162px;
+}
+#playVictoryButton{
+    background-image: url("../images/Play_Victory.png");
+    background-color: transparent;
+    background-repeat:no-repeat;
+    background-size:160px;
+    border-color: transparent;
+    height: 48px;
+    width: 162px;
+}
+#playActionButton{
+    background-image: url("../images/Play_Actions.png");
+    background-color: transparent;
+    background-repeat:no-repeat;
+    background-size:160px;
+    border-color: transparent;
+    height: 48px;
+    width: 162px;
+}
+
+#playButtons {
+    position: relative;
+    bottom: 191px;
+    left: 457px;
+    width: 495px;
+    display: inline;
+}
+button:focus {outline:0;}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+.disabled {
+    opacity: 0.3;
+}
+
+#hand {
+    width: 1026px;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    bottom: -110px;
+    left: 0;
+}
+#hand li {
+    display:inline;
+    padding: 5px;
+}
+#hand li img {
+    height:150px;
 }

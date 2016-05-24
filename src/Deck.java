@@ -27,10 +27,16 @@ public class Deck {
 
         Card copperCard = treasureCards.getCardOnPos(0);
         Card estateCard = victoryCards.getCardOnPos(0);
-
+        Card actionCard = actionCards.getCardOnPos(9);
         int coinsInStarterDeck = 7;
         int estateInStarterDeck = 3;
 
+
+        addCardToDeck(actionCard);
+
+        for(int i = 0; i < coinsInStarterDeck; i++){
+            addCardToDeck(copperCard);
+        }
         for(int i = 0; i < coinsInStarterDeck; i++){
             addCardToDeck(copperCard);
         }
@@ -53,15 +59,15 @@ public class Deck {
         Card newCard = new Card();
         switch (typeOfCard){
 
-            case "action": 
-                    newCard = actionCards.getCardOnPos(numberOfCard -1);
-                    break;
+            case "action":
+                newCard = actionCards.getCardOnPos(numberOfCard -1);
+                break;
             case "treasure":
-                    newCard = treasureCards.getCardOnPos(numberOfCard - 1);
-                    break;
+                newCard = treasureCards.getCardOnPos(numberOfCard - 1);
+                break;
             case "victory":
-                    newCard = victoryCards.getCardOnPos(numberOfCard -1);
-                    break;
+                newCard = victoryCards.getCardOnPos(numberOfCard -1);
+                break;
         }
         cardList.add(newCard);
     }

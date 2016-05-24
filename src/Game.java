@@ -204,7 +204,8 @@ public class Game {
         if (remainingActionsInPhase==0){
             return false;
         }
-        else{return true;
+        else{
+            return true;
         }
     }
 

@@ -24,7 +24,7 @@ $(function() {
 			direction : 'middle',
 			origin : { x : 50, y : 200 },
 			center : true,
-		} );
+		});
 		console.log("test2")
 	} );
 	$( '#closecards' ).on( 'click', function( event ) {

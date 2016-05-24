@@ -185,14 +185,15 @@ public class Game {
                 boughtCard = treasureCardTable.getCardOnPos(decisionOfPlayerPosition);
                 break;
         }
-        boughtCard.setAmount(boughtCard.getAmount()-1);
-        currentlyActiveAmountOfCoins-=boughtCard.getCost();
-        allPlayers.get(player).addCardToDiscardPile(boughtCard);
-        remainingBuysInPhase-= 1;
-        if (!checkRemainingActions(remainingBuysInPhase)){
-            endTurn();
+        if (getAmountOfCoinsOfPlayer()>=boughtCard.getCost()) {
+            boughtCard.setAmount(boughtCard.getAmount() - 1);
+            currentlyActiveAmountOfCoins -= boughtCard.getCost();
+            allPlayers.get(player).addCardToDiscardPile(boughtCard);
+            remainingBuysInPhase -= 1;
+            if (!checkRemainingActions(remainingBuysInPhase)) {
+                endTurn();
+            }
         }
-
     }
 
     private boolean checkRemainingActions(int actions){
@@ -243,13 +244,16 @@ public class Game {
     public void resetAmountOfActions(){
         remainingActionsInPhase = 1;
         remainingBuysInPhase = 1;
+        currentlyActiveAmountOfCoins = 0;
     }
     public int returnAmountOfActionsRemaining(){
         return remainingActionsInPhase;
     }
     public void endPhase(){
+        if(currentPhase==0){
         calculateCoinsOfPlayer(allPlayers.get(player));
         remainingActionsInPhase = 0;
+            nextPhase();}
     }
     public void setRemainingActionsInPhase(int amount){
         remainingActionsInPhase = amount;
@@ -262,6 +266,10 @@ public class Game {
         remainingActionsInPhase +=2;
 
 
+    }
+
+    public void resetPhase(){
+        currentPhase = 0;
     }
     private void useMilitia(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);

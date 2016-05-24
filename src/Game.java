@@ -275,6 +275,8 @@ public class Game {
     public void resetPhase(){
         currentPhase = 0;
     }
+
+
     private void useMilitia(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         currentlyActiveAmountOfCoins += 2;
@@ -292,20 +294,18 @@ public class Game {
     }
 
 
-    private void useMoneylender(int numberOfThePlayer){
+    public void useMoneylender(int numberOfThePlayer){
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
 
-        if(allPlayers.get(numberOfThePlayer).scanHandForCard(treasureCardTable.getCardOnPos(0))) {
-
-            int pickedCopper = allPlayers.get(numberOfThePlayer).scanHandForCardandGetPositionInHand(treasureCardTable.getCardOnPos(0));
-            allPlayers.get(numberOfThePlayer).moveCardFromHandToDiscard(pickedCopper);
-            currentlyActiveAmountOfCoins+=3;
-            printHand(allPlayers.get(numberOfThePlayer));
-            printCoins();
-        }
-        else{
+        if(selectedCard.getName().equals("Copper")){
+            currentlyActiveAmountOfCoins += 3;
+            moveCardFromHandToDiscardPile(decisionOfPlayerPosition, activePlayer);
+            remainingActionsInPhase -= 1;
+        }else{
             System.out.println("geen copper gevonden");
         }
-    };
+    }
+
 
     private void useSmithy(int numberOfThePlayer){
         allPlayers.get(numberOfThePlayer).addXAmountOfCardsToHand(3);
@@ -723,7 +723,10 @@ public class Game {
                 useMilitia(numberOfThePlayer);
                 break;
             case "Moneylender":
-                useMoneylender(numberOfThePlayer);
+                //useMoneylender(numberOfThePlayer);
+                currentAction = "moneylender";
+                amountOfCardsToBeTrashed +=1;
+                remainingActionsInPhase += 1;
                 break;
             case "Remodel":
                 useRemodel(numberOfThePlayer);

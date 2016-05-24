@@ -103,13 +103,7 @@ public class BoardServlet extends HttpServlet {
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
                 if(g.currentPhase == 0){
                     if(g.trashingCards()) {
-                        g.selectedCard = g.allPlayers.get(activePlayer).getCardOnPosInHand(positionInHand);
-                        g.moveCardFromHandToDiscardPilePosition(positionInHand, g.allPlayers.get(activePlayer));
-
-                        if (g.currentAction.equals("remodel")) {
-                            g.changeCoinsToCostOfCardPlusTwo();
-                            g.amountOfCardsToBeTrashed -=1;
-                        }
+                        trashingCards(positionInHand);
                     }else{
                         System.out.println("nummer " + positionInHand+  "gespeeld!");
                         useActionCard(positionInHand);
@@ -280,6 +274,20 @@ public class BoardServlet extends HttpServlet {
         g.currentPhase = 0;
         //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
 
+    }
+
+    private void trashingCards(int positionInHand){
+        g.amountOfCardsToBeTrashed -=1;
+        g.selectedCard = g.allPlayers.get(activePlayer).getCardOnPosInHand(positionInHand);
+        g.moveCardFromHandToDiscardPilePosition(positionInHand, g.allPlayers.get(activePlayer));
+        switch(g.currentAction){
+            case "remodel":
+                g.changeCoinsToCostOfCardPlusTwo();
+                break;
+            case "moneylender":
+                g.useMoneylender(activePlayer);
+                break;
+        }
 
     }
 

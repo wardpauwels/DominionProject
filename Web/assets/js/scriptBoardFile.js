@@ -343,6 +343,7 @@ function updateCoinsActionsBuys() {
 
         alert(jqXHR.status + ' ' + textStatus);
     });
+
 }
 
 function updateCAB(array){
@@ -400,13 +401,13 @@ function updateHand() {
 
 
 function generateVisualCardNames(array) {
-    $("#baraja-el").empty();
+    $("#hand").empty();
     for (var i = 0; i < array.length; i++) {
         var html = '<li>';
         var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
         html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
         html += '</li>';
-        $("#baraja-el").append(html);
+        $("#hand").append(html);
     }
 }
 

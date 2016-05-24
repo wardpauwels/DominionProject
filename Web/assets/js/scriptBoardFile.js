@@ -368,6 +368,27 @@ function update() {
     updateCoinsActionsBuys();
     updateCurrentlyPlaying();
     console.log("fml");
+
+    var $el = $( '#baraja-el' ),
+        baraja = $el.baraja();
+
+    // playing with different origins and ranges
+    $( '#opencards' ).on('click', function(event) {
+        console.log("test")
+        baraja.fan( {
+            speed : 500,
+            easing : 'ease-out',
+            range : 45,
+            direction : 'middle',
+            origin : { x : 50, y : 200 },
+            center : true,
+        });
+        console.log("test2")
+    } );
+    $( '#closecards' ).on( 'click', function( event ) {
+        baraja.close();
+
+    } );
 }
 
 function updateHand() {

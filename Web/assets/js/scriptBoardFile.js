@@ -356,6 +356,29 @@ function updatePlayer(player){
     $('#Current_Playing').html(player[0].name);
 }
 
+function playCard() {
+    $('#hand li').on("click", function(){
+        var pos =  $('#hand li').index(this);
+        console.log(pos);
+
+        var request = $.ajax({ cache: false,
+            url: "/BoardServlet",
+            type: "GET",
+            dataType: "text",
+            data:{ action: 'playCard',
+                positionInHand: pos
+            }
+        });
+        request.done(function (data) {
+            $(this).appendTo('#playedcards_on_table ul');
+        });
+        request.fail(function (jqXHR, textStatus) {
+            console.log("nie gelukt");
+            alert(jqXHR.status + ' ' + textStatus);
+        });
+    });
+}
+
 function update() {
     console.log("voor werkt");
     setBoard();
@@ -409,6 +432,7 @@ function generateVisualCardNames(array) {
         html += '</li>';
         $("#hand").append(html);
     }
+    playCard();
 }
 
 $('#nextPlayerButton').on('click', function () {

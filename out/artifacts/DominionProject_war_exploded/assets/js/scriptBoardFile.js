@@ -343,6 +343,7 @@ function updateCoinsActionsBuys() {
 
         alert(jqXHR.status + ' ' + textStatus);
     });
+
 }
 
 function updateCAB(array){
@@ -353,6 +354,29 @@ function updateCAB(array){
 
 function updatePlayer(player){
     $('#Current_Playing').html(player[0].name);
+}
+
+function playCard() {
+    $('#hand li').on("click", function(){
+        var pos =  $('#hand li').index(this);
+        console.log(pos);
+
+        var request = $.ajax({ cache: false,
+            url: "/BoardServlet",
+            type: "GET",
+            dataType: "text",
+            data:{ action: 'playCard',
+                positionInHand: pos
+            }
+        });
+        request.done(function (data) {
+            $(this).appendTo('#playedcards_on_table ul');
+        });
+        request.fail(function (jqXHR, textStatus) {
+            console.log("nie gelukt");
+            alert(jqXHR.status + ' ' + textStatus);
+        });
+    });
 }
 
 function update() {
@@ -400,14 +424,15 @@ function updateHand() {
 
 
 function generateVisualCardNames(array) {
-    $("#baraja-el").empty();
+    $("#hand").empty();
     for (var i = 0; i < array.length; i++) {
         var html = '<li>';
         var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
         html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
         html += '</li>';
-        $("#baraja-el").append(html);
+        $("#hand").append(html);
     }
+    playCard();
 }
 
 $('#nextPlayerButton').on('click', function () {
@@ -429,8 +454,4 @@ $('#nextPlayerButton').on('click', function () {
         alert("nie gelukt om volgende speler te starten");
         alert(jqXHR.status + ' ' + textStatus);
     });
-});
-
-$("#baraja-el li").on("contextmenu",function(e){
-    return false;
 });

@@ -652,6 +652,7 @@ button:disabled {
 #hand li {
     display:inline;
     padding: 5px;
+    height:150px;
 }
 #hand li img {
     height:150px;

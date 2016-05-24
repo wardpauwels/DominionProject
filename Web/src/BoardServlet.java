@@ -196,6 +196,7 @@ public class BoardServlet extends HttpServlet {
             case "endTurn":
                 System.out.println("Einde beurt voor speler: " + g.getPlayerName(g.player));
                 g.nextPlayer();
+                g.endTurn();
                 g.printHand(g.allPlayers.get(g.player));
                 System.out.println("Nieuwe speler: " + g.getPlayerName(g.player));
                 break;

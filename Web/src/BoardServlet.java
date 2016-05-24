@@ -98,11 +98,15 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "playCard":
-                int positionInHand;
-                positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                System.out.println("nummer " + positionInHand+  "gespeeld!");
-                useActionCard(positionInHand);
-                break;
+                if (g.currentPhase == 0){
+                    int positionInHand;
+                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                    System.out.println("nummer " + positionInHand+  "gespeeld!");
+                    useActionCard(positionInHand);
+                    break;
+                } else{
+                    System.out.println("Er kunnen geen kaarten gespeeld worden in de buy phase");
+                }
 
             case "updateHand":
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
@@ -155,7 +159,7 @@ public class BoardServlet extends HttpServlet {
                 g.calculateCoinsOfPlayer(g.allPlayers.get(g.player));
                 int[] coinsActionsBuys = new int[3];
                 coinsActionsBuys[0]=g.getAmountOfCoinsOfPlayer();
-                coinsActionsBuys[1]=g.returnAmountOfActionsRemaining();
+                coinsActionsBuys[1]=g.getAmountOfActionsRemaining();
                 coinsActionsBuys[2]=g.returnRemainingBuys();
                 CAB.put("coinsActionsBuys",coinsActionsBuys);
                 writer.append(CAB.toString());
@@ -172,25 +176,38 @@ public class BoardServlet extends HttpServlet {
 
 
             case "buyActionCard":
-                int positionOnBoard;
-                positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
-                buyCard(pos,"action");
-                System.out.println("kaart " + pos +  " gekocht!");
+                if (g.currentPhase == 1){
+                    int positionOnBoard;
+                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                    int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
+                    buyCard(pos,"action");
+                    System.out.println("kaart " + pos +  " gekocht!");
+
+                } else{
+                    System.out.println("Er kan niet gekocht worden in de action phase");
+                }
                 break;
             case "buyVictoryCard":
+                if (g.currentPhase == 1){
+                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
 
-                positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                    buyCard(positionOnBoard-1,"victory");
+                    System.out.println("kaart " + positionOnBoard +  " gekocht!");
+                }else{
+                    System.out.println("Er kan niet gekocht worden in de action phase");
+                }
 
-                buyCard(positionOnBoard-1,"victory");
-                System.out.println("kaart " + positionOnBoard +  " gekocht!");
                 break;
+
             case "buyTreasureCard":
+                if (g.currentPhase == 1) {
+                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
 
-                positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-
-                buyCard(positionOnBoard-1,"treasure");
-                System.out.println("kaart " + positionOnBoard +  " gekocht!");
+                    buyCard(positionOnBoard - 1, "treasure");
+                    System.out.println("kaart " + positionOnBoard + " gekocht!");
+                } else {
+                    System.out.println("Er kan niet gekocht worden in de action phase");
+                }
                 break;
 
             case "endTurn":
@@ -248,11 +265,10 @@ public class BoardServlet extends HttpServlet {
     private void useActionCard(int positionInHand){
         g.setDecisionOfPlayerPosition(positionInHand);
         g.playActionCard();
-
-
     }
     private void endTurn(){
         g.endTurn();
+
         //TODO ANIMATION VOOR NIEUW GEMAAKT HAND OPVRAAGBAAR VIA g.returnHand(g.allPlayers.get(player)
 
     }

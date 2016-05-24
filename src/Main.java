@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {
+public class main {
 //testklasse
     public static void main(String[] args) //TODO: eerder geschereven 'tests' verwijderen ?
     {
@@ -90,9 +90,6 @@ public class Main {
         g.printActionCards();
 
         */
-
-        //Final tests CLI
-        //CliGame g = new CliGame();
         CliGame g = new CliGame();
 
 

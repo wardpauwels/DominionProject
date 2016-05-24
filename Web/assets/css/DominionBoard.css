@@ -606,7 +606,7 @@ body {
     width: 162px;
 }
 #playVictoryButton{
-    background-image: url("../images/Play_Victory.png");
+    background-image: url("../images/Play_Treasure.png");
     background-color: transparent;
     background-repeat:no-repeat;
     background-size:160px;
@@ -615,7 +615,7 @@ body {
     width: 162px;
 }
 #playActionButton{
-    background-image: url("../images/Play_Actions.png");
+    background-image: url("../images/Buy_Phase.png");
     background-color: transparent;
     background-repeat:no-repeat;
     background-size:160px;

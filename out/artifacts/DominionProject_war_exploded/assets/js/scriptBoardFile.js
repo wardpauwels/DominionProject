@@ -394,15 +394,12 @@ function updatePlayer(player){
 }
 
 function update() {
-    console.log("voor werkt");
     setBoard();
-    console.log("na werkt");
     updateActionCardBoard();
     updateVictoryCardBoard();
     updateTreasureCardBoard();
     updateCoinsActionsBuys();
     updateCurrentlyPlaying();
-    console.log("fml");
 
 
 

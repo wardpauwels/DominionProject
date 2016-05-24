@@ -64,9 +64,19 @@ public class ActionCardTable {
         return allActionCards.size();
     }
 
-    public Card getCardOnPos(int pos){
-        return allActionCards.get(pos);
+    public Card getCardOnPos(int pos){ // TODO: verwijderen na test
+        Card card = allActionCards.get(pos);
+        return card;
     }
 
+    public Card searchForCardOnName(String nameOfCard){
+        Card foundCard=new Card();
+        for(int i=0;i<allActionCards.size();i++){
+            if (nameOfCard.equals(allActionCards.get(i).getName())){
+                foundCard = allActionCards.get(i);
+            }
+        }
+        return foundCard;
+    };
 
 }

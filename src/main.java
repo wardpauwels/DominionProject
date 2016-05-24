@@ -1,5 +1,7 @@
-public class main {
-    //testklasse
+import java.util.*;
+
+public class Main {
+//testklasse
     public static void main(String[] args) //TODO: eerder geschereven 'tests' verwijderen ?
     {
         //int i;
@@ -9,10 +11,10 @@ public class main {
         /*Card c = new Card();
 		c.SetNumber(45);
 		System.out.println(c.getNumber());*/
-
+		
 		/*Game g = new Game();
 		g.printArray();*/
-
+		
 		/*ActionCardTable a = new ActionCardTable();
 		a.printActionCardTable();*/
 		/*VictoryCardTable v = new VictoryCardTable();
@@ -86,7 +88,11 @@ public class main {
         i = in.nextInt();
         g.buyCard(i,"action", g.allPlayers.get(0));
         g.printActionCards();
+
         */
+
+        //Final tests CLI
+        //CliGame g = new CliGame();
         CliGame g = new CliGame();
 
 
@@ -102,4 +108,5 @@ public class main {
 
 
 }
+
 

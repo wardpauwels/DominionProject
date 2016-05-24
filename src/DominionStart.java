@@ -1,4 +1,3 @@
-/* TODO: uit comments halen, in comments vanwege errors
 import sun.audio.*;
 
 import javax.swing.*;
@@ -160,4 +159,4 @@ public class DominionStart extends JFrame implements ActionListener {
         settings.inhoud();
         settings.setVisible(true);
     }
-}*/
+}

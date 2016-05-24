@@ -319,7 +319,7 @@ body{
 #footer_container {
     background: url("../images/footer.png") no-repeat center top 100%;
     width:1280px;
-    height:100px;
+    height:58px;
     margin-right:auto;
     margin-left:auto;
 }
@@ -337,12 +337,12 @@ body{
 }
 #left_side_footer {
     position: relative;
-    top: 73px;
+    top: 29px;
     left: 163px;
 }
 #right_side_footer {
     position: relative;
-    top: 27px;
+    top: 15px;
     left: 851px;
     width: 271px;
 }
@@ -376,12 +376,12 @@ body{
     float:left;
 }
 #trash_pile_on_table {
-    float:right;
+    float: right;
     background: url("../images/trash_pile.png") no-repeat bottom;
-    height:100%;
-    width:91px;
-    margin-top: -347px;
-    margin-right:10px;
+    height: 100%;
+    width: 91px;
+    margin-top: -165px;
+    margin-right: 10px;
 }
 
 #trash_pile_on_table img {
@@ -626,10 +626,10 @@ body {
 
 #playButtons {
     position: relative;
-    bottom: 344px;
+    bottom: 191px;
     left: 457px;
     width: 495px;
-    display:inline;
+    display: inline;
 }
 button:focus {outline:0;}
 
@@ -639,4 +639,20 @@ button:disabled {
 
 .disabled {
     opacity: 0.3;
+}
+
+#hand {
+    width: 1026px;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    bottom: -110px;
+    left: 0;
+}
+#hand li {
+    display:inline;
+    padding: 5px;
+}
+#hand li img {
+    height:150px;
 }

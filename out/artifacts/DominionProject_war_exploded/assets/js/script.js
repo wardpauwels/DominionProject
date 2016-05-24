@@ -53,27 +53,7 @@ $(document).ready(function () {
     });
 
 });
-$('#baraja-el li').click(function(){
-    console.log("kaart spelen werkt");
-    var request = $.ajax({ cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        data:{ action: 'playCard',
-            positionInHand: $('#baraja-el li').index(this)
 
-
-        }
-    });
-    request.done(function (data) {
-        alert(success(data));
-    });
-    request.fail(function (jqXHR, textStatus) {
-        console.log("nie gelukt");
-        alert(jqXHR.status + ' ' + textStatus);
-    });
-  
-
-});
 $('#startGame').click(function(){
     console.log("init werkt");
     var request = $.ajax({ cache: false,

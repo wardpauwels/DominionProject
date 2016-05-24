@@ -32,6 +32,7 @@ public class BoardServlet extends HttpServlet {
     JSONObject treasureCards = new JSONObject();
     JSONObject CAB = new JSONObject();
     JSONObject currentlyPlayingPlayer = new JSONObject();
+    int positionOnBoard;
 
 
 
@@ -98,10 +99,15 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "playCard":
-                int positionInHand;
-                positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                System.out.println("nummer " + positionInHand+  "gespeeld!");
-                useActionCard(positionInHand);
+                if(g.currentPhase == 0){
+                    int positionInHand;
+                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                    System.out.println("nummer " + positionInHand+  "gespeeld!");
+                    useActionCard(positionInHand);
+                }else{
+                    System.out.println("Er kan geen actie kaart gespeeld worden in de koop fase");
+                }
+
                 break;
 
             case "updateHand":
@@ -110,7 +116,10 @@ public class BoardServlet extends HttpServlet {
                     cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
                 }
                 cards.put("CardNames",cardNames);
-                System.out.println(cards);
+                g.allPlayers.get(g.getPlayer()).printDeck();
+                System.out.println("--------------------");
+                g.allPlayers.get(g.getPlayer()).printDiscardPile();
+                    System.out.println(cards);
                 writer.append(cards.toString());
                 break;
 
@@ -152,7 +161,7 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "updateCoinsActionsBuys":
-                g.calculateCoinsOfPlayer(g.allPlayers.get(g.player));
+
                 int[] coinsActionsBuys = new int[3];
                 coinsActionsBuys[0]=g.getAmountOfCoinsOfPlayer();
                 coinsActionsBuys[1]=g.returnAmountOfActionsRemaining();
@@ -172,25 +181,41 @@ public class BoardServlet extends HttpServlet {
 
 
             case "buyActionCard":
-                int positionOnBoard;
-                positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
-                buyCard(pos,"action");
-                System.out.println("kaart " + pos +  " gekocht!");
+                if(g.currentPhase == 1){
+
+                    int positionOnBoard;
+                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                    int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
+                    buyCard(pos,"action");
+                    System.out.println("kaart " + pos +  " gekocht!");
+                } else{
+                    System.out.println("Er kan geen kaart gekocht worden in de actie fase");
+                }
+
                 break;
             case "buyVictoryCard":
 
-                positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                if(g.currentPhase == 1) {
+                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
 
-                buyCard(positionOnBoard-1,"victory");
-                System.out.println("kaart " + positionOnBoard +  " gekocht!");
+                    buyCard(positionOnBoard-1, "victory");
+                    System.out.println("kaart " + positionOnBoard + " gekocht!");
+                }
+                else{
+                    System.out.println("Er kan geen kaart gekocht worden in de actie fase");
+                }
                 break;
+
             case "buyTreasureCard":
+                if(g.currentPhase == 1){
+                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
 
-                positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                    buyCard(positionOnBoard-1,"treasure");
+                    System.out.println("kaart " + positionOnBoard +  " gekocht!");
+                }else{
+                    System.out.println("Er kan geen kaart gekocht worden in de actie fase");
+                }
 
-                buyCard(positionOnBoard-1,"treasure");
-                System.out.println("kaart " + positionOnBoard +  " gekocht!");
                 break;
 
             case "endTurn":
@@ -199,7 +224,13 @@ public class BoardServlet extends HttpServlet {
                 g.endTurn();
                 g.printHand(g.allPlayers.get(g.player));
                 System.out.println("Nieuwe speler: " + g.getPlayerName(g.player));
+                g.resetAmountOfActions();
+                g.resetPhase();
                 break;
+
+            case "endPhase":
+
+                g.endPhase();
         }
     }
 
@@ -236,6 +267,7 @@ public class BoardServlet extends HttpServlet {
 
     private void nextTurn(){
         g.nextTurn();
+        g.currentPhase = 0;
         //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
 
 
@@ -249,23 +281,27 @@ public class BoardServlet extends HttpServlet {
     private void useActionCard(int positionInHand){
         g.setDecisionOfPlayerPosition(positionInHand);
         g.playActionCard();
-
-
     }
     private void endTurn(){
         g.endTurn();
+
         //TODO ANIMATION VOOR NIEUW GEMAAKT HAND OPVRAAGBAAR VIA g.returnHand(g.allPlayers.get(player)
 
     }
     private void endPhase(){
+        g.nextPhase();
         //TODO ANIMATION VOOR BUYPHASE
 
     }
 
     private void buyCard(int positionOnTheBoard, String typeOfToBeBoughtCard){
-        g.setDecisionOfPlayerPosition(positionOnTheBoard);
-        g.setDecisionOfPlayerType(typeOfToBeBoughtCard);
-        g.buyCard();
-        g.checkIfFinished();
+        if (g.returnRemainingBuys()>=1) {
+            g.setDecisionOfPlayerPosition(positionOnTheBoard);
+            g.setDecisionOfPlayerType(typeOfToBeBoughtCard);
+            g.buyCard();
+            g.checkIfFinished();
+        }
     }
+
+
 }

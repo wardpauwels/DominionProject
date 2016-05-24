@@ -1,7 +1,7 @@
 $(document).ready(function () {
     update();
     $(function() {
-        $( "#hand li" ).draggable();
+        $( "#hand li" );
     });
 });
 /*

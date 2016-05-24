@@ -492,3 +492,15 @@ $('#playActionButton').on('click', function () {
         alert(jqXHR.status + 'PlayActionButton' + textStatus);
     });
 });
+
+function generateEnemyPlayerCard(array) {
+    $("#hand").empty();
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
+        html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
+        html += '</li>';
+        $("#otherPlayerCardInfo").append(html);
+    }
+    playCard();
+}

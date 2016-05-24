@@ -23,6 +23,7 @@
 
 <div id="wrapper">
     <div id="bigCard"></div>
+    <div id="otherPlayerCardInfo"></div>
     <div id="header">
         <div id="two_players">
             <p id="player_one_name" class="player_one_name"></p>

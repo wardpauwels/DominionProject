@@ -640,3 +640,10 @@ button:disabled {
 .disabled {
     opacity: 0.3;
 }
+
+#hand {
+    width:500px;
+}
+#hand li {
+    display:inline
+}

@@ -64,10 +64,8 @@
 
             </div>
             <div id="hand_on_table">
-                <div class="baraja-demo">
-                    <ul id="baraja-el" class="baraja-container">
+                    <ul id="hand">
                     </ul>
-                </div>
             </div>
             <div id="trash_pile_on_table">
                 <img src="assets/images/trash_pile_filled.png" title="Trash Pile" alt="Trash Pile"/>

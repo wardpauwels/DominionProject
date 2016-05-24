@@ -99,8 +99,6 @@ function generateTreasureCardsOnBoard(array){
     }
 }
 
-
-
 $('#victory_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 
@@ -345,7 +343,6 @@ function updateCoinsActionsBuys() {
 
         alert(jqXHR.status + ' ' + textStatus);
     });
-
 }
 
 function updateCAB(array){
@@ -368,27 +365,6 @@ function update() {
     updateCoinsActionsBuys();
     updateCurrentlyPlaying();
     console.log("fml");
-
-    var $el = $( '#baraja-el' ),
-        baraja = $el.baraja();
-
-    // playing with different origins and ranges
-    $( '#opencards' ).on('click', function(event) {
-        console.log("test")
-        baraja.fan( {
-            speed : 500,
-            easing : 'ease-out',
-            range : 45,
-            direction : 'middle',
-            origin : { x : 50, y : 200 },
-            center : true,
-        });
-        console.log("test2")
-    } );
-    $( '#closecards' ).on( 'click', function( event ) {
-        baraja.close();
-
-    } );
 }
 
 function updateHand() {
@@ -453,4 +429,8 @@ $('#nextPlayerButton').on('click', function () {
         alert("nie gelukt om volgende speler te starten");
         alert(jqXHR.status + ' ' + textStatus);
     });
+});
+
+$("#baraja-el li").on("contextmenu",function(e){
+    return false;
 });

@@ -99,8 +99,6 @@ function generateTreasureCardsOnBoard(array){
     }
 }
 
-
-
 $('#victory_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 
@@ -345,7 +343,6 @@ function updateCoinsActionsBuys() {
 
         alert(jqXHR.status + ' ' + textStatus);
     });
-
 }
 
 function updateCAB(array){

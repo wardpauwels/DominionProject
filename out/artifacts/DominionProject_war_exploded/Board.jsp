@@ -64,10 +64,8 @@
 
             </div>
             <div id="hand_on_table">
-                <div class="baraja-demo">
-                    <ul id="baraja-el" class="baraja-container">
+                    <ul id="hand">
                     </ul>
-                </div>
             </div>
             <div id="trash_pile_on_table">
                 <img src="assets/images/trash_pile_filled.png" title="Trash Pile" alt="Trash Pile"/>
@@ -96,10 +94,6 @@
                     <p>Coins</p>
                     <p id="Amount_Of_Coins" style="padding:2px 14px 2px 14px">0</p>
                 </div>
-            </div>
-            <div id="center_side_footer">
-                <button id="opencards">Open hand</button>
-                <button id="closecards">Close hand</button>
             </div>
             <div id="right_side_footer">
                 <p>Currently playing: </p>

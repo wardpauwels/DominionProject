@@ -671,7 +671,7 @@ button:disabled {
     box-shadow: 0 0 20px 7px rgba(255, 99, 13, 0.73);
 }
 
-.popup h1, .popupActioncard h1 {
+.popup h1, .popupActioncard h1, .popupTreasureCards h1, .popupVictoryCards h1 {
     line-height: 50px;
     color: #8c6d47;
     font-size: 25px;
@@ -679,7 +679,6 @@ button:disabled {
 }
 
 .popup{
-    width: 679px;
     background-color: rgba(17,17,17,.7);
     z-index: 3000;
     position: fixed;
@@ -688,15 +687,39 @@ button:disabled {
     text-align: left;
     margin-top: 52px;
     padding: 0 16px;
+    border: 1px solid black;
 }
 .popupActioncard{
-    width: 811px;
     background-color: rgba(17,17,17,.7);
     z-index: 3000;
     position: fixed;
     display: none;
-    margin-left: 226px;
+    margin-left: 304px;
     text-align: left;
     margin-top: -217px;
     padding: 0 16px;
+    border: 1px solid black;
+}
+.popupVictoryCards{
+    background-color: rgba(17,17,17,.7);
+    z-index: 3000;
+    width: 316px;
+    position: fixed;
+    display: none;
+    text-align: left;
+    margin-top: -142px;
+    padding: 0 16px;
+    border: 1px solid black;
+}
+.popupTreasureCards{
+    background-color: rgba(17,17,17,.7);
+    z-index: 3000;
+    width: 316px;
+    position: fixed;
+    display: none;
+    text-align: left;
+    margin-top: -150px;
+    padding: 0 16px;
+    margin-left: -131px;
+    border: 1px solid black;
 }

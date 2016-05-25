@@ -38,16 +38,18 @@
 
     <div id="content">
         <div id="actioncards_on_table">
-            <div class="popupActioncard"><h1>These are action cards. If you are in the buy fase, these cards can be bought.</h1></div>
+            <div class="popupActioncard"><h1>These are action cards. Actions cards have special abilities.</h1></div>
             <ul class="actioncards_on_table_print">
             </ul>
         </div>
         <div id="cards_on_board">
             <div id="victory_cards">
+                <div class="popupVictoryCards"><h1>These are victory cards. These cards give you points when you buy them.</h1></div>
                 <ul class="victorycards_on_table_print">
                 </ul>
             </div>
             <div id="money_cards">
+                <div class="popupTreasureCards"><h1>These are money cards. These cards give you extra coins to buy other cards.</h1></div>
                 <ul class="treasurecards_on_table_print">
                 </ul>
             </div>

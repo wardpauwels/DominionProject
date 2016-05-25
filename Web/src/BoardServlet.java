@@ -41,6 +41,7 @@ public class BoardServlet extends HttpServlet {
     int counter = 1;
 
 
+
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
@@ -92,7 +93,7 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "requestTopCard":
-                if (g.remainingActionsInPhase > 0) {
+                if (g.remainingActionsInPhase>0) {
 
                     topCard = g.allPlayers.get(g.player).playersDeck.getCardOnPos(0);
                     while (!topCard.getType().equals("action")) {
@@ -269,10 +270,9 @@ public class BoardServlet extends HttpServlet {
                     int positionOnBoard;
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                     pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
-                    if (g.actionCardsOnBoard.get(pos).getAmount() > 0) {
-                        buyCard(pos, "action");
-                        System.out.println("kaart " + pos + " gekocht!");
-                    }
+                    if(g.actionCardsOnBoard.get(pos).getAmount()>0){
+                    buyCard(pos, "action");
+                    System.out.println("kaart " + pos + " gekocht!");}
                     g.actionToBuyCard = false;
                 } else {
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
@@ -286,7 +286,7 @@ public class BoardServlet extends HttpServlet {
 
                 if (g.currentPhase == 1 || g.actionToBuyCard) {
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                    if (g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount() > 0) {
+                    if(g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount()>0) {
                         buyCard(positionOnBoard - 1, "victory");
                         System.out.println("kaart " + positionOnBoard + " gekocht!");
                         g.actionToBuyCard = false;
@@ -302,7 +302,7 @@ public class BoardServlet extends HttpServlet {
             case "buyTreasureCard":
                 if (g.currentPhase == 1 || g.actionToBuyCard) {
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                    if (g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount() > 0) {
+                    if(g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount()>0) {
                         buyCard(positionOnBoard - 1, "treasure");
                         System.out.println("kaart " + positionOnBoard + " gekocht!");
                         g.actionToBuyCard = false;
@@ -416,6 +416,10 @@ public class BoardServlet extends HttpServlet {
                 break;
             case "chapel":
                 break;
+            case "mine":
+                g.treasureCardForMine();
+                break;
+
         }
 
     }
@@ -461,4 +465,5 @@ public class BoardServlet extends HttpServlet {
             g.checkIfFinished();
         }
     }
+
 }

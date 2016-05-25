@@ -38,7 +38,8 @@ public class BoardServlet extends HttpServlet {
     JSONObject gameOver = new JSONObject();
     JSONObject topCardJSON = new JSONObject();
     Card topCard;
-    int counter = 1;
+    int counter=1;
+
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -145,8 +146,10 @@ public class BoardServlet extends HttpServlet {
                             trashingCards(positionInHand);
                         }
 
+
                         System.out.println("nummer " + positionInHand + "gespeeld!");
                         if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")) {
+                            g.setDecisionOfPlayerPosition(positionInHand);
                             g.playMilitia();
                             if (throneRoom) {
                                 g.currentlyActiveAmountOfCoins = g.currentlyActiveAmountOfCoins + 4;
@@ -286,7 +289,7 @@ public class BoardServlet extends HttpServlet {
 
                 if (g.currentPhase == 1 || g.actionToBuyCard) {
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                    if (g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount() > 0) {
+                    if(g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount()>0) {
                         buyCard(positionOnBoard - 1, "victory");
                         System.out.println("kaart " + positionOnBoard + " gekocht!");
                         g.actionToBuyCard = false;
@@ -302,7 +305,7 @@ public class BoardServlet extends HttpServlet {
             case "buyTreasureCard":
                 if (g.currentPhase == 1 || g.actionToBuyCard) {
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                    if (g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount() > 0) {
+                    if(g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount()>0) {
                         buyCard(positionOnBoard - 1, "treasure");
                         System.out.println("kaart " + positionOnBoard + " gekocht!");
                         g.actionToBuyCard = false;
@@ -351,6 +354,18 @@ public class BoardServlet extends HttpServlet {
         }
     }
 
+    public void initGame() {
+        System.out.println("amount" + countAmountOfPlayers());
+        System.out.println("s1");
+        g = new Game();
+        System.out.println("s2");
+        g.createPlayersList(countAmountOfPlayers());
+        System.out.println("s3");
+        setNames();
+
+
+    }
+
 
     private int countAmountOfPlayers() {
         if (name4 != null) {
@@ -370,16 +385,16 @@ public class BoardServlet extends HttpServlet {
             return 2;
         }
     }
+    private void libraryMoveCardFromHand(int position){
+       if (counter ==2){
+           counter = 1;
+           g.moveCardFromHandToDiscardPilePosition(position,g.allPlayers.get(g.player));
+           g.setRemainingActionsInPhase(g.remainingActionsInPhase - 1);
 
-    private void libraryMoveCardFromHand(int position) {
-        if (counter == 2) {
-            counter = 1;
-            g.moveCardFromHandToDiscardPilePosition(position, g.allPlayers.get(g.player));
-            g.setRemainingActionsInPhase(g.remainingActionsInPhase - 1);
-
-        } else {
-            counter += 1;
-        }
+       }
+        else{
+           counter += 1;
+       }
     }
 
 
@@ -416,6 +431,10 @@ public class BoardServlet extends HttpServlet {
                 break;
             case "chapel":
                 break;
+            case "mine":
+                g.treasureCardForMine();
+                break;
+
         }
 
     }
@@ -461,4 +480,5 @@ public class BoardServlet extends HttpServlet {
             g.checkIfFinished();
         }
     }
+
 }

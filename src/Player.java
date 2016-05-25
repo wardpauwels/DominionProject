@@ -7,11 +7,11 @@ import java.util.ArrayList;
 public class Player {
     private String name;
     public Deck playersDeck = new Deck();
-    public Hand playersHand = new Hand(playersDeck);
+    public Deck playersHand = new Deck();
     public Deck discardPile = new Deck();
     private int number;
-    public boolean cursedByMilitia = false;
     public int victoryPoints;
+    public boolean cursedByMilitia = false;
 
 
 
@@ -250,7 +250,7 @@ public class Player {
     public void addCardToPlaceInDeck(int position,Card specificCard){
         playersDeck.addCardToSpecificPositionInDeck(position, specificCard);
     }
-    public Hand returnHand(){
+    public Deck returnHand(){
         return playersHand;
     }
 
@@ -275,11 +275,6 @@ public class Player {
         }
         return false;
     }
-
-    public Card getCardFromDiscardPileOnPos(int pos){
-        return discardPile.getCardOnPos(pos);
-    }
-
 
 
     // --------------------   Print Methods -------------------//

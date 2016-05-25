@@ -39,6 +39,8 @@ public class BoardServlet extends HttpServlet {
     JSONObject topCardJSON = new JSONObject();
     Card topCard;
     int counter = 1;
+    JSONObject victoryPoints = new JSONObject();
+    int[] victoryPointsOfPlayers;
 
 
 
@@ -260,6 +262,22 @@ public class BoardServlet extends HttpServlet {
                 player[0] = g.allPlayers.get(g.getPlayer());
 
                 currentlyPlayingPlayer.put("activePlayer", player);
+                writer.append(currentlyPlayingPlayer.toString());
+                break;
+
+            case "updatePlayers":
+                player = new Player[g.allPlayers.size()];
+                victoryPointsOfPlayers = new int[g.allPlayers.size()];
+
+                for(int i = 0; i <g.allPlayers.size();i++){
+                    g.allPlayers.get(g.getPlayer()).calculateVictoryPoints();
+                    player[i] = g.allPlayers.get(g.getPlayer());
+                    victoryPointsOfPlayers[i] = g.allPlayers.get(g.getPlayer()).getVictoryPoints();
+
+                }
+
+                currentlyPlayingPlayer.put("activePlayers", player);
+                currentlyPlayingPlayer.put("pointsOfPlayers",victoryPointsOfPlayers);
                 writer.append(currentlyPlayingPlayer.toString());
                 break;
 

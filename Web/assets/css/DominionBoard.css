@@ -620,7 +620,7 @@ body {
     width: 162px;
 }
 #playVictoryButton{
-    background: url("../images/Play_Treasure.png") no-repeat transparent;
+    background: url("../images/reload.png") no-repeat transparent;
     background-size:160px;
     border-color: transparent;
     height: 48px;

@@ -36,6 +36,9 @@ $(document).ready(function () {
             $('.popupTreasureCards').fadeOut(1000);
         }
     });
+    $('#reload').on('click', function () {
+        update();
+    });
 });
 
 function setBoard() {
@@ -443,12 +446,53 @@ function updateCurrentlyPlaying() {
     request.done(function (data) {
         var obj = JSON.parse(data);
         updatePlayer(obj.activePlayer);
+
     });
 
     request.fail(function (jqXHR, textStatus) {
         console.log(jqXHR.status + 'updateCurrentlyPlaying' + textStatus);
     });
 
+}
+
+
+function updatePlayers() {
+    console.log("update coins werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'updatePlayers'
+        }
+    });
+
+    request.done(function (data) {
+        var obj = JSON.parse(data);
+        console.log(obj.activePlayers);
+        console.log(obj.pointsOfPlayers);
+        victory(obj.activePlayers, obj.pointsOfPlayers);
+
+
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+        console.log(jqXHR.status + 'updateCurrentlyPlaying' + textStatus);
+    });
+
+}
+
+function victory(array, points){
+    var highestPoints = 0;
+    var playerWithHighest = 0;
+    for(var i = 0;i < length(array); i ++){
+        if(points[i] > highestPoints){
+            highestPoints = array[i];
+            playerWithHighest = array[i].name;
+        }
+    }
+    alert("winner is " + playerWithHighest + " with " + highestPoints + " points!");
 }
 
 
@@ -539,7 +583,15 @@ function checkIfFinished() {
         console.log(data);
         console.log(data.gameOver);
         var obj = JSON.parse(data);
-        console.log(obj.gameOver);
+        console.log(obj.gameIsDone);
+        if (obj.gameIsDone == 1){
+            
+            updatePlayers();
+        }
+        else{
+            console.log("game nog niet gedaan");
+            
+        }
     });
     request.fail(function (jqXHR, textStatus) {
         console.log(jqXHR.status + 'updateHand' + textStatus);
@@ -568,6 +620,8 @@ function updateHand() {
         console.log(obj.CardNames);
         generateVisualCardNames(obj.CardNames);
         updateDeckSize();
+        checkIfFinished();
+        
 
     });
     request.fail(function (jqXHR, textStatus) {
@@ -634,6 +688,7 @@ $('#nextPlayerButton').on('click', function () {
         console.log(jqXHR.status + 'nextPlayerButton' + textStatus);
     });
 });
+
 
 $('#playActionButton').on('click', function () {
     console.log("volgende speler werkt");

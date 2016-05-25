@@ -38,7 +38,9 @@ public class BoardServlet extends HttpServlet {
     JSONObject gameOver = new JSONObject();
     JSONObject topCardJSON = new JSONObject();
     Card topCard;
-    int counter=1;
+    int counter = 1;
+    JSONObject victoryPoints = new JSONObject();
+    int[] victoryPointsOfPlayers;
 
 
 
@@ -93,7 +95,7 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "requestTopCard":
-                if (g.remainingActionsInPhase > 0) {
+                if (g.remainingActionsInPhase>0) {
 
                     topCard = g.allPlayers.get(g.player).playersDeck.getCardOnPos(0);
                     while (!topCard.getType().equals("action")) {
@@ -146,10 +148,8 @@ public class BoardServlet extends HttpServlet {
                             trashingCards(positionInHand);
                         }
 
-
                         System.out.println("nummer " + positionInHand + "gespeeld!");
                         if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")) {
-                            g.setDecisionOfPlayerPosition(positionInHand);
                             g.playMilitia();
                             if (throneRoom) {
                                 g.currentlyActiveAmountOfCoins = g.currentlyActiveAmountOfCoins + 4;
@@ -265,6 +265,22 @@ public class BoardServlet extends HttpServlet {
                 writer.append(currentlyPlayingPlayer.toString());
                 break;
 
+            case "updatePlayers":
+                player = new Player[g.allPlayers.size()];
+                victoryPointsOfPlayers = new int[g.allPlayers.size()];
+
+                for(int i = 0; i <g.allPlayers.size();i++){
+                    g.allPlayers.get(g.getPlayer()).calculateVictoryPoints();
+                    player[i] = g.allPlayers.get(g.getPlayer());
+                    victoryPointsOfPlayers[i] = g.allPlayers.get(g.getPlayer()).getVictoryPoints();
+
+                }
+
+                currentlyPlayingPlayer.put("activePlayers", player);
+                currentlyPlayingPlayer.put("pointsOfPlayers",victoryPointsOfPlayers);
+                writer.append(currentlyPlayingPlayer.toString());
+                break;
+
 
             case "buyActionCard":
                 if (g.currentPhase == 1 || g.actionToBuyCard) {
@@ -272,10 +288,9 @@ public class BoardServlet extends HttpServlet {
                     int positionOnBoard;
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                     pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
-                    if (g.actionCardsOnBoard.get(pos).getAmount() > 0) {
-                        buyCard(pos, "action");
-                        System.out.println("kaart " + pos + " gekocht!");
-                    }
+                    if(g.actionCardsOnBoard.get(pos).getAmount()>0){
+                    buyCard(pos, "action");
+                    System.out.println("kaart " + pos + " gekocht!");}
                     g.actionToBuyCard = false;
                 } else {
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
@@ -354,18 +369,6 @@ public class BoardServlet extends HttpServlet {
         }
     }
 
-    public void initGame() {
-        System.out.println("amount" + countAmountOfPlayers());
-        System.out.println("s1");
-        g = new Game();
-        System.out.println("s2");
-        g.createPlayersList(countAmountOfPlayers());
-        System.out.println("s3");
-        setNames();
-
-
-    }
-
 
     private int countAmountOfPlayers() {
         if (name4 != null) {
@@ -385,16 +388,16 @@ public class BoardServlet extends HttpServlet {
             return 2;
         }
     }
-    private void libraryMoveCardFromHand(int position){
-       if (counter ==2){
-           counter = 1;
-           g.moveCardFromHandToDiscardPilePosition(position,g.allPlayers.get(g.player));
-           g.setRemainingActionsInPhase(g.remainingActionsInPhase - 1);
 
-       }
-        else{
-           counter += 1;
-       }
+    private void libraryMoveCardFromHand(int position) {
+        if (counter == 2) {
+            counter = 1;
+            g.moveCardFromHandToDiscardPilePosition(position, g.allPlayers.get(g.player));
+            g.setRemainingActionsInPhase(g.remainingActionsInPhase - 1);
+
+        } else {
+            counter += 1;
+        }
     }
 
 

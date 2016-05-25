@@ -74,7 +74,7 @@
             <div id="playButtons">
                 <button id="nextPlayerButton"></button>
                 <br>
-                <button id="playVictoryButton" disabled></button>
+                <button id="reload"></button>
                 <br>
                 <button id="playActionButton"></button>
             </div>

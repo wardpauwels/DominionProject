@@ -22,6 +22,10 @@ public class Player {
         playersHand.generateHand(playersDeck);
 
     }
+
+    public int getVictoryPoints(){
+        return victoryPoints;
+    }
     public void moveCardFromDeckToDiscard(){
         discardPile.addCardToDeck(playersDeck.getCardOnPos(0));
         playersDeck.removeFromDeck(0);

@@ -38,6 +38,7 @@
     <div id="content">
         <div id="actioncards_on_table">
             <ul class="actioncards_on_table_print">
+                <h1>You can buy these cards to play them later</h1>
             </ul>
         </div>
         <div id="cards_on_board">

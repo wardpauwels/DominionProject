@@ -26,8 +26,6 @@
     <div id="otherPlayerCardInfo">
         <ul>
             <h1>Trash one of the cards below</h1>
-            <li><img src="assets/images/Big%20cards/spy.jpg"></li>
-            <li><img src="assets/images/Big%20cards/throne%20room.jpg"></li>
         </ul>
     </div>
     <div id="header">
@@ -40,6 +38,7 @@
     <div id="content">
         <div id="actioncards_on_table">
             <ul class="actioncards_on_table_print">
+                <h1>You can buy these cards to play them later</h1>
             </ul>
         </div>
         <div id="cards_on_board">

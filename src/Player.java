@@ -121,7 +121,10 @@ public class Player {
 
         for (int i = 0; i < amount ; i++){
             if (playersDeck.getSize()<1){
-                playersDeck=discardPile;
+                for(int j = 0 ;j<discardPile.getSize(); j ++){
+                    playersDeck.addCardToDeck(discardPile.getCardOnPos(j));
+                }
+
                 playersDeck.shuffleDeck();
                 discardPile.clearDeck();
             }

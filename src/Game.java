@@ -304,17 +304,7 @@ public class Game {
     private void useMilitia(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         currentlyActiveAmountOfCoins += 2;
-        for(int i = 0; i < allPlayers.size(); i++){
-            if(i != numberOfThePlayer){
-                while(getActivePlayer(i).getHandSize() > 3) {
-                    System.out.println(getActivePlayer(i).getName() + ", geef de positie van een kaart om weg te doen tot je er 3 hebt");
-                    int pos = in.nextInt();
-                    Card chosenCard = activePlayer.getCardOnPosInHand(pos);
-                    activePlayer.addCardFromHandToDiscardPile(chosenCard);
-                }
-            }
 
-        }
     }
 
 
@@ -631,9 +621,6 @@ public class Game {
                 useActionCard(chosenCard.getName(), numberOfThePlayer);
 
             }
-        }else{
-            System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
-            useThroneRoom(numberOfThePlayer);
         }
     }
 

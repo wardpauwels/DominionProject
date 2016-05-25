@@ -39,7 +39,7 @@ public class ActionCardTable {
         allActionCards.add(GenerateSpecificActionCard(18, "Festival", 5, 10));
         allActionCards.add(GenerateSpecificActionCard(19, "Laboratory", 5, 10));
         allActionCards.add(GenerateSpecificActionCard(20, "Library", 5, 10));
-        allActionCards.add(GenerateSpecificActionCard(21, "Garden", 4, 12));//jens
+        allActionCards.add(GenerateSpecificActionCard(21, "Garden", 4, 12));
         allActionCards.add(GenerateSpecificActionCard(22, "Market", 5, 10));
         allActionCards.add(GenerateSpecificActionCard(23, "Mine", 5, 10));//todo
         allActionCards.add(GenerateSpecificActionCard(24, "Witch", 5, 10));

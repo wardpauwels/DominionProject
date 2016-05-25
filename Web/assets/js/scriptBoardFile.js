@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    tr = false;
+    trone = false;
     trPlayed = false;
     update();
     $('#hand').on({
@@ -158,14 +158,14 @@ $('#hand li').on('click', function () {
     pos = $(this).index();
     console.log(array[pos]);
     if (array[pos]==="Throne Room" && trPlayed == false) {
-        tr = true;
+        trone = true;
         trPlayed = true;
         alert("Throne Room played, select other card");
         
     }
     else{
-        console.log( pos + tr );
-        playCardAjax(pos,tr);
+        console.log( pos + trone );
+        playCardAjax(pos,trone);
         
     }
     console.log(pos);
@@ -189,13 +189,15 @@ function playCardAjax(pos, tr)
     });
     request.done(function (data) {
         update();
-        tr = false;
+        throne = false;
         trPlayed = false;
 
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");
         alert(jqXHR.status + 'PlayCardAjax' + textStatus);
+        throne = false;
+        trPlayed = false;
     });
 
 

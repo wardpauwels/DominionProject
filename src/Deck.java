@@ -8,7 +8,7 @@ import java.util.*;
 
 
 public class Deck {
-    private ArrayList<Card> cardList;
+    public ArrayList<Card> cardList;
     public ActionCardTable actionCards;
     private VictoryCardTable victoryCards;
     private TreasureCardTable treasureCards;
@@ -27,7 +27,7 @@ public class Deck {
 
         Card copperCard = treasureCards.getCardOnPos(0);
         Card estateCard = victoryCards.getCardOnPos(0);
-        Card actionCard = actionCards.getCardOnPos(1);
+        Card actionCard = actionCards.getCardOnPos(14);
         int coinsInStarterDeck = 7;
         int estateInStarterDeck = 3;
 

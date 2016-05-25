@@ -166,10 +166,8 @@ public class BoardServlet extends HttpServlet {
                             useActionCard(positionInHand);
                         }
                     }
-                    break;
-
-            //case "playThiefOrSpy":
-            //    break;
+                }
+                break;
 
             case "updateHand":
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
@@ -453,4 +451,5 @@ public class BoardServlet extends HttpServlet {
             g.checkIfFinished();
         }
     }
+
 }

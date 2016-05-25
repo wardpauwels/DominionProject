@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Player {
     private String name;
-    private Deck playersDeck = new Deck();
-    private Deck playersHand = new Deck();
-    private Deck discardPile = new Deck();
+    public Deck playersDeck = new Deck();
+    public Deck playersHand = new Deck();
+    public Deck discardPile = new Deck();
     private int number;
     public int victoryPoints;
     public boolean cursedByMilitia = false;

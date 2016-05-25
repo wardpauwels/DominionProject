@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/Container.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/DominionNewGame.css" />
     <meta name="author" content="Groep 4"/>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/ico"/>
     <title>Dominion</title>
 </head>
 <body>

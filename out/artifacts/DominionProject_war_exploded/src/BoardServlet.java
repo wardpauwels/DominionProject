@@ -93,7 +93,7 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "requestTopCard":
-                if (g.remainingActionsInPhase>0) {
+                if (g.remainingActionsInPhase > 0) {
 
                     topCard = g.allPlayers.get(g.player).playersDeck.getCardOnPos(0);
                     while (!topCard.getType().equals("action")) {
@@ -125,6 +125,8 @@ public class BoardServlet extends HttpServlet {
             case "playCard":
                 int positionInHand;
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                g.setDecisionOfPlayerPosition(positionInHand);
+
                 System.out.println("nummer " + positionInHand + "gespeeld!");
                 if (g.currentPhase == -1) {
                     g.activateMilitiaCurse();
@@ -149,6 +151,11 @@ public class BoardServlet extends HttpServlet {
                         if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")) {
                             g.setDecisionOfPlayerPosition(positionInHand);
                             g.playMilitia();
+                            if (throneRoom) {
+                                g.currentlyActiveAmountOfCoins = g.currentlyActiveAmountOfCoins + 4;
+                            } else if (!throneRoom) {
+                                g.currentlyActiveAmountOfCoins = g.currentlyActiveAmountOfCoins + 2;
+                            }
                         }
 
 
@@ -169,6 +176,20 @@ public class BoardServlet extends HttpServlet {
                 }
                 break;
 
+
+
+
+                    /*if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
+                        thiefOrSpyPlayed();
+                    } else {
+                        System.out.println("nummer " + positionInHand + "gespeeld!");
+                        useActionCard(positionInHand);
+                    }*/
+
+
+            case "playThiefOrSpy":
+                break;
+
             case "updateHand":
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
                 for (int i = 0; i < g.allPlayers.get(g.player).getHandSize(); i++) {
@@ -180,6 +201,13 @@ public class BoardServlet extends HttpServlet {
                 g.allPlayers.get(g.getPlayer()).printDiscardPile();
                 System.out.println(cards);
                 writer.append(cards.toString());
+                break;
+
+            case "updateDeckSize":
+                int deckSize = g.allPlayers.get(g.player).playersDeck.getSize();
+                JSONObject sizeOfDeckforAjax = new JSONObject();
+                sizeOfDeckforAjax.put("deckSize", deckSize);
+                writer.append(sizeOfDeckforAjax.toString());
                 break;
 
             case "updateActionBoard":
@@ -244,9 +272,10 @@ public class BoardServlet extends HttpServlet {
                     int positionOnBoard;
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                     pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
-                    if(g.actionCardsOnBoard.get(pos).getAmount()>0){
-                    buyCard(pos, "action");
-                    System.out.println("kaart " + pos + " gekocht!");}
+                    if (g.actionCardsOnBoard.get(pos).getAmount() > 0) {
+                        buyCard(pos, "action");
+                        System.out.println("kaart " + pos + " gekocht!");
+                    }
                     g.actionToBuyCard = false;
                 } else {
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
@@ -372,7 +401,7 @@ public class BoardServlet extends HttpServlet {
     private void nextTurn() {
         g.nextTurn();
         g.currentPhase = 0;
-
+        //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
 
     }
 
@@ -428,13 +457,13 @@ public class BoardServlet extends HttpServlet {
     private void endTurn() {
         g.endTurn();
 
-
+        //TODO ANIMATION VOOR NIEUW GEMAAKT HAND OPVRAAGBAAR VIA g.returnHand(g.allPlayers.get(player)
 
     }
 
     private void endPhase() {
         g.nextPhase();
-
+        //TODO ANIMATION VOOR BUYPHASE
 
     }
 

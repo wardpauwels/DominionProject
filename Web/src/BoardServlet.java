@@ -87,7 +87,6 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "getCards":
-                //writer.append(names.toString());
                 writer.append(cards.toString());
                 break;
 
@@ -101,7 +100,16 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "playCard":
-                if (g.currentPhase == 0) {
+                int positionInHand;
+                positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                System.out.println("nummer " + positionInHand+  "gespeeld!");
+                if (g.currentPhase == -1){
+                    g.activateMilitiaCurse();
+                    if (g.allPlayers.get(g.player).getHandSize() == 3){
+                        g.currentPhase = 0;
+                        g.allPlayers.get(g.player).cursedByMilitia = false;
+                    }}
+                else if (g.currentPhase == 0) {
 
                     int positionInHand;
                     boolean throneRoom;
@@ -113,14 +121,18 @@ public class BoardServlet extends HttpServlet {
                         System.out.println("nummer " + positionInHand + "gespeeld!");
                         useActionCard(positionInHand);
                     }*/
-
+                    if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")) {
+                        g.setDecisionOfPlayerPosition(positionInHand);
+                        g.playMilitia();
+                    }
+                    else {
+                        System.out.println("nummer " + positionInHand + "gespeeld!");
+                        useActionCard(positionInHand);
                     if (g.discardingCards()) {
                         discardingCards(positionInHand);
                     } else if (g.trashingCards()){
                         trashingCards(positionInHand);
-                    } else {
-                        System.out.println("nummer " + positionInHand + "gespeeld!");
-                        useActionCard(positionInHand);
+                    }
                     //if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
                     //    thiefOrSpyPlayed();
                     //} else {
@@ -284,6 +296,14 @@ public class BoardServlet extends HttpServlet {
                     g.resetAmountOfActions();
                     g.resetPhase();
                     break;
+                    case "checkMilitia":
+                        JSONObject militiaObj = new JSONObject();
+                        militiaObj.put("militiaCheck", g.allPlayers.get(g.player).cursedByMilitia);
+                        writer.append(militiaObj.toString());
+                        if (g.allPlayers.get(g.player).cursedByMilitia){
+                            g.currentPhase = -1;
+                        }
+                        break;
 
                 case "endPhase":
 
@@ -309,6 +329,9 @@ public class BoardServlet extends HttpServlet {
         g.createPlayersList(countAmountOfPlayers());
         System.out.println("s3");
         setNames();
+
+
+        }
     }
 
 
@@ -405,6 +428,5 @@ public class BoardServlet extends HttpServlet {
             g.checkIfFinished();
         }
     }
-
 
 }

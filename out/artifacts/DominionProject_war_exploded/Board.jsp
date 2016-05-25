@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dylan
-  Date: 12/05/2016
-  Time: 13:10
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -20,8 +13,14 @@
     <title>Dominion</title>
 </head>
 <body>
+
 <div id="wrapper">
     <div id="bigCard"></div>
+    <div id="otherPlayerCardInfo">
+        <ul>
+            <h1>Trash one of the cards below</h1>
+        </ul>
+    </div>
     <div id="header">
         <div id="two_players">
             <p id="player_one_name" class="player_one_name"></p>

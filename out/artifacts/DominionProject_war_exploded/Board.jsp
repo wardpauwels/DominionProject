@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/Layout.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/Baraja/baraja.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/Baraja/custom.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/Baraja/demo.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/DominionBoard.css" />
     <meta name="author" content="Groep 4"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    setBoard();
     trone = false;
     trPlayed = false;
     update();
@@ -43,9 +44,6 @@ function updateActionAmount(){
 }}*/
 
 function setBoard() {
-    console.log("set board werkt");
-    updateHand();
-
     //get names
     var requestNames = $.ajax({
         cache: false,
@@ -134,8 +132,8 @@ $('#victory_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
     request.done(function (data) {
         //alert(data);
-        update();
-
+        updateVictoryCardBoard();
+        updateCoinsActionsBuys();
     });
     request.fail(function (jqXHR, textStatus) {
         alert("nie gelukt");
@@ -157,9 +155,8 @@ $('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
     });
 
     request.done(function (data) {
-        //alert(data);
-        update();
-
+        updateTreasureCardBoard();
+        updateCoinsActionsBuys();
     });
     request.fail(function (jqXHR, textStatus) {
         alert("nie gelukt");
@@ -170,24 +167,20 @@ $('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 });
 
 function playCard(array){
-$('#hand li').on('click', function () {
-    pos = $(this).index();
-    console.log(array[pos]);
-    if (array[pos]==="Throne Room" && trPlayed == false) {
-        trone = true;
-        trPlayed = true;
-        alert("Throne Room played, select other card");
-        
-    }
-    else{
-        console.log( pos + trone );
-        playCardAjax(pos,trone);
-        
-    }
-    console.log(pos);
-
-
-});}
+    $('#hand li').on('click', function () {
+        pos = $(this).index();
+        console.log(array[pos]);
+        if (array[pos]==="Throne Room" && trPlayed == false) {
+            trone = true;
+            trPlayed = true;
+            alert("Throne Room played, select other card");
+        }
+        else{
+            console.log( pos + trone );
+            playCardAjax(pos,trone);
+        }
+    });
+}
 function playCardAjax(pos, tr)
 {
     var request = $.ajax({
@@ -199,15 +192,13 @@ function playCardAjax(pos, tr)
             action: 'playCard',
             positionInHand: pos,
             throneRoom: tr
-
-
         }
     });
     request.done(function (data) {
-        update();
+        updateHand();
+        updateCoinsActionsBuys();
         throne = false;
         trPlayed = false;
-
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");
@@ -221,9 +212,6 @@ function playCardAjax(pos, tr)
 
 
 $('#actioncards_on_table').on('click', '.buyActionCard', function () {
-
-
-    console.log("kaart spelen werkt");
     var request = $.ajax({
         cache: false,
         url: "/BoardServlet",
@@ -232,13 +220,13 @@ $('#actioncards_on_table').on('click', '.buyActionCard', function () {
         data: {
             action: 'buyActionCard',
             positionOnBoard: $(this).data('cardNumber') //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
-
         }
     });
 
     request.done(function (data) {
         //alert(data);
-        update();
+        updateActionCardBoard();
+        updateCoinsActionsBuys();
     });
     request.fail(function (jqXHR, textStatus) {
         alert("nie gelukt");
@@ -319,10 +307,8 @@ function updateVictoryCardBoard() {
     });
 
     request.fail(function (jqXHR, textStatus) {
-
         alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
     });
-
 }
 
 function updateTreasureCardBoard() {
@@ -385,7 +371,6 @@ function getThiefOrSpyArray() {
 
 }
 function updateCurrentlyPlaying() {
-    console.log("update coins werkt");
     var request = $.ajax({
         cache: false,
         url: "/BoardServlet",
@@ -393,19 +378,15 @@ function updateCurrentlyPlaying() {
         dataType: "text",
         data: {
             action: 'updatePlayer'
-
         }
     });
 
     request.done(function (data) {
-        console.log(data);
         var obj = JSON.parse(data);
-        console.log(obj.activePlayer);
         updatePlayer(obj.activePlayer);
     });
 
     request.fail(function (jqXHR, textStatus) {
-
         alert(jqXHR.status + 'updateCurrentlyPlaying' + textStatus);
     });
 
@@ -433,7 +414,6 @@ function updateCoinsActionsBuys() {
     });
 
     request.fail(function (jqXHR, textStatus) {
-
         alert(jqXHR.status + 'updateCoinsActionsBuys' + textStatus);
     });
 
@@ -473,20 +453,15 @@ function checkIfMilitia() {
     });
 }
 function update() {
-    setBoard();
+    updateHand();
     updateActionCardBoard();
     updateVictoryCardBoard();
     updateTreasureCardBoard();
     updateCoinsActionsBuys();
     updateCurrentlyPlaying();
     //getThiefOrSpyArray();
-    console.log("fml");
     checkIfFinished();
-
-
-
     // playing with different origins and ranges
-
 }
 
 function checkIfFinished(){
@@ -503,15 +478,10 @@ function checkIfFinished(){
     });
 
     request.done(function (data) {
-        //$('#player_one_name').html(data.name1);
-        //$('#player_two_name').html(data.name2);
         console.log(data);
         console.log(data.gameOver);
         var obj = JSON.parse(data);
         console.log(obj.gameOver);
-
-
-
     });
     request.fail(function (jqXHR, textStatus) {
 
@@ -530,7 +500,6 @@ function updateHand() {
         dataType: "text",
         data: {
             action: 'updateHand'
-
         }
     });
 
@@ -540,8 +509,6 @@ function updateHand() {
         var obj = JSON.parse(data);
         console.log(obj.CardNames);
         generateVisualCardNames(obj.CardNames);
-
-
     });
     request.fail(function (jqXHR, textStatus) {
 
@@ -575,7 +542,10 @@ $('#nextPlayerButton').on('click', function () {
 
     request.done(function (data) {
         //alert(data);
-        update();
+        $("#playedcards_on_table").empty();
+        updateCoinsActionsBuys();
+        updateCurrentlyPlaying();
+        updateHand();
         checkIfMilitia();
     });
     request.fail(function (jqXHR, textStatus) {
@@ -596,7 +566,7 @@ $('#playActionButton').on('click', function () {
 
     request.done(function (data) {
         //alert(data);
-        update();
+        updateCoinsActionsBuys();
 
     });
     request.fail(function (jqXHR, textStatus) {

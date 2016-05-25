@@ -106,6 +106,7 @@ public class BoardServlet extends HttpServlet {
                     if (g.allPlayers.get(g.player).getHandSize() == 3) {
                         g.currentPhase = 0;
                         g.allPlayers.get(g.player).cursedByMilitia = false;
+                        g.currentlyActiveAmountOfCoins = g.currentlyActiveAmountOfCoins+2;
                     }
                 } else if (g.currentPhase == 0) {
                     boolean throneRoom=false;
@@ -118,13 +119,12 @@ public class BoardServlet extends HttpServlet {
                         trashingCards(positionInHand);
                     }
 
-
                     System.out.println("nummer " + positionInHand + "gespeeld!");
                     if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")) {
                         g.setDecisionOfPlayerPosition(positionInHand);
+                        g.currentlyActiveAmountOfCoins = g.currentlyActiveAmountOfCoins +2;
                         g.playMilitia();
                     }
-
 
                     if (throneRoom) {
 

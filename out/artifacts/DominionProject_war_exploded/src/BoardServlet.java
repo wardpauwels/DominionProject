@@ -36,6 +36,10 @@ public class BoardServlet extends HttpServlet {
     JSONObject thiefOrSpyArray = new JSONObject();
     boolean finished = false;
     JSONObject gameOver = new JSONObject();
+    JSONObject topCardJSON = new JSONObject();
+    Card topCard;
+    int counter=1;
+
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -88,6 +92,25 @@ public class BoardServlet extends HttpServlet {
                 writer.append(cards.toString());
                 break;
 
+            case "requestTopCard":
+
+                topCard = g.allPlayers.get(g.player).playersDeck.getCardOnPos(0);
+                while (!topCard.getType().equals("action")) {
+                    g.allPlayers.get(g.player).moveCardFromDeckToDiscard();
+                    topCard = g.allPlayers.get(g.player).getTopCardFromDeck();
+                }
+                topCardJSON.put("topCard",topCard.getName());
+                writer.append(topCardJSON.toString());
+
+                break;
+            case "confirmKeepCard":
+                g.allPlayers.get(g.player).playersHand.addSpecificCard(topCard);
+                int pos = Integer.parseInt(request.getParameter("positionInHand"));
+                libraryMoveCardFromHand(pos);
+                break;
+
+            case "denyKeepCard":
+                g.allPlayers.get(g.player).discardPile.addCardToDeck(topCard);
             case "getNames":
                 cleanNames = new JSONObject();
                 for (int i = 0; i < g.allPlayers.size(); i++) {
@@ -233,7 +256,7 @@ public class BoardServlet extends HttpServlet {
 
                     int positionOnBoard;
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                    int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
+                    pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
                     buyCard(pos, "action");
                     System.out.println("kaart " + pos + " gekocht!");
                     g.actionToBuyCard = false;
@@ -340,6 +363,16 @@ public class BoardServlet extends HttpServlet {
             playerNames.add(name2);
             return 2;
         }
+    }
+    private void libraryMoveCardFromHand(int position){
+       if (counter ==2){
+           counter = 1;
+           g.moveCardFromHandToDiscardPilePosition(position,g.allPlayers.get(g.player));
+
+       }
+        else{
+           counter += 1;
+       }
     }
 
 

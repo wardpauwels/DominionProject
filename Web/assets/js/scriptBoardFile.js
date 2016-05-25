@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    trone = false;
+    throne = false;
     trPlayed = false;
     update();
     $('#hand').on({
@@ -158,445 +158,538 @@ $('#hand li').on('click', function () {
     pos = $(this).index();
     console.log(array[pos]);
     if (array[pos]==="Throne Room" && trPlayed == false) {
-        trone = true;
+        throne = true;
         trPlayed = true;
         alert("Throne Room played, select other card");
         
     }
+        else if(array[pos]==="Library"){
+
+            for(i = 0; i < 2; i++){
+                requestTopCard();
+                
+            }
+        update();
+        }
+
     else{
-        console.log( pos + trone );
-        playCardAjax(pos,trone);
+        console.log( pos + throne );
+        playCardAjax(pos,throne);
         
     }
     console.log(pos);
 
 
 });}
-function playCardAjax(pos, tr)
-{
+
+function showTopCard(card){
+    
+}
+function requestTopCard(){
+    var pos = $(this).index();
     var request = $.ajax({
         cache: false,
         url: "/BoardServlet",
         type: "GET",
         dataType: "text",
         data: {
-            action: 'playCard',
-            positionInHand: pos,
-            throneRoom: tr
+            action: 'requestTopCard',
+            positionOnBoard: pos
 
 
         }
     });
     request.done(function (data) {
-        update();
-        throne = false;
-        trPlayed = false;
+        var obj = JSON.parse(data);
+        console.log(obj.topCard);
+        var r = confirm(obj.topCard + " discard?");
+        if (r=true){
+            moveCardToHand(pos);
+
+        }
+        else{
+            moveCardToDiscard();
+
+        }
+
 
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");
         alert(jqXHR.status + 'PlayCardAjax' + textStatus);
-        throne = false;
-        trPlayed = false;
+       
     });
 
 
 }
-
-
-$('#actioncards_on_table').on('click', '.buyActionCard', function () {
-
-
-    console.log("kaart spelen werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType:"text",
-        data: {
-            action: 'buyActionCard',
-            positionOnBoard: $(this).data('cardNumber') //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
-
-        }
-    });
-
-    request.done(function (data) {
-        //alert(data);
-        update();
-    });
-    request.fail(function (jqXHR, textStatus) {
-        alert("nie gelukt");
-        alert(jqXHR.status + 'buyActionCard' + textStatus);
-    });
-
-
-});
-
-function updateActionCardBoard() {
-    var actionCards = $('.actioncards_on_table_print');
-    actionCards.empty();
-    console.log("update action werkt");
+function moveCardToHand(pos) {
     var request = $.ajax({
         cache: false,
         url: "/BoardServlet",
         type: "GET",
         dataType: "text",
         data: {
-            action: 'updateActionBoard'
+            action: 'confirmKeepCard',
+            positionOnBoard: pos
+
 
         }
     });
-
     request.done(function (data) {
-        //$('#player_one_name').html(data.name1);
-        //$('#player_two_name').html(data.name2);
-        console.log(data);
-        var obj = JSON.parse(data);
-        console.log(obj.actionCardsOnBoard);
-        generateActionCardsOnBoard(obj.actionCardsOnBoard);
-        $("#actioncards_on_table ul li img:nth-of-type(1)").click(function () {
-            console.log("gevonden");
-            $actioncardOnTableName = $(this).attr("title");
-            var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
-            console.log(src);
-            $('#bigCard').html(src).css('visibility', 'visible');
+
+
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert(jqXHR.status + 'moveCardToHand' + textStatus);
+    });
+}
+    function moveCardToDiscard() {
+        var request = $.ajax({
+            cache: false,
+            url: "/BoardServlet",
+            type: "GET",
+            dataType: "text",
+            data: {
+                action: 'denyKeepCard'
+
+
+            }
         });
-        $('#bigCard').click(function () {
-            $('#bigCard').css('visibility', 'hidden');
+        request.done(function (data) {
+
+            i -= 1;
+
+
         });
-        /*$("#actioncards_on_table ul li img:nth-of-type(2)").click(function () {
-         console.log("kopen werkt");
-         buyActionCard();})*/
-
-
-    });
-
-    request.fail(function (jqXHR, textStatus) {
-
-        alert(jqXHR.status + 'updateActionCardBoard' + textStatus);
-    });
-
-}
-
-function updateVictoryCardBoard() {
-    var victoryCards = $('.victorycards_on_table_print');
-    victoryCards.empty();
-    console.log("update victory werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'updateVictoryBoard'
-
-        }
-    });
-
-    request.done(function (data) {
-
-        console.log(data);
-        var obj = JSON.parse(data);
-        console.log(obj.victoryCardsOnBoard);
-        generateVictoryCardsOnBoard(obj.victoryCardsOnBoard);
-        //FIXCOUNTERSMETHOD
-    });
-
-    request.fail(function (jqXHR, textStatus) {
-
-        alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
-    });
-
-}
-
-function updateTreasureCardBoard() {
-    var treasureCards = $('.treasurecards_on_table_print');
-    treasureCards.empty();
-    console.log("update victory werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'updateTreasureBoard'
-
-        }
-    });
-
-    request.done(function (data) {
-        console.log(data);
-        var obj = JSON.parse(data);
-        console.log(obj.treasureCardsOnBoard);
-        generateTreasureCardsOnBoard(obj.treasureCardsOnBoard);
-    });
-
-    request.fail(function (jqXHR, textStatus) {
-
-        alert(jqXHR.status + 'updateTreasureBoard' + textStatus);
-    });
-
-}
-
-function getThiefOrSpyArray() {
-    
-    console.log("thief getter lukt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'playThiefOrSpy'
-
-        }
-    });
-
-    request.done(function (data) {
-
-        console.log(data);
-        var obj = JSON.parse(data);
-        console.log("thief succesfull");
-        console.log(obj.top2Cards);
-        console.log(obj.top2Cards[0]);
-        //FIXCOUNTERSMETHOD
-    });
-
-    request.fail(function (jqXHR, textStatus) {
-
-        alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
-    });
-
-}
-function updateCurrentlyPlaying() {
-    console.log("update coins werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'updatePlayer'
-
-        }
-    });
-
-    request.done(function (data) {
-        console.log(data);
-        var obj = JSON.parse(data);
-        console.log(obj.activePlayer);
-        updatePlayer(obj.activePlayer);
-    });
-
-    request.fail(function (jqXHR, textStatus) {
-
-        alert(jqXHR.status + 'updateCurrentlyPlaying' + textStatus);
-    });
-
-}
-
-
-function updateCoinsActionsBuys() {
-    console.log("update coins werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'updateCoinsActionsBuys'
-
-        }
-    });
-
-    request.done(function (data) {
-        console.log(data);
-        var obj = JSON.parse(data);
-        console.log(obj.coinsActionsBuys);
-        updateCAB(obj.coinsActionsBuys);
-    });
-
-    request.fail(function (jqXHR, textStatus) {
-
-        alert(jqXHR.status + 'updateCoinsActionsBuys' + textStatus);
-    });
-
-}
-
-function updateCAB(array){
-    $('#Amount_Of_Coins').html(array[0]);
-    $('#Amount_Of_Actions').html(array[1]);
-    $('#Amount_Of_Buys').html(array[2]);
-}
-
-function updatePlayer(player){
-    $('#Current_Playing').html(player[0].name);
-}
-
-function checkIfMilitia() {
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'checkMilitia'
-        }
-    });
-
-    request.done(function (data) {
-        console.log(data);
-        var obj = JSON.parse(data);
-        if(obj.militiaCheck == true){
-            alert("MILITIA! Discard cards until you have 3 cards left!");
-        }
-    });
-
-    request.fail(function (jqXHR, textStatus) {
-        alert(jqXHR.status + 'updateCoinsActionsBuys' + textStatus);
-    });
-}
-function update() {
-    setBoard();
-    updateActionCardBoard();
-    updateVictoryCardBoard();
-    updateTreasureCardBoard();
-    updateCoinsActionsBuys();
-    updateCurrentlyPlaying();
-    //getThiefOrSpyArray();
-    console.log("fml");
-    checkIfFinished();
-
-
-
-    // playing with different origins and ranges
-
-}
-
-function checkIfFinished(){
-    console.log("checkiffinished werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'checkIfFinished'
-
-        }
-    });
-
-    request.done(function (data) {
-        //$('#player_one_name').html(data.name1);
-        //$('#player_two_name').html(data.name2);
-        console.log(data);
-        console.log(data.gameOver);
-        var obj = JSON.parse(data);
-        console.log(obj.gameOver);
-
-
-
-    });
-    request.fail(function (jqXHR, textStatus) {
-
-        alert(jqXHR.status + 'updateHand' + textStatus);
-    });
-
-
-}
-
-function updateHand() {
-    console.log("updateHand werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType: "text",
-        data: {
-            action: 'updateHand'
-
-        }
-    });
-
-    request.done(function (data) {
-        console.log(data);
-        console.log(data.CardNames);
-        var obj = JSON.parse(data);
-        console.log(obj.CardNames);
-        generateVisualCardNames(obj.CardNames);
-
-
-    });
-    request.fail(function (jqXHR, textStatus) {
-
-        alert(jqXHR.status + 'updateHand' + textStatus);
-    });
-
-}
-
-
-function generateVisualCardNames(array) {
-    $("#hand").empty();
-    for (var i = 0; i < array.length; i++) {
-        var html = '<li>';
-        var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
-        html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
-        html += '</li>';
-        $("#hand").append(html);
+        request.fail(function (jqXHR, textStatus) {
+            alert(jqXHR.status + 'moveCardToDiscard' + textStatus);
+        });
     }
-    playCard(array);
-}
+        function playCardAjax(pos, tr) {
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'playCard',
+                    positionInHand: pos,
+                    throneRoom: tr
 
-$('#nextPlayerButton').on('click', function () {
-    console.log("volgende speler werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType:"text",
-        data: {action: 'endTurn'}
-    });
 
-    request.done(function (data) {
-        //alert(data);
-        update();
-        checkIfMilitia();
-    });
-    request.fail(function (jqXHR, textStatus) {
-        alert("nie gelukt om volgende speler te starten");
-        alert(jqXHR.status + 'nextPlayerButton' + textStatus);
-    });
-});
+                }
+            });
+            request.done(function (data) {
+                update();
+                throne = false;
+                trPlayed = false;
 
-$('#playActionButton').on('click', function () {
-    console.log("volgende speler werkt");
-    var request = $.ajax({
-        cache: false,
-        url: "/BoardServlet",
-        type: "GET",
-        dataType:"text",
-        data: {action: 'endPhase'}
-    });
+            });
+            request.fail(function (jqXHR, textStatus) {
+                console.log("nie gelukt");
+                alert(jqXHR.status + 'PlayCardAjax' + textStatus);
+                throne = false;
+                trPlayed = false;
+            });
 
-    request.done(function (data) {
-        //alert(data);
-        update();
 
-    });
-    request.fail(function (jqXHR, textStatus) {
-        alert("nie gelukt om volgende speler te starten");
-        alert(jqXHR.status + 'PlayActionButton' + textStatus);
-    });
-});
+        }
 
-function generateEnemyPlayerCard(array) {
-    $("#hand").empty();
-    for (var i = 0; i < array.length; i++) {
-        var html = '<li>';
-        var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
-        html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
-        html += '</li>';
-        $("#otherPlayerCardInfo ul").append(html);
-    }
-    playCard();
-}
+
+        $('#actioncards_on_table').on('click', '.buyActionCard', function () {
+
+
+            console.log("kaart spelen werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'buyActionCard',
+                    positionOnBoard: $(this).data('cardNumber') //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
+
+                }
+            });
+
+            request.done(function (data) {
+                //alert(data);
+                update();
+            });
+            request.fail(function (jqXHR, textStatus) {
+                alert("nie gelukt");
+                alert(jqXHR.status + 'buyActionCard' + textStatus);
+            });
+
+
+        });
+
+        function updateActionCardBoard() {
+            var actionCards = $('.actioncards_on_table_print');
+            actionCards.empty();
+            console.log("update action werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'updateActionBoard'
+
+                }
+            });
+
+            request.done(function (data) {
+                //$('#player_one_name').html(data.name1);
+                //$('#player_two_name').html(data.name2);
+                console.log(data);
+                var obj = JSON.parse(data);
+                console.log(obj.actionCardsOnBoard);
+                generateActionCardsOnBoard(obj.actionCardsOnBoard);
+                $("#actioncards_on_table ul li img:nth-of-type(1)").click(function () {
+                    console.log("gevonden");
+                    $actioncardOnTableName = $(this).attr("title");
+                    var src = "<img src='assets/images/Big%20cards/" + $actioncardOnTableName + ".jpg' title = '" + $actioncardOnTableName + "' alt = '" + $actioncardOnTableName + "'/><br>";
+                    console.log(src);
+                    $('#bigCard').html(src).css('visibility', 'visible');
+                });
+                $('#bigCard').click(function () {
+                    $('#bigCard').css('visibility', 'hidden');
+                });
+                /*$("#actioncards_on_table ul li img:nth-of-type(2)").click(function () {
+                 console.log("kopen werkt");
+                 buyActionCard();})*/
+
+
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+
+                alert(jqXHR.status + 'updateActionCardBoard' + textStatus);
+            });
+
+        }
+
+        function updateVictoryCardBoard() {
+            var victoryCards = $('.victorycards_on_table_print');
+            victoryCards.empty();
+            console.log("update victory werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'updateVictoryBoard'
+
+                }
+            });
+
+            request.done(function (data) {
+
+                console.log(data);
+                var obj = JSON.parse(data);
+                console.log(obj.victoryCardsOnBoard);
+                generateVictoryCardsOnBoard(obj.victoryCardsOnBoard);
+                //FIXCOUNTERSMETHOD
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+
+                alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
+            });
+
+        }
+
+        function updateTreasureCardBoard() {
+            var treasureCards = $('.treasurecards_on_table_print');
+            treasureCards.empty();
+            console.log("update victory werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'updateTreasureBoard'
+
+                }
+            });
+
+            request.done(function (data) {
+                console.log(data);
+                var obj = JSON.parse(data);
+                console.log(obj.treasureCardsOnBoard);
+                generateTreasureCardsOnBoard(obj.treasureCardsOnBoard);
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+
+                alert(jqXHR.status + 'updateTreasureBoard' + textStatus);
+            });
+
+        }
+
+        function getThiefOrSpyArray() {
+
+            console.log("thief getter lukt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'playThiefOrSpy'
+
+                }
+            });
+
+            request.done(function (data) {
+
+                console.log(data);
+                var obj = JSON.parse(data);
+                console.log("thief succesfull");
+                console.log(obj.top2Cards);
+                console.log(obj.top2Cards[0]);
+                //FIXCOUNTERSMETHOD
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+
+                alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
+            });
+
+        }
+
+        function updateCurrentlyPlaying() {
+            console.log("update coins werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'updatePlayer'
+
+                }
+            });
+
+            request.done(function (data) {
+                console.log(data);
+                var obj = JSON.parse(data);
+                console.log(obj.activePlayer);
+                updatePlayer(obj.activePlayer);
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+
+                alert(jqXHR.status + 'updateCurrentlyPlaying' + textStatus);
+            });
+
+        }
+
+
+        function updateCoinsActionsBuys() {
+            console.log("update coins werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'updateCoinsActionsBuys'
+
+                }
+            });
+
+            request.done(function (data) {
+                console.log(data);
+                var obj = JSON.parse(data);
+                console.log(obj.coinsActionsBuys);
+                updateCAB(obj.coinsActionsBuys);
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+
+                alert(jqXHR.status + 'updateCoinsActionsBuys' + textStatus);
+            });
+
+        }
+
+        function updateCAB(array) {
+            $('#Amount_Of_Coins').html(array[0]);
+            $('#Amount_Of_Actions').html(array[1]);
+            $('#Amount_Of_Buys').html(array[2]);
+        }
+
+        function updatePlayer(player) {
+            $('#Current_Playing').html(player[0].name);
+        }
+
+        function checkIfMilitia() {
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'checkMilitia'
+                }
+            });
+
+            request.done(function (data) {
+                console.log(data);
+                var obj = JSON.parse(data);
+                if (obj.militiaCheck == true) {
+                    alert("MILITIA! Discard cards until you have 3 cards left!");
+                }
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+                alert(jqXHR.status + 'updateCoinsActionsBuys' + textStatus);
+            });
+        }
+
+        function update() {
+            setBoard();
+            updateActionCardBoard();
+            updateVictoryCardBoard();
+            updateTreasureCardBoard();
+            updateCoinsActionsBuys();
+            updateCurrentlyPlaying();
+            //getThiefOrSpyArray();
+            console.log("fml");
+            checkIfFinished();
+
+
+            // playing with different origins and ranges
+
+        }
+
+        function checkIfFinished() {
+            console.log("checkiffinished werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'checkIfFinished'
+
+                }
+            });
+
+            request.done(function (data) {
+                //$('#player_one_name').html(data.name1);
+                //$('#player_two_name').html(data.name2);
+                console.log(data);
+                console.log(data.gameOver);
+                var obj = JSON.parse(data);
+                console.log(obj.gameOver);
+
+
+            });
+            request.fail(function (jqXHR, textStatus) {
+
+                alert(jqXHR.status + 'updateHand' + textStatus);
+            });
+
+
+        }
+
+        function updateHand() {
+            console.log("updateHand werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {
+                    action: 'updateHand'
+
+                }
+            });
+
+            request.done(function (data) {
+                console.log(data);
+                console.log(data.CardNames);
+                var obj = JSON.parse(data);
+                console.log(obj.CardNames);
+                generateVisualCardNames(obj.CardNames);
+
+
+            });
+            request.fail(function (jqXHR, textStatus) {
+
+                alert(jqXHR.status + 'updateHand' + textStatus);
+            });
+
+        }
+
+
+        function generateVisualCardNames(array) {
+            $("#hand").empty();
+            for (var i = 0; i < array.length; i++) {
+                var html = '<li>';
+                var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
+                html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
+                html += '</li>';
+                $("#hand").append(html);
+            }
+            playCard(array);
+        }
+
+        $('#nextPlayerButton').on('click', function () {
+            console.log("volgende speler werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {action: 'endTurn'}
+            });
+
+            request.done(function (data) {
+                //alert(data);
+                update();
+                checkIfMilitia();
+            });
+            request.fail(function (jqXHR, textStatus) {
+                alert("nie gelukt om volgende speler te starten");
+                alert(jqXHR.status + 'nextPlayerButton' + textStatus);
+            });
+        });
+
+        $('#playActionButton').on('click', function () {
+            console.log("volgende speler werkt");
+            var request = $.ajax({
+                cache: false,
+                url: "/BoardServlet",
+                type: "GET",
+                dataType: "text",
+                data: {action: 'endPhase'}
+            });
+
+            request.done(function (data) {
+                //alert(data);
+                update();
+
+            });
+            request.fail(function (jqXHR, textStatus) {
+                alert("nie gelukt om volgende speler te starten");
+                alert(jqXHR.status + 'PlayActionButton' + textStatus);
+            });
+        });
+
+        function generateEnemyPlayerCard(array) {
+            $("#hand").empty();
+            for (var i = 0; i < array.length; i++) {
+                var html = '<li>';
+                var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
+                html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
+                html += '</li>';
+                $("#otherPlayerCardInfo ul").append(html);
+            }
+            playCard();
+        }

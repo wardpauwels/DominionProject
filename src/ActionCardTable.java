@@ -20,8 +20,8 @@ public class ActionCardTable {
 
     public void allActionCards() {
         allActionCards.add(GenerateSpecificActionCard(1, "Cellar", 2, 10));
-        allActionCards.add(GenerateSpecificActionCard(2, "Chapel", 2, 10));//todo
-        allActionCards.add(GenerateSpecificActionCard(3, "Chancellor", 3, 10));//todo
+        allActionCards.add(GenerateSpecificActionCard(2, "Chapel", 2, 10));//
+        allActionCards.add(GenerateSpecificActionCard(3, "Chancellor", 3, 10));//
         allActionCards.add(GenerateSpecificActionCard(4, "Village", 3, 10));
         allActionCards.add(GenerateSpecificActionCard(5, "Woodcutter", 3, 10));
         allActionCards.add(GenerateSpecificActionCard(6, "Workshop", 3, 10));
@@ -29,7 +29,7 @@ public class ActionCardTable {
         allActionCards.add(GenerateSpecificActionCard(8, "Militia", 4, 10));//ward
         allActionCards.add(GenerateSpecificActionCard(9, "Moneylender", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(10, "Remodel", 4, 10));
-        allActionCards.add(GenerateSpecificActionCard(11, "Bureaucrat", 4 ,10));//todo
+        allActionCards.add(GenerateSpecificActionCard(11, "Bureaucrat", 4 ,10));//
         allActionCards.add(GenerateSpecificActionCard(12, "Smithy", 4, 10));
         allActionCards.add(GenerateSpecificActionCard(13, "Spy", 4, 10)); //skip
         allActionCards.add(GenerateSpecificActionCard(14, "Thief", 4, 10)); //skip

@@ -27,7 +27,7 @@ public class Deck {
 
         Card copperCard = treasureCards.getCardOnPos(0);
         Card estateCard = victoryCards.getCardOnPos(0);
-        Card actionCard = actionCards.getCardOnPos(14);
+        Card actionCard = actionCards.getCardOnPos(19);
         int coinsInStarterDeck = 7;
         int estateInStarterDeck = 3;
 

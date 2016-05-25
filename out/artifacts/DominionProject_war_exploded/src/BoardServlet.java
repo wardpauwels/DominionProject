@@ -332,7 +332,8 @@ public class BoardServlet extends HttpServlet {
         switch(g.currentAction){
             case "moneylender":
                 g.moneyLenderCopperFound(activePlayer);
-
+                break;
+            case "chapel":
                 break;
         }
 

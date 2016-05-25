@@ -282,6 +282,9 @@ public class Game {
 
     public void resetPhase(){
         currentPhase = 0;
+        amountOfCardsToBeTrashed = 0;
+        amountOfCardsToBeDiscarded = 0;
+        currentAction = "";
     }
 
 
@@ -623,6 +626,7 @@ public class Game {
     private void useChapel(int numberOfThePlayer){
         Player activeplayer  = getActivePlayer(numberOfThePlayer);
         amountOfCardsToBeTrashed = 4;
+        currentAction = "chapel";
         /*System.out.println("Geef de positie van de kaart om te trashen, je kunt nog " + amountOfTrashesLeft + " kaarten trashen. (Druk op 0 om te stoppen)"); // TODO: check maken voor het aantal kaarten in de hand.
         int i = in.nextInt()-1;
         while (i != 0 && i <= activeplayer.getHandSize()){
@@ -734,7 +738,6 @@ public class Game {
                 break;
             case "Moneylender":
                 useMoneylender(numberOfThePlayer);
-
                 break;
             case "Remodel":
                 useRemodel(numberOfThePlayer);

@@ -230,7 +230,6 @@ public class BoardServlet extends HttpServlet {
 
             case "buyActionCard":
                 if (g.currentPhase == 1 || g.actionToBuyCard) {
-
                     int positionOnBoard;
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                     int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);

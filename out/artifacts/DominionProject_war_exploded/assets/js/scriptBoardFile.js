@@ -178,12 +178,9 @@ $('#hand li').on('click', function () {
         
     }
         else if(array[pos]==="Library"){
-
-
             for(i = 0; i < 2; i++){
                 requestTopCard();
                 console.log("request is al " + i +" keer gebeurd")
-                
             }
         update();
         }
@@ -191,7 +188,6 @@ $('#hand li').on('click', function () {
     else{
         console.log( pos + throne );
         playCardAjax(pos,throne);
-        
     }
     console.log(pos);
 

@@ -125,6 +125,8 @@ public class BoardServlet extends HttpServlet {
             case "playCard":
                 int positionInHand;
                 positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                g.setDecisionOfPlayerPosition(positionInHand);
+
                 System.out.println("nummer " + positionInHand + "gespeeld!");
                 if (g.currentPhase == -1) {
                     g.activateMilitiaCurse();
@@ -144,11 +146,14 @@ public class BoardServlet extends HttpServlet {
                             trashingCards(positionInHand);
                         }
 
-
                         System.out.println("nummer " + positionInHand + "gespeeld!");
                         if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")) {
-                            g.setDecisionOfPlayerPosition(positionInHand);
                             g.playMilitia();
+                            if (throneRoom){
+                                g.currentlyActiveAmountOfCoins = g.currentlyActiveAmountOfCoins+4;
+                            } else if (!throneRoom){
+                                g.currentlyActiveAmountOfCoins = g.currentlyActiveAmountOfCoins+2;
+                            }
                         }
 
 
@@ -341,18 +346,6 @@ public class BoardServlet extends HttpServlet {
         }
     }
 
-    public void initGame() {
-        System.out.println("amount" + countAmountOfPlayers());
-        System.out.println("s1");
-        g = new Game();
-        System.out.println("s2");
-        g.createPlayersList(countAmountOfPlayers());
-        System.out.println("s3");
-        setNames();
-
-
-    }
-
 
     private int countAmountOfPlayers() {
         if (name4 != null) {
@@ -463,5 +456,4 @@ public class BoardServlet extends HttpServlet {
             g.checkIfFinished();
         }
     }
-
 }

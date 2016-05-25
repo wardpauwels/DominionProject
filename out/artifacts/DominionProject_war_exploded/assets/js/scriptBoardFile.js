@@ -162,6 +162,11 @@ function playCard(array) {
     $('#hand li').on('click', function () {
         pos = $(this).index();
         console.log(array[pos]);
+
+        if ($(this).children("img").attr("alt") != "copper" || $(this).children("img").attr("alt") != "silver" || $(this).children("img").attr("alt") != "gold"){
+            $(this).remove().appendTo("#playedcards_on_table");
+        }
+
         if (array[pos] === "Throne Room" && trPlayed == false) {
             throne = true;
             trPlayed = true;

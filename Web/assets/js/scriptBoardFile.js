@@ -283,8 +283,6 @@ function playCardAjax(pos, tr) {
         throne = false;
         trPlayed = false;
     });
-
-
 }
 
 

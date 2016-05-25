@@ -3,12 +3,9 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-image: url("../images/background.jpg");
-    background-position:top left;
-    background-repeat:no-repeat;
+    background: url("../images/background.jpg") no-repeat top left #010506;
     background-size:cover;
     z-index:0;
-    background-color: #010506;
     cursor: url(../images/cursor.png), auto;
 }
 
@@ -34,9 +31,8 @@ body {
 }
 
 #headername {
-    background-repeat: no-repeat;
     background-size: 100%;
-    background-position: bottom left;
+    background: bottom left no-repeat;
     width: 196px;
     height: 100px;
     position: absolute;
@@ -79,15 +75,17 @@ button {
 }
 
 #Previous_Page {
-    background-image: url("../images/exit_button.png");
-    background-repeat: no-repeat;
-    background-position: bottom left;
+
+    background: url('../images/exit_button.jpg') no-repeat bottom left transparent;
     width: 36px;
     height: 36px;
-    background-color: transparent;
     border-color: transparent;
     background-size: 100%;
     position: relative;
     top: -15px;
     left: -260px;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }

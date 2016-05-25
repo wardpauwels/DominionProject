@@ -38,12 +38,10 @@ input[type=text]:focus {
     font-weight:bold;
 }
 input[type="text"] {
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 3px;
     background-color: rgba(21, 25, 29, 0.6);
-    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.004);
     width: 358px;
     height: 64px;
     z-index: 298;
@@ -51,22 +49,19 @@ input[type="text"] {
     padding-left: 15px;
     color: #2d343f;
     text-transform: capitalize;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
 }
 input[type="submit"] {
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 3px;
-    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.004);
     width: 100px;
     height: 100%;
     background-color: rgba(21, 25, 29, 1);
     color: rgba(45, 52, 63, 1);
     font-size:20px;
     font-weight: bold;
-    cursor:pointer;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
 }
 button {
     background-color:transparent;
@@ -87,19 +82,17 @@ form{
 #loadSlot>#image{
     height: 100%;
     width:150px;
-    background-image: url("../images/mountains_birds_trees_clouds_fog_tops_9752_3840x2160.jpg");
+    background: url("../images/mountains_birds_trees_clouds_fog_tops_9752_3840x2160.jpg") no-repeat;
     background-size: 150px 100%;
-    background-repeat: no-repeat;
-    opacity: 0.502;
+    opacity: 0.5;
     text-align: left;
-    font:Arial;
     float: left;
     margin-right: 10px;
 }
 #loadSlot>#image>span{
     display: block;
     color: #FFFFFF;
-    margin: 90px 0px 10px 10px;
+    margin: 90px 0 10px 10px;
     font-weight: bold;
 }
 #loadSlot>#gameDescription{
@@ -108,12 +101,10 @@ form{
     width: 300px;
     font-size: 0.9rem;
     margin-right: 10px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 3px;
     background-color: rgba(21, 25, 29, 0.6);
-    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.004);
     color: #2d343f;
 }
 #saveDescription{

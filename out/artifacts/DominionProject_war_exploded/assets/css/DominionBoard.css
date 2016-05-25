@@ -313,7 +313,6 @@ body{
     width: 123px ;
     margin-right: 10px;
     margin-left: 10px;
-    margin-bottom: 0px;
 }
 
 #footer_container {
@@ -390,18 +389,20 @@ body{
 #playedcards_on_table {
     height: 189px;
     width: 864px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: -195px;
-    margin-bottom: 42px;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*margin-top: -195px;*/
+    /*margin-bottom: 42px;*/
+
+    margin: -195px auto 42px auto;
 }
 #playedcards_on_table li{
     display: inline;
 }
 #playedcards_on_table img {
     height:150px;
-    margin-right:2.5px;
-    margin-left:2.5px;
+    margin-right:2px;
+    margin-left:2px;
     margin-top:10px;
 
 }
@@ -554,10 +555,6 @@ body{
     bottom: 0;
 }
 
-
-
-
-
 #otherPlayerCardInfo{
     z-index: 3000;
     position: absolute;
@@ -613,42 +610,29 @@ ul h1 {
 
 img {
     -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
 }
 
 body {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* Internet Explorer/Edge */
     user-select: none;
 }
 #nextPlayerButton{
-    background-image: url("../images/End_Turn.png");
-    background-repeat:no-repeat;
+    background: url("../images/End_Turn.png") no-repeat transparent;
     background-size:160px;
-    background-color: transparent;
     border-color: transparent;
     height: 48px;
     width: 162px;
 }
 #playVictoryButton{
-    background-image: url("../images/Play_Treasure.png");
-    background-color: transparent;
-    background-repeat:no-repeat;
+    background: url("../images/Play_Treasure.png") no-repeat transparent;
     background-size:160px;
     border-color: transparent;
     height: 48px;
     width: 162px;
 }
 #playActionButton{
-    background-image: url("../images/Buy_Phase.png");
-    background-color: transparent;
-    background-repeat:no-repeat;
+    background: url("../images/Buy_Phase.png") no-repeat transparent;
     background-size:160px;
     border-color: transparent;
     height: 48px;

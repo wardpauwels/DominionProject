@@ -230,6 +230,14 @@ public class Player {
     public Card getTopCardFromDeck(){
         return playersDeck.getCardOnPos(0);
     }
+    public void checkIfCardsInDeckAndMoveDiscardToDeck(){
+        if (playersDeck.getSize()==0){
+            for(int i = 0; i <discardPile.getSize();i++){
+                playersDeck.addCardToDeck(discardPile.getCardOnPos(i));
+
+            }
+        }
+    }
 
 
     public void addSpecificCardToHand(Card toBeAddedCard){

@@ -93,19 +93,21 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "requestTopCard":
+                if (g.remainingActionsInPhase>0) {
 
-                topCard = g.allPlayers.get(g.player).playersDeck.getCardOnPos(0);
-                while (!topCard.getType().equals("action")) {
-                    g.allPlayers.get(g.player).moveCardFromDeckToDiscard();
-                    topCard = g.allPlayers.get(g.player).getTopCardFromDeck();
+                    topCard = g.allPlayers.get(g.player).playersDeck.getCardOnPos(0);
+                    while (!topCard.getType().equals("action")) {
+                        g.allPlayers.get(g.player).moveCardFromDeckToDiscard();
+                        g.allPlayers.get(g.player).checkIfCardsInDeckAndMoveDiscardToDeck();
+                        topCard = g.allPlayers.get(g.player).getTopCardFromDeck();
+                    }
+                    topCardJSON.put("topCard", topCard.getName());
+                    writer.append(topCardJSON.toString());
                 }
-                topCardJSON.put("topCard",topCard.getName());
-                writer.append(topCardJSON.toString());
-
                 break;
             case "confirmKeepCard":
                 g.allPlayers.get(g.player).playersHand.addSpecificCard(topCard);
-                int pos = Integer.parseInt(request.getParameter("positionInHand"));
+                int pos = Integer.parseInt(request.getParameter("positionOfCard"));
                 libraryMoveCardFromHand(pos);
                 break;
 
@@ -131,37 +133,38 @@ public class BoardServlet extends HttpServlet {
                         g.allPlayers.get(g.player).cursedByMilitia = false;
                     }
                 } else if (g.currentPhase == 0) {
-                    boolean throneRoom=false;
-                    throneRoom = Boolean.parseBoolean(request.getParameter("throneRoom"));
-                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    if (g.discardingCards()) {
-                        discardingCards(positionInHand);
-                    }
-                    if (g.trashingCards()) {
-                        trashingCards(positionInHand);
-                    }
-
-
-                    System.out.println("nummer " + positionInHand + "gespeeld!");
-                    if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")) {
-                        g.setDecisionOfPlayerPosition(positionInHand);
-                        g.playMilitia();
-                    }
-
-
-                    if (throneRoom) {
-
-                        if (!g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().equals("Throne Room")) {
-                            g.setDecisionOfPlayerPosition(positionInHand);
-                            g.useThroneRoom(g.player);
-                            g.allPlayers.get(g.player).moveCardFromHandToDiscard(positionInHand);
-                            g.allPlayers.get(g.player).moveCardFromHandToDiscard(g.allPlayers.get(g.player).scanHandForCardWithName("Throne Room"));
-                            throneRoom = false;
+                    if (g.remainingActionsInPhase > 0) {
+                        boolean throneRoom = false;
+                        throneRoom = Boolean.parseBoolean(request.getParameter("throneRoom"));
+                        positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                        if (g.discardingCards()) {
+                            discardingCards(positionInHand);
                         }
-                    }
-                    else {
+                        if (g.trashingCards()) {
+                            trashingCards(positionInHand);
+                        }
+
+
                         System.out.println("nummer " + positionInHand + "gespeeld!");
-                        useActionCard(positionInHand);
+                        if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")) {
+                            g.setDecisionOfPlayerPosition(positionInHand);
+                            g.playMilitia();
+                        }
+
+
+                        if (throneRoom) {
+
+                            if (!g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().equals("Throne Room")) {
+                                g.setDecisionOfPlayerPosition(positionInHand);
+                                g.useThroneRoom(g.player);
+                                g.allPlayers.get(g.player).moveCardFromHandToDiscard(positionInHand);
+                                g.allPlayers.get(g.player).moveCardFromHandToDiscard(g.allPlayers.get(g.player).scanHandForCardWithName("Throne Room"));
+                                throneRoom = false;
+                            }
+                        } else {
+                            System.out.println("nummer " + positionInHand + "gespeeld!");
+                            useActionCard(positionInHand);
+                        }
                     }
                 }
                 break;
@@ -257,8 +260,9 @@ public class BoardServlet extends HttpServlet {
                     int positionOnBoard;
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                     pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
+                    if(g.actionCardsOnBoard.get(positionOnBoard).getAmount()>0){
                     buyCard(pos, "action");
-                    System.out.println("kaart " + pos + " gekocht!");
+                    System.out.println("kaart " + pos + " gekocht!");}
                     g.actionToBuyCard = false;
                 } else {
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
@@ -272,9 +276,11 @@ public class BoardServlet extends HttpServlet {
 
                 if (g.currentPhase == 1 || g.actionToBuyCard) {
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                    buyCard(positionOnBoard - 1, "victory");
-                    System.out.println("kaart " + positionOnBoard + " gekocht!");
-                    g.actionToBuyCard = false;
+                    if(g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount()>0) {
+                        buyCard(positionOnBoard - 1, "victory");
+                        System.out.println("kaart " + positionOnBoard + " gekocht!");
+                        g.actionToBuyCard = false;
+                    }
                 } else {
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
@@ -286,9 +292,11 @@ public class BoardServlet extends HttpServlet {
             case "buyTreasureCard":
                 if (g.currentPhase == 1 || g.actionToBuyCard) {
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                    buyCard(positionOnBoard - 1, "treasure");
-                    System.out.println("kaart " + positionOnBoard + " gekocht!");
-                    g.actionToBuyCard = false;
+                    if(g.victoryCardTable.getCardOnPos(positionOnBoard).getAmount()>0) {
+                        buyCard(positionOnBoard - 1, "treasure");
+                        System.out.println("kaart " + positionOnBoard + " gekocht!");
+                        g.actionToBuyCard = false;
+                    }
                 } else {
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
@@ -368,6 +376,7 @@ public class BoardServlet extends HttpServlet {
        if (counter ==2){
            counter = 1;
            g.moveCardFromHandToDiscardPilePosition(position,g.allPlayers.get(g.player));
+           g.setRemainingActionsInPhase(g.remainingActionsInPhase - 1);
 
        }
         else{

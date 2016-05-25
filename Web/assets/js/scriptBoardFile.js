@@ -1,6 +1,7 @@
 $(document).ready(function () {
     throne = false;
     trPlayed = false;
+    counterForLibrary = 2;
     update();
     $('#hand').on({
         mouseenter: function (e) {
@@ -165,8 +166,10 @@ $('#hand li').on('click', function () {
     }
         else if(array[pos]==="Library"){
 
+
             for(i = 0; i < 2; i++){
                 requestTopCard();
+                console.log("request is al " + i +" keer gebeurd")
                 
             }
         update();
@@ -186,15 +189,14 @@ function showTopCard(card){
     
 }
 function requestTopCard(){
-    var pos = $(this).index();
+    
     var request = $.ajax({
         cache: false,
         url: "/BoardServlet",
         type: "GET",
         dataType: "text",
         data: {
-            action: 'requestTopCard',
-            positionOnBoard: pos
+            action: 'requestTopCard'
 
 
         }
@@ -202,13 +204,14 @@ function requestTopCard(){
     request.done(function (data) {
         var obj = JSON.parse(data);
         console.log(obj.topCard);
-        var r = confirm(obj.topCard + " discard?");
-        if (r=true){
+        if (confirm("do you want to add "+ obj.topCard + " to your hand?")){
             moveCardToHand(pos);
 
         }
         else{
+
             moveCardToDiscard();
+            requestTopCard();
 
         }
 
@@ -222,7 +225,8 @@ function requestTopCard(){
 
 
 }
-function moveCardToHand(pos) {
+function moveCardToHand(position) {
+    
     var request = $.ajax({
         cache: false,
         url: "/BoardServlet",
@@ -230,12 +234,13 @@ function moveCardToHand(pos) {
         dataType: "text",
         data: {
             action: 'confirmKeepCard',
-            positionOnBoard: pos
+            positionOfCard: position
 
 
         }
     });
     request.done(function (data) {
+        updateHand();
 
 
 
@@ -258,7 +263,8 @@ function moveCardToHand(pos) {
         });
         request.done(function (data) {
 
-            i -= 1;
+
+
 
 
         });

@@ -17,7 +17,7 @@ public class Game {
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
     private Deck playedCards = new Deck(); // TODO: wordt niet gebruikt. kan weg?
     public int currentlyActiveAmountOfCoins;
-    private int remainingActionsInPhase = 1;
+    public int remainingActionsInPhase = 1;
     private int remainingBuysInPhase = 1;
     public int player = 0;
     public int decisionOfPlayerPosition;

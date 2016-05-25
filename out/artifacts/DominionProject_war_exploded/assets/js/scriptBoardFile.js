@@ -307,10 +307,8 @@ function updateVictoryCardBoard() {
     });
 
     request.fail(function (jqXHR, textStatus) {
-
         alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
     });
-
 }
 
 function updateTreasureCardBoard() {
@@ -416,7 +414,6 @@ function updateCoinsActionsBuys() {
     });
 
     request.fail(function (jqXHR, textStatus) {
-
         alert(jqXHR.status + 'updateCoinsActionsBuys' + textStatus);
     });
 

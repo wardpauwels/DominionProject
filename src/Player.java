@@ -151,8 +151,7 @@ public class Player {
 
 
     public int getHandSize(){
-        int handSize = playersHand.getSize();
-        return handSize;
+        return playersHand.getSize();
     }
 
     public void addCardFromHandToDeck(Card c){
@@ -217,6 +216,23 @@ public class Player {
         }
     }
 
+    public void addSpecificCardToDeck(Card c){
+        playersDeck.addCardToDeck(c);
+    }
+
+
+    public boolean scanDiscardPileForCard(Card whichCard){
+        for (int i=0;i < discardPile.getSize(); i++){
+            if (discardPile.getCardOnPos(i).getName().equals(whichCard.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Card getCardFromDiscardPileOnPos(int pos){
+        return discardPile.getCardOnPos(pos);
+    }
 
 
 

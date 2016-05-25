@@ -33,19 +33,21 @@ public class BoardServlet extends HttpServlet {
     JSONObject CAB = new JSONObject();
     JSONObject currentlyPlayingPlayer = new JSONObject();
     int positionOnBoard;
+    JSONObject thiefOrSpyArray = new JSONObject();
+    boolean finished = false;
+    JSONObject gameOver = new JSONObject();
 
 
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         response.setContentType("application/json");
         Writer writer = response.getWriter();
 
         String action = request.getParameter("action");
 
-        switch (action){
+        switch (action) {
             case "init":
                 name1 = request.getParameter("name1");
                 name2 = request.getParameter("name2");
@@ -69,7 +71,7 @@ public class BoardServlet extends HttpServlet {
                 activePlayer = 0;
 
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
-                for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
+                for (int i = 0; i < g.allPlayers.get(g.player).getHandSize(); i++) {
                     /*if(i == g.allPlayers.get(g.player).getHandSize()-1){
                     cards.put("cardName",g.allPlayers.get(g.player).getCardOnPosInHand(i).getName());}
                     else{
@@ -77,7 +79,7 @@ public class BoardServlet extends HttpServlet {
                     }*/
                     cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
                 }
-                cards.put("CardNames",cardNames);
+                cards.put("CardNames", cardNames);
 
                 System.out.println(cards);
                 writer.append(cards.toString());
@@ -91,147 +93,184 @@ public class BoardServlet extends HttpServlet {
 
             case "getNames":
                 cleanNames = new JSONObject();
-                for (int i = 0; i<g.allPlayers.size(); i++){
-                    cleanNames.put("name"+(i+1), g.allPlayers.get(i).getName());
+                for (int i = 0; i < g.allPlayers.size(); i++) {
+                    cleanNames.put("name" + (i + 1), g.allPlayers.get(i).getName());
                 }
                 cleanNames.put("amount", countAmountOfPlayers());
                 writer.append(cleanNames.toString());
                 break;
 
             case "playCard":
-                if(g.currentPhase == 0){
+                if (g.currentPhase == 0) {
+
                     int positionInHand;
                     positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    System.out.println("nummer " + positionInHand+  "gespeeld!");
-                    useActionCard(positionInHand);
-                }else{
-                    System.out.println("Er kan geen actie kaart gespeeld worden in de koop fase");
+                    if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
+                        thiefOrSpyPlayed();
+                    } else {
+                        System.out.println("nummer " + positionInHand + "gespeeld!");
+                        useActionCard(positionInHand);
+                    }
+                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                    if (g.currentPhase == 0) {
+                        if (g.trashingCards()) {
+                            trashingCards(positionInHand);
+                        } else {
+                            System.out.println("nummer " + positionInHand + "gespeeld!");
+                            useActionCard(positionInHand);
+                        }
+
+                    } else {
+                        System.out.println("Er kan geen actie kaart gespeeld worden in de koop fase");
+                    }
                 }
 
+                    break;
+
+
+            case "playThiefOrSpy":
                 break;
 
             case "updateHand":
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
-                for(int i = 0; i < g.allPlayers.get(g.player).getHandSize();i++){
-                    cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
-                }
-                cards.put("CardNames",cardNames);
-                g.allPlayers.get(g.getPlayer()).printDeck();
-                System.out.println("--------------------");
-                g.allPlayers.get(g.getPlayer()).printDiscardPile();
+                for (int i = 0; i < g.allPlayers.get(g.player).getHandSize(); i++) {
+                        cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
+                    }
+                    cards.put("CardNames", cardNames);
+                    g.allPlayers.get(g.getPlayer()).printDeck();
+                    System.out.println("--------------------");
+                    g.allPlayers.get(g.getPlayer()).printDiscardPile();
                     System.out.println(cards);
-                writer.append(cards.toString());
-                break;
+                    writer.append(cards.toString());
+                    break;
 
-            case "updateActionBoard":
-                cardsOnBoard = new Card[g.actionCardsOnBoard.size()];
-                for(int i = 0; i < g.actionCardsOnBoard.size();i++){
-                    cardsOnBoard[i] = g.actionCardsOnBoard.get(i);
-                }
-                actionCards.put("actionCardsOnBoard",cardsOnBoard);
-                System.out.println(actionCards);
-                writer.append(actionCards.toString());
-                g.printActionCards();
-                break;
+                case "updateActionBoard":
+                    cardsOnBoard = new Card[g.actionCardsOnBoard.size()];
+                    for (int i = 0; i < g.actionCardsOnBoard.size(); i++) {
+                        cardsOnBoard[i] = g.actionCardsOnBoard.get(i);
+                    }
+                    actionCards.put("actionCardsOnBoard", cardsOnBoard);
+                    System.out.println(actionCards);
+                    writer.append(actionCards.toString());
+                    g.printActionCards();
+                    break;
 
-            case "updateVictoryBoard":
-                cardsOnBoard = new Card[g.victoryCardTable.getSize()];
+                case "updateVictoryBoard":
+                    cardsOnBoard = new Card[g.victoryCardTable.getSize()];
 
-                for(int i = 0; i < g.victoryCardTable.getSize();i++){
+                    for (int i = 0; i < g.victoryCardTable.getSize(); i++) {
 
-                    cardsOnBoard[i] = g.victoryCardTable.getCardOnPos(i);
-                }
-                victoryCards.put("victoryCardsOnBoard",cardsOnBoard);
-                System.out.println(victoryCards);
-                writer.append(victoryCards.toString());
-                g.printVictoryCards();
-                break;
+                        cardsOnBoard[i] = g.victoryCardTable.getCardOnPos(i);
+                    }
+                    victoryCards.put("victoryCardsOnBoard", cardsOnBoard);
+                    System.out.println(victoryCards);
+                    writer.append(victoryCards.toString());
+                    g.printVictoryCards();
+                    break;
 
-            case "updateTreasureBoard":
-                cardsOnBoard = new Card[g.treasureCardTable.getSize()];
+                case "updateTreasureBoard":
+                    cardsOnBoard = new Card[g.treasureCardTable.getSize()];
 
-                for(int i = 0; i < g.treasureCardTable.getSize();i++){
+                    for (int i = 0; i < g.treasureCardTable.getSize(); i++) {
 
-                    cardsOnBoard[i] = g.treasureCardTable.getCardOnPos(i);
-                }
-                treasureCards.put("treasureCardsOnBoard",cardsOnBoard);
-                System.out.println(treasureCards);
-                writer.append(treasureCards.toString());
-                g.printTreasureCards();
-                break;
+                        cardsOnBoard[i] = g.treasureCardTable.getCardOnPos(i);
+                    }
+                    treasureCards.put("treasureCardsOnBoard", cardsOnBoard);
+                    System.out.println(treasureCards);
+                    writer.append(treasureCards.toString());
+                    g.printTreasureCards();
+                    break;
 
-            case "updateCoinsActionsBuys":
+                case "updateCoinsActionsBuys":
 
-                int[] coinsActionsBuys = new int[3];
-                coinsActionsBuys[0]=g.getAmountOfCoinsOfPlayer();
-                coinsActionsBuys[1]=g.returnAmountOfActionsRemaining();
-                coinsActionsBuys[2]=g.returnRemainingBuys();
-                CAB.put("coinsActionsBuys",coinsActionsBuys);
-                writer.append(CAB.toString());
-                break;
+                    int[] coinsActionsBuys = new int[3];
+                    coinsActionsBuys[0] = g.getAmountOfCoinsOfPlayer();
+                    coinsActionsBuys[1] = g.returnAmountOfActionsRemaining();
+                    coinsActionsBuys[2] = g.returnRemainingBuys();
+                    CAB.put("coinsActionsBuys", coinsActionsBuys);
+                    writer.append(CAB.toString());
+                    break;
 
-            case "updatePlayer":
-                player = new Player[1];
-                player[0] = g.allPlayers.get(g.getPlayer());
+                case "updatePlayer":
+                    player = new Player[1];
+                    player[0] = g.allPlayers.get(g.getPlayer());
 
-                currentlyPlayingPlayer.put("activePlayer",player);
-                writer.append(currentlyPlayingPlayer.toString());
-                break;
+                    currentlyPlayingPlayer.put("activePlayer", player);
+                    writer.append(currentlyPlayingPlayer.toString());
+                    break;
 
 
+                case "buyActionCard":
+                    if (g.currentPhase == 1 || g.actionToBuyCard) {
 
-            case "buyActionCard":
-                if(g.currentPhase == 1){
+                        int positionOnBoard;
+                        positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                        int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
+                        buyCard(pos, "action");
+                        System.out.println("kaart " + pos + " gekocht!");
+                        g.actionToBuyCard = false;
+                    } else {
+                        System.out.println("Er kan geen kaart gekocht worden in de actie fase");
+                    }
+                    if (g.checkIfFinished()) {
+                        runGameIsDone();
+                    }
 
-                    int positionOnBoard;
-                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-                    int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
-                    buyCard(pos,"action");
-                    System.out.println("kaart " + pos +  " gekocht!");
-                } else{
-                    System.out.println("Er kan geen kaart gekocht worden in de actie fase");
-                }
+                    break;
+                case "buyVictoryCard":
 
-                break;
-            case "buyVictoryCard":
+                    if (g.currentPhase == 1 || g.actionToBuyCard) {
+                        positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                        buyCard(positionOnBoard - 1, "victory");
+                        System.out.println("kaart " + positionOnBoard + " gekocht!");
+                        g.actionToBuyCard = false;
+                    } else {
+                        System.out.println("Er kan geen kaart gekocht worden in de actie fase");
+                    }
+                    if (g.checkIfFinished()) {
+                        runGameIsDone();
+                    }
+                    break;
 
-                if(g.currentPhase == 1) {
-                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                case "buyTreasureCard":
+                    if (g.currentPhase == 1 || g.actionToBuyCard) {
+                        positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                        buyCard(positionOnBoard - 1, "treasure");
+                        System.out.println("kaart " + positionOnBoard + " gekocht!");
+                        g.actionToBuyCard = false;
+                    } else {
+                        System.out.println("Er kan geen kaart gekocht worden in de actie fase");
+                    }
+                    if (g.checkIfFinished()) {
+                        runGameIsDone();
+                    }
 
-                    buyCard(positionOnBoard-1, "victory");
-                    System.out.println("kaart " + positionOnBoard + " gekocht!");
-                }
-                else{
-                    System.out.println("Er kan geen kaart gekocht worden in de actie fase");
-                }
-                break;
+                    break;
 
-            case "buyTreasureCard":
-                if(g.currentPhase == 1){
-                    positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
+                case "endTurn":
+                    System.out.println("Einde beurt voor speler: " + g.getPlayerName(g.player));
+                    g.nextPlayer();
+                    g.endTurn();
+                    g.printHand(g.allPlayers.get(g.player));
+                    System.out.println("Nieuwe speler: " + g.getPlayerName(g.player));
+                    g.resetAmountOfActions();
+                    g.resetPhase();
+                    break;
 
-                    buyCard(positionOnBoard-1,"treasure");
-                    System.out.println("kaart " + positionOnBoard +  " gekocht!");
-                }else{
-                    System.out.println("Er kan geen kaart gekocht worden in de actie fase");
-                }
+                case "endPhase":
 
-                break;
+                    g.endPhase();
+                    break;
+                case "checkIfFinished":
+                    if (finished) {
+                        gameOver.put("gameIsDone", 1);
+                    } else {
+                        gameOver.put("gameIsDone", -1);
+                    }
+                    writer.append(gameOver.toString());
 
-            case "endTurn":
-                System.out.println("Einde beurt voor speler: " + g.getPlayerName(g.player));
-                g.nextPlayer();
-                g.endTurn();
-                g.printHand(g.allPlayers.get(g.player));
-                System.out.println("Nieuwe speler: " + g.getPlayerName(g.player));
-                g.resetAmountOfActions();
-                g.resetPhase();
-                break;
+            }
 
-            case "endPhase":
-
-                g.endPhase();
-        }
     }
 
     public void initGame(){
@@ -270,6 +309,20 @@ public class BoardServlet extends HttpServlet {
         g.currentPhase = 0;
         //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
 
+    }
+
+    private void trashingCards(int positionInHand){
+        g.amountOfCardsToBeTrashed -=1;
+        g.selectedCard = g.allPlayers.get(activePlayer).getCardOnPosInHand(positionInHand);
+        g.moveCardFromHandToDiscardPilePosition(positionInHand, g.allPlayers.get(activePlayer));
+        switch(g.currentAction){
+            case "remodel":
+                g.changeCoinsToCostOfCardPlusTwo();
+                break;
+            case "moneylender":
+                g.useMoneylender(activePlayer);
+                break;
+        }
 
     }
 
@@ -277,6 +330,10 @@ public class BoardServlet extends HttpServlet {
         for (int i=0;i<playerNames.size();i++){
             g.allPlayers.get(i).setName(playerNames.get(i));
         }
+    }
+
+    private void thiefOrSpyPlayed(){
+
     }
     private void useActionCard(int positionInHand){
         g.setDecisionOfPlayerPosition(positionInHand);
@@ -291,6 +348,10 @@ public class BoardServlet extends HttpServlet {
     private void endPhase(){
         g.nextPhase();
         //TODO ANIMATION VOOR BUYPHASE
+
+    }
+    private void runGameIsDone(){
+        finished = true;
 
     }
 

@@ -309,7 +309,7 @@ body{
 }
 
 
-#actioncards_on_table img {
+#actioncards_on_table > ul > li > img:nth-of-type(1){
     width: 123px ;
     margin-right: 10px;
     margin-left: 10px;
@@ -435,7 +435,7 @@ body{
     position: relative;
     top: 55px;
     left: 500px;
-    z-index:50000000000000000000!important;
+    z-index:5000000;
 }
 
 #center_side_footer button {
@@ -532,14 +532,7 @@ body{
     width: 80px;
     padding-top: 5px;
 }
-#baraja-el li:not(:first-of-type):active {
-    margin-top:-200px;
-    -webkit-transition-delay: 0.2s;
-}
 
-#baraja-el li {
-    transition: 1s!important;
-}
 #bigCard{
     height:100%;
     width:100%;
@@ -599,19 +592,19 @@ ul h1 {
     text-align: center;
     line-height: 38px;
 }
-.buyActionCard {
+#actioncards_on_table > ul > li > img.buyActionCard {
     position: relative;
     display: block;
     bottom: 21px;
-    left: 81px;
-    width: 42px!important;
+    left: 91px;
+    width: 42px;
 }
-.buyVictoryCardsandCoinCards {
+#victory_cards > ul > li > img.buyVictoryCardsandCoinCards, #money_cards > ul > li > img.buyVictoryCardsandCoinCards {
     position: relative;
     display: block;
     bottom: 21px;
     left: 59px;
-    width: 42px!important;
+    width: 42px;
 }
 
 .buyVictoryCardsandCoinCards:active, .buyActionCard:active, #nextPlayerButton:active, #playVictoryButton:active, #playActionButton:active {

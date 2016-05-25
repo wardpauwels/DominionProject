@@ -51,7 +51,7 @@ input[type="text"] {
     padding-left: 15px;
     color: #2d343f;
     text-transform: capitalize;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
 }
 input[type="submit"] {
     border-style: solid;
@@ -66,7 +66,7 @@ input[type="submit"] {
     font-size:20px;
     font-weight: bold;
     cursor:pointer;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
 }
 button {
     background-color:transparent;
@@ -92,7 +92,6 @@ form{
     background-repeat: no-repeat;
     opacity: 0.502;
     text-align: left;
-    font:Arial;
     float: left;
     margin-right: 10px;
 }

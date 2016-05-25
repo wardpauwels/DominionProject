@@ -61,7 +61,7 @@ input[type="text"] {
     padding-left: 15px;
     color: #FFFFFF;
     text-transform: capitalize;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
 }
 #addPlayer:focus {
     outline:0;
@@ -82,7 +82,7 @@ input[type="text"] {
     color: rgba(130,137,188, 1);
     font-weight: bold;
     cursor:pointer;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
 }
 
 form {
@@ -109,7 +109,7 @@ input[type="submit"] {
     font-size:20px;
     font-weight: bold;
     cursor:pointer;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
     margin-bottom: 10px;
 }
 .deletePlayer{
@@ -125,7 +125,7 @@ input[type="submit"] {
     font-size:20px;
     font-weight: bold;
     cursor:pointer;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
     display: block;
     margin-right: auto;
     margin-left: auto;

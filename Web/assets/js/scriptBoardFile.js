@@ -72,7 +72,7 @@ function generateVictoryCardsOnBoard(array){
         html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
+        var plusbutton = $('<img alt="Buy victory card" title="Buy victory card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         console.log(parent.data("cardNumber"));
         parent.html(html);
@@ -90,7 +90,7 @@ function generateTreasureCardsOnBoard(array){
         html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
+        var plusbutton = $('<img alt="Buy treasure card" title="Buy treasure card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         console.log(parent.data("cardNumber"));
         parent.html(html);
@@ -328,6 +328,37 @@ function updateTreasureCardBoard() {
     });
 
 }
+
+function getThiefOrSpyArray() {
+    
+    console.log("thief getter lukt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'playThiefOrSpy'
+
+        }
+    });
+
+    request.done(function (data) {
+
+        console.log(data);
+        var obj = JSON.parse(data);
+        console.log("thief succesfull");
+        console.log(obj.top2Cards);
+        console.log(obj.top2Cards[0]);
+        //FIXCOUNTERSMETHOD
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
+    });
+
+}
 function updateCurrentlyPlaying() {
     console.log("update coins werkt");
     var request = $.ajax({
@@ -394,16 +425,53 @@ function updatePlayer(player){
 }
 
 function update() {
+    console.log("voor werkt");
     setBoard();
+    console.log("na werkt");
     updateActionCardBoard();
     updateVictoryCardBoard();
     updateTreasureCardBoard();
     updateCoinsActionsBuys();
     updateCurrentlyPlaying();
+    //getThiefOrSpyArray();
+    console.log("fml");
+    checkIfFinished();
 
 
 
     // playing with different origins and ranges
+
+}
+
+function checkIfFinished(){
+    console.log("checkiffinished werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'checkIfFinished'
+
+        }
+    });
+
+    request.done(function (data) {
+        //$('#player_one_name').html(data.name1);
+        //$('#player_two_name').html(data.name2);
+        console.log(data);
+        console.log(data.gameOver);
+        var obj = JSON.parse(data);
+        console.log(obj.gameOver);
+
+
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + 'updateHand' + textStatus);
+    });
+
 
 }
 
@@ -492,15 +560,3 @@ $('#playActionButton').on('click', function () {
         alert(jqXHR.status + 'PlayActionButton' + textStatus);
     });
 });
-
-function generateEnemyPlayerCard(array) {
-    $("#hand").empty();
-    for (var i = 0; i < array.length; i++) {
-        var html = '<li>';
-        var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
-        html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
-        html += '</li>';
-        $("#otherPlayerCardInfo ul").append(html);
-    }
-    playCard();
-}

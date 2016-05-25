@@ -216,4 +216,65 @@ public class CliGame {
         g.printCoins();
 
     }
+
+
+    /*private void useFeast(int numberOfThePlayer){
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+
+        Hand playersHand = activePlayer.returnHand();
+        for(int i = 0; i < playersHand.getSize(); i++){
+            if(playersHand.getCardOnPos(i).getName().equals("Feast")){
+                activePlayer.removeCardFromHand(i);
+            }
+        }System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen?");
+        int intOfTypeCard = in.nextInt();
+        if(intOfTypeCard < 1 && intOfTypeCard > 3){
+            System.out.println("Ongeldige input, probeer opnieuw");
+            useFeast(numberOfThePlayer);
+        }
+        System.out.println("Geef de positie van de kaart die je wilt kopen met de waarde van 5 of lager"); //TODO: check maken voor de positie
+        int position = in.nextInt();
+        Card chosenCard = new Card();
+
+        chosenCard = getCardOnPosWithType(intOfTypeCard, position);
+
+        activePlayer = getActivePlayer(numberOfThePlayer);
+        if(chosenCard.getCost() <= 5){
+            activePlayer.addCardToDiscardPile(chosenCard);
+        }else{
+            System.out.println("Gekozen kaart moet 5 coins of minder kosten, probeer opnieuw");
+            useWorkshop(numberOfThePlayer);
+        }
+    }
+
+    private void useRemodel(int numberOfThePlayer){ // Remodel = kaart trashen, nieuwe kaart kiezen met waarde +2 van getrashte kaart
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        System.out.println("Geef positie van de kaart in je hand om te trashen");
+        int i = in.nextInt();
+        Card selectedCard = activePlayer.getCardOnPosInHand(i);
+        int amountOfCoinsToBuyNextCard = selectedCard.getCost() +2;
+        System.out.println("Kies een kaart om te kopen met de waarde van " + amountOfCoinsToBuyNextCard + ". 1.Actie 2.victory 3.treasure");
+        int typeOfCard = in.nextInt();
+        if(typeOfCard < 1 && typeOfCard > 3){
+            System.out.println("Ongeldige input, probeer opnieuw");
+            useFeast(numberOfThePlayer);
+        }
+        System.out.println("Geef de positie van de kaart die je wilt kopen"); //TODO: check maken voor de positie
+        int position = in.nextInt();
+        Card chosenCard = new Card();
+
+        chosenCard = getCardOnPosWithType(typeOfCard, position);
+
+        if(chosenCard.getCost() <= amountOfCoinsToBuyNextCard){
+            activePlayer.addCardToDiscardPile(chosenCard);
+        }else{
+            System.out.println("Gekozen kaart moet " + amountOfCoinsToBuyNextCard + " coins of minder kosten, probeer opnieuw");
+            useRemodel(numberOfThePlayer);
+        }
+    }
+
+
+
+
+    */
 }

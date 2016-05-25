@@ -161,14 +161,8 @@ public class Game {
         System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
     }
 
-    private void resetRemainingActions(){ //TODO: wordt niet gebruikt. kan weg?
-        remainingActionsInPhase = 1;
-    }
 
 
-    public void ExecuteDrawPhase(Player whichPlayer){ //TODO: wordt niet gebruikt. kan weg?
-        whichPlayer.generateNextHand();
-    }
 
     public Card getCardFromPosInActionTable(int pos){
         return actionCardsOnBoard.get(pos);
@@ -239,9 +233,7 @@ public class Game {
         return allPlayers.get(whichPlayer).getName();
     }
 
-    public void addCardToHand(Player whichPlayer){ //TODO: wordt niet gebruikt. kan weg?
-        whichPlayer.addCardFromDeckToHand();
-    }
+
 
     public boolean checkIfFinished(){
         boolean finished = false;
@@ -279,13 +271,31 @@ public class Game {
             remainingActionsInPhase = 0;
             nextPhase();}
     }
+
+    public Card getCardOnPosWithType(String typeOfCard, int posInTable) {
+        Card gekozenKaart = new Card();
+
+        switch (typeOfCard) {
+            case "action":
+                gekozenKaart = actionCardTable.getCardOnPos(posInTable);
+                break;
+            case "vicotory":
+                gekozenKaart = victoryCardTable.getCardOnPos(posInTable);
+                break;
+            case "treasure":
+                gekozenKaart = treasureCardTable.getCardOnPos(posInTable);
+                break;
+        }
+        gekozenKaart.setAmount(gekozenKaart.getAmount() - 1);
+        return gekozenKaart;
+    }
     public void setRemainingActionsInPhase(int amount){
         remainingActionsInPhase = amount;
     }
 
     //---------- Action Cards ------------- //
 
-    private void useVillage (int numberOfThePlayer) {
+    public void useVillage(int numberOfThePlayer) {
         addXAmountOfCardsToHandOfPlayerWithNumberY(1, numberOfThePlayer);
         remainingActionsInPhase +=2;
 
@@ -300,7 +310,7 @@ public class Game {
     }
 
 
-    private void useMilitia(int numberOfThePlayer){
+    public void useMilitia(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         currentlyActiveAmountOfCoins += 2;
 
@@ -319,11 +329,11 @@ public class Game {
     }
 
 
-    private void useSmithy(int numberOfThePlayer){
+    public void useSmithy(int numberOfThePlayer){
         allPlayers.get(numberOfThePlayer).addXAmountOfCardsToHand(3);
     }
 
-    private void useWitch(int numberOfThePlayer){
+    public void useWitch(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addXAmountOfCardsToHand(2);
         for (int i=0;i<allPlayers.size();i++){
@@ -342,7 +352,7 @@ public class Game {
         return specificPlayer.scanHandForCard(toFindCard);
     }
 
-    private void useWoodCutter(int numberOfThePlayer){
+    public void useWoodCutter(int numberOfThePlayer){
         currentlyActiveAmountOfCoins += 2;
         remainingBuysInPhase += 1;
     }
@@ -355,41 +365,25 @@ public class Game {
 
     }
 
-    private Card getCardOnPosWithType(int typeOfCard, int posInTable){
-        Card gekozenKaart = new Card();
 
-        switch (typeOfCard){
-            case 1:
-                gekozenKaart = actionCardTable.getCardOnPos(posInTable);
-                break;
-            case 2:
-                gekozenKaart = victoryCardTable.getCardOnPos(posInTable);
-                break;
-            case 3:
-                gekozenKaart = treasureCardTable.getCardOnPos(posInTable);
-                break;
-        }
-        gekozenKaart.setAmount(gekozenKaart.getAmount() -1);
-        return gekozenKaart;
-    }
 
-    private void useFestival(int numberOfThePlayer){
+    public void useFestival(int numberOfThePlayer){
         remainingActionsInPhase += 2;
         remainingBuysInPhase += 1;
         currentlyActiveAmountOfCoins += 2;
     }
 
-    private void useCouncilRoom(int numberOfThePlayer){
+    public void useCouncilRoom(int numberOfThePlayer){
         addXAmountOfCardsToHandOfPlayerWithNumberY(4,numberOfThePlayer);
         remainingBuysInPhase += 1;
 
     }
-    private void useLaboratory(int numberOfThePlayer){
+    public void useLaboratory(int numberOfThePlayer){
         addXAmountOfCardsToHandOfPlayerWithNumberY(2,numberOfThePlayer);
         remainingActionsInPhase += 1;
 
     }
-    private void useMarket(int numberOfThePlayer){
+    public void useMarket(int numberOfThePlayer){
         addXAmountOfCardsToHandOfPlayerWithNumberY(1,numberOfThePlayer);
         remainingActionsInPhase += 1;
         remainingBuysInPhase += 1;
@@ -434,7 +428,7 @@ public class Game {
         boolean stopAction = false;
         for (int i = 0; i < allPlayers.size(); i++){
             if(numberOfThePlayer != i){
-                Deck deckOfPlayerX = returnXAmountOfTopCardsOfPlayerY(2,i);// TODO: bug: krijgt altijd 2 de zelfde kaarten terug
+                Deck deckOfPlayerX = returnXAmountOfTopCardsOfPlayerY(2,i);
                 System.out.println("1: "+ deckOfPlayerX.getCardOnPos(0).getName() + " 2:" + deckOfPlayerX.getCardOnPos(1).getName());
                 System.out.println("Geef positie van kaart om af te pakken");
                 int positie  = remainingActionsInPhase + 1;
@@ -462,7 +456,7 @@ public class Game {
     }
 
 
-    private void useBureaucrat(int numberOfThePlayer)
+    public void useBureaucrat(int numberOfThePlayer)
     {
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addCardToPlaceInDeck(0,treasureCardTable.getCardOnPos(1));
@@ -472,7 +466,7 @@ public class Game {
 
 
 
-    private void useMoat(int numberOfThePlayer){
+    public void useMoat(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addXAmountOfCardsToHand(2);
 
@@ -502,7 +496,7 @@ public class Game {
     private void moveCardFromHandToDiscardPile(int position,Player whichPlayer){
         whichPlayer.moveCardFromHandToDiscard(position);
     }
-    private void useChancellor(int numberOfPlayer){
+    public void useChancellor(int numberOfPlayer){
         Player activePlayer = getActivePlayer(numberOfPlayer);
         currentlyActiveAmountOfCoins+=2;
         activePlayer.moveAllCardsFromDeckToDiscardPile();
@@ -562,7 +556,7 @@ public class Game {
     }
 
 
-    private void useLibrary(int numberOfThePlayer){
+    public void useLibrary(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         while(activePlayer.getHandSize() != 7){
             Card currentCard = activePlayer.getTopCardFromDeck();
@@ -591,7 +585,7 @@ public class Game {
 
     }
 
-    private Deck returnXAmountOfTopCardsOfPlayerY(int amountOfCardsToBeReturned,int numberOfThePlayer){
+    public Deck returnXAmountOfTopCardsOfPlayerY(int amountOfCardsToBeReturned, int numberOfThePlayer){
         Deck top2Cards = new Deck();
         Player toBeScannedPlayer = getActivePlayer(numberOfThePlayer);
         for (int i = 0;i<amountOfCardsToBeReturned;i++){
@@ -601,10 +595,10 @@ public class Game {
     }
 
 
-    private void addXAmountOfCardsToHandOfPlayerWithNumberY(int amountOfCardsNeeded, int numberOfPLayer){
+    public void addXAmountOfCardsToHandOfPlayerWithNumberY(int amountOfCardsNeeded, int numberOfPLayer){
         allPlayers.get(numberOfPLayer).addXAmountOfCardsToHand(amountOfCardsNeeded);
     }
-    private Player getActivePlayer(int numberOfThePlayer){
+    public Player getActivePlayer(int numberOfThePlayer){
         return allPlayers.get(numberOfThePlayer);
     }
 
@@ -770,4 +764,6 @@ public class Game {
         Player activePlayer = allPlayers.get(player);
         moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition, activePlayer);
     }
+
+
 }

@@ -372,7 +372,7 @@ public class BoardServlet extends HttpServlet {
     private void nextTurn() {
         g.nextTurn();
         g.currentPhase = 0;
-        //todo showNextPlayer GASTEN GEEN IDEE JAVASCRIPT DINGEN
+
 
     }
 
@@ -428,13 +428,13 @@ public class BoardServlet extends HttpServlet {
     private void endTurn() {
         g.endTurn();
 
-        //TODO ANIMATION VOOR NIEUW GEMAAKT HAND OPVRAAGBAAR VIA g.returnHand(g.allPlayers.get(player)
+
 
     }
 
     private void endPhase() {
         g.nextPhase();
-        //TODO ANIMATION VOOR BUYPHASE
+
 
     }
 

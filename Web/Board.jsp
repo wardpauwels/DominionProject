@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dylan
-  Date: 12/05/2016
-  Time: 13:10
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -18,10 +11,17 @@
     <meta name="author" content="Groep 4"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dominion</title>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/ico"/>
 </head>
 <body>
+
 <div id="wrapper">
     <div id="bigCard"></div>
+    <div id="otherPlayerCardInfo">
+        <ul>
+            <h1>Trash one of the cards below</h1>
+        </ul>
+    </div>
     <div id="header">
         <div id="two_players">
             <p id="player_one_name" class="player_one_name"></p>
@@ -31,6 +31,7 @@
 
     <div id="content">
         <div id="actioncards_on_table">
+            <div class="popupActioncard"><h1>These are action cards. If you are in the buy fase, these cards can be bought.</h1></div>
             <ul class="actioncards_on_table_print">
             </ul>
         </div>
@@ -64,6 +65,7 @@
 
             </div>
             <div id="hand_on_table">
+                <div class="popup"><h1>This is your hand, you can play your cards by clicking on them.</h1></div>
                     <ul id="hand">
                     </ul>
             </div>

@@ -16,7 +16,7 @@ public class Game {
 
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
     public int currentlyActiveAmountOfCoins;
-    private int remainingActionsInPhase = 1;
+    public int remainingActionsInPhase = 1;
     private int remainingBuysInPhase = 1;
     public int player = 0;
     public int decisionOfPlayerPosition;
@@ -72,7 +72,7 @@ public class Game {
     private boolean checkRandom(int randomNumber) {
         for (int i = 0; i < actionCardsOnBoard.size(); i++) {
             int currentNumber = actionCardsOnBoard.get(i).getNumber();
-            if (randomNumber == currentNumber) {
+            if (randomNumber == currentNumber || randomNumber == 14 || randomNumber == 13) {
                 return false;
             }
         }
@@ -124,10 +124,7 @@ public class Game {
 
     }
     public void nextTurn() {
-
         nextPlayer();
-
-
     }
 
 
@@ -141,14 +138,28 @@ public class Game {
                 useActionCard(toBePlayedActionCard.getName(), player);
                 lowerAmountOfActions();
                 System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
-
-
-
         }
-
     }
 
+    public void playMilitia(){
+        for (int i = 0; i < allPlayers.size(); i++){
+            boolean hasMoat = false;
+            for (int j = 0; j < allPlayers.get(player).getHandSize(); j++ ){
+                if (allPlayers.get(i).getCardOnPosInHand(j).equals("Moat")){
+                    hasMoat = true;
+                }
+            }
+            if (allPlayers.get(i).getName() != allPlayers.get(player).getName() && hasMoat == false){
+                allPlayers.get(i).cursedByMilitia = true;
+            }
+        }
+        Player activePlayer = allPlayers.get(player);
 
+        Card toBePlayedActionCard = allPlayers.get(player).getCardOnPosInHand(decisionOfPlayerPosition);
+        moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition, activePlayer);
+        lowerAmountOfActions();
+        System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
+    }
 
     private void resetRemainingActions(){ //TODO: wordt niet gebruikt. kan weg?
         remainingActionsInPhase = 1;
@@ -289,24 +300,10 @@ public class Game {
     }
 
 
-    public void useMilitia(int decisionOfPlayerPosition){
-        for (int i = 0; i < allPlayers.size(); i++){
-            boolean hasMoat = false;
-            for (int j = 0; j < allPlayers.get(player).getHandSize(); j++ ){
-                if (allPlayers.get(i).getCardOnPosInHand(j).equals("Moat")){
-                    hasMoat = true;
-                }
-            }
-            if (allPlayers.get(i).getName() != allPlayers.get(player).getName() && hasMoat == false){
-                allPlayers.get(i).cursedByMilitia = true;
-            }
-        }
-        Player activePlayer = allPlayers.get(player);
+    private void useMilitia(int numberOfThePlayer){
+        Player activePlayer = getActivePlayer(numberOfThePlayer);
+        currentlyActiveAmountOfCoins += 2;
 
-        Card toBePlayedActionCard = allPlayers.get(player).getCardOnPosInHand(decisionOfPlayerPosition);
-        moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition, activePlayer);
-        lowerAmountOfActions();
-        System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
     }
 
 
@@ -508,7 +505,6 @@ public class Game {
     private void useChancellor(int numberOfPlayer){
         Player activePlayer = getActivePlayer(numberOfPlayer);
         currentlyActiveAmountOfCoins+=2;
-        //promptDeckOpStapel(activePlayer);
         activePlayer.moveAllCardsFromDeckToDiscardPile();
 
     }
@@ -585,9 +581,6 @@ public class Game {
                 useActionCard(chosenCard.getName(), numberOfThePlayer);
 
             }
-        }else{
-            System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
-            useThroneRoom(numberOfThePlayer);
         }
     }
 
@@ -771,5 +764,10 @@ public class Game {
         System.out.println("Amount of remaining actions:" + remainingActionsInPhase);
         System.out.println("--------------------");
 
+    }
+
+    public void activateMilitiaCurse() {
+        Player activePlayer = allPlayers.get(player);
+        moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition, activePlayer);
     }
 }

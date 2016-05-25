@@ -4,8 +4,23 @@ import java.util.ArrayList;
 
 
 public class CliGame {
+//TODO ROBERT DIT IS CODE VAN USE MILITIA, DIT MOET NAAR HIER VERHUIZEN, DE 2 COINS GEBEUREN NOG IN ENGINE private void
+/*useMilitia(int numberOfThePlayer){
+Player activePlayer = getActivePlayer(numberOfThePlayer);
+    currentlyActiveAmountOfCoins += 2;
+    for(int i = 0; i < allPlayers.size(); i++){
+        if(i != numberOfThePlayer){
+            while(getActivePlayer(i).getHandSize() > 3) {
+                System.out.println(getActivePlayer(i).getName() + ", geef de positie van een kaart om weg te doen tot je er 3 hebt");
+                int pos = in.nextInt();
+                Card chosenCard = activePlayer.getCardOnPosInHand(pos);
+                activePlayer.addCardFromHandToDiscardPile(chosenCard);
+            }
+        }
 
-
+    }
+}
+*/
     public Scanner in = new Scanner(System.in);
     // User input
     private int intInput;

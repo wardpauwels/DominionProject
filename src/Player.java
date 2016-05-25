@@ -22,6 +22,11 @@ public class Player {
         playersHand.generateHand(playersDeck);
 
     }
+    public void moveCardFromDeckToDiscard(){
+        discardPile.addCardToDeck(playersDeck.getCardOnPos(0));
+        playersDeck.removeFromDeck(0);
+
+    }
     public void calculateVictoryPoints(){
         int sizeOfCompleteDeck = playersHand.getSize()+discardPile.getSize()+playersDeck.getSize();
         playersDeck.actionCards.setGarden((int)Math.floor(sizeOfCompleteDeck/10));
@@ -121,7 +126,10 @@ public class Player {
 
         for (int i = 0; i < amount ; i++){
             if (playersDeck.getSize()<1){
-                playersDeck=discardPile;
+                for(int j = 0 ;j<discardPile.getSize(); j ++){
+                    playersDeck.addCardToDeck(discardPile.getCardOnPos(j));
+                }
+
                 playersDeck.shuffleDeck();
                 discardPile.clearDeck();
             }
@@ -221,6 +229,14 @@ public class Player {
 
     public Card getTopCardFromDeck(){
         return playersDeck.getCardOnPos(0);
+    }
+    public void checkIfCardsInDeckAndMoveDiscardToDeck(){
+        if (playersDeck.getSize()==0){
+            for(int i = 0; i <discardPile.getSize();i++){
+                playersDeck.addCardToDeck(discardPile.getCardOnPos(i));
+
+            }
+        }
     }
 
 

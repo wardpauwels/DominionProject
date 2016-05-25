@@ -8,7 +8,7 @@ import java.util.*;
 
 
 public class Deck {
-    private ArrayList<Card> cardList;
+    public ArrayList<Card> cardList;
     public ActionCardTable actionCards;
     private VictoryCardTable victoryCards;
     private TreasureCardTable treasureCards;

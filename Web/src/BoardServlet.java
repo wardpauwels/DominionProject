@@ -105,26 +105,22 @@ public class BoardServlet extends HttpServlet {
 
                     int positionInHand;
                     positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
+                    /*if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
                         thiefOrSpyPlayed();
                     } else {
                         System.out.println("nummer " + positionInHand + "gespeeld!");
                         useActionCard(positionInHand);
-                    }
-                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    if (g.currentPhase == 0) {
-                        if (g.trashingCards()) {
-                            trashingCards(positionInHand);
-                        } else {
-                            System.out.println("nummer " + positionInHand + "gespeeld!");
-                            useActionCard(positionInHand);
-                        }
+                    }*/
 
+                    if (g.discardingCards()) {
+                        discardingCards(positionInHand);
+                    } else if (g.trashingCards()){
+                        trashingCards(positionInHand);
                     } else {
-                        System.out.println("Er kan geen actie kaart gespeeld worden in de koop fase");
+                        System.out.println("nummer " + positionInHand + "gespeeld!");
+                        useActionCard(positionInHand);
                     }
                 }
-
                     break;
 
 
@@ -311,8 +307,8 @@ public class BoardServlet extends HttpServlet {
 
     }
 
-    private void trashingCards(int positionInHand){
-        g.amountOfCardsToBeTrashed -=1;
+    private void discardingCards(int positionInHand){
+        g.amountOfCardsToBeDiscarded -=1;
         g.selectedCard = g.allPlayers.get(activePlayer).getCardOnPosInHand(positionInHand);
         g.moveCardFromHandToDiscardPilePosition(positionInHand, g.allPlayers.get(activePlayer));
         switch(g.currentAction){
@@ -321,6 +317,22 @@ public class BoardServlet extends HttpServlet {
                 break;
             case "moneylender":
                 g.useMoneylender(activePlayer);
+                break;
+            case "cellar":
+                g.allPlayers.get(activePlayer).addCardFromDeckToHand();
+                break;
+        }
+    }
+
+    private void trashingCards(int positionInHand){
+        g.amountOfCardsToBeTrashed -=1;
+        g.selectedCard = g.allPlayers.get(activePlayer).getCardOnPosInHand(positionInHand);
+        g.allPlayers.get(activePlayer).removeCardFromHand(positionInHand);
+
+        switch(g.currentAction){
+            case "moneylender":
+                g.moneyLenderCopperFound(activePlayer);
+
                 break;
         }
 

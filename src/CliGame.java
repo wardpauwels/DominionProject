@@ -4,8 +4,23 @@ import java.util.ArrayList;
 
 
 public class CliGame {
+//TODO ROBERT DIT IS CODE VAN USE MILITIA, DIT MOET NAAR HIER VERHUIZEN, DE 2 COINS GEBEUREN NOG IN ENGINE private void
+/*useMilitia(int numberOfThePlayer){
+Player activePlayer = getActivePlayer(numberOfThePlayer);
+    currentlyActiveAmountOfCoins += 2;
+    for(int i = 0; i < allPlayers.size(); i++){
+        if(i != numberOfThePlayer){
+            while(getActivePlayer(i).getHandSize() > 3) {
+                System.out.println(getActivePlayer(i).getName() + ", geef de positie van een kaart om weg te doen tot je er 3 hebt");
+                int pos = in.nextInt();
+                Card chosenCard = activePlayer.getCardOnPosInHand(pos);
+                activePlayer.addCardFromHandToDiscardPile(chosenCard);
+            }
+        }
 
-
+    }
+}
+*/
     public Scanner in = new Scanner(System.in);
     // User input
     private int intInput;
@@ -257,7 +272,8 @@ public class CliGame {
         int typeOfCard = in.nextInt();
         if(typeOfCard < 1 && typeOfCard > 3){
             System.out.println("Ongeldige input, probeer opnieuw");
-            useFeast(numberOfThePlayer);
+            useRemodel(numberOfThePlayer);
+
         }
         System.out.println("Geef de positie van de kaart die je wilt kopen"); //TODO: check maken voor de positie
         int position = in.nextInt();
@@ -271,6 +287,22 @@ public class CliGame {
             System.out.println("Gekozen kaart moet " + amountOfCoinsToBuyNextCard + " coins of minder kosten, probeer opnieuw");
             useRemodel(numberOfThePlayer);
         }
+    }
+
+    private void useCellar(int numberOfPlayer){
+        Player activePlayer = getActivePlayer(numberOfPlayer);
+        remainingActionsInPhase += 1;
+        System.out.println("Geef positie van kaart in de hand om te verplaatsen naar de discard pile, geef 0 om te stoppen");
+        int i = in.nextInt();
+        while(i != 0){
+            moveCardFromHandToDiscardPilePosition(i-1, activePlayer);
+            activePlayer.addXAmountOfCardsToHand(1);
+            printHand(activePlayer);
+            System.out.println("Geef positie van kaart in de hand om te verplaatsen naar de discard pile, geef 0 om te stoppen");
+            i = in.nextInt();
+        }
+        printHand(activePlayer);
+        printCoins();
     }
 
 

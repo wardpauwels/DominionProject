@@ -34,6 +34,7 @@ body{
     color: #8c6d47;
     top: 19px;
     left: -309px;
+    text-transform: capitalize;
 
 }
 #two_players .player_two_name {
@@ -42,6 +43,7 @@ body{
     top: 0;
     left: 254px;
     color: #8c6d47;
+    text-transform: capitalize;
 }
 
 #three_players .player_one_name p {
@@ -49,18 +51,21 @@ body{
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #three_players .player_two_name p {
     margin-left: 189px;
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #three_players .player_third_name p {
     margin-left: 189px;
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #three_players .player_one_name {
     background: url("../images/3_players_PLAYER_ONE.png") no-repeat left top;
@@ -75,6 +80,7 @@ body{
     z-index:500;
     -webkit-transition: left 1.5s; /* Safari */
     transition: left 1.5s;
+    text-transform: capitalize;
 }
 #three_players .player_two_name {
     background: url("../images/3_players_PLAYER_TWO.png") no-repeat left top;
@@ -89,6 +95,7 @@ body{
     z-index:500;
     -webkit-transition: right 1.5s; /* Safari */
     transition: right 1.5s;
+    text-transform: capitalize;
 }
 #three_players .player_third_name {
     background: url("../images/3_players_PLAYER_THREE.png") no-repeat left top;
@@ -103,6 +110,7 @@ body{
     z-index:500;
     -webkit-transition: right 1.5s; /* Safari */
     transition: right 1.5s;
+    text-transform: capitalize;
 }
 
 
@@ -142,18 +150,21 @@ body{
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #four_players .player_two_name p {
     margin-left: 189px;
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 #four_players .player_third_name p {
     margin-left: 189px;
     padding-top: 1px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 }
 
 #four_players .player_fourth_name p {
@@ -161,6 +172,7 @@ body{
     padding-top: 7px;
     width: 56px;
     text-align: left;
+    text-transform: capitalize;
 
 }
 
@@ -177,6 +189,7 @@ body{
     z-index:500;
     -webkit-transition: left 1.5s; /* Safari */
     transition: left 1.5s;
+    text-transform: capitalize;
 }
 #four_players .player_two_name {
     background: url("../images/3_players_PLAYER_TWO.png") no-repeat left top;
@@ -191,6 +204,7 @@ body{
     z-index:500;
     -webkit-transition: right 1.5s; /* Safari */
     transition: right 1.5s;
+    text-transform: capitalize;
 }
 #four_players .player_third_name {
     background: url("../images/3_players_PLAYER_THREE.png") no-repeat left top;
@@ -205,6 +219,7 @@ body{
     z-index:500;
     -webkit-transition: right 1.5s; /* Safari */
     transition: right 1.5s;
+    text-transform: capitalize;
 }
 #four_players .player_fourth_name {
     background: url("../images/4_players_PLAYER_FOUR.png") no-repeat left top;
@@ -219,6 +234,7 @@ body{
     z-index:500;
     -webkit-transition: left 1.5s; /* Safari */
     transition: left 1.5s;
+    text-transform: capitalize;
 }
 
 
@@ -293,17 +309,16 @@ body{
 }
 
 
-#actioncards_on_table img {
+#actioncards_on_table > ul > li > img:nth-of-type(1){
     width: 123px ;
     margin-right: 10px;
     margin-left: 10px;
-    margin-bottom: 0px;
 }
 
 #footer_container {
     background: url("../images/footer.png") no-repeat center top 100%;
     width:1280px;
-    height:100px;
+    height:58px;
     margin-right:auto;
     margin-left:auto;
 }
@@ -321,12 +336,12 @@ body{
 }
 #left_side_footer {
     position: relative;
-    top: 73px;
+    top: 29px;
     left: 163px;
 }
 #right_side_footer {
     position: relative;
-    top: 27px;
+    top: 15px;
     left: 851px;
     width: 271px;
 }
@@ -360,12 +375,12 @@ body{
     float:left;
 }
 #trash_pile_on_table {
-    float:right;
+    float: right;
     background: url("../images/trash_pile.png") no-repeat bottom;
-    height:100%;
-    width:91px;
-    margin-top: -340px;
-    margin-right:10px;
+    height: 100%;
+    width: 91px;
+    margin-top: -165px;
+    margin-right: 10px;
 }
 
 #trash_pile_on_table img {
@@ -374,23 +389,20 @@ body{
 #playedcards_on_table {
     height: 189px;
     width: 864px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: -195px;
-    margin-bottom: 60px;
+    margin: -195px auto 42px auto;
 }
 #playedcards_on_table li{
     display: inline;
 }
 #playedcards_on_table img {
     height:150px;
-    margin-right:2.5px;
-    margin-left:2.5px;
+    margin-right:2px;
+    margin-left:2px;
     margin-top:10px;
 
 }
 #hand_on_table {
-    margin-top: -60px;
+    margin-top: -109px;
 }
 
 #opencards {
@@ -419,7 +431,7 @@ body{
     position: relative;
     top: 55px;
     left: 500px;
-    z-index:50000000000000000000!important;
+    z-index:5000000;
 }
 
 #center_side_footer button {
@@ -474,7 +486,7 @@ body{
     width:100px;
 }
 #cards_on_board {
-    margin-top:-295px;
+    margin-top:-268px;
 }
 #cards_on_board ul li{
     display:inline-block;
@@ -506,23 +518,17 @@ body{
 
 
 #actioncards_on_table li p {
-    width: 21px;
-    line-height: 21px;
+    width: 20px;
+    line-height: 20px;
     font-size: 12px;
+    text-align: center;
 }
 
 #playedcards_on_discard_pile img, #toplaycards_on_discard_pile img {
     width: 80px;
     padding-top: 5px;
 }
-#baraja-el li:not(:first-of-type):active {
-    margin-top:-200px;
-    -webkit-transition-delay: 0.2s;
-}
 
-#baraja-el li {
-    transition: 1s!important;
-}
 #bigCard{
     height:100%;
     width:100%;
@@ -544,38 +550,176 @@ body{
     bottom: 0;
 }
 
-.buyActionCard {
+#otherPlayerCardInfo{
+    z-index: 3000;
+    position: absolute;
+    top: 13px;
+    visibility:hidden;
+    width: 100%;
+    transition:1s;
+}
+
+#otherPlayerCardInfo ul {
+    height: 326px;
+    border: solid 4px black;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: rgba(17, 17, 17, .6);
+}
+#otherPlayerCardInfo img{
+    height: 260px;
+    margin: auto;
+}
+#otherPlayerCardInfo li {
+    display:inline;
+}
+
+ul h1 {
+    color: #8c6d47;
+    font-size: 20px;
+    background-color: black;
+    margin-bottom: 15px;
+    text-align: center;
+    line-height: 38px;
+}
+#actioncards_on_table > ul > li > img.buyActionCard {
     position: relative;
     display: block;
     bottom: 21px;
-    left: 81px;
-    width: 42px!important;
+    left: 91px;
+    width: 42px;
 }
-.buyVictoryCardsandCoinCards {
+#victory_cards > ul > li > img.buyVictoryCardsandCoinCards, #money_cards > ul > li > img.buyVictoryCardsandCoinCards {
     position: relative;
     display: block;
     bottom: 21px;
     left: 59px;
-    width: 42px!important;
+    width: 42px;
 }
 
-.buyVictoryCardsandCoinCards:active, .buyActionCard:active {
+.buyVictoryCardsandCoinCards:active, .buyActionCard:active, #nextPlayerButton:active, #playVictoryButton:active, #playActionButton:active {
     opacity: 0.8;
 }
 
 img {
     -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
 }
 
 body {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* Internet Explorer/Edge */
     user-select: none;
+}
+#nextPlayerButton{
+    background: url("../images/End_Turn.png") no-repeat transparent;
+    background-size:160px;
+    border-color: transparent;
+    height: 48px;
+    width: 162px;
+}
+#playVictoryButton{
+    background: url("../images/Play_Treasure.png") no-repeat transparent;
+    background-size:160px;
+    border-color: transparent;
+    height: 48px;
+    width: 162px;
+}
+#playActionButton{
+    background: url("../images/Buy_Phase.png") no-repeat transparent;
+    background-size:160px;
+    border-color: transparent;
+    height: 48px;
+    width: 162px;
+}
+
+#playButtons {
+    position: relative;
+    bottom: 191px;
+    left: 457px;
+    width: 495px;
+    display: inline;
+}
+button:focus {outline:0;}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+.disabled {
+    opacity: 0.3;
+}
+
+#hand {
+    width: 1026px;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    bottom: -110px;
+    left: 0;
+}
+#hand li {
+    display:inline;
+    padding: 5px;
+}
+#hand li img {
+    height:150px;
+}
+
+.activeCard {
+    box-shadow: 0 0 20px 7px rgba(255, 99, 13, 0.73);
+}
+
+.popup h1, .popupActioncard h1, .popupTreasureCards h1, .popupVictoryCards h1 {
+    line-height: 50px;
+    color: #8c6d47;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.popup{
+    background-color: rgba(17,17,17,.7);
+    z-index: 3000;
+    position: fixed;
+    display: none;
+    margin-left: 296px;
+    text-align: left;
+    margin-top: 52px;
+    padding: 0 16px;
+    border: 1px solid black;
+}
+.popupActioncard{
+    background-color: rgba(17,17,17,.7);
+    z-index: 3000;
+    position: fixed;
+    display: none;
+    margin-left: 304px;
+    text-align: left;
+    margin-top: -217px;
+    padding: 0 16px;
+    border: 1px solid black;
+}
+.popupVictoryCards{
+    background-color: rgba(17,17,17,.7);
+    z-index: 3000;
+    width: 316px;
+    position: fixed;
+    display: none;
+    text-align: left;
+    margin-top: -142px;
+    padding: 0 16px;
+    border: 1px solid black;
+}
+.popupTreasureCards{
+    background-color: rgba(17,17,17,.7);
+    z-index: 3000;
+    width: 316px;
+    position: fixed;
+    display: none;
+    text-align: left;
+    margin-top: -150px;
+    padding: 0 16px;
+    margin-left: -131px;
+    border: 1px solid black;
 }

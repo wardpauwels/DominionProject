@@ -13,9 +13,9 @@ public class TreasureCardTable {
     }
 
     public void GenerateVictoryCardTable() {
-        treasureCardTable.add(GenerateSpecificTreasureCard(1, "Copper", 2, 60));
-        treasureCardTable.add(GenerateSpecificTreasureCard(2, "Silver", 5, 40));
-        treasureCardTable.add(GenerateSpecificTreasureCard(3, "Gold", 8, 30));
+        treasureCardTable.add(GenerateSpecificTreasureCard(1, "Copper", 0, 60));
+        treasureCardTable.add(GenerateSpecificTreasureCard(2, "Silver", 3, 40));
+        treasureCardTable.add(GenerateSpecificTreasureCard(3, "Gold", 6, 30));
 
     }
 

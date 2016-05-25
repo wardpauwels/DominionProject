@@ -29,21 +29,6 @@
                 </form>
             </li>
             <li>
-                <form>
-                    <button id="Load_Game" type="submit" formaction="Load_Game.jsp"></button>
-                </form>
-            </li>
-            <li>
-                <form>
-                    <button id="Highscores" type="submit" formaction="Highscores.jsp"></button>
-                </form>
-            </li>
-            <li>
-                <form>
-                    <button id="Settings" type="submit" formaction="Settings.jsp"></button>
-                </form>
-            </li>
-            <li>
                 <button id="Exit" type="submit" onClick="window.close();"></button>
             </li>
         </ul>

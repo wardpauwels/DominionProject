@@ -8,8 +8,8 @@ import java.util.*;
 
 
 public class Deck {
-    private ArrayList<Card> cardList;
-    private ActionCardTable actionCards;
+    public ArrayList<Card> cardList;
+    public ActionCardTable actionCards;
     private VictoryCardTable victoryCards;
     private TreasureCardTable treasureCards;
 
@@ -27,19 +27,18 @@ public class Deck {
 
         Card copperCard = treasureCards.getCardOnPos(0);
         Card estateCard = victoryCards.getCardOnPos(0);
-        Card actionCard = actionCards.getCardOnPos(2); // TODO verwijderen na test
-        int coinsInStarterDeck = 15; // TODO: terug naar 7 na test
+        Card actionCard = actionCards.getCardOnPos(19);
+        int coinsInStarterDeck = 7;
         int estateInStarterDeck = 3;
-        for (int i = 0; i < coinsInStarterDeck; i++) {
-            addCardToDeck(actionCard); // TODO: verwijderen na test
-        }
-        /*for(int i = 0; i < coinsInStarterDeck; i++){
+
+
+        for(int i = 0; i < coinsInStarterDeck; i++){
             addCardToDeck(copperCard);
         }
 
         for (int i = 0; i < estateInStarterDeck; i++){
             addCardToDeck(estateCard);
-        }*/
+        }
     }
 
     public int getSize(){
@@ -55,15 +54,15 @@ public class Deck {
         Card newCard = new Card();
         switch (typeOfCard){
 
-            case "action": 
-                    newCard = actionCards.getCardOnPos(numberOfCard -1);
-                    break;
+            case "action":
+                newCard = actionCards.getCardOnPos(numberOfCard -1);
+                break;
             case "treasure":
-                    newCard = treasureCards.getCardOnPos(numberOfCard - 1);
-                    break;
+                newCard = treasureCards.getCardOnPos(numberOfCard - 1);
+                break;
             case "victory":
-                    newCard = victoryCards.getCardOnPos(numberOfCard -1);
-                    break;
+                newCard = victoryCards.getCardOnPos(numberOfCard -1);
+                break;
         }
         cardList.add(newCard);
     }

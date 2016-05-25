@@ -1,27 +1,24 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dylan
-  Date: 12/05/2016
-  Time: 13:10
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/Layout.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/Baraja/baraja.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/Baraja/custom.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/Baraja/demo.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/DominionBoard.css" />
     <meta name="author" content="Groep 4"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dominion</title>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/ico"/>
 </head>
 <body>
+
 <div id="wrapper">
     <div id="bigCard"></div>
+    <div id="otherPlayerCardInfo">
+        <ul>
+            <h1>Trash one of the cards below</h1>
+        </ul>
+    </div>
     <div id="header">
         <div id="two_players">
             <p id="player_one_name" class="player_one_name"></p>
@@ -31,15 +28,18 @@
 
     <div id="content">
         <div id="actioncards_on_table">
+            <div class="popupActioncard"><h1>These are action cards. Actions cards have special abilities.</h1></div>
             <ul class="actioncards_on_table_print">
             </ul>
         </div>
         <div id="cards_on_board">
             <div id="victory_cards">
+                <div class="popupVictoryCards"><h1>These are victory cards. These cards give you points when you buy them.</h1></div>
                 <ul class="victorycards_on_table_print">
                 </ul>
             </div>
             <div id="money_cards">
+                <div class="popupTreasureCards"><h1>These are money cards. These cards give you extra coins to buy other cards.</h1></div>
                 <ul class="treasurecards_on_table_print">
                 </ul>
             </div>
@@ -64,15 +64,19 @@
 
             </div>
             <div id="hand_on_table">
-                <div class="baraja-demo">
-                    <ul id="baraja-el" class="baraja-container">
+                <div class="popup"><h1>This is your hand, you can play your cards by clicking on them.</h1></div>
+                    <ul id="hand">
                     </ul>
-                </div>
             </div>
             <div id="trash_pile_on_table">
-                <!--<img src="assets/images/exit_button.jpg" title="exit the game" alt="exit"/>-->
                 <img src="assets/images/trash_pile_filled.png" title="Trash Pile" alt="Trash Pile"/>
-
+            </div>
+            <div id="playButtons">
+                <button id="nextPlayerButton"></button>
+                <br>
+                <button id="playVictoryButton" disabled></button>
+                <br>
+                <button id="playActionButton"></button>
             </div>
         </div>
     </div>
@@ -92,10 +96,6 @@
                     <p id="Amount_Of_Coins" style="padding:2px 14px 2px 14px">0</p>
                 </div>
             </div>
-            <div id="center_side_footer">
-                <button id="opencards">Open hand</button>
-                <button id="closecards">Close hand</button>
-            </div>
             <div id="right_side_footer">
                 <p>Currently playing: </p>
                 <p id="Current_Playing">Player Dominion</p>
@@ -105,8 +105,7 @@
 </div>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/script.js"></script>
-<script src="assets/css/Baraja/js/modernizr.custom.79639.js"></script>
-<script src="assets/css/Baraja/js/jquery.baraja.js"></script>
 <script src="assets/js/scriptBoardFile.js"></script>
+
 </body>
 </html>

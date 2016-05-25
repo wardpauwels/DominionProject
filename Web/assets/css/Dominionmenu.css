@@ -2,30 +2,28 @@
     padding-bottom:2vh;
 }
 button {
-    background-color:transparent;
+    background: transparent no-repeat center;
     border:none;
     outline:0;
-    background-repeat:no-repeat;
     height: 90px;
-    background-position:center;
     width:289px;
 }
 #New_Game {
-    background-image: url(../images/Buttons%20GUI/New%20Game.png);
+    background-image: url('../images/Buttons GUI/New Game.png');
 }
 
 #Load_Game {
-    background-image: url(../images/Buttons%20GUI/Load%20Game.png);
+    background-image: url('../images/Buttons GUI/Load Game.png');
 }
 
 #Highscores {
-    background-image: url(../images/Buttons%20GUI/Highscores.png);
+    background-image: url('../images/Buttons GUI/Highscores.png');
 }
 
 #Settings {
-    background-image: url(../images/Buttons%20GUI/Settings.png);
+    background-image: url('../images/Buttons GUI/Settings.png');
 }
 
 #Exit {
-    background-image: url(../images/Buttons%20GUI/exit.png);
+    background-image: url('../images/Buttons GUI/exit.png');
 }

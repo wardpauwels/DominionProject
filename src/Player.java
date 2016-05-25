@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Player {
     private String name;
-    private Deck playersDeck = new Deck();
-    private Hand playersHand = new Hand(playersDeck);
-    private Deck discardPile = new Deck();
+    public Deck playersDeck = new Deck();
+    public Hand playersHand = new Hand(playersDeck);
+    public Deck discardPile = new Deck();
     private int number;
     public boolean cursedByMilitia = false;
     public int victoryPoints;
@@ -20,6 +20,11 @@ public class Player {
         playersDeck.generateStarterDeck();
         playersDeck.shuffleDeck();
         playersHand.generateHand(playersDeck);
+
+    }
+    public void moveCardFromDeckToDiscard(){
+        discardPile.addCardToDeck(playersDeck.getCardOnPos(0));
+        playersDeck.removeFromDeck(0);
 
     }
     public void calculateVictoryPoints(){
@@ -224,6 +229,14 @@ public class Player {
 
     public Card getTopCardFromDeck(){
         return playersDeck.getCardOnPos(0);
+    }
+    public void checkIfCardsInDeckAndMoveDiscardToDeck(){
+        if (playersDeck.getSize()==0){
+            for(int i = 0; i <discardPile.getSize();i++){
+                playersDeck.addCardToDeck(discardPile.getCardOnPos(i));
+
+            }
+        }
     }
 
 

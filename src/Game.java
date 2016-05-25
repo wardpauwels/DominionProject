@@ -17,7 +17,7 @@ public class Game {
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
     private Deck playedCards = new Deck(); // TODO: wordt niet gebruikt. kan weg?
     public int currentlyActiveAmountOfCoins;
-    private int remainingActionsInPhase = 1;
+    public int remainingActionsInPhase = 1;
     private int remainingBuysInPhase = 1;
     public int player = 0;
     public int decisionOfPlayerPosition;
@@ -73,7 +73,7 @@ public class Game {
     private boolean checkRandom(int randomNumber) {
         for (int i = 0; i < actionCardsOnBoard.size(); i++) {
             int currentNumber = actionCardsOnBoard.get(i).getNumber();
-            if (randomNumber == currentNumber) {
+            if (randomNumber == currentNumber || randomNumber == 14 || randomNumber == 13) {
                 return false;
             }
         }

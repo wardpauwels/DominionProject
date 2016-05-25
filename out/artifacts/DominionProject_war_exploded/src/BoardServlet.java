@@ -104,22 +104,18 @@ public class BoardServlet extends HttpServlet {
                 if (g.currentPhase == 0) {
 
                     int positionInHand;
-                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    /*if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
-                        thiefOrSpyPlayed();
-                    } else {
-                        System.out.println("nummer " + positionInHand + "gespeeld!");
-                        useActionCard(positionInHand);
-                    }*/
-                if (g.currentPhase == 0) {
-
-                    int positionInHand;
                     boolean throneRoom;
                     throneRoom = Boolean.parseBoolean(request.getParameter("throneRoom"));
                     positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    //if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
-                    //    thiefOrSpyPlayed();
-                    //} else {
+                    if (g.discardingCards()) {
+                        discardingCards(positionInHand);
+                    } else if (g.trashingCards()) {
+                        trashingCards(positionInHand);
+                    } else {
+                        System.out.println("nummer " + positionInHand + "gespeeld!");
+                        useActionCard(positionInHand);
+                    }
+
                     System.out.println("nummer " + positionInHand + "gespeeld!");
                     if (throneRoom) {
                         if (!g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().equals("Throne Room")) {
@@ -127,37 +123,14 @@ public class BoardServlet extends HttpServlet {
                             g.useThroneRoom(g.player);
                             g.allPlayers.get(g.player).moveCardFromHandToDiscard(positionInHand);
                             g.allPlayers.get(g.player).moveCardFromHandToDiscard(g.allPlayers.get(g.player).scanHandForCardWithName("Throne Room"));
-
-
                         }
-
-
                     }
-                    //}
-                    else {
-                        positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                        if (g.currentPhase == 0) {
-                            if (g.trashingCards()) {
-                                trashingCards(positionInHand);
-                            } else {
-                                System.out.println("nummer " + positionInHand + "gespeeld!");
-                                useActionCard(positionInHand);
-                            }
 
-                    if (g.discardingCards()) {
-                        discardingCards(positionInHand);
-                    } else if (g.trashingCards()){
-                        trashingCards(positionInHand);
-                    } else {
-                        System.out.println("nummer " + positionInHand + "gespeeld!");
-                        useActionCard(positionInHand);
-                    }
-                }
                     break;
+                }
 
-
-            case "playThiefOrSpy":
-                break;
+            //case "playThiefOrSpy":
+            //    break;
 
             case "updateHand":
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];
@@ -346,9 +319,6 @@ public class BoardServlet extends HttpServlet {
         switch(g.currentAction){
             case "remodel":
                 g.changeCoinsToCostOfCardPlusTwo();
-                break;
-            case "moneylender":
-                g.useMoneylender(activePlayer);
                 break;
             case "cellar":
                 g.allPlayers.get(activePlayer).addCardFromDeckToHand();

@@ -545,9 +545,27 @@ public class Game {
     private void useChancellor(int numberOfPlayer){
         Player activePlayer = getActivePlayer(numberOfPlayer);
         currentlyActiveAmountOfCoins+=2;
-        promptDeckOpStapel(activePlayer);
+        //promptDeckOpStapel(activePlayer);
+        activePlayer.moveAllCardsFromDeckToDiscardPile();
 
     }
+
+    /*private void promptDeckOpStapel(Player activePlayer)
+    {
+        System.out.println("Wil je je deck naar de discardpile sturen? (Ja / Nee)");
+        String s = in.nextLine();
+        if(s.equals("Ja") || s.equals("ja")) {
+            activePlayer.moveAllCardsFromDeckToDiscardPile();
+            System.out.println("Deck is verplaatst naar de discardpile");
+
+
+        }else if(s.equals("Nee") || s.equals("nee")){
+            System.out.println("Deck is niet verplaatst naar de discardpile");
+        }else{
+            System.out.println("Geen ja of nee gevonden, probeer opnieuw");
+            promptDeckOpStapel(activePlayer);
+        }
+    }*/
 
     private void useCellar(int numberOfPlayer){ // Kaart naar discard pile en trek een nieuwe
 
@@ -640,22 +658,7 @@ public class Game {
         }*/
     }
 
-    private void promptDeckOpStapel(Player activePlayer)
-    {
-        System.out.println("Wil je je deck naar de discardpile sturen? (Ja / Nee)");
-        String s = in.nextLine();
-        if(s.equals("Ja") || s.equals("ja")) {
-            activePlayer.moveAllCardsFromDeckToDiscardPile();
-            System.out.println("Deck is verplaatst naar de discardpile");
 
-
-        }else if(s.equals("Nee") || s.equals("nee")){
-            System.out.println("Deck is niet verplaatst naar de discardpile");
-        }else{
-            System.out.println("Geen ja of nee gevonden, probeer opnieuw");
-            promptDeckOpStapel(activePlayer);
-        }
-    }
 
     public int getAmountOfPlayers(){
         return allPlayers.size();

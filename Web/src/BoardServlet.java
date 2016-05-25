@@ -107,23 +107,15 @@ public class BoardServlet extends HttpServlet {
                     boolean throneRoom;
                     throneRoom = Boolean.parseBoolean(request.getParameter("throneRoom"));
                     positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    /*if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
-                        thiefOrSpyPlayed();
-                    } else {
-                        System.out.println("nummer " + positionInHand + "gespeeld!");
-                        useActionCard(positionInHand);
-                    }*/
-
                     if (g.discardingCards()) {
                         discardingCards(positionInHand);
-                    } else if (g.trashingCards()){
+                    } else if (g.trashingCards()) {
                         trashingCards(positionInHand);
                     } else {
                         System.out.println("nummer " + positionInHand + "gespeeld!");
                         useActionCard(positionInHand);
-                    //if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
-                    //    thiefOrSpyPlayed();
-                    //} else {
+                    }
+
                     System.out.println("nummer " + positionInHand + "gespeeld!");
                     if (throneRoom) {
                         if (!g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().equals("Throne Room")) {
@@ -131,33 +123,14 @@ public class BoardServlet extends HttpServlet {
                             g.useThroneRoom(g.player);
                             g.allPlayers.get(g.player).moveCardFromHandToDiscard(positionInHand);
                             g.allPlayers.get(g.player).moveCardFromHandToDiscard(g.allPlayers.get(g.player).scanHandForCardWithName("Throne Room"));
-
-
-                        }
-
-
-                    }
-                    //}
-                    else {
-                        positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                        if (g.currentPhase == 0) {
-                            if (g.trashingCards()) {
-                                trashingCards(positionInHand);
-                            } else {
-                                System.out.println("nummer " + positionInHand + "gespeeld!");
-                                useActionCard(positionInHand);
-                            }
-
-                        } else {
-                            System.out.println("Er kan geen actie kaart gespeeld worden in de koop fase");
                         }
                     }
-                }
+
                     break;
+                }
 
-
-            case "playThiefOrSpy":
-                break;
+            //case "playThiefOrSpy":
+            //    break;
 
             case "updateHand":
                 cardNames = new String[g.allPlayers.get(g.player).getHandSize()];

@@ -171,6 +171,8 @@ $('#hand li').on('click', function () {
         trPlayed = true;
         alert("Throne Room played, select other card");
         
+    } else if(array[pos] === "chancelor"){
+        alert("Deck placed on discardpile")
     }
     else{
         console.log( pos + tr );
@@ -573,7 +575,7 @@ $('#playActionButton').on('click', function () {
 
     });
     request.fail(function (jqXHR, textStatus) {
-        alert("nie gelukt om volgende speler te starten");
+        alert("niet gelukt om volgende speler te starten");
         alert(jqXHR.status + 'PlayActionButton' + textStatus);
     });
 });

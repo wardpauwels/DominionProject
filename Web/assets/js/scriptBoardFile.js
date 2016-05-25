@@ -539,7 +539,8 @@ function checkIfFinished() {
         console.log(data);
         console.log(data.gameOver);
         var obj = JSON.parse(data);
-        console.log(obj.gameOver);
+        console.log("points "+obj);
+        
     });
     request.fail(function (jqXHR, textStatus) {
         console.log(jqXHR.status + 'updateHand' + textStatus);
@@ -629,6 +630,7 @@ $('#nextPlayerButton').on('click', function () {
         updateCurrentlyPlaying();
         updateHand();
         checkIfMilitia();
+        checkIfFinished();
     });
     request.fail(function (jqXHR, textStatus) {
         console.log(jqXHR.status + 'nextPlayerButton' + textStatus);

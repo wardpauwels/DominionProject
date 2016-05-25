@@ -26,7 +26,7 @@ public class CliGame {
         firstTurn();
         while (!finished) // hierin de acties per turn zetten
         {
-            clearScreen(); // TODO: clear screen werkend maken
+
             showBoard();
             nextTurn();
             finished = g.checkIfFinished();
@@ -34,10 +34,7 @@ public class CliGame {
         }
     }
 
-    private static void clearScreen() { // TODO: werkt niet
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+
 
     private void newGame() {
         System.out.println("Geef aantal spelers (2 - 4)");
@@ -67,7 +64,6 @@ public class CliGame {
         g.printCoins();
         g.printRemainingActions();
         actionMenu();
-        numberOTurn ++; // TODO: weg na test
         endTurn();
     }
 
@@ -79,12 +75,10 @@ public class CliGame {
         String playerName = g.getPlayerName(player);
         System.out.println("-------------------");
         System.out.println(playerName + " is aan de beurt");
-        System.out.println("Nummer van beurt: "+ numberOTurn ); // TODO: weg na test
         g.printHand(g.allPlayers.get(player));
         g.printCoins();
         g.printRemainingActions();
         actionMenu();
-        numberOTurn++; // TODO: weg na test
         endTurn();
 
     }
@@ -124,20 +118,20 @@ public class CliGame {
         int remainingBuys = g.returnAmountOfActionsRemaining();
         while (remainingBuys != 0) {
             System.out.println("Welk type kaart wil je kopen? 1. Actie. 2. Treasure 3. Victory 4. Stop");
-            int keuze = in.nextInt();
-            int kaartKeuze;
+            int choice = in.nextInt();
+            int cardChoice;
             int cardCost;
             Card card;
             amountOfCoins = g.getAmountOfCoinsOfPlayer();
 
-            switch (keuze) {
+            switch (choice) {
                 case 1:
                     System.out.println("Geef positie van te kopen kaart");
-                    kaartKeuze = in.nextInt() - 1;
-                    card = g.getCardFromPosInActionTable(kaartKeuze);
+                    cardChoice = in.nextInt() - 1;
+                    card = g.getCardFromPosInActionTable(cardChoice);
                     cardCost = card.getCost();
                     if (cardCost <= amountOfCoins) {
-                        g.setDecisionOfPlayerPosition(kaartKeuze);
+                        g.setDecisionOfPlayerPosition(cardChoice);
                         g.setDecisionOfPlayerType(card.getType());
                         g.buyCard();
                         System.out.println("Kaart " + card.getName() + " gekocht");
@@ -148,11 +142,11 @@ public class CliGame {
                     break;
                 case 2:
                     System.out.println("Geef positie van te kopen kaart");
-                    kaartKeuze = in.nextInt() - 1;
-                    card = g.getCardFromPosInTreasureTable(kaartKeuze);
+                    cardChoice = in.nextInt() - 1;
+                    card = g.getCardFromPosInTreasureTable(cardChoice);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {
-                        g.setDecisionOfPlayerPosition(kaartKeuze);
+                        g.setDecisionOfPlayerPosition(cardChoice);
                         g.setDecisionOfPlayerType(card.getType());
                         g.buyCard();
                         System.out.println("Kaart " + card.getName() + " gekocht");
@@ -163,11 +157,11 @@ public class CliGame {
                     break;
                 case 3:
                     System.out.println("Geef positie van te kopen kaart");
-                    kaartKeuze = in.nextInt() - 1;
-                    card = g.getCardFromPosInVictoryTable(kaartKeuze);
+                    cardChoice = in.nextInt() - 1;
+                    card = g.getCardFromPosInVictoryTable(cardChoice);
                     cardCost = card.getCost();
                     if (card.getCost() <= amountOfCoins) {
-                        g.setDecisionOfPlayerPosition(kaartKeuze);
+                        g.setDecisionOfPlayerPosition(cardChoice);
                         g.setDecisionOfPlayerType(card.getType());
                         g.buyCard();
                         System.out.println("Kaart " + card.getName() + " gekocht");

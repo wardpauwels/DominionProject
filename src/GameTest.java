@@ -1,4 +1,4 @@
-/*
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  * Created by Robert on 18-5-2016.
  */
 
-/*
+
 public class GameTest {
 
     private Game g = new Game();
@@ -32,18 +32,11 @@ public class GameTest {
     }
 
     @Test
-    public void buyCardAndCheckPlayerDiscardPile() throws Exception {
-        g.setDecisionOfPlayerPosition(0);
-        g.setDecisionOfPlayerType("victory");
-        g.buyCard();
-        assertEquals("Gekochte kaart niet gevonden in discardpile", "Estate", g.allPlayers.get(0).getCardFromDiscardPileOnPos(0).getName());
-    }
-    @Test
     public void buyCardAndCheckRemainingActions() throws Exception {
         g.setDecisionOfPlayerPosition(0);
         g.setDecisionOfPlayerType("victory");
         g.buyCard();
-        assertEquals("Actions niet omlaag na het kopen van een kaart", 0, g.returnAmountOfActionsRemaining());
+        assertEquals("Actions niet omlaag na het kopen van een kaart", 0, g.returnRemainingBuys());
 
     }
     @Test
@@ -90,7 +83,6 @@ public class GameTest {
     public void woodcutterAtionCardTester(){
         g.useActionCard("Woodcutter", 0);
         assertEquals("Amount of coins niet omhoog",2,g.getAmountOfCoinsOfPlayer());
-        g.resetAmountOfActions();
         assertEquals("Amount of remaining buys niet omhoog", 2, g.returnAmountOfActionsRemaining());
     }
     @Test
@@ -125,7 +117,7 @@ public class GameTest {
         g.useActionCard("Council Room", 0);
         assertEquals("Geen extra kaarten gekregen", 9, g.allPlayers.get(0).getHandSize());
         g.resetAmountOfActions();
-        assertEquals("Geen buys bij gekregen", 2, g.returnAmountOfActionsRemaining());
+        assertEquals("Geen buys bij gekregen", 2, g.returnRemainingBuys());
     }
     @Test
     public void festivalAtionCardTester(){
@@ -133,7 +125,7 @@ public class GameTest {
         assertEquals("Geen extra acties gekregen", 3, g.returnAmountOfActionsRemaining());
         assertEquals("Geen extra coins gekregen", 2, g.getAmountOfCoinsOfPlayer());
         g.resetAmountOfActions();
-        assertEquals("Geen extra buys gekregen", 2, g.returnAmountOfActionsRemaining());
+        assertEquals("Geen extra buys gekregen", 2, g.returnRemainingBuys());
     }
     @Test
     public void labratoryAtionCardTester(){
@@ -153,7 +145,7 @@ public class GameTest {
         assertEquals("Geen extra coins gekregen", 1, g.getAmountOfCoinsOfPlayer());
         assertEquals("Geen extra kaarten gekregen",6, g.allPlayers.get(0).getHandSize());
         g.resetAmountOfActions();
-        assertEquals("Geen extra buys gekregen", 2, g.returnAmountOfActionsRemaining());
+        assertEquals("Geen extra buys gekregen", 2, g.returnRemainingBuys());
     }
     @Test
     public void WitchAtionCardTester(){
@@ -182,4 +174,3 @@ public class GameTest {
 
 }
 
-*/

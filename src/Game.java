@@ -15,7 +15,6 @@ public class Game {
     public ArrayList<Card> actionCardsOnBoard;
 
     //een linked list van gespeelde kaarten (nog resetten bij iedere 'beurt' en opvullen bij iedere 'beurt')
-    private Deck playedCards = new Deck(); // TODO: wordt niet gebruikt. kan weg?
     public int currentlyActiveAmountOfCoins;
     private int remainingActionsInPhase = 1;
     private int remainingBuysInPhase = 1;
@@ -29,7 +28,7 @@ public class Game {
     public Card selectedCard;
     public String currentAction;
 
-    public Scanner in = new Scanner(System.in); // scanner voor user input
+
 
 
     public Game() {
@@ -172,7 +171,7 @@ public class Game {
 
 
 
-    public Hand returnHand(Player whichPlayer){
+    public Deck returnHand(Player whichPlayer){
         return whichPlayer.returnHand();
     }
 
@@ -290,20 +289,24 @@ public class Game {
     }
 
 
-    private void useMilitia(int numberOfThePlayer){
-        Player activePlayer = getActivePlayer(numberOfThePlayer);
-        currentlyActiveAmountOfCoins += 2;
-        for(int i = 0; i < allPlayers.size(); i++){
-            if(i != numberOfThePlayer){
-                while(getActivePlayer(i).getHandSize() > 3) {
-                    System.out.println(getActivePlayer(i).getName() + ", geef de positie van een kaart om weg te doen tot je er 3 hebt");
-                    int pos = in.nextInt();
-                    Card chosenCard = activePlayer.getCardOnPosInHand(pos);
-                    activePlayer.addCardFromHandToDiscardPile(chosenCard);
+    public void useMilitia(int decisionOfPlayerPosition){
+        for (int i = 0; i < allPlayers.size(); i++){
+            boolean hasMoat = false;
+            for (int j = 0; j < allPlayers.get(player).getHandSize(); j++ ){
+                if (allPlayers.get(i).getCardOnPosInHand(j).equals("Moat")){
+                    hasMoat = true;
                 }
             }
-
+            if (allPlayers.get(i).getName() != allPlayers.get(player).getName() && hasMoat == false){
+                allPlayers.get(i).cursedByMilitia = true;
+            }
         }
+        Player activePlayer = allPlayers.get(player);
+
+        Card toBePlayedActionCard = allPlayers.get(player).getCardOnPosInHand(decisionOfPlayerPosition);
+        moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition, activePlayer);
+        lowerAmountOfActions();
+        System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
     }
 
 
@@ -352,26 +355,6 @@ public class Game {
         remainingBuysInPhase += 1;
         currentlyActiveAmountOfCoins = 4;
         actionToBuyCard = true;
-
-        /*System.out.println("Wil je een 1. action, 2. victory of 3. treasure kaart kopen? (1 - 3)");
-        int intOfTypeCard = in.nextInt();
-        if(intOfTypeCard < 1 && intOfTypeCard > 3){
-            System.out.println("Ongeldige input, probeer opnieuw");
-            useWorkshop(numberOfThePlayer);
-        }
-        System.out.println("Geef de positie van de kaart die je wilt kopen van 4 coins of lager"); //TODO: check maken voor de positie
-        int position = in.nextInt();
-        Card chosenCard = new Card();
-
-        chosenCard = getCardOnPosWithType(intOfTypeCard, position);
-
-        Player activePlayer = getActivePlayer(numberOfThePlayer);
-        if(chosenCard.getCost() <= 4){
-            activePlayer.addCardToDiscardPile(chosenCard);
-        }else{
-            System.out.println("Gekozen kaart moet 4 coins of minder kosten, probeer opnieuw");
-            useWorkshop(numberOfThePlayer);
-        }*/
 
     }
 
@@ -425,7 +408,7 @@ public class Game {
             System.out.println("Kaart van: " + currentPlayer.getName());
             System.out.println(currentCard.getName());
             System.out.println("Wat wil je doen met deze kaart: 1.Bovenaan op deck. 2.Op de discardpile");
-            int keuze = in.nextInt();
+            int keuze = remainingActionsInPhase + 1;
             if(keuze == 2){
                 currentPlayer.addCardToDiscardPile(currentCard);
                 currentPlayer.removeFromDeck(0);
@@ -457,7 +440,7 @@ public class Game {
                 Deck deckOfPlayerX = returnXAmountOfTopCardsOfPlayerY(2,i);// TODO: bug: krijgt altijd 2 de zelfde kaarten terug
                 System.out.println("1: "+ deckOfPlayerX.getCardOnPos(0).getName() + " 2:" + deckOfPlayerX.getCardOnPos(1).getName());
                 System.out.println("Geef positie van kaart om af te pakken");
-                int positie  = in.nextInt();
+                int positie  = remainingActionsInPhase + 1;
                 positie  = positie - 1;
                 getActivePlayer(i).removeFromDeck(positie);
                 tmpDeck.add(deckOfPlayerX.getCardOnPos(positie));
@@ -468,7 +451,7 @@ public class Game {
             for (int i = 0; i < tmpDeck.size(); i++)
                 System.out.println((i+1)+ ". " + tmpDeck.get(i).getName());
             System.out.println("Geef positie van kaart om aan je eigen deck toe te voegen of geef 0 om te stoppen");
-            int keuze = in.nextInt();
+            int keuze = remainingActionsInPhase + 3;
             if(keuze > 0 || keuze <= tmpDeck.size()){
                 activePlayer.addCardToDiscardPile(tmpDeck.get(keuze -1));
                 tmpDeck.remove(keuze -1);
@@ -486,15 +469,7 @@ public class Game {
     {
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addCardToPlaceInDeck(0,treasureCardTable.getCardOnPos(1));
-        //TODO: andere helft van bureaucrat maken? "Gain a silver card; put it on top of your deck. Each other player reveals a Victory card from his hand and puts it on his deck (or reveals a hand with no Victory cards)."
-        /*for (int i=0;i<allPlayers.size();i++){
-            if (i != numberOfThePlayer) {
-                int positionOfVictoryCardInHandOfPlayer = allPlayers.get(i).scanHandForCardAndReturnPosition("victory");
-                if (positionOfVictoryCardInHandOfPlayer != -1) {
-                    allPlayers.get(i).addCardToDiscardPile(allPlayers.get(i).getCardOnPosInHand(positionOfVictoryCardInHandOfPlayer));
-                }
-            }
-        }*/
+
     }
 
 
@@ -527,42 +502,6 @@ public class Game {
     }
 
 
-        /*
-        Deck treasureCardsInHand = new Deck(); // tijdelijk dek om treasure kaarten in te doen
-        Player activePlayer = getActivePlayer(numberOfThePlayer);
-        treasureCardsInHand = scanArrayForSpecificCard(treasureCardTable.getCardOnPos(0),activePlayer.returnHand());
-*/
-
-        /*int cost = 0;
-        if(treasureCardsInHand.getSize() > 0){
-            cost = getCostOfCard(activePlayer);
-            System.out.println("Geef de positie van een treasure kaart om te kopen met de waarde " + (cost + 3) + " of lager");
-            int pos = in.nextInt();
-            Card gekozenKaart = treasureCardTable.getCardOnPos(pos);
-            if (gekozenKaart.getCost() <= cost+3){
-                activePlayer.addCardToDiscardPile(gekozenKaart);
-            }else{
-                System.out.println("Gekozen kaart is te duur, probeer opnieuw");
-                useMine(activePlayer.getNumber());
-            }
-        }else{
-            System.out.println("Geen treasure kaarten in hand gevonden");
-        }*/
-    //}
-    /*private int getCostOfCard(Player activePlayer){
-        int cost = 0;
-        System.out.println("Geef de positie van de treasure kaart in hand om weg te doen");
-        int i = in.nextInt();
-        Card pickedCard = activePlayer.getCardOnPosInHand(i);
-        if(pickedCard.getType().equals("treasure")){
-            cost = activePlayer.getCardOnPosInHand(i).getCost();
-            activePlayer.removeCardFromHand(i);
-        }else{
-            System.out.println("Gekozen kaart is geen treasure kaart, probeer opnieuw");
-            useMine(activePlayer.getNumber());
-        }
-        return cost;
-    }*/
     private void moveCardFromHandToDiscardPile(int position,Player whichPlayer){
         whichPlayer.moveCardFromHandToDiscard(position);
     }
@@ -574,22 +513,7 @@ public class Game {
 
     }
 
-    /*private void promptDeckOpStapel(Player activePlayer)
-    {
-        System.out.println("Wil je je deck naar de discardpile sturen? (Ja / Nee)");
-        String s = in.nextLine();
-        if(s.equals("Ja") || s.equals("ja")) {
-            activePlayer.moveAllCardsFromDeckToDiscardPile();
-            System.out.println("Deck is verplaatst naar de discardpile");
 
-
-        }else if(s.equals("Nee") || s.equals("nee")){
-            System.out.println("Deck is niet verplaatst naar de discardpile");
-        }else{
-            System.out.println("Geen ja of nee gevonden, probeer opnieuw");
-            promptDeckOpStapel(activePlayer);
-        }
-    }*/
 
     private void useCellar(int numberOfPlayer){ // Kaart naar discard pile en trek een nieuwe
 
@@ -601,7 +525,7 @@ public class Game {
     private void useFeast(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
 
-        Hand playersHand = activePlayer.returnHand();
+        Deck playersHand = activePlayer.returnHand();
         for(int i = 0; i < playersHand.getSize(); i++){
             if(playersHand.getCardOnPos(i).getName().equals("Feast")){
                 activePlayer.removeCardFromHand(i);
@@ -615,7 +539,6 @@ public class Game {
 
 
     private void useRemodel(int numberOfThePlayer){ // Remodel = kaart trashen, nieuwe kaart kiezen met waarde +2 van getrashte kaart
-        // TODO: werkt maar half in de GUI, de overgebleven coins blijven en worden toegevoegd aan current amount.
         amountOfCardsToBeDiscarded += 1;
         remainingBuysInPhase +=1;
         actionToBuyCard = true;
@@ -672,20 +595,7 @@ public class Game {
         Player activeplayer  = getActivePlayer(numberOfThePlayer);
         amountOfCardsToBeTrashed = 4;
         currentAction = "chapel";
-        /*System.out.println("Geef de positie van de kaart om te trashen, je kunt nog " + amountOfTrashesLeft + " kaarten trashen. (Druk op 0 om te stoppen)"); // TODO: check maken voor het aantal kaarten in de hand.
-        int i = in.nextInt()-1;
-        while (i != 0 && i <= activeplayer.getHandSize()){
-            activeplayer.removeCardFromHand(i);
-            amountOfTrashesLeft -= 1;
-            System.out.println("Geef de positie van de kaart om te trashen, je kunt nog " + amountOfTrashesLeft + " kaarten trashen. (Druk op 0 om te stoppen)");
-            i = in.nextInt();
-        }*/
-    }
 
-
-
-    public int getAmountOfPlayers(){
-        return allPlayers.size();
     }
 
     private Deck returnXAmountOfTopCardsOfPlayerY(int amountOfCardsToBeReturned,int numberOfThePlayer){
@@ -696,28 +606,8 @@ public class Game {
         }
         return top2Cards;
     }
-    private Deck scanArrayForXCostCards(int cost,ActionCardTable toBeScannedArray){
-        Deck scannedArray = new Deck();
-
-        for (int i=0; i<toBeScannedArray.getSize(); i++){
 
 
-            if( toBeScannedArray.getCardOnPos(i).getCost()==cost){
-                scannedArray.addCardToDeck(toBeScannedArray.getCardOnPos(i));
-            }
-        }
-        return scannedArray;
-    }
-    private Deck scanArrayForSpecificCard(Card toBeFoundCard,Hand toBeScannedArray){
-        Deck scannedArray = new Deck();
-
-        for (int i=0; i<toBeScannedArray.getSize(); i++){
-            if( toBeScannedArray.getCardOnPos(i).getType().equals(toBeFoundCard.getType())){
-                scannedArray.addCardToDeck(toBeScannedArray.getCardOnPos(i));
-            }
-        }
-        return scannedArray;
-    }
     private void addXAmountOfCardsToHandOfPlayerWithNumberY(int amountOfCardsNeeded, int numberOfPLayer){
         allPlayers.get(numberOfPLayer).addXAmountOfCardsToHand(amountOfCardsNeeded);
     }

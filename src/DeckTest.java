@@ -1,4 +1,4 @@
-/*import org.junit.Before;
+import org.junit.Before;
 import org.junit.Test;
 
 import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
@@ -6,11 +6,11 @@ import static org.junit.Assert.*;
 
 /**
  * Created by Robert on 20-5-2016.
- *//*
+ */
 public class DeckTest {
     private Deck d = new Deck();
     private Game g = new Game();
-    private Hand h = new Hand(d);
+    private Deck h = new Deck();
 
     @Before
     public void setUp() throws Exception {
@@ -101,4 +101,3 @@ public class DeckTest {
         assertEquals("Size klopt niet",5, h.getSize());
     }
 }
-*/

@@ -97,9 +97,10 @@ public class BoardServlet extends HttpServlet {
                     int positionInHand;
                     positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
                     System.out.println("nummer " + positionInHand+  "gespeeld!");
-                    useActionCard(positionInHand);
                     if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase() == "militia"){
                         playMilitia();
+                    } else {
+                        useActionCard(positionInHand);
                     }
                 } else{
                     System.out.println("Er kan geen actie kaart gespeeld worden in de koop fase");
@@ -286,7 +287,10 @@ public class BoardServlet extends HttpServlet {
     }
 
     private void playMilitia(){
+        for (int i = 0; i < g.allPlayers.size(); i++){
+            String arrayName = "arrayHandSpeler" + i;
 
+        }
     }
 
 }

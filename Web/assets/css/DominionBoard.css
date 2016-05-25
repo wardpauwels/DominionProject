@@ -561,10 +561,6 @@ body{
     bottom: 0;
 }
 
-
-
-
-
 #otherPlayerCardInfo{
     z-index: 3000;
     position: absolute;
@@ -599,11 +595,6 @@ body{
     text-align: center;
     line-height: 38px;
 }
-
-
-
-
-
 
 .buyActionCard {
     position: relative;

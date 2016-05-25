@@ -337,6 +337,10 @@ public class BoardServlet extends HttpServlet {
                 break;
             case "chapel":
                 break;
+            case "mine":
+                g.treasureCardForMine();
+                break;
+
         }
 
     }

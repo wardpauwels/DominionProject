@@ -486,15 +486,15 @@ public class Game {
     {
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         activePlayer.addCardToPlaceInDeck(0,treasureCardTable.getCardOnPos(1));
-
-        for (int i=0;i<allPlayers.size();i++){
+        //TODO: andere helft van bureaucrat maken? "Gain a silver card; put it on top of your deck. Each other player reveals a Victory card from his hand and puts it on his deck (or reveals a hand with no Victory cards)."
+        /*for (int i=0;i<allPlayers.size();i++){
             if (i != numberOfThePlayer) {
                 int positionOfVictoryCardInHandOfPlayer = allPlayers.get(i).scanHandForCardAndReturnPosition("victory");
                 if (positionOfVictoryCardInHandOfPlayer != -1) {
                     allPlayers.get(i).addCardToDiscardPile(allPlayers.get(i).getCardOnPosInHand(positionOfVictoryCardInHandOfPlayer));
                 }
             }
-        }
+        }*/
     }
 
 
@@ -506,10 +506,34 @@ public class Game {
 
     }
     private void useMine(int numberOfThePlayer){
+        currentAction = "mine";
+        amountOfCardsToBeTrashed = 1;
+    }
+
+    public void treasureCardForMine(){
+
+        switch (selectedCard.getName()){
+            case "Copper":
+                allPlayers.get(player).removeCardFromHand(decisionOfPlayerPosition);
+                allPlayers.get(player).addSpecificCardToHand(treasureCardTable.getCardOnPos(1));
+                break;
+            case "Silver":
+                allPlayers.get(player).removeCardFromHand(decisionOfPlayerPosition);
+                allPlayers.get(player).addSpecificCardToHand(treasureCardTable.getCardOnPos(2));
+                break;
+            case "Gold":
+                break;
+        }
+    }
+
+
+        /*
         Deck treasureCardsInHand = new Deck(); // tijdelijk dek om treasure kaarten in te doen
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         treasureCardsInHand = scanArrayForSpecificCard(treasureCardTable.getCardOnPos(0),activePlayer.returnHand());
-        int cost = 0;
+*/
+
+        /*int cost = 0;
         if(treasureCardsInHand.getSize() > 0){
             cost = getCostOfCard(activePlayer);
             System.out.println("Geef de positie van een treasure kaart om te kopen met de waarde " + (cost + 3) + " of lager");
@@ -523,9 +547,9 @@ public class Game {
             }
         }else{
             System.out.println("Geen treasure kaarten in hand gevonden");
-        }
-    }
-    private int getCostOfCard(Player activePlayer){
+        }*/
+    //}
+    /*private int getCostOfCard(Player activePlayer){
         int cost = 0;
         System.out.println("Geef de positie van de treasure kaart in hand om weg te doen");
         int i = in.nextInt();
@@ -538,7 +562,7 @@ public class Game {
             useMine(activePlayer.getNumber());
         }
         return cost;
-    }
+    }*/
     private void moveCardFromHandToDiscardPile(int position,Player whichPlayer){
         whichPlayer.moveCardFromHandToDiscard(position);
     }

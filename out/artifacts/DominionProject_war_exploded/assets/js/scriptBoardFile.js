@@ -2,7 +2,22 @@ $(document).ready(function () {
     tr = false;
     trPlayed = false;
     update();
-    
+    $('#hand').on({
+        mouseenter: function (e) {
+            $('.popup').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popup').fadeOut(1000);
+        }
+    });
+    $('.actioncards_on_table_print').on({
+        mouseenter: function (e) {
+            $('.popupActioncard').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popupActioncard').fadeOut(1000);
+        }
+    });
 });
 /*
 function updateActionAmount(){
@@ -74,7 +89,7 @@ function generateVictoryCardsOnBoard(array){
         html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
+        var plusbutton = $('<img alt="Buy victory card" title="Buy victory card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         console.log(parent.data("cardNumber"));
         parent.html(html);
@@ -92,7 +107,7 @@ function generateTreasureCardsOnBoard(array){
         html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
+        var plusbutton = $('<img alt="Buy treasure card" title="Buy treasure card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         console.log(parent.data("cardNumber"));
         parent.html(html);
@@ -442,9 +457,7 @@ function updatePlayer(player){
 }
 
 function update() {
-    console.log("voor werkt");
     setBoard();
-    console.log("na werkt");
     updateActionCardBoard();
     updateVictoryCardBoard();
     updateTreasureCardBoard();
@@ -577,3 +590,15 @@ $('#playActionButton').on('click', function () {
         alert(jqXHR.status + 'PlayActionButton' + textStatus);
     });
 });
+
+function generateEnemyPlayerCard(array) {
+    $("#hand").empty();
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
+        html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
+        html += '</li>';
+        $("#otherPlayerCardInfo ul").append(html);
+    }
+    playCard();
+}

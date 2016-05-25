@@ -7,6 +7,8 @@
 }
 #headername {
     background-image: url('../images/new_game.png');
+    width: 239px;
+    margin-left: -20px;
 }
 
 input:focus {
@@ -48,12 +50,10 @@ input[type=text]:focus {
 
 input[type="text"] {
     font-size:20px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #8289bc;
+    border: 1px solid #8289bc;
     border-radius: 3px;
     background-color: rgba(21, 25, 29, 0.6);
-    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.004);
     width: 358px;
     height: 64px;
     z-index: 298;
@@ -61,7 +61,7 @@ input[type="text"] {
     padding-left: 15px;
     color: #FFFFFF;
     text-transform: capitalize;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
 }
 #addPlayer:focus {
     outline:0;
@@ -71,18 +71,15 @@ input[type="text"] {
     left: 397px;
     font-size:20px;
     background-color: rgba(21, 25, 29, 1);
-    border-style: solid;
-    border-width: 1px;
-    border-color: #8289bc;
+    border: 1px solid #8289bc;
     border-radius: 3px;
-    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.004);
     width: 173px;
     height: 64px;
     z-index: 298;
     color: rgba(130,137,188, 1);
     font-weight: bold;
-    cursor:pointer;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
 }
 
 form {
@@ -97,35 +94,29 @@ button {
     outline:0;
 }
 input[type="submit"] {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #8289bc;
+    border: 1px solid #8289bc;
     border-radius: 3px;
-    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.004);
     width: 100px;
     height: 50px;
     background-color: rgba(21, 25, 29, 1);
     color: rgba(130,137,188, 1);
     font-size:20px;
     font-weight: bold;
-    cursor:pointer;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
     margin-bottom: 10px;
 }
 .deletePlayer{
-    border-style: solid;
-    border-width: 1px;
-    border-color: #8289bc;
+    border: 1px solid #8289bc;
     border-radius: 3px;
-    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.004);
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.004);
     width: 350px;
     height: 50px;
     background-color: rgba(21, 25, 29, 1);
     color: rgba(130,137,188, 1);
     font-size:20px;
     font-weight: bold;
-    cursor:pointer;
-    cursor: url(../images/cursor.png), auto!important;
+    cursor: url(../images/cursor.png), auto;
     display: block;
     margin-right: auto;
     margin-left: auto;

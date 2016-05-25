@@ -2,6 +2,22 @@ $(document).ready(function () {
     tr = false;
     trPlayed = false;
     update();
+    $('#hand').on({
+        mouseenter: function (e) {
+            $('.popup').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popup').fadeOut(1000);
+        }
+    });
+    $('.actioncards_on_table_print').on({
+        mouseenter: function (e) {
+            $('.popupActioncard').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popupActioncard').fadeOut(1000);
+        }
+    });
 });
 /*
 function updateActionAmount(){
@@ -62,7 +78,7 @@ function generateVictoryCardsOnBoard(array){
         html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
+        var plusbutton = $('<img alt="Buy victory card" title="Buy victory card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         parent.html(html);
         parent.append(plusbutton);
@@ -78,7 +94,7 @@ function generateTreasureCardsOnBoard(array){
         html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
+        var plusbutton = $('<img alt="Buy treasure card" title="Buy treasure card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         parent.html(html);
         parent.append(plusbutton);

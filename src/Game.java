@@ -121,10 +121,7 @@ public class Game {
 
     }
     public void nextTurn() {
-
         nextPlayer();
-
-
     }
 
 
@@ -138,14 +135,28 @@ public class Game {
                 useActionCard(toBePlayedActionCard.getName(), player);
                 lowerAmountOfActions();
                 System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
-
-
-
         }
-
     }
 
+    public void playMilitia(){
+        for (int i = 0; i < allPlayers.size(); i++){
+            boolean hasMoat = false;
+            for (int j = 0; j < allPlayers.get(player).getHandSize(); j++ ){
+                if (allPlayers.get(i).getCardOnPosInHand(j).equals("Moat")){
+                    hasMoat = true;
+                }
+            }
+            if (allPlayers.get(i).getName() != allPlayers.get(player).getName() && hasMoat == false){
+                allPlayers.get(i).cursedByMilitia = true;
+            }
+        }
+        Player activePlayer = allPlayers.get(player);
 
+        Card toBePlayedActionCard = allPlayers.get(player).getCardOnPosInHand(decisionOfPlayerPosition);
+        moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition, activePlayer);
+        lowerAmountOfActions();
+        System.out.println(toBePlayedActionCard.getName() + " is gespeeld");
+    }
 
     private void resetRemainingActions(){ //TODO: wordt niet gebruikt. kan weg?
         remainingActionsInPhase = 1;
@@ -851,5 +862,10 @@ public class Game {
         System.out.println("Amount of remaining actions:" + remainingActionsInPhase);
         System.out.println("--------------------");
 
+    }
+
+    public void activateMilitiaCurse() {
+        Player activePlayer = allPlayers.get(player);
+        moveCardFromHandToDiscardPilePosition(decisionOfPlayerPosition, activePlayer);
     }
 }

@@ -561,10 +561,6 @@ body{
     bottom: 0;
 }
 
-
-
-
-
 #otherPlayerCardInfo{
     z-index: 3000;
     position: absolute;
@@ -599,11 +595,6 @@ body{
     text-align: center;
     line-height: 38px;
 }
-
-
-
-
-
 
 .buyActionCard {
     position: relative;
@@ -700,4 +691,8 @@ button:disabled {
 }
 #hand li img {
     height:150px;
+}
+
+.activeCard {
+    box-shadow: 0 0 20px 7px rgba(255, 99, 13, 0.73);
 }

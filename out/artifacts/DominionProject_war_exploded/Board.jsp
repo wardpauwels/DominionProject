@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dylan
-  Date: 12/05/2016
-  Time: 13:10
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -26,8 +19,6 @@
     <div id="otherPlayerCardInfo">
         <ul>
             <h1>Trash one of the cards below</h1>
-            <li><img src="assets/images/Big%20cards/spy.jpg"></li>
-            <li><img src="assets/images/Big%20cards/throne%20room.jpg"></li>
         </ul>
     </div>
     <div id="header">

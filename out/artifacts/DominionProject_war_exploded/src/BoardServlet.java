@@ -58,10 +58,6 @@ public class BoardServlet extends HttpServlet {
                 names.append("name4", name4);
 
                 writer.append(names.toString());
-                System.out.println("Test");
-                System.out.println(names);
-                //System.out.println("amount"+countAmountOfPlayers());
-                //System.out.println("s1");
                 g = new Game();
                 playerNames = new ArrayList<>();
                 g.createPlayersList(countAmountOfPlayers());
@@ -78,14 +74,12 @@ public class BoardServlet extends HttpServlet {
                     cardNames[i] = g.allPlayers.get(g.player).getCardOnPosInHand(i).getName();
                 }
                 cards.put("CardNames",cardNames);
-
                 System.out.println(cards);
                 writer.append(cards.toString());
                 System.out.println(cards);
                 break;
 
             case "getCards":
-                //writer.append(names.toString());
                 writer.append(cards.toString());
                 break;
 
@@ -99,15 +93,25 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "playCard":
-                if(g.currentPhase == 0){
-                    int positionInHand;
-                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    System.out.println("nummer " + positionInHand+  "gespeeld!");
-                    useActionCard(positionInHand);
-                }else{
+                int positionInHand;
+                positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                System.out.println("nummer " + positionInHand+  "gespeeld!");
+                if (g.currentPhase == -1){
+                    g.activateMilitiaCurse();
+                    if (g.allPlayers.get(g.player).getHandSize() == 3){
+                        g.currentPhase = 0;
+                        g.allPlayers.get(g.player).cursedByMilitia = false;
+                    }
+                } else if(g.currentPhase == 0){
+                    if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")){
+                        g.setDecisionOfPlayerPosition(positionInHand);
+                        g.playMilitia();
+                    } else {
+                        useActionCard(positionInHand);
+                    }
+                } else{
                     System.out.println("Er kan geen actie kaart gespeeld worden in de koop fase");
                 }
-
                 break;
 
             case "updateHand":
@@ -119,7 +123,7 @@ public class BoardServlet extends HttpServlet {
                 g.allPlayers.get(g.getPlayer()).printDeck();
                 System.out.println("--------------------");
                 g.allPlayers.get(g.getPlayer()).printDiscardPile();
-                    System.out.println(cards);
+                System.out.println(cards);
                 writer.append(cards.toString());
                 break;
 
@@ -136,9 +140,7 @@ public class BoardServlet extends HttpServlet {
 
             case "updateVictoryBoard":
                 cardsOnBoard = new Card[g.victoryCardTable.getSize()];
-
                 for(int i = 0; i < g.victoryCardTable.getSize();i++){
-
                     cardsOnBoard[i] = g.victoryCardTable.getCardOnPos(i);
                 }
                 victoryCards.put("victoryCardsOnBoard",cardsOnBoard);
@@ -149,9 +151,7 @@ public class BoardServlet extends HttpServlet {
 
             case "updateTreasureBoard":
                 cardsOnBoard = new Card[g.treasureCardTable.getSize()];
-
                 for(int i = 0; i < g.treasureCardTable.getSize();i++){
-
                     cardsOnBoard[i] = g.treasureCardTable.getCardOnPos(i);
                 }
                 treasureCards.put("treasureCardsOnBoard",cardsOnBoard);
@@ -161,7 +161,6 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "updateCoinsActionsBuys":
-
                 int[] coinsActionsBuys = new int[3];
                 coinsActionsBuys[0]=g.getAmountOfCoinsOfPlayer();
                 coinsActionsBuys[1]=g.returnAmountOfActionsRemaining();
@@ -173,16 +172,12 @@ public class BoardServlet extends HttpServlet {
             case "updatePlayer":
                 player = new Player[1];
                 player[0] = g.allPlayers.get(g.getPlayer());
-
                 currentlyPlayingPlayer.put("activePlayer",player);
                 writer.append(currentlyPlayingPlayer.toString());
                 break;
 
-
-
             case "buyActionCard":
                 if(g.currentPhase == 1){
-
                     int positionOnBoard;
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                     int pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
@@ -191,16 +186,14 @@ public class BoardServlet extends HttpServlet {
                 } else{
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
-
                 break;
+
             case "buyVictoryCard":
                 if(g.currentPhase == 1) {
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-
                     buyCard(positionOnBoard-1, "victory");
                     System.out.println("kaart " + positionOnBoard + " gekocht!");
-                }
-                else{
+                } else{
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
                 break;
@@ -208,13 +201,11 @@ public class BoardServlet extends HttpServlet {
             case "buyTreasureCard":
                 if(g.currentPhase == 1){
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
-
                     buyCard(positionOnBoard-1,"treasure");
                     System.out.println("kaart " + positionOnBoard +  " gekocht!");
-                }else{
+                } else{
                     System.out.println("Er kan geen kaart gekocht worden in de actie fase");
                 }
-
                 break;
 
             case "endTurn":
@@ -228,19 +219,17 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "endPhase":
-
                 g.endPhase();
+                break;
+            case "checkMilitia":
+                JSONObject militiaObj = new JSONObject();
+                militiaObj.put("militiaCheck", g.allPlayers.get(g.player).cursedByMilitia);
+                writer.append(militiaObj.toString());
+                if (g.allPlayers.get(g.player).cursedByMilitia){
+                    g.currentPhase = -1;
+                }
+                break;
         }
-    }
-
-    public void initGame(){
-        System.out.println("amount"+countAmountOfPlayers());
-        System.out.println("s1");
-        g = new Game();
-        System.out.println("s2");
-        g.createPlayersList(countAmountOfPlayers());
-        System.out.println("s3");
-        setNames();
     }
 
 
@@ -301,6 +290,5 @@ public class BoardServlet extends HttpServlet {
             g.checkIfFinished();
         }
     }
-
 
 }

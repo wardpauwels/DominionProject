@@ -93,12 +93,19 @@ public class BoardServlet extends HttpServlet {
                 break;
 
             case "playCard":
-                if(g.currentPhase == 0){
-                    int positionInHand;
-                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
-                    System.out.println("nummer " + positionInHand+  "gespeeld!");
-                    if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase() == "militia"){
-                        playMilitia();
+                int positionInHand;
+                positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                System.out.println("nummer " + positionInHand+  "gespeeld!");
+                if (g.currentPhase == -1){
+                    g.activateMilitiaCurse();
+                    if (g.allPlayers.get(g.player).getHandSize() == 3){
+                        g.currentPhase = 0;
+                        g.allPlayers.get(g.player).cursedByMilitia = false;
+                    }
+                } else if(g.currentPhase == 0){
+                    if (g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().toLowerCase().equalsIgnoreCase("militia")){
+                        g.setDecisionOfPlayerPosition(positionInHand);
+                        g.playMilitia();
                     } else {
                         useActionCard(positionInHand);
                     }
@@ -214,17 +221,15 @@ public class BoardServlet extends HttpServlet {
             case "endPhase":
                 g.endPhase();
                 break;
+            case "checkMilitia":
+                JSONObject militiaObj = new JSONObject();
+                militiaObj.put("militiaCheck", g.allPlayers.get(g.player).cursedByMilitia);
+                writer.append(militiaObj.toString());
+                if (g.allPlayers.get(g.player).cursedByMilitia){
+                    g.currentPhase = -1;
+                }
+                break;
         }
-    }
-
-    public void initGame(){
-        System.out.println("amount"+countAmountOfPlayers());
-        System.out.println("s1");
-        g = new Game();
-        System.out.println("s2");
-        g.createPlayersList(countAmountOfPlayers());
-        System.out.println("s3");
-        setNames();
     }
 
 
@@ -283,13 +288,6 @@ public class BoardServlet extends HttpServlet {
             g.setDecisionOfPlayerType(typeOfToBeBoughtCard);
             g.buyCard();
             g.checkIfFinished();
-        }
-    }
-
-    private void playMilitia(){
-        for (int i = 0; i < g.allPlayers.size(); i++){
-            String arrayName = "arrayHandSpeler" + i;
-
         }
     }
 

@@ -10,6 +10,7 @@ public class Player {
     private Hand playersHand = new Hand(playersDeck);
     private Deck discardPile = new Deck();
     private int number;
+    public boolean cursedByMilitia = false;
 
 
 

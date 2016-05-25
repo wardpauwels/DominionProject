@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    trone = false;
+    trPlayed = false;
     update();
     $('#hand').on({
         mouseenter: function (e) {
@@ -68,15 +70,6 @@ function setBoard() {
     });
 }
 function generateActionCardsOnBoard(array) {
-    /* for (var i = 0; i < array.length; i++) {
-     var html = '<li>';
-     var src = 'assets/images/Small%20Cards/' + array[i].name.toLowerCase() + '.jpg';
-     html += '<p class="counteronactioncards">0</p>';
-     html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
-     html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">'
-     html += '</li>';
-     $(".actioncards_on_table_print").append(html);
-     }*/
     console.log(array);
     for (var i = 0; i < array.length; i++) {
         var parent = $('<li class="test"></li>');
@@ -87,10 +80,8 @@ function generateActionCardsOnBoard(array) {
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
         var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">');
         plusbutton.data("cardNumber", array[i].number);
-        console.log(parent.data("cardNumber"));
         parent.html(html);
         parent.append(plusbutton);
-        console.log(parent);
         $(".actioncards_on_table_print").append(parent);
     }
 }
@@ -105,10 +96,8 @@ function generateVictoryCardsOnBoard(array){
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
         var plusbutton = $('<img alt="Buy victory card" title="Buy victory card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
-        console.log(parent.data("cardNumber"));
         parent.html(html);
         parent.append(plusbutton);
-        console.log(parent);
         $(".victorycards_on_table_print").append(parent);
     }
 }
@@ -123,19 +112,13 @@ function generateTreasureCardsOnBoard(array){
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
         var plusbutton = $('<img alt="Buy treasure card" title="Buy treasure card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
-        console.log(parent.data("cardNumber"));
         parent.html(html);
         parent.append(plusbutton);
-        console.log(parent);
         $(".treasurecards_on_table_print").append(parent);
     }
 }
 
-
-
 $('#victory_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
-
-
     console.log("kaart spelen werkt");
     var request = $.ajax({
         cache: false,
@@ -158,13 +141,9 @@ $('#victory_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
         alert("nie gelukt");
         alert(jqXHR.status + ' ' + textStatus);
     });
-
-
 });
 
 $('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
-
-
     console.log("kaart spelen werkt");
     var request = $.ajax({
         cache: false,
@@ -174,7 +153,6 @@ $('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
         data: {
             action: 'buyTreasureCard',
             positionOnBoard: $(this).data('cardNumber') //TODO dylan index van 'li' moet door gegeven worden als ik + druk, gwn achter deze positionOnBoard zetten
-
         }
     });
 
@@ -191,14 +169,26 @@ $('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 });
 
-function playCard(){
+function playCard(array){
 $('#hand li').on('click', function () {
     pos = $(this).index();
+    console.log(array[pos]);
+    if (array[pos]==="Throne Room" && trPlayed == false) {
+        trone = true;
+        trPlayed = true;
+        alert("Throne Room played, select other card");
+        
+    }
+    else{
+        console.log( pos + trone );
+        playCardAjax(pos,trone);
+        
+    }
     console.log(pos);
-playCardAjax(pos);
+
 
 });}
-function playCardAjax(pos)
+function playCardAjax(pos, tr)
 {
     var request = $.ajax({
         cache: false,
@@ -207,18 +197,23 @@ function playCardAjax(pos)
         dataType: "text",
         data: {
             action: 'playCard',
-            positionInHand: pos
+            positionInHand: pos,
+            throneRoom: tr
 
 
         }
     });
     request.done(function (data) {
         update();
+        throne = false;
+        trPlayed = false;
 
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");
         alert(jqXHR.status + 'PlayCardAjax' + textStatus);
+        throne = false;
+        trPlayed = false;
     });
 
 
@@ -244,7 +239,6 @@ $('#actioncards_on_table').on('click', '.buyActionCard', function () {
     request.done(function (data) {
         //alert(data);
         update();
-
     });
     request.fail(function (jqXHR, textStatus) {
         alert("nie gelukt");
@@ -455,10 +449,31 @@ function updatePlayer(player){
     $('#Current_Playing').html(player[0].name);
 }
 
+function checkIfMilitia() {
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'checkMilitia'
+        }
+    });
+
+    request.done(function (data) {
+        console.log(data);
+        var obj = JSON.parse(data);
+        if(obj.militiaCheck == true){
+            alert("MILITIA! Discard cards until you have 3 cards left!");
+        }
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+        alert(jqXHR.status + 'updateCoinsActionsBuys' + textStatus);
+    });
+}
 function update() {
-    console.log("voor werkt");
     setBoard();
-    console.log("na werkt");
     updateActionCardBoard();
     updateVictoryCardBoard();
     updateTreasureCardBoard();
@@ -520,8 +535,6 @@ function updateHand() {
     });
 
     request.done(function (data) {
-        //$('#player_one_name').html(data.name1);
-        //$('#player_two_name').html(data.name2);
         console.log(data);
         console.log(data.CardNames);
         var obj = JSON.parse(data);
@@ -547,7 +560,7 @@ function generateVisualCardNames(array) {
         html += '</li>';
         $("#hand").append(html);
     }
-    playCard();
+    playCard(array);
 }
 
 $('#nextPlayerButton').on('click', function () {
@@ -563,7 +576,7 @@ $('#nextPlayerButton').on('click', function () {
     request.done(function (data) {
         //alert(data);
         update();
-
+        checkIfMilitia();
     });
     request.fail(function (jqXHR, textStatus) {
         alert("nie gelukt om volgende speler te starten");
@@ -592,4 +605,14 @@ $('#playActionButton').on('click', function () {
     });
 });
 
-
+function generateEnemyPlayerCard(array) {
+    $("#hand").empty();
+    for (var i = 0; i < array.length; i++) {
+        var html = '<li>';
+        var src = 'assets/images/Big%20cards/' + array[i].toLowerCase() + '.jpg';
+        html += '<img alt="' + array[i].toLowerCase() + '"  title="' + array[i].toLowerCase() + '" src="' + src + '" />';
+        html += '</li>';
+        $("#otherPlayerCardInfo ul").append(html);
+    }
+    playCard();
+}

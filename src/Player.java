@@ -10,6 +10,8 @@ public class Player {
     private Hand playersHand = new Hand(playersDeck);
     private Deck discardPile = new Deck();
     private int number;
+    public boolean cursedByMilitia = false;
+    public int victoryPoints;
 
 
 
@@ -19,6 +21,24 @@ public class Player {
         playersDeck.shuffleDeck();
         playersHand.generateHand(playersDeck);
 
+    }
+    public void calculateVictoryPoints(){
+        int sizeOfCompleteDeck = playersHand.getSize()+discardPile.getSize()+playersDeck.getSize();
+        playersDeck.actionCards.setGarden((int)Math.floor(sizeOfCompleteDeck/10));
+        discardPile.actionCards.setGarden((int)Math.floor(sizeOfCompleteDeck/10));
+        int totalAmountOfPoints=0;
+        for (int i=0;i<playersDeck.getSize();i++){
+            totalAmountOfPoints += playersDeck.getCardOnPos(i).getPoints();
+        }
+
+        for (int i=0;i<discardPile.getSize();i++){
+            totalAmountOfPoints += discardPile.getCardOnPos(i).getPoints();
+        }
+        for (int i=0;i<playersHand.getSize();i++){
+            totalAmountOfPoints += playersHand.getCardOnPos(i).getPoints();
+        }
+        victoryPoints = totalAmountOfPoints;
+        System.out.println(totalAmountOfPoints);
     }
 
 
@@ -101,7 +121,10 @@ public class Player {
 
         for (int i = 0; i < amount ; i++){
             if (playersDeck.getSize()<1){
-                playersDeck=discardPile;
+                for(int j = 0 ;j<discardPile.getSize(); j ++){
+                    playersDeck.addCardToDeck(discardPile.getCardOnPos(j));
+                }
+
                 playersDeck.shuffleDeck();
                 discardPile.clearDeck();
             }
@@ -148,6 +171,15 @@ public class Player {
         discardPile.addCardToDeck(playersHand.getCardOnPos(spotInHand));
         playersHand.removeFromHand(spotInHand);
     }
+    public int scanHandForCardWithName(String nameOfCard){
+        int pos = -1;
+        for(int i = 0; i < playersHand.getSize();i++) {
+            if(playersHand.getCardOnPos(i).getName().equals(nameOfCard)){
+                pos = i;
+            }
+        }
+        return pos;
+    }
 
 
     public int getHandSize(){
@@ -193,6 +225,7 @@ public class Player {
     public Card getTopCardFromDeck(){
         return playersDeck.getCardOnPos(0);
     }
+
 
     public void addSpecificCardToHand(Card toBeAddedCard){
         playersHand.addSpecificCard(toBeAddedCard);

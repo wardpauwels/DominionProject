@@ -540,6 +540,14 @@ function checkIfFinished() {
         console.log(data.gameOver);
         var obj = JSON.parse(data);
         console.log(obj.gameOver);
+        if (obj.gameOver == 1){
+            var winnaar = player[0].name;
+            for (var i = 0; i < player.size; i++){
+                if (player[i].victoryPoints > winnaar.victoryPoints){
+                    alert(winnaar + " is gewonnen!");
+                }
+            }
+        }
     });
     request.fail(function (jqXHR, textStatus) {
         console.log(jqXHR.status + 'updateHand' + textStatus);

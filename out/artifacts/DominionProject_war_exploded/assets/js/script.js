@@ -180,3 +180,4 @@ $("#baraja-el li").mousedown(function(event) {
         $(this).appendTo('#playedcards_on_table ul');
     }
 });
+

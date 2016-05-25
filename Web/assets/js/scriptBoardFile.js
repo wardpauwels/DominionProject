@@ -1,6 +1,21 @@
 $(document).ready(function () {
     update();
-    
+    $('#hand').on({
+        mouseenter: function (e) {
+            $('.popup').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popup').fadeOut(1000);
+        }
+    });
+    $('.actioncards_on_table_print').on({
+        mouseenter: function (e) {
+            $('.popupActioncard').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popupActioncard').fadeOut(1000);
+        }
+    });
 });
 /*
 function updateActionAmount(){
@@ -560,3 +575,5 @@ $('#playActionButton').on('click', function () {
         alert(jqXHR.status + 'PlayActionButton' + textStatus);
     });
 });
+
+

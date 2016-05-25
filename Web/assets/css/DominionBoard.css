@@ -389,11 +389,6 @@ body{
 #playedcards_on_table {
     height: 189px;
     width: 864px;
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
-    /*margin-top: -195px;*/
-    /*margin-bottom: 42px;*/
-
     margin: -195px auto 42px auto;
 }
 #playedcards_on_table li{
@@ -407,7 +402,7 @@ body{
 
 }
 #hand_on_table {
-    margin-top: -60px;
+    margin-top: -109px;
 }
 
 #opencards {
@@ -674,4 +669,34 @@ button:disabled {
 
 .activeCard {
     box-shadow: 0 0 20px 7px rgba(255, 99, 13, 0.73);
+}
+
+.popup h1, .popupActioncard h1 {
+    line-height: 50px;
+    color: #8c6d47;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.popup{
+    width: 679px;
+    background-color: rgba(17,17,17,.7);
+    z-index: 3000;
+    position: fixed;
+    display: none;
+    margin-left: 296px;
+    text-align: left;
+    margin-top: 52px;
+    padding: 0 16px;
+}
+.popupActioncard{
+    width: 811px;
+    background-color: rgba(17,17,17,.7);
+    z-index: 3000;
+    position: fixed;
+    display: none;
+    margin-left: 226px;
+    text-align: left;
+    margin-top: -217px;
+    padding: 0 16px;
 }

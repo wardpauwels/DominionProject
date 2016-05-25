@@ -29,11 +29,6 @@
                 </form>
             </li>
             <li>
-                <form>
-                    <button id="Settings" type="submit" formaction="Settings.jsp"></button>
-                </form>
-            </li>
-            <li>
                 <button id="Exit" type="submit" onClick="window.close();"></button>
             </li>
         </ul>

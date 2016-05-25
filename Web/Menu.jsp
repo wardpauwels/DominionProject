@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/Dominionmenu.css" />
     <meta name="author" content="Dylan Van Kerrebroeck"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/ico"/>
     <title>Dominion</title>
 </head>
 <body>

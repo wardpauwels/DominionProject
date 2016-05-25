@@ -18,6 +18,22 @@ $(document).ready(function () {
             $('.popupActioncard').fadeOut(1000);
         }
     });
+    $('#victory_cards').on({
+        mouseenter: function (e) {
+            $('.popupVictoryCards').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popupVictoryCards').fadeOut(1000);
+        }
+    });
+    $('#money_cards').on({
+        mouseenter: function (e) {
+            $('.popupTreasureCards').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popupTreasureCards').fadeOut(1000);
+        }
+    });
 });
 /*
 function updateActionAmount(){

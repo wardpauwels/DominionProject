@@ -260,7 +260,7 @@ public class BoardServlet extends HttpServlet {
                     int positionOnBoard;
                     positionOnBoard = Integer.parseInt(request.getParameter("positionOnBoard"));
                     pos = g.returnPositionOnBoardForCardWithNumber(positionOnBoard);
-                    if(g.actionCardsOnBoard.get(positionOnBoard).getAmount()>0){
+                    if(g.actionCardsOnBoard.get(pos).getAmount()>0){
                     buyCard(pos, "action");
                     System.out.println("kaart " + pos + " gekocht!");}
                     g.actionToBuyCard = false;

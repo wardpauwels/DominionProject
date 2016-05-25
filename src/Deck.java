@@ -32,12 +32,6 @@ public class Deck {
         int estateInStarterDeck = 3;
 
 
-
-
-
-        for(int i = 0; i < 5; i++){
-            addCardToDeck(actionCard);
-        }
         for(int i = 0; i < coinsInStarterDeck; i++){
             addCardToDeck(copperCard);
         }

@@ -36,7 +36,8 @@ public class GameTest {
         g.setDecisionOfPlayerPosition(0);
         g.setDecisionOfPlayerType("victory");
         g.buyCard();
-        assertEquals("Actions niet omlaag na het kopen van een kaart", 0, g.returnRemainingBuys());
+
+        assertEquals("Buys niet omlaag na het kopen van een kaart", 1, g.returnRemainingBuys());
 
     }
     @Test
@@ -44,7 +45,7 @@ public class GameTest {
         g.setDecisionOfPlayerPosition(0);
         g.setDecisionOfPlayerType("victory");
         g.buyCard();
-        assertEquals("Card amount niet veranderd na het kopen van kaart", 23, g.getCardFromPosInVictoryTable(0).getAmount());
+        assertEquals("Card amount niet veranderd na het kopen van kaart", 24, g.getCardFromPosInVictoryTable(0).getAmount());
     }
 
     @Test
@@ -73,89 +74,84 @@ public class GameTest {
         assertEquals("Amount of actions is niet omlaag gegeaan", 0, g.returnAmountOfActionsRemaining());
     }
     @Test
-    public void villageAtionCardTester(){
+    public void villageActionCardTester(){
         g.useActionCard("Village", 0);
         assertEquals("Remaining actions niet omhoog", 3, g.returnAmountOfActionsRemaining());
         assertEquals("Geen kaart bij gekomen in de hand", 6, g.allPlayers.get(0).getHandSize());
     }
 
     @Test
-    public void woodcutterAtionCardTester(){
+    public void woodcutterActionCardTester(){
         g.useActionCard("Woodcutter", 0);
         assertEquals("Amount of coins niet omhoog",2,g.getAmountOfCoinsOfPlayer());
-        assertEquals("Amount of remaining buys niet omhoog", 2, g.returnAmountOfActionsRemaining());
+        assertEquals("Amount of remaining buys niet omhoog", 1, g.returnAmountOfActionsRemaining());
     }
+
     @Test
-    public void moneylenderAtionCardTesterWithCopperInHand(){
-        g.allPlayers.get(0).addSpecificCardToHand(g.getCardFromPosInTreasureTable(0));
-        g.useActionCard("Moneylender", 0);
-        assertEquals("Amount of coins niet omhoog met copper in hand", 3, g.getAmountOfCoinsOfPlayer());
-    }
-    @Test
-    public void moneylenderAtionCardTesterWithoutCopperInHand(){
+    public void moneylenderActionCardTesterWithoutCopperInHand(){
         g.allPlayers.get(0).clearHand();
         g.useActionCard("Moneylender", 0);
         assertEquals("Amount of coins wel omhoog zonder copper in hand", 0, g.getAmountOfCoinsOfPlayer());
     }
     @Test
-    public void bureaucratAtionCardTester(){
+    public void bureaucratActionCardTester(){
         g.useActionCard("Bureaucrat", 0);
         assertEquals("Silver kaart niet gekregen", "Silver", g.allPlayers.get(0).getTopCardFromDeck().getName());
     }
     @Test
-    public void SmithyAtionCardTester(){
+    public void SmithyActionCardTester(){
         g.useActionCard("Smithy", 0);
         assertEquals("Extra kaarten niet gekregen", 8, g.allPlayers.get(0).getHandSize());
     }
     @Test
-    public void moatAtionCardTester(){
+    public void moatActionCardTester(){
         g.useActionCard("Moat", 0);
         assertEquals("Extra kaarten niet gekregen", 7, g.allPlayers.get(0).getHandSize());
     }
     @Test
-    public void councilRoomAtionCardTester(){
+    public void councilRoomActionCardTester(){
         g.useActionCard("Council Room", 0);
         assertEquals("Geen extra kaarten gekregen", 9, g.allPlayers.get(0).getHandSize());
         g.resetAmountOfActions();
-        assertEquals("Geen buys bij gekregen", 2, g.returnRemainingBuys());
+        assertEquals("Geen buys bij gekregen", 1, g.returnRemainingBuys());
     }
     @Test
-    public void festivalAtionCardTester(){
+    public void festivalActionCardTester(){
         g.useActionCard("Festival", 0);
         assertEquals("Geen extra acties gekregen", 3, g.returnAmountOfActionsRemaining());
         assertEquals("Geen extra coins gekregen", 2, g.getAmountOfCoinsOfPlayer());
         g.resetAmountOfActions();
-        assertEquals("Geen extra buys gekregen", 2, g.returnRemainingBuys());
+        assertEquals("Geen extra buys gekregen", 1, g.returnRemainingBuys());
     }
     @Test
-    public void labratoryAtionCardTester(){
+    public void labratoryActionCardTester(){
         g.useActionCard("Laboratory", 0);
         assertEquals("Geen extra kaarten gekregen", 7, g.allPlayers.get(0).getHandSize());
         assertEquals("Geen extra acties gekregen", 2, g.returnAmountOfActionsRemaining());
     }
     @Test
-    public void libraryAtionCardTester(){
+    public void libraryActionCardTester(){
         g.useActionCard("Library", 0);
         assertEquals("Geen extra kaarten gekregen",7, g.allPlayers.get(0).getHandSize());
     }
     @Test
-    public void marketAtionCardTester(){
+    public void marketActionCardTester(){
         g.useActionCard("Market", 0);
         assertEquals("Geen extra acties gekregen", 2, g.returnAmountOfActionsRemaining());
         assertEquals("Geen extra coins gekregen", 1, g.getAmountOfCoinsOfPlayer());
         assertEquals("Geen extra kaarten gekregen",6, g.allPlayers.get(0).getHandSize());
         g.resetAmountOfActions();
-        assertEquals("Geen extra buys gekregen", 2, g.returnRemainingBuys());
+        assertEquals("Geen extra buys gekregen", 1, g.returnRemainingBuys());
     }
     @Test
-    public void WitchAtionCardTester(){
+    public void WitchActionCardTester(){
         g.useActionCard("Witch", 0);
         assertEquals("Andere speler heeft geen curse kaart gekregen", true , g.allPlayers.get(1).scanDiscardPileForCard(g.getCardFromPosInVictoryTable(3)));
         assertEquals("Geen extra kaarten gekregen",7, g.allPlayers.get(0).getHandSize());
     }
 
     @Test
-    public void adventurerAtionCardTester() {
+    public void adventurerActionCardTester() {
         g.useActionCard("Adventurer", 0);
         g.allPlayers.get(1).addSpecificCardToDeck(g.getCardFromPosInTreasureTable(0));
         g.allPlayers.get(1).addSpecificCardToDeck(g.getCardFromPosInTreasureTable(0));

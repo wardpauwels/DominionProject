@@ -72,7 +72,7 @@ public class Game {
     private boolean checkRandom(int randomNumber) {
         for (int i = 0; i < actionCardsOnBoard.size(); i++) {
             int currentNumber = actionCardsOnBoard.get(i).getNumber();
-            if (randomNumber == currentNumber || randomNumber == 14 || randomNumber == 13) {
+            if (randomNumber == currentNumber || randomNumber == 12 || randomNumber == 13) {
                 return false;
             }
         }

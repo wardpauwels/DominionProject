@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Deck {
     private ArrayList<Card> cardList;
-    private ActionCardTable actionCards;
+    public ActionCardTable actionCards;
     private VictoryCardTable victoryCards;
     private TreasureCardTable treasureCards;
 
@@ -33,10 +33,10 @@ public class Deck {
 
 
 
-        addCardToDeck(actionCard);
 
-        for(int i = 0; i < coinsInStarterDeck; i++){
-            addCardToDeck(copperCard);
+
+        for(int i = 0; i < 5; i++){
+            addCardToDeck(actionCard);
         }
         for(int i = 0; i < coinsInStarterDeck; i++){
             addCardToDeck(copperCard);

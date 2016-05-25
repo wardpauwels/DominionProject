@@ -10,7 +10,7 @@ import java.util.Random;
 public class Game {
     public VictoryCardTable victoryCardTable;
     public TreasureCardTable treasureCardTable;
-    private ActionCardTable actionCardTable;
+    public ActionCardTable actionCardTable;
     public ArrayList<Player> allPlayers;
     public ArrayList<Card> actionCardsOnBoard;
 
@@ -22,7 +22,6 @@ public class Game {
     public int player = 0;
     public int decisionOfPlayerPosition;
     public String decisionOfPlayerType;
-
     public int currentPhase = 0; // 0 = Action phase 1 = Buy phase
     public boolean actionToBuyCard = false;
     public int amountOfCardsToBeDiscarded = 0;
@@ -243,6 +242,9 @@ public class Game {
         if(victoryCardTable.getCardOnPos(2).getAmount() == 0) {
             finished = true;
         }
+        for(int i = 0; i < allPlayers.size(); i ++){
+            allPlayers.get(i).calculateVictoryPoints();
+        }
         return finished;
     }
 
@@ -329,6 +331,7 @@ public class Game {
                 if(!checkForCard(actionCardTable.getCardOnPos(15), getActivePlayer(i)))
                 {
                     getActivePlayer(i).addCardToDiscardPile(victoryCardTable.getCardOnPos(3));
+                    victoryCardTable.getCardOnPos(3).setAmount(victoryCardTable.getCardOnPos(3).getAmount()-1);
                 }
             }
         }
@@ -608,14 +611,14 @@ public class Game {
         }
     }
 
-    private void useThroneRoom(int numberOfThePlayer){
+    public void useThroneRoom(int numberOfThePlayer){
         Player activePlayer = getActivePlayer(numberOfThePlayer);
         System.out.println("Geef de positie van de actie kaart die je 2x wilt uitvoeren");
-        int positie = in.nextInt();
-        Card chosenCard = activePlayer.getCardOnPosInHand(positie);
+        Card chosenCard = activePlayer.getCardOnPosInHand(decisionOfPlayerPosition);
         if(chosenCard.getType().equals("action")){
             for(int i = 0; i < 2; i++){
                 useActionCard(chosenCard.getName(), numberOfThePlayer);
+
             }
         }else{
             System.out.println("Gekozen kaart is geen actie kaart, probeer opnieuw");
@@ -788,6 +791,7 @@ public class Game {
             case "Adventurer":
                 useAdventurer(numberOfThePlayer);
                 break;
+
         }
     }
 

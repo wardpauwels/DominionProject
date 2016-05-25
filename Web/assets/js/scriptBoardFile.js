@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    tr = false;
+    trPlayed = false;
     update();
     
 });
@@ -160,14 +162,26 @@ $('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 });
 
-function playCard(){
+function playCard(array){
 $('#hand li').on('click', function () {
     pos = $(this).index();
+    console.log(array[pos]);
+    if (array[pos]==="Throne Room" && trPlayed == false) {
+        tr = true;
+        trPlayed = true;
+        alert("Throne Room played, select other card");
+        
+    }
+    else{
+        console.log( pos + tr );
+        playCardAjax(pos,tr);
+        
+    }
     console.log(pos);
-playCardAjax(pos);
+
 
 });}
-function playCardAjax(pos)
+function playCardAjax(pos, tr)
 {
     var request = $.ajax({
         cache: false,
@@ -176,13 +190,16 @@ function playCardAjax(pos)
         dataType: "text",
         data: {
             action: 'playCard',
-            positionInHand: pos
+            positionInHand: pos,
+            throneRoom: tr
 
 
         }
     });
     request.done(function (data) {
         update();
+        tr = false;
+        trPlayed = false;
 
     });
     request.fail(function (jqXHR, textStatus) {
@@ -516,7 +533,7 @@ function generateVisualCardNames(array) {
         html += '</li>';
         $("#hand").append(html);
     }
-    playCard();
+    playCard(array);
 }
 
 $('#nextPlayerButton').on('click', function () {

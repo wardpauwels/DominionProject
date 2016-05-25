@@ -111,6 +111,38 @@ public class BoardServlet extends HttpServlet {
                         System.out.println("nummer " + positionInHand + "gespeeld!");
                         useActionCard(positionInHand);
                     }*/
+                if (g.currentPhase == 0) {
+
+                    int positionInHand;
+                    boolean throneRoom;
+                    throneRoom = Boolean.parseBoolean(request.getParameter("throneRoom"));
+                    positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                    //if (g.allPlayers.get(positionInHand).getNumber() == 13 || g.allPlayers.get(positionInHand).getNumber() == 14) {
+                    //    thiefOrSpyPlayed();
+                    //} else {
+                    System.out.println("nummer " + positionInHand + "gespeeld!");
+                    if (throneRoom) {
+                        if (!g.allPlayers.get(g.player).getCardOnPosInHand(positionInHand).getName().equals("Throne Room")) {
+                            g.setDecisionOfPlayerPosition(positionInHand);
+                            g.useThroneRoom(g.player);
+                            g.allPlayers.get(g.player).moveCardFromHandToDiscard(positionInHand);
+                            g.allPlayers.get(g.player).moveCardFromHandToDiscard(g.allPlayers.get(g.player).scanHandForCardWithName("Throne Room"));
+
+
+                        }
+
+
+                    }
+                    //}
+                    else {
+                        positionInHand = Integer.parseInt(request.getParameter("positionInHand"));
+                        if (g.currentPhase == 0) {
+                            if (g.trashingCards()) {
+                                trashingCards(positionInHand);
+                            } else {
+                                System.out.println("nummer " + positionInHand + "gespeeld!");
+                                useActionCard(positionInHand);
+                            }
 
                     if (g.discardingCards()) {
                         discardingCards(positionInHand);

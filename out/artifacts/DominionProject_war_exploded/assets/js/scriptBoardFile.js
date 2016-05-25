@@ -1,5 +1,23 @@
 $(document).ready(function () {
+    trone = false;
+    trPlayed = false;
     update();
+    $('#hand').on({
+        mouseenter: function (e) {
+            $('.popup').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popup').fadeOut(1000);
+        }
+    });
+    $('.actioncards_on_table_print').on({
+        mouseenter: function (e) {
+            $('.popupActioncard').fadeIn(1000);
+            },
+        mouseleave: function (e) {
+            $('.popupActioncard').fadeOut(1000);
+        }
+    });
 });
 /*
 function updateActionAmount(){
@@ -60,7 +78,7 @@ function generateVictoryCardsOnBoard(array){
         html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
+        var plusbutton = $('<img alt="Buy victory card" title="Buy victory card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         parent.html(html);
         parent.append(plusbutton);
@@ -76,7 +94,7 @@ function generateTreasureCardsOnBoard(array){
         html += '<p class="counteronsmallcards">' + array[i].amount + '</p>';
         html += '<img alt="' + array[i].name.toLowerCase() + '"  title="' + array[i].name.toLowerCase() + '" src="' + src + '" />';
         //html += '<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyActionCard">';
-        var plusbutton = $('<img alt="buyactioncard" title="buyactioncard" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
+        var plusbutton = $('<img alt="Buy treasure card" title="Buy treasure card" src="assets/images/buybutton.png" class="buyVictoryCardsandCoinCards">');
         plusbutton.data("cardNumber", array[i].number);
         parent.html(html);
         parent.append(plusbutton);
@@ -135,14 +153,26 @@ $('#money_cards').on('click', '.buyVictoryCardsandCoinCards', function () {
 
 });
 
-function playCard(){
-    $('#hand li').on('click', function () {
-        pos = $(this).index();
-        console.log(pos);
-        playCardAjax(pos);
-    });
-}
-function playCardAjax(pos)
+function playCard(array){
+$('#hand li').on('click', function () {
+    pos = $(this).index();
+    console.log(array[pos]);
+    if (array[pos]==="Throne Room" && trPlayed == false) {
+        trone = true;
+        trPlayed = true;
+        alert("Throne Room played, select other card");
+        
+    }
+    else{
+        console.log( pos + trone );
+        playCardAjax(pos,trone);
+        
+    }
+    console.log(pos);
+
+
+});}
+function playCardAjax(pos, tr)
 {
     var request = $.ajax({
         cache: false,
@@ -151,18 +181,23 @@ function playCardAjax(pos)
         dataType: "text",
         data: {
             action: 'playCard',
-            positionInHand: pos
+            positionInHand: pos,
+            throneRoom: tr
 
 
         }
     });
     request.done(function (data) {
         update();
+        throne = false;
+        trPlayed = false;
 
     });
     request.fail(function (jqXHR, textStatus) {
         console.log("nie gelukt");
         alert(jqXHR.status + 'PlayCardAjax' + textStatus);
+        throne = false;
+        trPlayed = false;
     });
 
 
@@ -302,6 +337,37 @@ function updateTreasureCardBoard() {
     });
 
 }
+
+function getThiefOrSpyArray() {
+    
+    console.log("thief getter lukt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'playThiefOrSpy'
+
+        }
+    });
+
+    request.done(function (data) {
+
+        console.log(data);
+        var obj = JSON.parse(data);
+        console.log("thief succesfull");
+        console.log(obj.top2Cards);
+        console.log(obj.top2Cards[0]);
+        //FIXCOUNTERSMETHOD
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + 'updateVictoryBoard' + textStatus);
+    });
+
+}
 function updateCurrentlyPlaying() {
     console.log("update coins werkt");
     var request = $.ajax({
@@ -397,6 +463,46 @@ function update() {
     updateTreasureCardBoard();
     updateCoinsActionsBuys();
     updateCurrentlyPlaying();
+    //getThiefOrSpyArray();
+    console.log("fml");
+    checkIfFinished();
+
+
+
+    // playing with different origins and ranges
+
+}
+
+function checkIfFinished(){
+    console.log("checkiffinished werkt");
+    var request = $.ajax({
+        cache: false,
+        url: "/BoardServlet",
+        type: "GET",
+        dataType: "text",
+        data: {
+            action: 'checkIfFinished'
+
+        }
+    });
+
+    request.done(function (data) {
+        //$('#player_one_name').html(data.name1);
+        //$('#player_two_name').html(data.name2);
+        console.log(data);
+        console.log(data.gameOver);
+        var obj = JSON.parse(data);
+        console.log(obj.gameOver);
+
+
+
+    });
+    request.fail(function (jqXHR, textStatus) {
+
+        alert(jqXHR.status + 'updateHand' + textStatus);
+    });
+
+
 }
 
 function updateHand() {
@@ -438,7 +544,7 @@ function generateVisualCardNames(array) {
         html += '</li>';
         $("#hand").append(html);
     }
-    playCard();
+    playCard(array);
 }
 
 $('#nextPlayerButton').on('click', function () {
